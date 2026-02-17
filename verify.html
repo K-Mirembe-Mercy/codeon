@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CODEON Uganda | Code Your Future</title>
+
+<!-- QR + PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<!-- Flutterwave -->
+<script src="https://checkout.flutterwave.com/v3.js"></script>
+
+<!-- Firebase v10 (modular via compat for simplicity) -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+<style>
+body{font-family:Arial;margin:0;background:#f4f4f4}
+header{background:#111;color:#fff;padding:15px;text-align:center}
+nav{background:#222;padding:10px;text-align:center}
+nav a{color:white;margin:0 15px;text-decoration:none;font-weight:bold}
+section{padding:40px 20px;max-width:1000px;margin:auto}
+.hero{background:#000;color:white;text-align:center;padding:60px 20px}
+.cards{display:flex;flex-wrap:wrap;gap:20px}
+.card{flex:1;min-width:250px;background:white;padding:20px;border-radius:8px}
+button{padding:10px 20px;background:#111;color:white;border:none;cursor:pointer;margin-top:10px}
+button:hover{background:#333}
+input,select{width:100%;padding:10px;margin:8px 0}
+footer{background:#111;color:white;text-align:center;padding:20px}
+.certificate{display:none;border:8px solid #111;padding:40px;text-align:center;background:white}
+.admin-panel{display:none;background:#fff;padding:20px;border-radius:10px}
+.verify-result{font-weight:bold;margin-top:15px}
+</style>
+</head>
+<body>
+
+<header>
+<h1>CODEON Uganda</h1>
+<p>Code Your Future</p>
+</header>
+
+<nav>
+<a href="codeon.html">Home</a>
+<a href="enroll.html">Enroll</a>
+<a href="verify.html">Verify Certificate</a>
+</nav>
+
+<!-- HOME -->
+<section id="home" class="hero">
+<h2>Empowering Uganda's Next Generation of Developers</h2>
+<p>Structured coding education with real GitHub collaboration workflow.</p>
+</section>
+
+<!-- CERTIFICATE VERIFICATION -->
+<section id="verify">
+<h2>Verify Certificate</h2>
+<input type="text" id="verifyID" placeholder="Enter Certificate ID">
+<button onclick="verifyCertificate()">Verify</button>
+<div id="verifyResult" class="verify-result"></div>
+</section>
+
+<!-- ADMIN -->
+<section id="admin">
+<h2>Admin Login</h2>
+<input type="email" id="adminEmail" placeholder="Email">
+<input type="password" id="adminPassword" placeholder="Password">
+<button onclick="login()">Login</button>
+
+<div class="admin-panel" id="adminPanel">
+<h3>Generate Certificate</h3>
+<input type="text" id="studentName" placeholder="Student Name">
+<select id="certLevel">
+<option>Level 1</option>
+<option>Level 2</option>
+<option>Level 3</option>
+</select>
+<button onclick="generateCertificate()">Generate</button>
+<button onclick="downloadPDF()">Download PDF</button>
+<button onclick="logout()">Logout</button>
+</div>
+</section>
+
+<div class="certificate" id="certificate">
+<h2>Certificate of Completion</h2>
+<p>This certifies that</p>
+<h1 id="certName"></h1>
+<p>has completed</p>
+<h3 id="certLevelDisplay"></h3>
+<p>Issued by CODEON Uganda</p>
+<p>ID: <span id="certID"></span></p>
+<p>Signature: <span id="certHash"></span></p>
+<div id="qrcode"></div>
+</div>
+
+<footer>
+© 2026 CODEON Uganda
+</footer>
