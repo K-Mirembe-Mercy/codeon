@@ -5,28 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CODEON Uganda | Code Your Future</title>
   <!--Enroll-->
-<script>
-async function enrollStudent(){
-const name=document.getElementById("enrollName").value;
-const email=document.getElementById("enrollEmail").value;
-const level=document.getElementById("enrollLevel").value;
 
-if(!name || !email){
-alert("Please fill all fields");
-return;
-}
-
-await db.collection("students").add({
-name,
-email,
-level,
-paid:false,
-createdAt:new Date()
-});
-
-alert("Enrollment Successful!");
-}
-</script>
 
 <!-- QR + PDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -210,10 +189,6 @@ callback:function(data){ alert("Payment Successful"); }
 }
 </script>
 
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-
 
 <script>
 async function enrollStudent(){
@@ -243,6 +218,7 @@ async function enrollStudent(){
   }
 }
 </script>
+
 
 
 
