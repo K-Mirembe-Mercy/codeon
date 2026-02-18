@@ -94,6 +94,7 @@ const auth = firebase.auth();
 const db = firebase.firestore();
  // ✅ ENROLL FUNCTION (put it here)
 async function enrollStudent(){
+  console.log("Enroll button clicked");
   const name = document.getElementById("enrollName").value;
   const email = document.getElementById("enrollEmail").value;
   const level = document.getElementById("enrollLevel").value;
@@ -188,6 +189,7 @@ callback:function(data){ alert("Payment Successful"); }
 });
 }
 </script>
+
 
 
 
