@@ -127,6 +127,27 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
+ // ✅ ENROLL FUNCTION (put it here)
+async function enrollStudent(){
+  const name = document.getElementById("enrollName").value;
+  const email = document.getElementById("enrollEmail").value;
+  const level = document.getElementById("enrollLevel").value;
+
+  if(!name || !email){
+    alert("Please fill all fields");
+    return;
+  }
+
+  await db.collection("students").add({
+    name: name,
+    email: email,
+    level: level,
+    paid: false,
+    createdAt: new Date()
+  });
+
+  alert("Enrollment Successful!");
+} 
 
 // LOGIN
 function login(){
@@ -205,6 +226,7 @@ callback:function(data){ alert("Payment Successful"); }
 
 </body>
 </html>
+
 
 
 
