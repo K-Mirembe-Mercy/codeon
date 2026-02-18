@@ -4,6 +4,30 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CODEON Uganda | Code Your Future</title>
+  <!--Enroll-->
+  <script>
+    async function enrollStudent(){
+const name=document.getElementById("enrollName").value;
+const email=document.getElementById("enrollEmail").value;
+const level=document.getElementById("enrollLevel").value;
+
+if(!name || !email){
+alert("Please fill all fields");
+return;
+}
+
+await db.collection("students").add({
+name,
+email,
+level,
+paid:false,
+createdAt:new Date()
+});
+
+alert("Enrollment Successful!");
+}
+
+  </script>
 
 <!-- QR + PDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -50,15 +74,18 @@ footer{background:#111;color:white;text-align:center;padding:20px}
 <!-- ENROLL -->
 <section id="enroll">
 <h2>Enroll Now</h2>
-<input type="text" placeholder="Full Name">
-<input type="email" placeholder="Email">
-<select>
-<option>Select Level</option>
-<option>Level 1</option>
-<option>Level 2</option>
-<option>Level 3</option>
+
+<input type="text" id="enrollName" placeholder="Full Name" required>
+<input type="email" id="enrollEmail" placeholder="Email" required>
+
+<select id="enrollLevel">
+<option value="Level 1">Level 1</option>
+<option value="Level 2">Level 2</option>
+<option value="Level 3">Level 3</option>
 </select>
-<button>Submit Enrollment</button>
+
+<button onclick="enrollStudent()">Enroll</button>
+</section>
 <h3>Schools & Institutions</h3>
 <p>We invite schools across Uganda to partner with CodeOn to introduce structured coding education.</p>
 <p>Email: codeon.ug@gmail.com</p>
@@ -70,3 +97,4 @@ footer{background:#111;color:white;text-align:center;padding:20px}
 © 2026 CODEON Uganda
 
 </footer>
+
