@@ -62,7 +62,7 @@ footer{background:#111;color:white;text-align:center;padding:20px}
 <option value="Level 3">Level 3</option>
 </select>
 
-<button onclick="enrollStudent()">Enroll</button>
+<button type="button" id="enrollBtn">Enroll</button>
 </section>
 <h3>Schools & Institutions</h3>
 <p>We invite schools across Uganda to partner with CodeOn to introduce structured coding education.</p>
@@ -94,7 +94,9 @@ const auth = firebase.auth();
 const db = firebase.firestore();
  // ✅ ENROLL FUNCTION (put it here)
 async function enrollStudent(){
+
   console.log("Enroll button clicked");
+
   const name = document.getElementById("enrollName").value;
   const email = document.getElementById("enrollEmail").value;
   const level = document.getElementById("enrollLevel").value;
@@ -104,16 +106,29 @@ async function enrollStudent(){
     return;
   }
 
-  await db.collection("students").add({
-    name: name,
-    email: email,
-    level: level,
-    paid: false,
-    createdAt: new Date()
-  });
+  try {
 
-  alert("Enrollment Successful!");
-} 
+    const docRef = await db.collection("students").add({
+      name,
+      email,
+      level,
+      paid:false,
+      createdAt:new Date()
+    });
+
+    console.log("Saved with ID:", docRef.id);
+    alert("Enrollment Successful!");
+
+  } catch(error){
+    console.error(error);
+    alert("Error: " + error.message);
+  }
+}
+
+// Attach button listener
+document.getElementById("enrollBtn")
+  .addEventListener("click", enrollStudent);
+
 
 // LOGIN
 function login(){
@@ -189,6 +204,7 @@ callback:function(data){ alert("Payment Successful"); }
 });
 }
 </script>
+
 
 
 
