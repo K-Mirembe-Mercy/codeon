@@ -97,5 +97,117 @@ footer{background:#111;color:white;text-align:center;padding:20px}
 
 </footer>
 
+<script>
+// 🔥 FIREBASE CONFIG
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyD_LR9Kllj7hoKTiJAaSxyHglSO6r5gh-g",
+  authDomain: "codeon-3cb1c.firebaseapp.com",
+  projectId: "codeon-3cb1c",
+  storageBucket: "codeon-3cb1c.firebasestorage.app",
+  messagingSenderId: "730172148868",
+  appId: "1:730172148868:web:2c712c8124be40019506d1",
+  measurementId: "G-EBR3S0M396"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+ // ✅ ENROLL FUNCTION (put it here)
+async function enrollStudent(){
+  const name = document.getElementById("enrollName").value;
+  const email = document.getElementById("enrollEmail").value;
+  const level = document.getElementById("enrollLevel").value;
+
+  if(!name || !email){
+    alert("Please fill all fields");
+    return;
+  }
+
+  await db.collection("students").add({
+    name: name,
+    email: email,
+    level: level,
+    paid: false,
+    createdAt: new Date()
+  });
+
+  alert("Enrollment Successful!");
+} 
+
+// LOGIN
+function login(){
+auth.signInWithEmailAndPassword(
+document.getElementById("adminEmail").value,
+document.getElementById("adminPassword").value
+).then(()=>{
+document.getElementById("adminPanel").style.display="block";
+}).catch(()=>alert("Login Failed"));
+}
+
+function logout(){ auth.signOut(); location.reload(); }
+
+// GENERATE CERTIFICATE
+async function generateCertificate(){
+const name=document.getElementById("studentName").value;
+const level=document.getElementById("certLevel").value;
+const id="CODEON-"+Date.now();
+const data=name+level+id;
+const hashBuffer=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(data));
+const hashArray=Array.from(new Uint8Array(hashBuffer));
+const hash=hashArray.map(b=>b.toString(16).padStart(2,"0")).join("").substring(0,16);
+
+await db.collection("certificates").doc(id).set({name,level,id,hash});
+
+document.getElementById("certName").innerText=name;
+document.getElementById("certLevelDisplay").innerText=level;
+document.getElementById("certID").innerText=id;
+document.getElementById("certHash").innerText=hash;
+document.getElementById("certificate").style.display="block";
+
+document.getElementById("qrcode").innerHTML="";
+new QRCode(document.getElementById("qrcode"),{
+text:window.location.href+"?verify="+id,width:120,height:120
+});
+}
+
+// VERIFY
+async function verifyCertificate(){
+const id=document.getElementById("verifyID").value;
+const doc=await db.collection("certificates").doc(id).get();
+if(doc.exists){
+const d=doc.data();
+document.getElementById("verifyResult").innerHTML=
+"✅ VALID<br>Name:"+d.name+"<br>Level:"+d.level+"<br>Signature:"+d.hash;
+}else{
+document.getElementById("verifyResult").innerHTML="❌ Not Found";
+}
+}
+
+// PDF
+function downloadPDF(){
+html2pdf().from(document.getElementById("certificate")).save();
+}
+
+// AUTO VERIFY
+const params=new URLSearchParams(window.location.search);
+if(params.get("verify")){
+document.getElementById("verifyID").value=params.get("verify");
+verifyCertificate();
+}
+
+// FLUTTERWAVE PAYMENT
+function payLevel3(){
+FlutterwaveCheckout({
+public_key:"YOUR_FLUTTERWAVE_PUBLIC_KEY",
+tx_ref:"CODEON-"+Date.now(),
+amount:50000,
+currency:"UGX",
+payment_options:"card,mobilemoneyuganda",
+customer:{email:"student@email.com"},
+callback:function(data){ alert("Payment Successful"); }
+});
+}
+</script>
 
 
