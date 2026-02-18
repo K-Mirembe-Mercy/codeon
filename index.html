@@ -1,97 +1,101 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CODEON Uganda | Code Your Future(Learn Coding with GitHub)</title>
-<meta name="description" content="CodeOn Uganda offers structured coding training with GitHub workflow, certificates and national verification system.">
+<title>CODEON Uganda | Code Your Future</title>
+<meta name="description" content="Structured coding education with GitHub collaboration, certificates and verification system.">
 
-                                        
 <!-- QR + PDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-<!-- Flutterwave -->
-<script src="https://checkout.flutterwave.com/v3.js"></script>
-
-<!-- Firebase v10 (modular via compat for simplicity) -->
+<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
 <style>
-body{font-family:Arial;margin:0;background:#f4f4f4}
-header{background:#111;color:#fff;padding:15px;text-align:center}
-nav{background:#222;padding:10px;text-align:center}
-nav a{color:white;margin:0 15px;text-decoration:none;font-weight:bold}
-section{padding:40px 20px;max-width:1000px;margin:auto}
+/* ===== Global ===== */
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+body{background:#f4f4f4;color:#222;line-height:1.6}
+a{text-decoration:none;color:#111;font-weight:bold}
+header{background:#111;color:#fff;padding:20px;text-align:center}
+nav{background:#222;padding:10px;text-align:center;position:sticky;top:0;z-index:100}
+nav a{color:white;margin:0 15px;font-weight:bold}
+section{padding:40px 20px;max-width:1200px;margin:auto}
 .hero{background:#000;color:white;text-align:center;padding:60px 20px}
-.cards{display:flex;flex-wrap:wrap;gap:20px}
-.card{flex:1;min-width:250px;background:white;padding:20px;border-radius:8px}
-button{padding:10px 20px;background:#111;color:white;border:none;cursor:pointer;margin-top:10px}
-button:hover{background:#333}
-input,select{width:100%;padding:10px;margin:8px 0}
+.cards{display:flex;flex-wrap:wrap;gap:20px;justify-content:center}
+.card{flex:1;min-width:250px;background:white;padding:20px;border-radius:8px;text-align:center;box-shadow:0 0 10px rgba(0,0,0,0.1);}
+button{padding:12px 25px;background:#111;color:white;border:none;cursor:pointer;margin-top:10px;border-radius:5px;transition:all 0.3s;}
+button:hover{background:gold;color:black;transform:translateY(-3px);}
+input,select{width:100%;padding:10px;margin:8px 0;border:1px solid #ccc;border-radius:4px}
 footer{background:#111;color:white;text-align:center;padding:20px}
-.certificate{display:none;border:8px solid #111;padding:40px;text-align:center;background:white}
-.admin-panel{display:none;background:#fff;padding:20px;border-radius:10px}
-.verify-result{font-weight:bold;margin-top:15px}
+html{scroll-behavior:smooth}
+
+/* ===== Testimonial Slider ===== */
+.testimonial{background:#eee;padding:20px 30px;border-radius:8px;margin:20px auto;max-width:600px;font-style:italic;text-align:center;box-shadow:0 0 10px rgba(0,0,0,0.1)}
+
+/* ===== Certificate Styling ===== */
+.certificate{
+    display:none;
+    width:90%;
+    max-width:900px;
+    margin:40px auto;
+    padding:60px;
+    background:#fff;
+    border:12px solid gold;
+    border-radius:20px;
+    text-align:center;
+    font-family:'Times New Roman', serif;
+    position:relative;
+    box-shadow:0 0 30px rgba(0,0,0,0.4);
+}
+.certificate h1{font-size:48px;margin-bottom:10px}
+.certificate h2{font-size:30px;margin-bottom:25px;color:#555}
+.certificate h3{font-size:40px;margin:20px 0;font-weight:bold;color:#000}
+.certificate h4{font-size:28px;margin-bottom:20px}
+.cert-id{font-size:14px;margin-top:10px}
+.logo{width:120px;margin-bottom:20px}
+.qr{margin:20px auto}
+.signature-section{display:flex;justify-content:space-between;margin-top:50px}
+.signature-box{width:40%;text-align:center}
+.signature-box hr{border:1px solid #000;margin-top:40px}
+.signature-img{width:150px}
+.seal{position:absolute;bottom:40px;right:60px;width:100px;height:100px;background:gold;border-radius:50%;font-size:40px;font-weight:bold;display:flex;align-items:center;justify-content:center;box-shadow:0 0 15px rgba(0,0,0,0.3)}
 </style>
 </head>
 <body>
 
 <header>
-    <div class="container">
-    <img src="codeon logo.png" width="100" height="100" alt="Description" class="side-image">
-    <div class="text-content">
-        <h1>CODEON Uganda</h1>
-        <p>Code Your Future</p>
-    </div>
-</div>
+<h1>CODEON Uganda</h1>
+<p>Code Your Future</p>
 </header>
 
 <nav>
-<a href="index.html">Home</a>
+<a href="#home">Home</a>
 <a href="enroll.html">Enroll</a>
-<a href="verify.html">Verify Certificate</a>
+<a href="#certificateSection">Certificate</a>
+<a href="#testimonials">Testimonials</a>
 </nav>
 
-<!-- HOME -->
+<!-- Hero -->
 <section id="home" class="hero">
 <h2>Empowering Uganda's Next Generation of Developers</h2>
 <p>Structured coding education with real GitHub collaboration workflow.</p>
 </section>
 
-<section>
-<h2>Why Choose CodeOn?</h2>
-<p>Students learn Web Development.GitHub forking, pull requests, collaboration and real-world development practices.</p>
-
-<h3>Testimonials</h3>
-<p>"CodeOn helped me understand real software development." –Kafeero Praise Student, Kampala</p>
-<p>"The GitHub workflow training prepared me for freelance work." – Nalubega Desire</p>
-</section>
-   <!-- PROGRAMS -->
+<!-- Programs -->
 <section id="programs">
 <h2>Programs</h2>
 <div class="cards">
 
-
-  <div class="card">
-  <h3>Level 1 – FREE</h3>
-  <img src="html.png" alt="HTML Course" width="100%">
-  <p>HTML, CSS, Git Basics</p>
-  <p>Optional Certificate: UGX 10,000</p>
-  
-  <!-- Payment Button (Optional) -->
-  <!-- <button onclick="payCertificate('Level 1',10000)">Pay for Certificate</button> -->
-
-  <!-- Pesapal iframe -->
-  <iframe 
-      width="200" 
-      height="40" 
-      src="https://store.pesapal.com/embed-code?pageUrl=https://store.pesapal.com/certificatepayment" 
-      frameborder="0" 
-      allowfullscreen>
-  </iframe>
+<div class="card">
+<h3>Level 1 – FREE</h3>
+<img src="html.png" alt="HTML Course" width="100%">
+<p>HTML, CSS, Git Basics</p>
+<p>Optional Certificate: UGX 10,000</p>
+<iframe width="200" height="40" src="https://store.pesapal.com/embed-code?pageUrl=https://store.pesapal.com/level3" frameborder="0" allowfullscreen></iframe>
 </div>
 
 <div class="card">
@@ -99,28 +103,70 @@ footer{background:#111;color:white;text-align:center;padding:20px}
 <img src="css.jpg" alt="CSS Course" width="100%">
 <p>JavaScript & GitHub Collaboration</p>
 <p>Optional Certificate: UGX 10,000</p>
-   <!-- Pesapal iframe -->
-  <iframe 
-      width="200" 
-      height="40" 
-      src="https://store.pesapal.com/embed-code?pageUrl=https://store.pesapal.com/certificatepayment" 
-      frameborder="0" 
-      allowfullscreen>
-  </iframe>
+<iframe width="200" height="40" src="https://store.pesapal.com/embed-code?pageUrl=https://store.pesapal.com/level3" frameborder="0" allowfullscreen></iframe>
 </div>
 
 <div class="card">
 <h3>Level 3 – UGX 50,000</h3>
 <img src="photo.avif" alt="Advanced Course" width="100%">
 <p>Advanced & Industry Preparation</p>
-<iframe width="200" height="40" src="https://store.pesapal.com/embed-code?pageUrl=https://store.pesapal.com/level3" frameborder="0" allowfullscreen></iframe>
+<iframe width="200" height="40" src="https://store.pesapal.com/embed-code?pageUrl=https://store.pesapal.com/certificatepayment" frameborder="0" allowfullscreen></iframe>
+</div>
+
+</div>
+</section>
+
+<!-- Certificate Section -->
+<section id="certificateSection">
+<div style="max-width:500px;margin:auto;text-align:center;">
+<h3>Generate Your Certificate</h3>
+<input type="text" id="studentName" placeholder="Enter your full name">
+<input type="email" id="studentEmail" placeholder="Enter your enrolled email">
+<select id="certLevel">
+<option value="">Select Level</option>
+<option value="Level 1">Level 1</option>
+<option value="Level 2">Level 2</option>
+<option value="Level 3">Level 3</option>
+</select>
+<br><br>
+<button onclick="generateCertificateAfterPayment()">Generate Certificate</button>
+<button onclick="downloadPDF()">Download PDF</button>
+</div>
+</section>
+
+<!-- Certificate Display -->
+<div id="certificate" class="certificate">
+<img class="logo" src="codeon logo.png" alt="CODEON Logo">
+<h1>CODEON Uganda</h1>
+<h2>Certificate of Completion</h2>
+<p>This certificate is proudly awarded to</p>
+<h3 id="certName">Student Name</h3>
+<p>For successfully completing</p>
+<h4 id="certLevelDisplay">Level X</h4>
+<p class="cert-id">Certificate ID: <span id="certID"></span></p>
+<div id="qrcode" class="qr"></div>
+
+<div class="signature-section">
+<div class="signature-box">
+<img src="https://i.ibb.co/2kRZ4pS/signature.png" class="signature-img">
+<hr>
+<p>Program Director</p>
+</div>
+<div class="signature-box">
+<hr>
+<p>Date Issued</p>
 </div>
 </div>
-  
-  <section>
-  <h3 text-align:center;>Scan to Visit CodeOn</h3>
-  <img text-align:center; src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fk-mirembe-mercy.github.io%2Fcodeon%2F" alt="CodeOn QR Code">
-  <p text-align:center;>Scan this QR code to go directly to the CodeOn website.</p>
+
+<div class="seal">✔</div>
+</div>
+
+<!-- Testimonials -->
+<section id="testimonials">
+<h2 style="text-align:center;">Student Testimonials</h2>
+<div class="testimonial" id="testimonial-text">
+"CodeOn helped me understand real software development."
+</div>
 </section>
 
 <footer>
@@ -128,177 +174,67 @@ footer{background:#111;color:white;text-align:center;padding:20px}
 </footer>
 
 <script>
-// 🔥 FIREBASE CONFIG
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyD_LR9Kllj7hoKTiJAaSxyHglSO6r5gh-g",
-  authDomain: "codeon-3cb1c.firebaseapp.com",
-  projectId: "codeon-3cb1c",
-  storageBucket: "codeon-3cb1c.firebasestorage.app",
-  messagingSenderId: "730172148868",
-  appId: "1:730172148868:web:2c712c8124be40019506d1",
-  measurementId: "G-EBR3S0M396"
+apiKey: "YOUR_API_KEY",
+authDomain: "codeon-3cb1c.firebaseapp.com",
+projectId: "codeon-3cb1c",
+storageBucket: "codeon-3cb1c.appspot.com",
+messagingSenderId: "730172148868",
+appId: "YOUR_APP_ID"
 };
-
 firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
 const db = firebase.firestore();
- // ✅ ENROLL FUNCTION (put it here)
-async function enrollStudent(){
-  const name = document.getElementById("enrollName").value;
-  const email = document.getElementById("enrollEmail").value;
-  const level = document.getElementById("enrollLevel").value;
 
-  if(!name || !email){
-    alert("Please fill all fields");
-    return;
-  }
+// Payment placeholder
+function payLevel3(){alert("Payment button clicked for Level 3. Replace with your actual payment integration.");}
 
-  await db.collection("students").add({
-    name: name,
-    email: email,
-    level: level,
-    paid: false,
-    createdAt: new Date()
-  });
-
-  alert("Enrollment Successful!");
-} 
-
-// LOGIN
-function login(){
-auth.signInWithEmailAndPassword(
-document.getElementById("adminEmail").value,
-document.getElementById("adminPassword").value
-).then(()=>{
-document.getElementById("adminPanel").style.display="block";
-}).catch(()=>alert("Login Failed"));
-}
-
-function logout(){ auth.signOut(); location.reload(); }
-
-// GENERATE CERTIFICATE
-async function generateCertificate(){
+// Certificate generation
+async function generateCertificateAfterPayment(){
+const email=document.getElementById("studentEmail").value;
 const name=document.getElementById("studentName").value;
 const level=document.getElementById("certLevel").value;
+if(!email || !name || !level){alert("Please fill in all fields.");return;}
+
+const snapshot = await db.collection("students").where("email","==",email).where("level","==",level).get();
+if(snapshot.empty){alert("No enrollment found.");return;}
+let paid=false;
+snapshot.forEach(doc=>{if(doc.data().paid) paid=true;});
+if(!paid){alert("Please complete payment.");return;}
+
 const id="CODEON-"+Date.now();
-const data=name+level+id;
-const hashBuffer=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(data));
+const hashBuffer=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(name+level+id));
 const hashArray=Array.from(new Uint8Array(hashBuffer));
 const hash=hashArray.map(b=>b.toString(16).padStart(2,"0")).join("").substring(0,16);
-
 await db.collection("certificates").doc(id).set({name,level,id,hash});
 
 document.getElementById("certName").innerText=name;
 document.getElementById("certLevelDisplay").innerText=level;
 document.getElementById("certID").innerText=id;
-document.getElementById("certHash").innerText=hash;
-document.getElementById("certificate").style.display="block";
 
 document.getElementById("qrcode").innerHTML="";
-new QRCode(document.getElementById("qrcode"),{
-text:window.location.href+"?verify="+id,width:120,height:120
-});
+new QRCode(document.getElementById("qrcode"),{text:window.location.href+"?verify="+id,width:120,height:120});
+document.getElementById("certificate").style.display="block";
+alert("🎉 Certificate generated! You can download as PDF.");
 }
 
-// VERIFY
-async function verifyCertificate(){
-const id=document.getElementById("verifyID").value;
-const doc=await db.collection("certificates").doc(id).get();
-if(doc.exists){
-const d=doc.data();
-document.getElementById("verifyResult").innerHTML=
-"✅ VALID<br>Name:"+d.name+"<br>Level:"+d.level+"<br>Signature:"+d.hash;
-}else{
-document.getElementById("verifyResult").innerHTML="❌ Not Found";
-}
-}
+// PDF download
+function downloadPDF(){html2pdf().from(document.getElementById("certificate")).save();}
 
-// PDF
-function downloadPDF(){
-html2pdf().from(document.getElementById("certificate")).save();
-}
-
-// AUTO VERIFY
-const params=new URLSearchParams(window.location.search);
-if(params.get("verify")){
-document.getElementById("verifyID").value=params.get("verify");
-verifyCertificate();
-}
-
-// FLUTTERWAVE PAYMENT
-function payLevel3(){
-FlutterwaveCheckout({
-public_key:"YOUR_FLUTTERWAVE_PUBLIC_KEY",
-tx_ref:"CODEON-"+Date.now(),
-amount:50000,
-currency:"UGX",
-payment_options:"card,mobilemoneyuganda",
-customer:{email:"student@email.com"},
-callback:function(data){ alert("Payment Successful"); }
-});
-}
+// Testimonial slider
+const testimonials=[
+"CodeOn helped me understand real software development.",
+"The GitHub workflow training prepared me for freelance work.",
+"The certificate system is professional and verifiable."
+];
+let index=0;
+setInterval(()=>{index=(index+1)%testimonials.length;document.getElementById("testimonial-text").innerText=testimonials[index];},4000);
 </script>
-<script>
-// ================================
-// FLUTTERWAVE PAYMENT FUNCTIONS
-// ================================
-
-// Generic function to pay for any level
-function payForLevel(level, amount) {
-    // Grab student email from enrollment form
-    const emailField = document.getElementById("enrollEmail");
-    const email = emailField && emailField.value ? emailField.value : "student@example.com";
-
-    // Ensure email is provided
-    if(!emailField || !emailField.value){
-        alert("Please enter your email to proceed with payment.");
-        return;
-    }
-
-    FlutterwaveCheckout({
-        public_key: "FLWPUBK_TEST-xxxxxxxxxxxxxxxxxxxxXX-X", // ✅ Replace with your Flutterwave public key
-        tx_ref: "CODEON-" + level + "-" + Date.now(),
-        amount: amount,
-        currency: "UGX",
-        payment_options: "card,mobilemoneyuganda",
-        customer: {
-            email: email
-        },
-        callback: function(data) {
-            alert(level + " Payment Successful!");
-            console.log("Payment Data:", data);
-
-            // Mark student as paid in Firebase
-            db.collection("students")
-              .where("email", "==", email)
-              .get()
-              .then(snapshot => {
-                  snapshot.forEach(doc => {
-                      doc.ref.update({ paid: true });
-                  });
-              })
-              .catch(err => console.error("Firebase update error:", err));
-        },
-        onclose: function() {
-            console.log("Payment modal closed without completion.");
-        }
-    });
-}
-
-// Shortcut functions for each button
-function payCertificate(level, amount){
-    payForLevel(level, amount);
-}
-
-function payLevel3(){
-    payForLevel("Level 3", 50000);
-}
-</script>
-
 
 </body>
 </html>
+
+
 
 
 
