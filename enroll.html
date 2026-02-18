@@ -227,5 +227,34 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 </script>
+<script>
+async function enrollStudent(){
+
+  const name = document.getElementById("enrollName").value;
+  const email = document.getElementById("enrollEmail").value;
+  const level = document.getElementById("enrollLevel").value;
+
+  if(!name || !email){
+    alert("Please fill all fields");
+    return;
+  }
+
+  try {
+    await db.collection("students").add({
+      name: name,
+      email: email,
+      level: level,
+      paid: false,
+      createdAt: new Date()
+    });
+
+    alert("Enrollment Successful!");
+  } catch(error){
+    alert("Error: " + error.message);
+    console.error(error);
+  }
+}
+</script>
+
 
 
