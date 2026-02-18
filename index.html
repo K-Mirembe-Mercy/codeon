@@ -225,80 +225,12 @@ if(params.get("verify")){
 document.getElementById("verifyID").value=params.get("verify");
 verifyCertificate();
 }
-
-// FLUTTERWAVE PAYMENT
-function payLevel3(){
-FlutterwaveCheckout({
-public_key:"YOUR_FLUTTERWAVE_PUBLIC_KEY",
-tx_ref:"CODEON-"+Date.now(),
-amount:50000,
-currency:"UGX",
-payment_options:"card,mobilemoneyuganda",
-customer:{email:"student@email.com"},
-callback:function(data){ alert("Payment Successful"); }
-});
-}
-</script>
-<script>
-// ================================
-// FLUTTERWAVE PAYMENT FUNCTIONS
-// ================================
-
-// Generic function to pay for any level
-function payForLevel(level, amount) {
-    // Grab student email from enrollment form
-    const emailField = document.getElementById("enrollEmail");
-    const email = emailField && emailField.value ? emailField.value : "student@example.com";
-
-    // Ensure email is provided
-    if(!emailField || !emailField.value){
-        alert("Please enter your email to proceed with payment.");
-        return;
-    }
-
-    FlutterwaveCheckout({
-        public_key: "FLWPUBK_TEST-xxxxxxxxxxxxxxxxxxxxXX-X", // ✅ Replace with your Flutterwave public key
-        tx_ref: "CODEON-" + level + "-" + Date.now(),
-        amount: amount,
-        currency: "UGX",
-        payment_options: "card,mobilemoneyuganda",
-        customer: {
-            email: email
-        },
-        callback: function(data) {
-            alert(level + " Payment Successful!");
-            console.log("Payment Data:", data);
-
-            // Mark student as paid in Firebase
-            db.collection("students")
-              .where("email", "==", email)
-              .get()
-              .then(snapshot => {
-                  snapshot.forEach(doc => {
-                      doc.ref.update({ paid: true });
-                  });
-              })
-              .catch(err => console.error("Firebase update error:", err));
-        },
-        onclose: function() {
-            console.log("Payment modal closed without completion.");
-        }
-    });
-}
-
-// Shortcut functions for each button
-function payCertificate(level, amount){
-    payForLevel(level, amount);
-}
-
-function payLevel3(){
-    payForLevel("Level 3", 50000);
-}
 </script>
 
 
 </body>
 </html>
+
 
 
 
