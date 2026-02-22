@@ -238,13 +238,19 @@ window.location.href="level3.html";
 },1000);
 }
 
-}
-</script>
-
-</body>
-  <script>
 function enroll() {
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
   const level = document.getElementById("level").value;
+
+  if (!name || !email) {
+    alert("Please fill all fields!");
+    return;
+  }
+
+  // Store the student's info in localStorage for use later
+  localStorage.setItem("studentName", name);
+  localStorage.setItem("studentEmail", email);
 
   if (level === "Level 1") {
     window.location.href = "course1.html";
@@ -253,10 +259,14 @@ function enroll() {
     window.location.href = "course2.html";
   } 
   else if (level === "Level 3") {
-    // Redirect to Pesapal payment page first
+    // Redirect to Pesapal payment
+    // After payment, you can have Pesapal redirect back to course3.html
+    // Example: course3.html?paid=true
     window.location.href = "https://store.pesapal.com/level3";
   }
 }
+}
   </script>
 </html>
+
 
