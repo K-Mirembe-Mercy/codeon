@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>CODEON Community Arena</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+<style>
+:root{
+  --bg:#f4f4f4;
+  --text:#111;
+  --card:#ffffff;
+}
+
+body.dark{
+  --bg:#121212;
+  --text:#ffffff;
+  --card:#1e1e1e;
+}
+
+body{
+  margin:0;
+  font-family:Arial;
+  background:var(--bg);
+  color:var(--text);
+  transition:0.3s;
+}
+
+header{
+  background:#000;
+  color:white;
+  padding:20px;
+  text-align:center;
+}
+
+section{
+  background:var(--card);
+  margin:20px;
+  padding:20px;
+  border-radius:12px;
+}
+
+button{
+  padding:8px 15px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  background:#111;
+  color:white;
+}
+
+button:hover{background:#333}
+
+input,textarea,select{
+  width:100%;
+  padding:8px;
+  margin:6px 0;
+}
+
+/* Animated Badges */
+.badge{
+  display:inline-block;
+  padding:6px 14px;
+  border-radius:20px;
+  font-weight:bold;
+  margin:5px;
+  animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+  from{box-shadow:0 0 5px rgba(0,0,0,0.3);}
+  to{box-shadow:0 0 20px rgba(0,150,255,0.8);}
+}
+
+.bronze{background:#cd7f32;color:white;}
+.silver{background:#c0c0c0;color:black;}
+.gold{background:#ffd700;color:black;}
+.champion{background:#00e5ff;color:black;}
+
+#certificate{
+  display:none;
+  background:white;
+  color:black;
+  padding:40px;
+  border:8px solid black;
+  text-align:center;
+  margin:20px;
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>🚀 CODEON Community Arena</h1>
+<button onclick="toggleMode()">Toggle Dark / Light</button>
+</header>
+
+<section id="authSection">
+<h2>Sign Up / Login</h2>
+<input type="email" id="email" placeholder="Email">
+<input type="password" id="password" placeholder="Password">
+<button onclick="signup()">Sign Up</button>
+<button onclick="login()">Login</button>
+</section>
+
+<section id="mainContent" style="display:none;">
+
+<h2>Submit Project</h2>
+<input type="text" id="title" placeholder="Project Title">
+<input type="text" id="link" placeholder="GitHub Pages Link">
+<textarea id="description" placeholder="Project Description"></textarea>
+<button onclick="submitProject()">Submit</button>
+
+<h2>AI Code Scoring</h2>
+<textarea id="codeInput" placeholder="Paste HTML code here"></textarea>
+<button onclick="analyzeCode()">Analyze</button>
+<div id="feedback"></div>
+
+<h2>🏆 Live Leaderboard</h2>
+<div id="leaderboard"></div>
+
+<h2>🏅 Project of the Week</h2>
+<div id="winner"></div>
+
+<button onclick="logout()">Logout</button>
+
+</section>
+
+<div id="certificate">
+<h1>CODEON Uganda</h1>
+<h2>Excellence Certificate</h2>
+<p>This certifies that</p>
+<h2 id="certName"></h2>
+<p>Achieved Rank <span id="certRank"></span></p>
+<p>ID: <span id="certID"></span></p>
+</div>
+
+<script>
+
+// 🔥 YOUR REAL FIREBASE CONFIG
+const firebaseConfig = {
+  apiKey: "AIzaSyD_LR9Kllj7hoKTiJAaSxyHglSO6r5gh-g",
+  authDomain: "codeon-3cb1c.firebaseapp.com",
+  projectId: "codeon-3cb1c",
+  storageBucket: "codeon-3cb1c.firebasestorage.app",
+  messagingSenderId: "730172148868",
+  appId: "1:730172148868:web:2c712c8124be40019506d1",
+  measurementId: "G-EBR3S0M396"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth=firebase.auth();
+const db=firebase.firestore();
+
+let currentUser=null;
+
+// DARK MODE
+function toggleMode(){
+  document.body.classList.toggle("dark");
+}
+
+// AUTH
+function signup(){
+  auth.createUserWithEmailAndPassword(email.value,password.value)
+  .catch(e=>alert(e.message));
+}
+
+function login(){
+  auth.signInWithEmailAndPassword(email.value,password.value)
+  .catch(e=>alert(e.message));
+}
+
+function logout(){
+  auth.signOut();
+}
+
+auth.onAuthStateChanged(user=>{
+  if(user){
+    currentUser=user;
+    authSection.style.display="none";
+    mainContent.style.display="block";
+    loadLeaderboard();
+  }else{
+    authSection.style.display="block";
+    mainContent.style.display="none";
+  }
+});
+
+// SUBMIT PROJECT
+async function submitProject(){
+  if(!currentUser){alert("Login first");return;}
+
+  await db.collection("submissions").add({
+    uid:currentUser.uid,
+    email:currentUser.email,
+    title:title.value,
+    link:link.value,
+    description:description.value,
+    points:0,
+    voters:[],
+    createdAt:new Date()
+  });
+
+  alert("Project Submitted!");
+}
+
+// LIVE LEADERBOARD
+function loadLeaderboard(){
+  db.collection("submissions")
+  .orderBy("points","desc")
+  .limit(10)
+  .onSnapshot(snapshot=>{
+    let html="";
+    let rank=1;
+
+    snapshot.forEach(doc=>{
+      const d=doc.data();
+      html+=`${rank}. ${d.email} - ${d.points} pts ${badge(d.points)}<br>`;
+
+      if(rank<=3){
+        generateCertificate(d.email,rank);
+      }
+
+      rank++;
+    });
+
+    leaderboard.innerHTML=html;
+    loadWinner();
+  });
+}
+
+// BADGES
+function badge(points){
+  if(points>=100) return "<span class='badge gold'>Gold</span>";
+  if(points>=50) return "<span class='badge silver'>Silver</span>";
+  if(points>=20) return "<span class='badge bronze'>Bronze</span>";
+  return "";
+}
+
+// WINNER
+function loadWinner(){
+  db.collection("submissions")
+  .orderBy("points","desc")
+  .limit(1)
+  .onSnapshot(snapshot=>{
+    snapshot.forEach(doc=>{
+      const d=doc.data();
+      winner.innerHTML=`${d.title} - ${d.email} (${d.points} pts)
+      <span class="badge champion">Champion</span>`;
+    });
+  });
+}
+
+// AI CODE SCORING
+function analyzeCode(){
+  const code=codeInput.value;
+  let score=0;
+  let feedbackText="";
+
+  if(code.includes("<title>")) score+=10;
+  else feedbackText+="Missing <title><br>";
+
+  if(code.includes("viewport")) score+=10;
+  else feedbackText+="Missing viewport meta<br>";
+
+  if(code.includes("<header>")) score+=10;
+  if(code.includes("<section>")) score+=10;
+  if(code.includes("<footer>")) score+=10;
+  if(code.includes("<style>")) score+=10;
+
+  feedback.innerHTML=feedbackText+"Score: "+score+"/60";
+}
+
+// CERTIFICATE
+function generateCertificate(name,rank){
+  certName.innerText=name;
+  certRank.innerText=rank;
+  certID.innerText="CODEON-"+Date.now();
+  certificate.style.display="block";
+}
+
+</script>
+</body>
+</html>
