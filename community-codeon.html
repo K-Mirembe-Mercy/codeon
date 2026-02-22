@@ -11,7 +11,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
 <style>
-body{font-family:Arial; margin:0; background:#f4f4f4; transition:.3s;}
+body{font-family:Arial; margin:0; background:dark green; transition:.3s;}
 .dark{background:#111; color:white;}
 header{background:black; color:white; padding:15px; text-align:center;}
 button{padding:8px 15px; margin:5px; cursor:pointer; border:none; border-radius:5px;}
@@ -116,10 +116,94 @@ const db=firebase.firestore();
 let currentUser=null;
 
 // Fake competitors
-const fakeAfrica=[{name:"LagosCoder",flag:"🇳🇬"},{name:"NairobiDev",flag:"🇰🇪"},{name:"AccraTech",flag:"🇬🇭"},{name:"CairoWeb",flag:"🇪🇬"},{name:"CapeTownDev",flag:"🇿🇦"},{name:"KampalaStack",flag:"🇺🇬"},{name:"RwandaCode",flag:"🇷🇼"},{name:"TanzaniaLogic",flag:"🇹🇿"},{name:"MoroccoBuilder",flag:"🇲🇦"},{name:"BotswanaDev",flag:"🇧🇼"},{name:"EthiopiaTech",flag:"🇪🇹"},{name:"ZambiaCoder",flag:"🇿🇲"},{name:"ZimbabweDev",flag:"🇿🇼"},{name:"TunisiaWeb",flag:"🇹🇳"},{name:"AlgeriaCoder",flag:"🇩🇿"},{name:"NamibiaStack",flag:"🇳🇦"},{name:"SenegalDev",flag:"🇸🇳"},{name:"MaliTech",flag:"🇲🇱"},{name:"AngolaCode",flag:"🇦🇴"},{name:"IvoryWeb",flag:"🇨🇮"},{name:"SierraCoder",flag:"🇸🇱"},{name:"LibyaTech",flag:"🇱🇾"},{name:"NigerWeb",flag:"🇳🇪"},{name:"MauritiusDev",flag:"🇲🇺"},{name:"MadagascarStack",flag:"🇲🇬"},{name:"GabonCoder",flag:"🇬🇦"},{name:"CongoTech",flag:"🇨🇩"},{name:"DjiboutiWeb",flag:"🇩🇯"},{name:"SomaliaDev",flag:"🇸🇴"},{name:"BurundiStack",flag:"🇧🇮"},{name:"MalawiCoder",flag:"🇲🇼"}];
-const fakeSchools=Array.from({length:50},(_,i)=>({name:"Student"+(i+1),school:"School"+((i%10)+1),points:Math.floor(Math.random()*100)+10}));
-const fakeCountries=[{name:"KenyaCoder",country:"Kenya"},{name:"UgandaTech",country:"Uganda"},{name:"NigeriaDev",country:"Nigeria"},{name:"GhanaStack",country:"Ghana"},{name:"SouthAfricaWeb",country:"South Africa"},{name:"RwandaBuild",country:"Rwanda"},{name:"TanzaniaCoder",country:"Tanzania"},{name:"MoroccoTech",country:"Morocco"},{name:"EgyptDev",country:"Egypt"},{name:"BotswanaStack",country:"Botswana"},{name:"EthiopiaWeb",country:"Ethiopia"},{name:"ZambiaBuild",country:"Zambia"},{name:"ZimbabweCoder",country:"Zimbabwe"},{name:"TunisiaTech",country:"Tunisia"},{name:"AlgeriaDev",country:"Algeria"},{name:"NamibiaStack",country:"Namibia"},{name:"SenegalWeb",country:"Senegal"},{name:"MaliBuild",country:"Mali"},{name:"AngolaCoder",country:"Angola"},{name:"IvoryTech",country:"Ivory Coast"},{name:"SierraWeb",country:"Sierra Leone"},{name:"LibyaDev",country:"Libya"},{name:"NigerStack",country:"Niger"},{name:"MauritiusWeb",country:"Mauritius"},{name:"MadagascarBuild",country:"Madagascar"},{name:"GabonCoder",country:"Gabon"},{name:"CongoTech",country:"Congo"},{name:"DjiboutiWeb",country:"Djibouti"},{name:"SomaliaBuild",country:"Somalia"},{name:"BurundiCoder",country:"Burundi"},{name:"MalawiStack",country:"Malawi"},{name:"LesothoWeb",country:"Lesotho"},{name:"SwazilandDev",country:"Eswatini"},{name:"CameroonTech",country:"Cameroon"},{name:"TogoBuild",country:"Togo"},{name:"ChadCoder",country:"Chad"},{name:"BeninStack",country:"Benin"},{name:"MauritaniaWeb",country:"Mauritania"},{name:"GambiaBuild",country:"Gambia"},{name:"EquatorialTech",country:"Equatorial Guinea"},{name:"SaoCoder",country:"Sao Tome"},{name:"DjiboutiStack",country:"Djibouti"}];
-
+const ugandaCoders = [
+  {name: "BabiryeCoder", flag: "🇺🇬"},
+  {name: "KatoDev", flag: "🇺🇬"},
+  {name: "MukasaTech", flag: "🇺🇬"},
+  {name: "MirembeWeb", flag: "🇺🇬"},
+  {name: "AkelloDev", flag: "🇺🇬"},
+  {name: "OkelloStack", flag: "🇺🇬"},
+  {name: "MusisiCode", flag: "🇺🇬"},
+  {name: "NamukasaLogic", flag: "🇺🇬"},
+  {name: "KiraboBuilder", flag: "🇺🇬"},
+  {name: "SanyuDev", flag: "🇺🇬"},
+  {name: "MugishaTech", flag: "🇺🇬"},
+  {name: "AsiimweCoder", flag: "🇺🇬"},
+  {name: "AgabaDev", flag: "🇺🇬"},
+  {name: "MbabaziWeb", flag: "🇺🇬"},
+  {name: "BirungiCoder", flag: "🇺🇬"},
+  {name: "KizzaTech", flag: "🇺🇬"},
+  {name: "OtimDev", flag: "🇺🇬"},
+  {name: "AumaStack", flag: "🇺🇬"},
+  {name: "OchenCode", flag: "🇺🇬"},
+  {name: "NasicheDev", flag: "🇺🇬"},
+  {name: "NafunaWeb", flag: "🇺🇬"},
+  {name: "NekesaCoder", flag: "🇺🇬"},
+  {name: "IsabiryeTech", flag: "🇺🇬"},
+  {name: "BwambaleDev", flag: "🇺🇬"},
+  {name: "MuhindoStack", flag: "🇺🇬"},
+  {name: "BiiraCode", flag: "🇺🇬"},
+  {name: "MasikaDev", flag: "🇺🇬"},
+  {name: "AtukundaWeb", flag: "🇺🇬"},
+  {name: "KagumahoCoder", flag: "🇺🇬"},
+  {name: "NsubugaTech", flag: "🇺🇬"},
+  {name: "LuleDev", flag: "🇺🇬"}
+];
+  const ugandaStudents = [
+  {name: "Emmanuel", points: Math.floor(Math.random()*100)+10, district: "Kampala"},
+  {name: "Grace", points: Math.floor(Math.random()*100)+10, district: "Gulu"},
+  {name: "Joseph", points: Math.floor(Math.random()*100)+10, district: "Mbarara"},
+  {name: "Mary", points: Math.floor(Math.random()*100)+10, district: "Jinja"},
+  {name: "Samuel", points: Math.floor(Math.random()*100)+10, district: "Mbale"},
+  {name: "Dorothy", points: Math.floor(Math.random()*100)+10, district: "Lira"},
+  {name: "Pius", points: Math.floor(Math.random()*100)+10, district: "Masaka"},
+  {name: "Mercy", points: Math.floor(Math.random()*100)+10, district: "Fort Portal"},
+  {name: "Stephen", points: Math.floor(Math.random()*100)+10, district: "Soroti"},
+  {name: "Proscovia", points: Math.floor(Math.random()*100)+10, district: "Hoima"},
+  {name: "John", points: Math.floor(Math.random()*100)+10, district: "Kabale"},
+  {name: "Elizabeth", points: Math.floor(Math.random()*100)+10, district: "Kitgum"},
+  {name: "Andrew", points: Math.floor(Math.random()*100)+10, district: "Iganga"},
+  {name: "Phiona", points: Math.floor(Math.random()*100)+10, district: "Masindi"},
+  {name: "Patrick", points: Math.floor(Math.random()*100)+10, district: "Mukono"},
+  {name: "Priscilla", points: Math.floor(Math.random()*100)+10, district: "Soroti"},
+  {name: "Charles", points: Math.floor(Math.random()*100)+10, district: "Ntungamo"},
+  {name: "Faith", points: Math.floor(Math.random()*100)+10, district: "Apac"},
+  {name: "Christopher", points: Math.floor(Math.random()*100)+10, district: "Arua"},
+  {name: "Resty", points: Math.floor(Math.random()*100)+10, district: "Kabarole"},
+  {name: "Simon", points: Math.floor(Math.random()*100)+10, district: "Kayunga"},
+  {name: "Sarah", points: Math.floor(Math.random()*100)+10, district: "Kumi"},
+  {name: "Francis", points: Math.floor(Math.random()*100)+10, district: "Nakasongola"},
+  {name: "Noeline", points: Math.floor(Math.random()*100)+10, district: "Koboko"},
+  {name: "David", points: Math.floor(Math.random()*100)+10, district: "Amuru"},
+  {name: "Immaculate", points: Math.floor(Math.random()*100)+10, district: "Nakapiripirit"},
+  {name: "Peter", points: Math.floor(Math.random()*100)+10, district: "Rukungiri"},
+  {name: "Annet", points: Math.floor(Math.random()*100)+10, district: "Yumbe"},
+  {name: "Moses", points: Math.floor(Math.random()*100)+10, district: "Soroti"},
+  {name: "Agnes", points: Math.floor(Math.random()*100)+10, district: "Kabarole"}
+];
+  const ugandaDistricts = [
+  {name: "Babirye", district: "Kampala"},
+  {name: "Kato", district: "Gulu"},
+  {name: "Mukasa", district: "Mbarara"},
+  {name: "Mirembe", district: "Jinja"},
+  {name: "Akello", district: "Mbale"},
+  {name: "Okello", district: "Lira"},
+  {name: "Musisi", district: "Masaka"},
+  {name: "Namukasa", district: "Fort Portal"},
+  {name: "Kirabo", district: "Soroti"},
+  {name: "Sanyu", district: "Hoima"},
+  {name: "Mugisha", district: "Kabale"},
+  {name: "Asiimwe", district: "Kitgum"},
+  {name: "Agaba", district: "Iganga"},
+  {name: "Mbabazi", district: "Masindi"},
+  {name: "Birungi", district: "Mukono"},
+  {name: "Kizza", district: "Soroti"},
+  {name: "Otim", district: "Ntungamo"},
+  {name: "Auma", district: "Apac"},
+  {name: "Ochen", district: "Arua"},
+  {name: "Nasiche", district: "Kabarole"}
+];
+  
 // Auth
 function signup(){
   auth.createUserWithEmailAndPassword(email.value,password.value)
