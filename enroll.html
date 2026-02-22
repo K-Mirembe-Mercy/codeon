@@ -1,82 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CODEON Uganda | Enroll</title>
 
-<!-- QR + PDF -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
-<!-- Flutterwave -->
-<script src="https://checkout.flutterwave.com/v3.js"></script>
-
-<!-- Firebase (only once) -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
 <style>
-body{font-family:Arial;margin:0;background:#f4f4f4}
-header{background:#111;color:#fff;padding:15px;text-align:center}
-nav{background:#222;padding:10px;text-align:center}
-nav a{color:white;margin:0 15px;text-decoration:none;font-weight:bold}
-section{padding:40px 20px;max-width:1000px;margin:auto}
-.hero{background:#000;color:white;text-align:center;padding:60px 20px}
-.cards{display:flex;flex-wrap:wrap;gap:20px}
-.card{flex:1;min-width:250px;background:white;padding:20px;border-radius:8px}
-button{padding:10px 20px;background:#111;color:white;border:none;cursor:pointer;margin-top:10px}
-button:hover{background:#333}
-input,select{width:100%;padding:10px;margin:8px 0}
-footer{background:#111;color:white;text-align:center;padding:20px}
-.certificate{display:none;border:8px solid #111;padding:40px;text-align:center;background:white;margin-top:20px;}
+body{font-family:Arial;background:#f4f4f4;text-align:center;padding:40px}
+input,select{padding:10px;width:300px;margin:10px}
+button{padding:12px 20px;background:black;color:white;border:none;cursor:pointer}
 </style>
 </head>
 <body>
 
-<header>
-<h1>CODEON Uganda</h1>
-<p>Code Your Future</p>
-</header>
+<h2>Enroll at CODEON Uganda</h2>
 
-<nav>
-<a href="index.html">Home</a>
-<a href="enroll.html">Enroll</a>
-<a href="verify.html">Verify Certificate</a>
-</nav>
+<input type="text" id="name" placeholder="Full Name"><br>
+<input type="email" id="email" placeholder="Email"><br>
 
-<section id="enroll">
-<h2>Enroll Now</h2>
-
-<input type="text" id="enrollName" placeholder="Full Name" required>
-<input type="email" id="enrollEmail" placeholder="Email" required>
-
-<select id="enrollLevel">
+<select id="level">
 <option value="Level 1">Level 1 – Free</option>
 <option value="Level 2">Level 2 – Free</option>
 <option value="Level 3">Level 3 – UGX 50,000</option>
-</select>
+</select><br>
 
-<button type="button" id="enrollBtn">Enroll</button>
-</section>
-
-<section class="certificate" id="certificate">
-<h2>Certificate of Completion</h2>
-<p>Name: <span id="certName"></span></p>
-<p>Level: <span id="certLevelDisplay"></span></p>
-<p>ID: <span id="certID"></span></p>
-<p>Signature: <span id="certHash"></span></p>
-<div id="qrcode"></div>
-<button onclick="downloadPDF()">Download PDF</button>
-</section>
-<p>WHO'S CODEON FOR?<br>Secondary school students (S1–S6)<br>Schools with computer labs<br>Students interested in technology<br>Beginners with no coding experience</p>
-<p>WHY PARTNER WITH CODE ON?<br>No cost to the school<br>Uses existing computer lab<br>Structured curriculum<br>Improves school innovation profile<br>Students receive certificates</p>
-<footer>
-© 2026 CODEON Uganda
-</footer>
+<button onclick="enroll()">Enroll</button>
 
 <script>
-// 🔥 Firebase Config
+// 🔥 Your Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyD_LR9Kllj7hoKTiJAaSxyHglSO6r5gh-g",
   authDomain: "codeon-3cb1c.firebaseapp.com",
@@ -89,118 +42,69 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// ✅ Enrollment
-async function enrollStudent(){
-  const name = document.getElementById("enrollName").value;
-  const email = document.getElementById("enrollEmail").value;
-  const level = document.getElementById("enrollLevel").value;
+async function enroll(){
 
-  if(!name || !email){
-    alert("Please fill all fields");
-    return;
-  }
+const name = document.getElementById("name").value.trim();
+const email = document.getElementById("email").value.trim();
+const level = document.getElementById("level").value;
 
-  try {
-    const docRef = await db.collection("students").add({
-      name,
-      email,
-      level,
-      paid: false,
-      createdAt: new Date()
-    });
-
-    console.log("Saved with ID:", docRef.id);
-    alert("Enrollment Successful!");
-  } catch(error){
-    console.error(error);
-    alert("Error: "+error.message);
-  }
+if(!name || !email){
+alert("Fill all fields");
+return;
 }
 
-// ✅ Certificate Generator
-async function generateCertificate(name, level){
-  const id = "CODEON-" + Date.now();
-  const data = name + level + id;
-  const hashBuffer = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(data));
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hash = hashArray.map(b=>b.toString(16).padStart(2,"0")).join("").substring(0,16);
+// Save student
+const docRef = await db.collection("students").add({
+name,
+email,
+level,
+paid: level === "Level 3" ? false : true,
+createdAt: new Date()
+});
 
-  await db.collection("certificates").doc(id).set({name, level, id, hash});
-
-  document.getElementById("certName").innerText = name;
-  document.getElementById("certLevelDisplay").innerText = level;
-  document.getElementById("certID").innerText = id;
-  document.getElementById("certHash").innerText = hash;
-  document.getElementById("certificate").style.display = "block";
-
-  document.getElementById("qrcode").innerHTML = "";
-  new QRCode(document.getElementById("qrcode"),{
-    text: window.location.href+"?verify="+id,
-    width:120,
-    height:120
-  });
+// FREE LEVELS
+if(level === "Level 1"){
+window.location.href = "level1.html";
+return;
 }
 
-// ✅ PDF Download
-function downloadPDF(){
-  html2pdf().from(document.getElementById("certificate")).save();
+if(level === "Level 2"){
+window.location.href = "level2.html";
+return;
 }
 
-// ✅ Flutterwave Payment
-function payCertificate(){
-  const name = document.getElementById("enrollName").value;
-  const level = document.getElementById("enrollLevel").value;
+// LEVEL 3 PAYMENT
+if(level === "Level 3"){
 
-  if(!name){
-    alert("Enter name before paying");
-    return;
-  }
+const paymentWindow = window.open(
+"https://store.pesapal.com/level3",
+"_blank",
+"width=600,height=700"
+);
 
-  FlutterwaveCheckout({
-    public_key: "YOUR_FLUTTERWAVE_PUBLIC_KEY",
-    tx_ref: "CODEON-"+Date.now(),
-    amount: 50000,
-    currency: "UGX",
-    payment_options: "card,mobilemoneyuganda",
-    customer: {email: document.getElementById("enrollEmail").value || "student@email.com"},
-    callback: function(data){
-      alert("Payment Successful!");
-      generateCertificate(name, level);
-      // Mark student as paid
-      db.collection("students").where("email", "==", document.getElementById("enrollEmail").value)
-        .get().then(snapshot=>{
-          snapshot.forEach(doc=>{
-            doc.ref.update({paid:true});
-          });
-        });
-    },
-    customizations: {
-      title: "CODEON Certificate Payment",
-      description: "Payment for course certificate",
-      logo: ""
-    }
-  });
+const checkPayment = setInterval(async function(){
+
+if(paymentWindow.closed){
+clearInterval(checkPayment);
+
+// Mark paid
+await db.collection("students").doc(docRef.id).update({
+paid:true
+});
+
+alert("Payment Successful! Welcome to Level 3");
+
+// Save session locally
+localStorage.setItem("codeonUser", email);
+
+window.location.href = "level3.html";
 }
 
-// ✅ Button Event Listeners
-document.getElementById("enrollBtn").addEventListener("click", enrollStudent);
-document.getElementById("payBtn").addEventListener("click", payCertificate);
+},1000);
+}
 
+}
 </script>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
