@@ -1,35 +1,175 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CODEON Uganda | Enroll</title>
 
+<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
 <style>
-body{font-family:Arial;background:#f4f4f4;text-align:center;padding:40px}
-input,select{padding:10px;width:300px;margin:10px}
-button{padding:12px 20px;background:black;color:white;border:none;cursor:pointer}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  color:white;
+}
+
+/* Header */
+header{
+  text-align:center;
+  padding:40px 20px;
+}
+header h1{
+  font-size:32px;
+  font-weight:700;
+}
+header p{
+  font-size:16px;
+  opacity:0.8;
+}
+
+/* Enrollment Card */
+.enroll-container{
+  max-width:500px;
+  margin:40px auto;
+  background:white;
+  color:#333;
+  padding:40px;
+  border-radius:15px;
+  box-shadow:0 15px 35px rgba(0,0,0,0.3);
+}
+
+.enroll-container h2{
+  text-align:center;
+  margin-bottom:25px;
+  font-weight:600;
+}
+
+input,select{
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  border-radius:8px;
+  border:1px solid #ccc;
+  font-size:14px;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  background:#111;
+  color:white;
+  border:none;
+  border-radius:8px;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  background:#444;
+}
+
+/* Info Section */
+.info{
+  max-width:900px;
+  margin:60px auto;
+  padding:0 20px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+}
+
+.info div{
+  background:rgba(255,255,255,0.1);
+  padding:25px;
+  border-radius:10px;
+}
+
+.info h3{
+  margin-bottom:10px;
+  font-weight:600;
+}
+
+/* Footer */
+footer{
+  text-align:center;
+  padding:30px 20px;
+  background:#000;
+  margin-top:60px;
+  font-size:14px;
+}
+
+/* Responsive */
+@media(max-width:768px){
+  .info{
+    grid-template-columns:1fr;
+  }
+  header h1{
+    font-size:26px;
+  }
+}
 </style>
 </head>
 <body>
 
-<h2>Enroll at CODEON Uganda</h2>
+<header>
+<h1>CODEON Uganda</h1>
+<p>Code Your Future</p>
+</header>
 
-<input type="text" id="name" placeholder="Full Name"><br>
-<input type="email" id="email" placeholder="Email"><br>
+<div class="enroll-container">
+<h2>Enroll Now</h2>
+
+<input type="text" id="name" placeholder="Full Name">
+<input type="email" id="email" placeholder="Email">
 
 <select id="level">
 <option value="Level 1">Level 1 – Free</option>
 <option value="Level 2">Level 2 – Free</option>
 <option value="Level 3">Level 3 – UGX 50,000</option>
-</select><br>
+</select>
 
-<button onclick="enroll()">Enroll</button>
+<button onclick="enroll()">Enroll Now</button>
+</div>
+
+<div class="info">
+
+<div>
+<h3>WHO'S CODEON FOR?</h3>
+<p>
+Secondary school students (S1–S6)<br>
+Schools with computer labs<br>
+Students interested in technology<br>
+Beginners with no coding experience
+</p>
+</div>
+
+<div>
+<h3>WHY PARTNER WITH CODEON?</h3>
+<p>
+No cost to the school<br>
+Uses existing computer lab<br>
+Structured curriculum<br>
+Improves school innovation profile<br>
+Students receive certificates
+</p>
+</div>
+
+</div>
+
+<footer>
+© 2026 CODEON Uganda | Empowering Uganda Through Technology
+</footer>
 
 <script>
-// 🔥 Your Firebase config
+// Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyD_LR9Kllj7hoKTiJAaSxyHglSO6r5gh-g",
   authDomain: "codeon-3cb1c.firebaseapp.com",
@@ -49,11 +189,10 @@ const email = document.getElementById("email").value.trim();
 const level = document.getElementById("level").value;
 
 if(!name || !email){
-alert("Fill all fields");
+alert("Please fill all fields");
 return;
 }
 
-// Save student
 const docRef = await db.collection("students").add({
 name,
 email,
@@ -62,18 +201,18 @@ paid: level === "Level 3" ? false : true,
 createdAt: new Date()
 });
 
-// FREE LEVELS
+localStorage.setItem("codeonUser", email);
+
 if(level === "Level 1"){
-window.location.href = "level1.html";
+window.location.href="level1.html";
 return;
 }
 
 if(level === "Level 2"){
-window.location.href = "level2.html";
+window.location.href="level2.html";
 return;
 }
 
-// LEVEL 3 PAYMENT
 if(level === "Level 3"){
 
 const paymentWindow = window.open(
@@ -87,17 +226,13 @@ const checkPayment = setInterval(async function(){
 if(paymentWindow.closed){
 clearInterval(checkPayment);
 
-// Mark paid
 await db.collection("students").doc(docRef.id).update({
 paid:true
 });
 
-alert("Payment Successful! Welcome to Level 3");
+alert("Payment Successful! Welcome to Level 3.");
 
-// Save session locally
-localStorage.setItem("codeonUser", email);
-
-window.location.href = "level3.html";
+window.location.href="level3.html";
 }
 
 },1000);
