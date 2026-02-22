@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course 3 – Advanced Projects | CODEON Uganda</title>
+
+<!-- Monaco Editor -->
+<script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs/loader.js"></script>
+
+<style>
+body{font-family:Arial;margin:0;background:#f0f4f8;}
+header{background:#2e7d32;color:white;padding:20px;text-align:center;}
+.level, .lesson{background:white;max-width:1000px;margin:20px auto;padding:25px;border-radius:10px;box-shadow:0 3px 6px rgba(0,0,0,0.1);}
+.locked{opacity:0.5;pointer-events:none;}
+button{padding:10px 18px;background:#2e7d32;color:white;border:none;border-radius:5px;cursor:pointer;margin-top:10px;margin-right:5px;}
+button:hover{background:#1b5e20;}
+#editor{height:450px;border:1px solid #ccc;margin-top:10px;border-radius:5px;width:100%;}
+iframe{width:100%;height:300px;border:1px solid #ccc;margin-top:10px;border-radius:5px;}
+.badge{display:none;margin-top:10px;padding:10px;background:#ffd700;color:black;font-weight:bold;border-radius:5px;text-align:center;}
+.guidance{background:#e8f5e9;padding:15px;border-left:5px solid #2e7d32;margin-bottom:10px;}
+.gitbtn{margin-top:10px;padding:8px 15px;background:#0288d1;color:white;border:none;border-radius:5px;cursor:pointer;}
+.gitbtn:hover{background:#0277bd;}
+.certificate-btn{background:#ff6600;color:white;margin-top:15px;}
+.certificate-btn:hover{background:#e65c00;}
+.monetize{background:#fff3e0;padding:10px;border-left:5px solid #ff6600;margin-top:10px;display:none;}
+.tagguide{background:#e3f2fd;padding:10px;border-left:5px solid #1976d2;margin-top:10px;}
+.rules{background:#fce4ec;padding:10px;border-left:5px solid #c2185b;margin-top:10px;}
+pre{background:#eeeeee;padding:10px;border-radius:5px;overflow:auto;}
+</style>
+</head>
+<body>
+
+<header>
+<h1>Course 3 – Advanced Projects</h1>
+<p>Build SACCO websites, NGO landing pages, and Agriculture marketplace concepts</p>
+</header>
+
+<div id="courseContainer"></div>
+<div id="paymentContainer"></div>
+
+<script>
+// ======= Course Data =======
+const levels=[
+  {
+    name:"Level 1 – SACCO Website",
+    lessons:[
+      {
+        title:"Homepage Layout",
+        tags:[
+          {tag:"header", meaning:"Top section with logo and nav"},
+          {tag:"nav", meaning:"Navigation links"},
+          {tag:"h1", meaning:"Main heading of page"}
+        ],
+        code:`<header>
+  <h1>My SACCO</h1>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+  </nav>
+</header>`,
+        guidance:"Build SACCO homepage using semantic HTML tags above.",
+        tips:"Test layout in browser, use proper indentation."
+      },
+      {
+        title:"Membership Form",
+        tags:[
+          {tag:"form", meaning:"Container for input fields"},
+          {tag:"input", meaning:"Text, email, number inputs"},
+          {tag:"label", meaning:"Describes input"},
+          {tag:"select", meaning:"Dropdown menu"},
+          {tag:"button", meaning:"Submit button"}
+        ],
+        code:`<form>
+  <label for="name">Full Name</label>
+  <input type="text" id="name" name="name" required>
+  <label for="membership">Membership</label>
+  <select id="membership">
+    <option>Basic</option>
+    <option>Premium</option>
+  </select>
+  <button type="submit">Join</button>
+</form>`,
+        guidance:"Create a signup form for members.",
+        tips:"Use required fields and proper labels."
+      },
+      {
+        title:"Dashboard Mockup",
+        tags:[
+          {tag:"table", meaning:"Tabular data"},
+          {tag:"tr", meaning:"Table row"},
+          {tag:"td", meaning:"Table data cell"},
+          {tag:"div class='card'", meaning:"Card layout container"}
+        ],
+        code:`<div class="card">
+  <h2>Member Summary</h2>
+  <table>
+    <tr><th>Name</th><th>Status</th></tr>
+    <tr><td>John</td><td>Active</td></tr>
+  </table>
+</div>`,
+        guidance:"Design dashboard with cards and tables.",
+        tips:"Keep table readable and organized."
+      },
+      {
+        title:"Responsive Design",
+        tags:[
+          {tag:"@media", meaning:"CSS rules for screen sizes"},
+          {tag:"display:flex/grid", meaning:"Layout container"}
+        ],
+        code:`<style>
+.container { display:flex; flex-wrap:wrap; }
+@media (max-width:600px){ .container{ flex-direction:column; } }
+</style>`,
+        guidance:"Make the SACCO site responsive for mobile devices.",
+        tips:"Test on multiple screen sizes."
+      },
+      {
+        title:"GitHub Deployment",
+        tags:[
+          {tag:"README.md", meaning:"Project description"},
+          {tag:"index.html", meaning:"Main page of site"}
+        ],
+        code:`<!-- Push your files to GitHub repository -->`,
+        guidance:"Deploy the SACCO homepage to GitHub Pages.",
+        tips:"Commit after each lesson with meaningful messages."
+      }
+    ]
+  },
+  {
+    name:"Level 2 – NGO Landing Page",
+    lessons:[
+      {
+        title:"Landing Page Skeleton",
+        tags:[
+          {tag:"header, nav, main, section, footer", meaning:"Structure of page"}
+        ],
+        code:`<header><h1>NGO Name</h1></header>
+<nav><a href="#">Home</a></nav>
+<main><section>About</section></main>
+<footer>Contact info</footer>`,
+        guidance:"Build the basic structure using semantic HTML.",
+        tips:"Sketch layout before coding."
+      },
+      {
+        title:"About & Mission Section",
+        tags:[
+          {tag:"h1-h6", meaning:"Headings"},
+          {tag:"p", meaning:"Paragraph text"},
+          {tag:"img", meaning:"Images"}
+        ],
+        code:`<section>
+  <h2>About Us</h2>
+  <p>Our mission is to help communities.</p>
+  <img src="community.jpg" alt="Community Image">
+</section>`,
+        guidance:"Add About section with headings, paragraph, and image.",
+        tips:"Use alt text and proper heading hierarchy."
+      },
+      {
+        title:"Call-to-Action Buttons",
+        tags:[
+          {tag:"button, a", meaning:"Interactive buttons"}
+        ],
+        code:`<button>Donate</button>
+<a href="#">Join Us</a>`,
+        guidance:"Add Donate/Join buttons with styling.",
+        tips:"Ensure buttons are visible and readable."
+      },
+      {
+        title:"Responsive Styling",
+        tags:[
+          {tag:"@media, display:flex/grid", meaning:"Responsive layout"}
+        ],
+        code:`<style>
+.container { display:flex; flex-wrap:wrap; }
+@media (max-width:600px){ .container{ flex-direction:column; } }
+</style>`,
+        guidance:"Make page mobile-friendly.",
+        tips:"Test on tablet and mobile devices."
+      },
+      {
+        title:"GitHub Deployment",
+        tags:[
+          {tag:"README.md, index.html", meaning:"Deploy project"}
+        ],
+        code:`<!-- Push files to GitHub repository -->`,
+        guidance:"Push NGO landing page to GitHub Pages.",
+        tips:"Use proper commits and live link preview."
+      }
+    ]
+  },
+  {
+    name:"Level 3 – Agriculture Marketplace",
+    lessons:[
+      {
+        title:"Product Listing Table",
+        tags:[
+          {tag:"table, tr, td, th", meaning:"Organize product info"}
+        ],
+        code:`<table>
+  <tr><th>Product</th><th>Price</th></tr>
+  <tr><td>Tomatoes</td><td>$2/kg</td></tr>
+</table>`,
+        guidance:"Build products table with headers and data.",
+        tips:"Use alternating row colors for clarity."
+      },
+      {
+        title:"Add/Remove Products JS",
+        tags:[
+          {tag:"document.createElement, appendChild, removeChild", meaning:"Manipulate DOM"}
+        ],
+        code:`<script>
+const table=document.querySelector('table');
+function addProduct(name,price){
+  const row=document.createElement('tr');
+  row.innerHTML=\`<td>\${name}</td><td>\${price}</td>\`;
+  table.appendChild(row);
+}
+</script>`,
+        guidance:"Use JS to dynamically add/remove products.",
+        tips:"Keep code modular."
+      },
+      {
+        title:"Categories & Filtering",
+        tags:[
+          {tag:"select, onchange, array filter", meaning:"Filter products"}
+        ],
+        code:`<select onchange="filterCategory(this.value)">
+  <option>All</option><option>Vegetables</option>
+</select>`,
+        guidance:"Filter products by category.",
+        tips:"Show message if no items match."
+      },
+      {
+        title:"Styling & Responsive",
+        tags:[
+          {tag:"flex/grid, media queries, hover effects", meaning:"Style marketplace"}
+        ],
+        code:`<style>
+.product{display:flex; flex-wrap:wrap;}
+.product:hover{background:#f0f0f0;}
+</style>`,
+        guidance:"Make marketplace visually appealing and responsive.",
+        tips:"Test desktop, tablet, mobile layouts."
+      },
+      {
+        title:"GitHub Deployment",
+        tags:[
+          {tag:"README.md, index.html, CSS & JS files", meaning:"Final deployment"}
+        ],
+        code:`<!-- Push final marketplace files to GitHub -->`,
+        guidance:"Deploy final project to GitHub Pages.",
+        tips:"Include live link for showcase."
+      }
+    ]
+  }
+];
+
+// ===== Build Lessons =====
+const container=document.getElementById("courseContainer");
+
+levels.forEach((level,li)=>{
+  const levelDiv=document.createElement("div");
+  levelDiv.className="level";
+  if(li>0) levelDiv.classList.add("locked");
+  levelDiv.id="level"+(li+1);
+  levelDiv.innerHTML=`<h2>${level.name}</h2><div class="guidance">Complete all lessons to earn Level ${li+1} certificate (optional paid)</div>`;
+
+  level.lessons.forEach((lesson,idx)=>{
+    const lessonDiv=document.createElement("div");
+    lessonDiv.className="lesson";
+    if(idx>0) lessonDiv.classList.add("locked");
+    lessonDiv.id=`level${li+1}-lesson${idx+1}`;
+
+    // Build Tag Explanation
+    let tagHTML='<div class="tagguide"><h4>Tag Explanation & Output:</h4>';
+    lesson.tags.forEach(t=>{tagHTML+=`<p><strong>&lt;${t.tag}&gt;</strong> – ${t.meaning}</p>`;});
+    tagHTML+='</div>';
+
+    lessonDiv.innerHTML=`
+      <h3>Lesson ${idx+1} – ${lesson.title}</h3>
+      <div class="guidance">${lesson.guidance}</div>
+      ${tagHTML}
+      <div class="guidance"><h4>Code Example:</h4><pre>${lesson.code}</pre></div>
+      <div class="tips"><h4>What it Means / Tips:</h4><p>${lesson.tips}</p></div>
+      <div id="editor${li+1}-${idx+1}" style="height:350px;"></div>
+      <button onclick="runCode('${li+1}-${idx+1}')">Run Code</button>
+      <iframe id="output${li+1}-${idx+1}"></iframe>
+      <button onclick="submitLesson('${li+1}-${idx+1}')">Submit Lesson</button>
+      <button id="nextLessonBtn${li+1}-${idx+1}" style="display:none;" onclick="unlockNextLesson('${li+1}-${idx+1}')">Next Lesson →</button>
+      <button class="gitbtn" onclick="deployGitHub('${li+1}-${idx+1}')">Deploy to GitHub</button>
+      <div class="badge" id="badge${li+1}-${idx+1}">🏅 Badge Earned!</div>
+      <div class="monetize" id="monetize${li+1}-${idx+1}"></div>
+    `;
+    levelDiv.appendChild(lessonDiv);
+  });
+
+  // Certificate Button
+  const certDiv=document.createElement("div");
+  certDiv.className="lesson locked";
+  certDiv.id=`level${li+1}-certificate`;
+  certDiv.innerHTML=`
+    <button class="certificate-btn" onclick="payCertificate(${li+1})">Get Level ${li+1} Certificate (Optional Paid)</button>
+    <div class="badge" id="badge${li+1}">🎉 Level ${li+1} Completed!</div>
+  `;
+  levelDiv.appendChild(certDiv);
+
+  container.appendChild(levelDiv);
+});
+
+// ===== Monaco Editor =====
+require.config({paths:{vs:'https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs'}});
+require(['vs/editor/editor.main'],function(){
+  window.editors=[];
+  levels.forEach((level,li)=>{
+    level.lessons.forEach((lesson,idx)=>{
+      const id=`${li+1}-${idx+1}`;
+      window.editors[id]=monaco.editor.create(document.getElementById("editor"+id),{
+        value:`<!-- Start coding here for ${lesson.title} -->`,
+        language:'html',
+        theme:'vs-dark'
+      });
+    });
+  });
+});
+
+// ===== Functions =====
+function runCode(id){document.getElementById("output"+id).srcdoc=editors[id].getValue();}
+function submitLesson(id){
+  const code=editors[id].getValue();
+  if(!code.trim()){alert("Write code before submitting!"); return;}
+  document.getElementById(`badge${id}`).style.display='block';
+  const monetizeBox=document.getElementById(`monetize${id}`);
+  monetizeBox.style.display='block';
+  monetizeBox.innerHTML=`💡 <strong>Monetization Tip:</strong> Showcase this project, sell templates, or freelance locally.`;
+  alert(`Lesson ${id} submitted! Badge earned. Next Lesson button now available.`);
+  const nextBtn=document.getElementById(`nextLessonBtn${id}`);
+  if(nextBtn) nextBtn.style.display='inline-block';
+}
+function unlockNextLesson(id){
+  const [level,lesson]=id.split('-').map(Number);
+  const nextLessonEl=document.getElementById(`level${level}-lesson${lesson+1}`);
+  if(nextLessonEl) nextLessonEl.classList.remove('locked');
+  else document.getElementById(`level${level}-certificate`).classList.remove('locked');
+  alert(`Lesson ${lesson+1} unlocked! Continue building your project.`);
+}
+function deployGitHub(id){alert(`Deploying lesson ${id} to GitHub. Push your files manually.`);}
+function payCertificate(level){
+  const paymentURL=`https://store.pesapal.com/embed-code?pageUrl=https://store.pesapal.com/level${level}`;
+  document.getElementById("paymentContainer").innerHTML=`
+    <iframe src="${paymentURL}" width="400" height="60" frameborder="0" allowfullscreen></iframe>
+  `;
+  alert(`Payment window loaded. Complete payment to receive verified certificate.`);
+}
+</script>
+</body>
+</html>
