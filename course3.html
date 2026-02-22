@@ -1,131 +1,148 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>COURSE 3 – CODEON</title>
-
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Level 3 – CodeOn Academy</title>
 
 <style>
-body{font-family:Arial;background:#f4f4f4;text-align:center;padding:30px}
-.lesson{background:white;padding:20px;margin:20px auto;width:500px}
-.certificate{display:none;background:white;padding:30px;border:5px solid black;margin-top:20px}
-button{padding:10px 20px;background:black;color:white;border:none;cursor:pointer}
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: white;
+  text-align: center;
+}
+
+.container {
+  padding: 50px 20px;
+  max-width: 900px;
+  margin: auto;
+}
+
+h1 {
+  font-size: 34px;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  opacity: 0.8;
+  margin-bottom: 30px;
+}
+
+.card {
+  background: rgba(255,255,255,0.08);
+  padding: 30px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  margin-top: 20px;
+}
+
+button {
+  padding: 14px 28px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: 0.3s;
+}
+
+.pay-btn {
+  background: gold;
+  color: black;
+  font-weight: bold;
+}
+
+.pay-btn:hover {
+  background: orange;
+}
+
+.logout-btn {
+  background: crimson;
+  color: white;
+}
+
+footer {
+  margin-top: 60px;
+  padding: 20px;
+  background: rgba(0,0,0,0.3);
+  font-size: 14px;
+}
 </style>
+
+<script>
+window.onload = function() {
+
+  const params = new URLSearchParams(window.location.search);
+  const paid = params.get("paid");
+
+  const paymentSection = document.getElementById("paymentSection");
+  const courseSection = document.getElementById("courseSection");
+
+  if (paid === "true") {
+      localStorage.setItem("level3Access", "granted");
+      paymentSection.style.display = "none";
+      courseSection.style.display = "block";
+  }
+  else if (localStorage.getItem("level3Access") === "granted") {
+      paymentSection.style.display = "none";
+      courseSection.style.display = "block";
+  }
+  else {
+      paymentSection.style.display = "block";
+      courseSection.style.display = "none";
+  }
+}
+
+function logout(){
+  localStorage.removeItem("level3Access");
+  window.location.href = "index.html";
+}
+</script>
+
 </head>
 <body>
 
-<h2>COURSE 3 – Advanced Projects</h2>
-<div id="accessMessage"></div>
+<div class="container">
 
-<div id="courseContent" style="display:none">
+<h1>Level 3 – Advanced Programming</h1>
+<p class="subtitle">Premium Access – UGX 50,000</p>
 
-<div class="lesson">
-<h3>Final Project</h3>
-<p>Create a SACCO website</p>
-<button onclick="completeCourse()">Submit Project</button>
+<!-- PAYMENT SECTION -->
+<div id="paymentSection" class="card">
+  <h2>Payment Required</h2>
+  <p>You must complete payment to access this premium course.</p>
+
+  <button class="pay-btn"
+    onclick="window.location.href='https://store.pesapal.com/level3'">
+    Pay with Pesapal
+  </button>
+</div>
+
+<!-- COURSE CONTENT -->
+<div id="courseSection" class="card" style="display:none;">
+  <h2>Welcome to Level 3 🎉</h2>
+
+  <p>You now have full access to the advanced modules.</p>
+
+  <ul style="text-align:left; display:inline-block;">
+    <li>Advanced Web Development</li>
+    <li>Firebase Integration</li>
+    <li>Backend Concepts</li>
+    <li>Deployment & Security</li>
+  </ul>
+
+  <br>
+  <button class="logout-btn" onclick="logout()">Logout</button>
 </div>
 
 </div>
 
-<div id="certificate" class="certificate">
-<h2>Certificate of Completion</h2>
-<p>Name: <span id="certName"></span></p>
-<p>Level: Level 3</p>
-<p>ID: <span id="certID"></span></p>
-<p>Signature: <span id="certHash"></span></p>
-<div id="qrcode"></div>
-<button onclick="downloadPDF()">Download PDF</button>
-</div>
-
-<script>
-// Firebase
-const firebaseConfig = {
-  apiKey: "AIzaSyD_LR9Kllj7hoKTiJAaSxyHglSO6r5gh-g",
-  authDomain: "codeon-3cb1c.firebaseapp.com",
-  projectId: "codeon-3cb1c",
-  storageBucket: "codeon-3cb1c.appspot.com",
-  messagingSenderId: "730172148868",
-  appId: "1:730172148868:web:2c712c8124be40019506d1"
-};
-
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-
-// 🔒 ACCESS CONTROL
-const email = localStorage.getItem("codeonUser");
-
-if(!email){
-document.getElementById("accessMessage").innerHTML = "Access Denied. Please enroll first.";
-}
-else{
-
-db.collection("students").where("email","==",email).get()
-.then(snapshot=>{
-if(snapshot.empty){
-document.getElementById("accessMessage").innerHTML = "User not found.";
-return;
-}
-
-snapshot.forEach(doc=>{
-if(doc.data().paid){
-document.getElementById("courseContent").style.display="block";
-}
-else{
-document.getElementById("accessMessage").innerHTML = "Payment Required.";
-}
-});
-});
-}
-
-// 🎓 COMPLETE COURSE
-async function completeCourse(){
-
-const snapshot = await db.collection("students")
-.where("email","==",email).get();
-
-snapshot.forEach(async doc=>{
-
-const name = doc.data().name;
-
-const id = "CODEON-"+Date.now();
-const raw = name+"Level3"+id;
-
-const hashBuffer = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(raw));
-const hashArray = Array.from(new Uint8Array(hashBuffer));
-const hash = hashArray.map(b=>b.toString(16).padStart(2,"0")).join("").substring(0,16);
-
-// Save certificate
-await db.collection("certificates").doc(id).set({
-name,
-level:"Level 3",
-id,
-hash
-});
-
-// Show certificate
-document.getElementById("certName").innerText = name;
-document.getElementById("certID").innerText = id;
-document.getElementById("certHash").innerText = hash;
-document.getElementById("certificate").style.display="block";
-
-new QRCode(document.getElementById("qrcode"),{
-text: window.location.href+"?verify="+id,
-width:120,
-height:120
-});
-
-});
-
-}
-
-function downloadPDF(){
-html2pdf().from(document.getElementById("certificate")).save();
-}
-</script>
+<footer>
+© 2026 CodeOn Academy | Kampala, Uganda | All Rights Reserved
+</footer>
 
 </body>
 </html>
