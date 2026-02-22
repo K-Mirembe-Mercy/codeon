@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course 1 – HTML Foundations | CODEON</title>
+
+<script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs/loader.js"></script>
+
+<style>
+body{
+font-family:Arial;
+margin:0;
+background:#f4f4f4;
+}
+
+header{
+background:#111;
+color:white;
+padding:20px;
+text-align:center;
+}
+
+.lesson{
+background:white;
+max-width:900px;
+margin:20px auto;
+padding:25px;
+border-radius:6px;
+}
+
+.locked{
+opacity:0.5;
+pointer-events:none;
+}
+
+button{
+padding:10px 20px;
+background:#111;
+color:white;
+border:none;
+cursor:pointer;
+margin-top:10px;
+}
+
+button:hover{
+background:#333;
+}
+
+#editor{
+height:300px;
+border:1px solid #ccc;
+margin-top:10px;
+}
+
+iframe{
+width:100%;
+height:200px;
+border:1px solid black;
+margin-top:10px;
+}
+
+.complete{
+color:green;
+font-weight:bold;
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>Course 1 – HTML + Deployment</h1>
+<p>You must complete each lesson to unlock the next.</p>
+</header>
+
+<!-- LESSON 1 -->
+<div class="lesson" id="lesson1">
+<h2>Lesson 1 – HTML Structure</h2>
+
+<h3>Understanding the Code</h3>
+<p><b>&lt;!DOCTYPE html&gt;</b> tells browser this is HTML5.</p>
+<p><b>&lt;html&gt;</b> is the root of the page.</p>
+<p><b>&lt;head&gt;</b> contains hidden info.</p>
+<p><b>&lt;body&gt;</b> contains visible content.</p>
+
+<h3>Your Task</h3>
+<p>Change "Your Name" to your real name.</p>
+
+<div id="editor"></div>
+
+<button onclick="runCode()">Run Code</button>
+<button onclick="checkLesson1()">Submit Lesson 1</button>
+
+<iframe id="output"></iframe>
+
+<p id="status1"></p>
+</div>
+
+<!-- LESSON 2 -->
+<div class="lesson locked" id="lesson2">
+<h2>Lesson 2 – Headings & Paragraphs</h2>
+
+<h3>Understanding the Code</h3>
+<p><b>&lt;h1&gt;</b> is main heading.</p>
+<p><b>&lt;p&gt;</b> creates a paragraph.</p>
+
+<p>Add an &lt;h1&gt; and a &lt;p&gt; inside body.</p>
+
+<button onclick="unlockNext(2)">Unlock Lesson 2</button>
+</div>
+
+<!-- LESSON 3 -->
+<div class="lesson locked" id="lesson3">
+<h2>Lesson 3 – Images</h2>
+<p><b>&lt;img&gt;</b> displays images.</p>
+<button onclick="unlockNext(3)">Unlock Lesson 3</button>
+</div>
+
+<!-- LESSON 4 -->
+<div class="lesson locked" id="lesson4">
+<h2>Lesson 4 – Sections</h2>
+<p><b>&lt;section&gt;</b> organizes content.</p>
+<button onclick="unlockNext(4)">Unlock Lesson 4</button>
+</div>
+
+<!-- LESSON 5 -->
+<div class="lesson locked" id="lesson5">
+<h2>Lesson 5 – Multi-Page Website</h2>
+<p>Create index.html and about.html and link them.</p>
+<p class="complete">🎉 Final Mission: Deploy using GitHub Pages.</p>
+</div>
+
+<script>
+require.config({ paths: { vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs' }});
+require(['vs/editor/editor.main'], function() {
+
+window.editor = monaco.editor.create(document.getElementById('editor'), {
+value: `<!DOCTYPE html>
+<html>
+<head>
+<title>My First Website</title>
+</head>
+<body>
+
+<h1>Your Name</h1>
+<p>I want to become a Developer.</p>
+
+</body>
+</html>`,
+language: 'html',
+theme: 'vs-dark'
+});
+
+});
+
+function runCode(){
+const code = editor.getValue();
+document.getElementById("output").srcdoc = code;
+}
+
+function checkLesson1(){
+const code = editor.getValue();
+
+if(code.includes("<h1>") && !code.includes("Your Name")){
+document.getElementById("status1").innerHTML="✅ Lesson 1 Complete! Lesson 2 unlocked.";
+document.getElementById("lesson2").classList.remove("locked");
+localStorage.setItem("lesson1Complete","true");
+}else{
+document.getElementById("status1").innerHTML="❌ Please change 'Your Name' before submitting.";
+}
+}
+
+function unlockNext(num){
+document.getElementById("lesson"+(num+1)).classList.remove("locked");
+}
+</script>
+
+</body>
+</html>
