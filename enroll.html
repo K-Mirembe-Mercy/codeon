@@ -3,270 +3,96 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CODEON Uganda | Enroll</title>
-
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
+<title>Enroll – CODEON Uganda</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-  font-family:'Poppins',sans-serif;
-  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-  color:white;
-}
-
-/* Header */
-header{
-  text-align:center;
-  padding:40px 20px;
-}
-header h1{
-  font-size:32px;
-  font-weight:700;
-}
-header p{
-  font-size:16px;
-  opacity:0.8;
-}
-
-/* Enrollment Card */
-.enroll-container{
-  max-width:500px;
-  margin:40px auto;
-  background:white;
-  color:#333;
-  padding:40px;
-  border-radius:15px;
-  box-shadow:0 15px 35px rgba(0,0,0,0.3);
-}
-
-.enroll-container h2{
-  text-align:center;
-  margin-bottom:25px;
-  font-weight:600;
-}
-
-input,select{
-  width:100%;
-  padding:12px;
-  margin:10px 0;
-  border-radius:8px;
-  border:1px solid #ccc;
-  font-size:14px;
-}
-
-button{
-  width:100%;
-  padding:14px;
-  background:#111;
-  color:white;
-  border:none;
-  border-radius:8px;
-  font-weight:600;
-  cursor:pointer;
-  transition:0.3s;
-}
-
-button:hover{
-  background:#444;
-}
-
-/* Info Section */
-.info{
-  max-width:900px;
-  margin:60px auto;
-  padding:0 20px;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:40px;
-}
-
-.info div{
-  background:rgba(255,255,255,0.1);
-  padding:25px;
-  border-radius:10px;
-}
-
-.info h3{
-  margin-bottom:10px;
-  font-weight:600;
-}
-
-/* Footer */
-footer{
-  text-align:center;
-  padding:30px 20px;
-  background:#000;
-  margin-top:60px;
-  font-size:14px;
-}
-
-/* Responsive */
-@media(max-width:768px){
-  .info{
-    grid-template-columns:1fr;
-  }
-  header h1{
-    font-size:26px;
-  }
-}
+body { font-family: 'Segoe UI', sans-serif; margin:0; background:#0f2027; color:white; }
+header{background:#111; color:white; padding:15px; text-align:center;}
+nav{background:#222; padding:10px; text-align:center;}
+nav a{color:white; margin:0 15px; text-decoration:none; font-weight:bold;}
+.container { max-width:600px; margin:50px auto; padding:25px; background: rgba(255,255,255,0.05); border-radius:10px; }
+h1 { text-align:center; margin-bottom:20px; }
+input, select { width:100%; padding:12px; margin:10px 0; border-radius:5px; border:none; font-size:16px; }
+button { width:100%; padding:14px; margin-top:15px; background: gold; color:black; font-weight:bold; border:none; border-radius:8px; cursor:pointer; font-size:16px; }
+button:hover { background:orange; }
+p.note { font-size:14px; opacity:0.8; text-align:center; margin-top:15px; }
+footer{background:#111;color:white;text-align:center;padding:20px;margin-top:50px;}
+@media(max-width:600px){.container{margin:20px;padding:20px;}}
 </style>
 </head>
 <body>
 
 <header>
-<h1>CODEON Uganda</h1>
-<p>Code Your Future</p>
+  <h1>CODEON Uganda</h1>
+  <p>Code Your Future</p>
 </header>
 
-<div class="enroll-container">
-<h2>Enroll Now</h2>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="enroll.html">Enroll</a>
+  <a href="verify.html">Verify Certificate</a>
+</nav>
 
-<input type="text" id="name" placeholder="Full Name">
-<input type="email" id="email" placeholder="Email">
+<div class="container">
+  <h1>Enroll at CODEON Uganda</h1>
 
-<select id="level">
-<option value="Level 1">Level 1 – Free</option>
-<option value="Level 2">Level 2 – Free</option>
-<option value="Level 3">Level 3 – UGX 50,000</option>
-</select>
+  <input type="text" id="name" placeholder="Full Name" required>
+  <input type="email" id="email" placeholder="Email Address" required>
 
-<button onclick="enroll()">Enroll Now</button>
-</div>
+  <select id="level">
+    <option value="">Select Level</option>
+    <option value="Level 1">Level 1 – Free (HTML, CSS, Git Basics)</option>
+    <option value="Level 2">Level 2 – Free (JavaScript & GitHub Collaboration)</option>
+    <option value="Level 3">Level 3 – UGX 50,000 (Advanced & Industry Preparation)</option>
+  </select>
 
-<div class="info">
+  <button onclick="enroll()">Enroll Now</button>
 
-<div>
-<h3>WHO'S CODEON FOR?</h3>
-<p>
-Secondary school students (S1–S6)<br>
-Schools with computer labs<br>
-Students interested in technology<br>
-Beginners with no coding experience
-</p>
-</div>
+  <p class="note">Level 3 requires payment via Pesapal. After payment, you will be redirected to Course 3 automatically.</p>
 
-<div>
-<h3>WHY PARTNER WITH CODEON?</h3>
-<p>
-No cost to the school<br>
-Uses existing computer lab<br>
-Structured curriculum<br>
-Improves school innovation profile<br>
-Students receive certificates
-</p>
-</div>
+  <h3>WHO'S CODEON FOR?</h3>
+  <p>Secondary school students (S1–S6)<br>
+     Schools with computer labs<br>
+     Students interested in technology<br>
+     Beginners with no coding experience</p>
 
+  <h3>WHY PARTNER WITH CODEON?</h3>
+  <p>No cost to the school<br>
+     Uses existing computer lab<br>
+     Structured curriculum<br>
+     Improves school innovation profile<br>
+     Students receive certificates</p>
 </div>
 
 <footer>
-© 2026 CODEON Uganda | Empowering Uganda Through Technology
+  © 2026 CODEON Uganda
 </footer>
 
 <script>
-// Firebase Config
-const firebaseConfig = {
-  apiKey: "AIzaSyD_LR9Kllj7hoKTiJAaSxyHglSO6r5gh-g",
-  authDomain: "codeon-3cb1c.firebaseapp.com",
-  projectId: "codeon-3cb1c",
-  storageBucket: "codeon-3cb1c.appspot.com",
-  messagingSenderId: "730172148868",
-  appId: "1:730172148868:web:2c712c8124be40019506d1"
-};
-
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-
-async function enroll(){
-
-const name = document.getElementById("name").value.trim();
-const email = document.getElementById("email").value.trim();
-const level = document.getElementById("level").value;
-
-if(!name || !email){
-alert("Please fill all fields");
-return;
-}
-
-const docRef = await db.collection("students").add({
-name,
-email,
-level,
-paid: level === "Level 3" ? false : true,
-createdAt: new Date()
-});
-
-localStorage.setItem("codeonUser", email);
-
-if(level === "Level 1"){
-window.location.href="level1.html";
-return;
-}
-
-if(level === "Level 2"){
-window.location.href="level2.html";
-return;
-}
-
-if(level === "Level 3"){
-
-const paymentWindow = window.open(
-"https://store.pesapal.com/level3",
-"_blank",
-"width=600,height=700"
-);
-
-const checkPayment = setInterval(async function(){
-
-if(paymentWindow.closed){
-clearInterval(checkPayment);
-
-await db.collection("students").doc(docRef.id).update({
-paid:true
-});
-
-alert("Payment Successful! Welcome to Level 3.");
-
-window.location.href="level3.html";
-}
-
-},1000);
-}
-
 function enroll() {
   const name = document.getElementById("name").value.trim();
   const email = document.getElementById("email").value.trim();
   const level = document.getElementById("level").value;
 
-  if (!name || !email) {
-    alert("Please fill all fields!");
+  if(!name || !email || !level){
+    alert("Please fill all fields and select a level!");
     return;
   }
 
-  // Store the student's info in localStorage for use later
+  // Save student info to localStorage for course pages
   localStorage.setItem("studentName", name);
   localStorage.setItem("studentEmail", email);
+  localStorage.setItem("studentLevel", level);
 
-  if (level === "Level 1") {
+  if(level === "Level 1"){
     window.location.href = "course1.html";
-  } 
-  else if (level === "Level 2") {
+  } else if(level === "Level 2"){
     window.location.href = "course2.html";
-  } 
-  else if (level === "Level 3") {
+  } else if(level === "Level 3"){
     // Redirect to Pesapal payment
-    // After payment, you can have Pesapal redirect back to course3.html
-    // Example: course3.html?paid=true
     window.location.href = "https://store.pesapal.com/level3";
   }
 }
-}
-  </script>
+</script>
+
+</body>
 </html>
-
-
