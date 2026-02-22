@@ -242,4 +242,21 @@ window.location.href="level3.html";
 </script>
 
 </body>
+  <script>
+function enroll() {
+  const level = document.getElementById("level").value;
+
+  if (level === "Level 1") {
+    window.location.href = "course1.html";
+  } 
+  else if (level === "Level 2") {
+    window.location.href = "course2.html";
+  } 
+  else if (level === "Level 3") {
+    // Redirect to Pesapal payment page first
+    window.location.href = "https://store.pesapal.com/level3";
+  }
+}
+  </script>
 </html>
+
