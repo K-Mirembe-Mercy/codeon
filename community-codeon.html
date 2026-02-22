@@ -2,183 +2,165 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CODEON Community Arena</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CODEON Africa Championship</title>
 
-<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
 <style>
-:root{
-  --bg:#f4f4f4;
-  --text:#111;
-  --card:#ffffff;
-}
-
-body.dark{
-  --bg:#121212;
-  --text:#ffffff;
-  --card:#1e1e1e;
-}
-
 body{
-  margin:0;
   font-family:Arial;
-  background:var(--bg);
-  color:var(--text);
+  margin:0;
+  background:#f4f4f4;
   transition:0.3s;
 }
-
-header{
-  background:#000;
-  color:white;
-  padding:20px;
-  text-align:center;
-}
-
-section{
-  background:var(--card);
-  margin:20px;
-  padding:20px;
-  border-radius:12px;
-}
-
-button{
-  padding:8px 15px;
-  border:none;
-  border-radius:6px;
-  cursor:pointer;
+.dark{
   background:#111;
   color:white;
 }
-
-button:hover{background:#333}
-
-input,textarea,select{
-  width:100%;
-  padding:8px;
-  margin:6px 0;
-}
-
-/* Animated Badges */
-.badge{
-  display:inline-block;
-  padding:6px 14px;
-  border-radius:20px;
-  font-weight:bold;
-  margin:5px;
-  animation:glow 2s infinite alternate;
-}
-
-@keyframes glow{
-  from{box-shadow:0 0 5px rgba(0,0,0,0.3);}
-  to{box-shadow:0 0 20px rgba(0,150,255,0.8);}
-}
-
-.bronze{background:#cd7f32;color:white;}
-.silver{background:#c0c0c0;color:black;}
-.gold{background:#ffd700;color:black;}
-.champion{background:#00e5ff;color:black;}
-
-#certificate{
-  display:none;
-  background:white;
-  color:black;
-  padding:40px;
-  border:8px solid black;
+header{
+  background:black;
+  color:white;
+  padding:15px;
   text-align:center;
-  margin:20px;
 }
+button{
+  padding:8px 15px;
+  margin:5px;
+  cursor:pointer;
+}
+textarea{
+  width:100%;
+  height:150px;
+}
+section{
+  padding:20px;
+}
+.leader-row{
+  display:flex;
+  justify-content:space-between;
+  padding:6px;
+  border-bottom:1px solid #ccc;
+  transition:0.3s;
+}
+.leader-row:hover{transform:scale(1.02);}
+.highlight{
+  background:gold;
+}
+.badge{
+  padding:3px 6px;
+  border-radius:4px;
+  font-size:12px;
+  animation:pulse 1s infinite;
+}
+.gold{background:gold;}
+.silver{background:silver;}
+.bronze{background:#cd7f32;color:white;}
+@keyframes pulse{
+  0%{opacity:1;}
+  50%{opacity:0.6;}
+  100%{opacity:1;}
+}
+.card{
+  background:white;
+  padding:15px;
+  margin-bottom:15px;
+  border-radius:8px;
+}
+.dark .card{background:#222;}
 </style>
 </head>
 <body>
 
 <header>
-<h1>🚀 CODEON Community Arena</h1>
-<button onclick="toggleMode()">Toggle Dark / Light</button>
-
-<nav>
-<a href="index.html">Home</a>
-<a href="enroll.html">Enroll</a>
-<a href="verify.html">Verify Certificate</a>
-<a href="community-codeon.html">Community</a>
-</nav>
+<h1>🌍 CODEON Africa Championship</h1>
+<button onclick="toggleMode()">Toggle Dark/Light</button>
+<button onclick="logout()">Logout</button>
 </header>
+
 <section id="authSection">
-<h2>Sign Up / Login</h2>
-<input type="email" id="email" placeholder="Email">
-<input type="password" id="password" placeholder="Password">
+<h2>Login / Sign Up</h2>
+<input type="email" id="email" placeholder="Email"><br>
+<input type="password" id="password" placeholder="Password"><br>
+<input type="text" id="school" placeholder="School Name"><br>
+<select id="country">
+<option value="Uganda">Uganda</option>
+<option value="Kenya">Kenya</option>
+<option value="Nigeria">Nigeria</option>
+<option value="Ghana">Ghana</option>
+<option value="South Africa">South Africa</option>
+</select><br>
 <button onclick="signup()">Sign Up</button>
 <button onclick="login()">Login</button>
 </section>
 
-<section id="mainContent" style="display:none;">
+<section id="main" style="display:none;">
 
-<h2>Submit Project</h2>
-<input type="text" id="title" placeholder="Project Title">
-<input type="text" id="link" placeholder="GitHub Pages Link">
-<textarea id="description" placeholder="Project Description"></textarea>
-<button onclick="submitProject()">Submit</button>
+<div class="card">
+<h2>🔥 Weekly Challenge</h2>
+<p>Build a landing page for a tech startup.</p>
+<textarea id="challengeCode"></textarea>
+<button onclick="submitChallenge()">Submit Challenge</button>
+</div>
 
-<h2>AI Code Scoring</h2>
-<textarea id="codeInput" placeholder="Paste HTML code here"></textarea>
-<button onclick="analyzeCode()">Analyze</button>
-<div id="feedback"></div>
+<div class="card">
+<h2>🤝 Peer Review</h2>
+<textarea id="reviewText" placeholder="Write review here..."></textarea>
+<button onclick="submitReview()">Submit Review</button>
+</div>
 
-<h2>🏆 Live Leaderboard</h2>
+<div class="card">
+<h2>🏆 Africa Leaderboard</h2>
 <div id="leaderboard"></div>
+</div>
 
-<h2>🏅 Project of the Week</h2>
-<div id="winner"></div>
+<div class="card">
+<h2>🏫 School Championship</h2>
+<div id="schoolBoard"></div>
+</div>
 
-<button onclick="logout()">Logout</button>
+<div class="card">
+<h2>🌍 Country Championship</h2>
+<div id="countryBoard"></div>
+</div>
+
+<div class="card">
+<h2>📜 Certificate</h2>
+<div id="certificate"></div>
+</div>
 
 </section>
 
-<div id="certificate">
-<h1>CODEON Uganda</h1>
-<h2>Excellence Certificate</h2>
-<p>This certifies that</p>
-<h2 id="certName"></h2>
-<p>Achieved Rank <span id="certRank"></span></p>
-<p>ID: <span id="certID"></span></p>
-</div>
-
 <script>
-
-// 🔥 YOUR REAL FIREBASE CONFIG
+// 🔥 FIREBASE CONFIG
 const firebaseConfig = {
   apiKey: "AIzaSyD_LR9Kllj7hoKTiJAaSxyHglSO6r5gh-g",
   authDomain: "codeon-3cb1c.firebaseapp.com",
-  projectId: "codeon-3cb1c",
-  storageBucket: "codeon-3cb1c.firebasestorage.app",
-  messagingSenderId: "730172148868",
-  appId: "1:730172148868:web:2c712c8124be40019506d1",
-  measurementId: "G-EBR3S0M396"
+  projectId: "codeon-3cb1c"
 };
-
 firebase.initializeApp(firebaseConfig);
 const auth=firebase.auth();
 const db=firebase.firestore();
 
 let currentUser=null;
 
-// DARK MODE
-function toggleMode(){
-  document.body.classList.toggle("dark");
-}
-
 // AUTH
 function signup(){
   auth.createUserWithEmailAndPassword(email.value,password.value)
-  .catch(e=>alert(e.message));
+  .then(user=>{
+    db.collection("users").doc(user.user.uid).set({
+      email:email.value,
+      school:school.value,
+      country:country.value,
+      points:0
+    });
+  });
 }
 
 function login(){
-  auth.signInWithEmailAndPassword(email.value,password.value)
-  .catch(e=>alert(e.message));
+  auth.signInWithEmailAndPassword(email.value,password.value);
 }
 
 function logout(){
@@ -189,107 +171,115 @@ auth.onAuthStateChanged(user=>{
   if(user){
     currentUser=user;
     authSection.style.display="none";
-    mainContent.style.display="block";
-    loadLeaderboard();
+    main.style.display="block";
+    loadBoards();
   }else{
     authSection.style.display="block";
-    mainContent.style.display="none";
+    main.style.display="none";
   }
 });
 
-// SUBMIT PROJECT
-async function submitProject(){
-  if(!currentUser){alert("Login first");return;}
+// WEEKLY CHALLENGE SUBMIT
+function submitChallenge(){
+  let code=challengeCode.value;
 
-  await db.collection("submissions").add({
-    uid:currentUser.uid,
-    email:currentUser.email,
-    title:title.value,
-    link:link.value,
-    description:description.value,
-    points:0,
-    voters:[],
-    createdAt:new Date()
+  // AI scoring simulation
+  let score = Math.floor(Math.random()*50)+50;
+
+  db.collection("users").doc(currentUser.uid).update({
+    points: firebase.firestore.FieldValue.increment(score)
   });
 
-  alert("Project Submitted!");
+  alert("AI Score: "+score+" points awarded!");
+  generateCertificate(score);
 }
 
-// LIVE LEADERBOARD
-function loadLeaderboard(){
-  db.collection("submissions")
-  .orderBy("points","desc")
-  .limit(10)
-  .onSnapshot(snapshot=>{
-    let html="";
-    let rank=1;
+// PEER REVIEW
+function submitReview(){
+  db.collection("reviews").add({
+    text:reviewText.value,
+    user:currentUser.email
+  });
+  alert("Review Submitted!");
+}
 
+// LEADERBOARDS
+function loadBoards(){
+  db.collection("users").onSnapshot(snapshot=>{
+    let users=[];
     snapshot.forEach(doc=>{
-      const d=doc.data();
-      html+=`${rank}. ${d.email} - ${d.points} pts ${badge(d.points)}<br>`;
-
-      if(rank<=3){
-        generateCertificate(d.email,rank);
-      }
-
-      rank++;
+      users.push(doc.data());
     });
 
-    leaderboard.innerHTML=html;
-    loadWinner();
+    users.sort((a,b)=>b.points-a.points);
+
+    renderAfrica(users);
+    renderSchool(users);
+    renderCountry(users);
   });
 }
 
-// BADGES
-function badge(points){
-  if(points>=100) return "<span class='badge gold'>Gold</span>";
-  if(points>=50) return "<span class='badge silver'>Silver</span>";
-  if(points>=20) return "<span class='badge bronze'>Bronze</span>";
-  return "";
-}
+function renderAfrica(users){
+  let html="";
+  users.slice(0,30).forEach((u,i)=>{
+    let badge="";
+    if(u.points>200) badge="<span class='badge gold'>Gold</span>";
+    else if(u.points>100) badge="<span class='badge silver'>Silver</span>";
+    else badge="<span class='badge bronze'>Bronze</span>";
 
-// WINNER
-function loadWinner(){
-  db.collection("submissions")
-  .orderBy("points","desc")
-  .limit(1)
-  .onSnapshot(snapshot=>{
-    snapshot.forEach(doc=>{
-      const d=doc.data();
-      winner.innerHTML=`${d.title} - ${d.email} (${d.points} pts)
-      <span class="badge champion">Champion</span>`;
-    });
+    html+=`<div class="leader-row">
+      ${i+1}. ${u.email} - ${u.points} pts ${badge}
+    </div>`;
   });
+  leaderboard.innerHTML=html;
 }
 
-// AI CODE SCORING
-function analyzeCode(){
-  const code=codeInput.value;
-  let score=0;
-  let feedbackText="";
+function renderSchool(users){
+  let grouped={};
+  users.forEach(u=>{
+    grouped[u.school]=(grouped[u.school]||0)+u.points;
+  });
 
-  if(code.includes("<title>")) score+=10;
-  else feedbackText+="Missing <title><br>";
+  let arr=Object.entries(grouped);
+  arr.sort((a,b)=>b[1]-a[1]);
 
-  if(code.includes("viewport")) score+=10;
-  else feedbackText+="Missing viewport meta<br>";
+  let html="";
+  arr.forEach((s,i)=>{
+    html+=`<div>${i+1}. ${s[0]} - ${s[1]} pts</div>`;
+  });
+  schoolBoard.innerHTML=html;
+}
 
-  if(code.includes("<header>")) score+=10;
-  if(code.includes("<section>")) score+=10;
-  if(code.includes("<footer>")) score+=10;
-  if(code.includes("<style>")) score+=10;
+function renderCountry(users){
+  let grouped={};
+  users.forEach(u=>{
+    grouped[u.country]=(grouped[u.country]||0)+u.points;
+  });
 
-  feedback.innerHTML=feedbackText+"Score: "+score+"/60";
+  let arr=Object.entries(grouped);
+  arr.sort((a,b)=>b[1]-a[1]);
+
+  let html="";
+  arr.forEach((c,i)=>{
+    html+=`<div>${i+1}. ${c[0]} - ${c[1]} pts</div>`;
+  });
+  countryBoard.innerHTML=html;
 }
 
 // CERTIFICATE
-function generateCertificate(name,rank){
-  certName.innerText=name;
-  certRank.innerText=rank;
-  certID.innerText="CODEON-"+Date.now();
-  certificate.style.display="block";
+function generateCertificate(score){
+  certificate.innerHTML=`
+    <h3>CODEON Africa Championship Certificate</h3>
+    <p>${currentUser.email}</p>
+    <p>Awarded ${score} Championship Points</p>
+  `;
 }
 
+// DARK MODE
+function toggleMode(){
+  document.body.classList.toggle("dark");
+}
 </script>
+
 </body>
 </html>
