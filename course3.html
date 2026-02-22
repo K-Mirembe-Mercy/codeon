@@ -1,183 +1,129 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Course 3 – Advanced Projects | CODEON Uganda</title>
+<title>Level 3 – CODEON</title>
 
-<!-- Monaco Editor -->
-<script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs/loader.js"></script>
-<!-- QR + PDF -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <style>
-body{font-family:Arial;background:#f4f4f4;margin:0;padding:0;}
-header{background:#2e7d32;color:white;padding:20px;text-align:center;}
-.level, .lesson{background:white;max-width:900px;margin:20px auto;padding:20px;border-radius:10px;box-shadow:0 3px 6px rgba(0,0,0,0.1);}
-.locked{opacity:0.5;pointer-events:none;}
-textarea{width:100%;height:200px;margin-top:10px;padding:10px;font-family:monospace;border-radius:5px;border:1px solid #ccc;}
-button{padding:10px 15px;margin-top:10px;border:none;border-radius:5px;background:#2e7d32;color:white;cursor:pointer;}
-button:hover{background:#1b5e20;}
-iframe{width:100%;height:250px;border:1px solid #ccc;margin-top:10px;border-radius:5px;}
-.badge{display:none;margin-top:10px;padding:10px;background:#ffd700;color:black;font-weight:bold;border-radius:5px;text-align:center;}
-.certificate{display:none;background:white;padding:30px;border:5px solid #2e7d32;border-radius:10px;text-align:center;margin:20px auto;max-width:500px;}
-#qrcode{margin-top:10px;}
-.enrollForm{max-width:500px;margin:20px auto;background:white;padding:20px;border-radius:10px;box-shadow:0 3px 6px rgba(0,0,0,0.1);}
+body{font-family:Arial;background:#f4f4f4;text-align:center;padding:30px}
+.lesson{background:white;padding:20px;margin:20px auto;width:500px}
+.certificate{display:none;background:white;padding:30px;border:5px solid black;margin-top:20px}
+button{padding:10px 20px;background:black;color:white;border:none;cursor:pointer}
 </style>
 </head>
 <body>
 
-<header>
-<h1>Course 3 – Advanced Projects</h1>
-<p>Build SACCO websites, NGO landing pages & Agriculture marketplace</p>
-</header>
+<h2>Level 3 – Advanced Projects</h2>
+<div id="accessMessage"></div>
 
-<!-- Enrollment -->
-<div class="enrollForm" id="enrollSection">
-<h2>Enroll for Course 3</h2>
-<input type="text" id="studentNameInput" placeholder="Full Name">
-<input type="email" id="studentEmailInput" placeholder="Email">
-<button id="enrollBtn">Enroll & Pay UGX 50,000</button>
+<div id="courseContent" style="display:none">
+
+<div class="lesson">
+<h3>Final Project</h3>
+<p>Create a SACCO website</p>
+<button onclick="completeCourse()">Submit Project</button>
 </div>
 
-<!-- Course Lessons -->
-<div id="courseContainer" style="display:none;"></div>
+</div>
 
-<!-- Certificate -->
 <div id="certificate" class="certificate">
-<h2>🎓 CODEON Certificate</h2>
+<h2>Certificate of Completion</h2>
 <p>Name: <span id="certName"></span></p>
-<p>Level: <span id="certLevelDisplay"></span></p>
-<p>Certificate ID: <span id="certID"></span></p>
+<p>Level: Level 3</p>
+<p>ID: <span id="certID"></span></p>
 <p>Signature: <span id="certHash"></span></p>
 <div id="qrcode"></div>
 <button onclick="downloadPDF()">Download PDF</button>
 </div>
 
 <script>
-// ===== Firebase =====
+// Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyD_LR9Kllj7hoKTiJAaSxyHglSO6r5gh-g",
   authDomain: "codeon-3cb1c.firebaseapp.com",
   projectId: "codeon-3cb1c",
-  storageBucket: "codeon-3cb1c.firebasestorage.app",
+  storageBucket: "codeon-3cb1c.appspot.com",
   messagingSenderId: "730172148868",
-  appId: "1:730172148868:web:2c712c8124be40019506d1",
+  appId: "1:730172148868:web:2c712c8124be40019506d1"
 };
+
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// ===== Enrollment & Payment =====
-document.getElementById("enrollBtn").onclick = async function(){
-  const name = document.getElementById("studentNameInput").value.trim();
-  const email = document.getElementById("studentEmailInput").value.trim();
-  if(!name || !email){alert("Please fill name & email"); return;}
+// 🔒 ACCESS CONTROL
+const email = localStorage.getItem("codeonUser");
 
-  // Add student to Firebase
-  const studentRef = await db.collection("students").add({name,email,paid:false,createdAt:new Date()});
-  const studentId = studentRef.id;
+if(!email){
+document.getElementById("accessMessage").innerHTML = "Access Denied. Please enroll first.";
+}
+else{
 
-  // Open Pesapal Payment
-  const paymentWindow = window.open("https://store.pesapal.com/level3","_blank","width=600,height=700");
-
-  const checkPayment = setInterval(async ()=>{
-    if(paymentWindow.closed){
-      clearInterval(checkPayment);
-      // Mark as paid in Firebase
-      await db.collection("students").doc(studentId).update({paid:true});
-      alert("Payment successful! Course unlocked & certificate generated.");
-      unlockCourse3(name);
-      generateCertificate(name,"Level 3");
-    }
-  },1000);
-};
-
-// ===== Course 3 Lessons =====
-const lessons = [
-  {title:"Homepage Layout", code:`<h1>My SACCO</h1><p>Welcome to SACCO</p>`},
-  {title:"Membership Form", code:`<form><label>Name</label><input type="text"></form>`},
-  {title:"Dashboard Mockup", code:`<div><h2>Member Summary</h2></div>`},
-  {title:"Responsive Design", code:`<style>@media(max-width:600px){body{background:lightgray;}}</style>`},
-  {title:"GitHub Deployment", code:`<!-- Push your files to GitHub -->`}
-];
-
-function unlockCourse3(studentName){
-  document.getElementById("enrollSection").style.display="none";
-  const container = document.getElementById("courseContainer");
-  container.style.display="block";
-
-  // Build Lessons
-  container.innerHTML = "";
-  lessons.forEach((lesson, idx)=>{
-    const lessonDiv = document.createElement("div");
-    lessonDiv.className = "lesson";
-    if(idx>0) lessonDiv.classList.add("locked");
-    lessonDiv.id = `lesson${idx+1}`;
-    lessonDiv.innerHTML = `
-      <h3>Lesson ${idx+1} – ${lesson.title}</h3>
-      <textarea id="editor${idx+1}">${lesson.code}</textarea>
-      <button onclick="runCode(${idx+1})">Run Code</button>
-      <iframe id="output${idx+1}"></iframe>
-      <button onclick="submitLesson(${idx+1})">Submit Lesson</button>
-      <button id="nextLessonBtn${idx+1}" style="display:none;" onclick="unlockNextLesson(${idx+1})">Next Lesson →</button>
-      <div class="badge" id="badge${idx+1}">🏅 Badge Earned!</div>
-    `;
-    container.appendChild(lessonDiv);
-  });
+db.collection("students").where("email","==",email).get()
+.then(snapshot=>{
+if(snapshot.empty){
+document.getElementById("accessMessage").innerHTML = "User not found.";
+return;
 }
 
-// ===== Lesson Functions =====
-function runCode(id){
-  const code = document.getElementById("editor"+id).value;
-  document.getElementById("output"+id).srcdoc = code;
+snapshot.forEach(doc=>{
+if(doc.data().paid){
+document.getElementById("courseContent").style.display="block";
+}
+else{
+document.getElementById("accessMessage").innerHTML = "Payment Required.";
+}
+});
+});
 }
 
-function submitLesson(id){
-  const code = document.getElementById("editor"+id).value;
-  if(!code.trim()){alert("Write code before submitting!"); return;}
-  document.getElementById("badge"+id).style.display="block";
-  document.getElementById("nextLessonBtn"+id).style.display="inline-block";
+// 🎓 COMPLETE COURSE
+async function completeCourse(){
+
+const snapshot = await db.collection("students")
+.where("email","==",email).get();
+
+snapshot.forEach(async doc=>{
+
+const name = doc.data().name;
+
+const id = "CODEON-"+Date.now();
+const raw = name+"Level3"+id;
+
+const hashBuffer = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(raw));
+const hashArray = Array.from(new Uint8Array(hashBuffer));
+const hash = hashArray.map(b=>b.toString(16).padStart(2,"0")).join("").substring(0,16);
+
+// Save certificate
+await db.collection("certificates").doc(id).set({
+name,
+level:"Level 3",
+id,
+hash
+});
+
+// Show certificate
+document.getElementById("certName").innerText = name;
+document.getElementById("certID").innerText = id;
+document.getElementById("certHash").innerText = hash;
+document.getElementById("certificate").style.display="block";
+
+new QRCode(document.getElementById("qrcode"),{
+text: window.location.href+"?verify="+id,
+width:120,
+height:120
+});
+
+});
+
 }
 
-function unlockNextLesson(id){
-  const nextLesson = document.getElementById(`lesson${id+1}`);
-  if(nextLesson){
-    nextLesson.classList.remove("locked");
-  } else {
-    alert("All lessons completed! Certificate already generated after payment.");
-  }
-}
-
-// ===== Certificate =====
-async function generateCertificate(name, level){
-  const id = "CODEON-"+Date.now();
-  const data = name+level+id;
-  const hashBuffer = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(data));
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hash = hashArray.map(b=>b.toString(16).padStart(2,"0")).join("").substring(0,16);
-
-  await db.collection("certificates").doc(id).set({name,level,id,hash});
-
-  document.getElementById("certName").innerText = name;
-  document.getElementById("certLevelDisplay").innerText = level;
-  document.getElementById("certID").innerText = id;
-  document.getElementById("certHash").innerText = hash;
-  document.getElementById("certificate").style.display="block";
-
-  document.getElementById("qrcode").innerHTML="";
-  new QRCode(document.getElementById("qrcode"),{
-    text: window.location.href+"?verify="+id,
-    width:120, height:120
-  });
-}
-
-// ===== PDF Download =====
 function downloadPDF(){
-  html2pdf().from(document.getElementById("certificate")).save();
+html2pdf().from(document.getElementById("certificate")).save();
 }
 </script>
 
