@@ -234,11 +234,58 @@ function submitChallenge(){
 }
 
 // Peer reviews
-const fakeReviews=["Great layout!","Needs more color contrast","Responsive design is awesome","Consider using flexbox","Check your fonts consistency"];
-function loadPeerReviews(){
-  let html=fakeReviews.map(r=>`<div class="leader-row">💻 ${r}</div>`).join("");
-  db.collection("reviews").get().then(snap=>{snap.forEach(doc=>{html+=`<div class="leader-row">👤 ${doc.data().user}: ${doc.data().text}</div>`})});
-  reviewsContainer.innerHTML=html;
+const fakeReviews = [
+  "Great layout! 😍 Really intuitive and easy to navigate.",
+  "Color contrast could be better 🤔 Some text is hard to read.",
+  "Responsive design rocks! Checked on my phone & tablet 📱💻",
+  "Flexbox would make alignment easier than using margins.",
+  "Fonts are a bit inconsistent. Maybe pick 1 primary font? 🖋️",
+  "Loved the interactive charts! Super informative 📊",
+  "Menu should be sticky – lost it while scrolling 😅",
+  "Login flow is smooth, but tooltips for newbies would help 👀",
+  "Minimalistic & clean – short and sweet 👍",
+  "Buttons on mobile are tiny. Bigger tap targets pls 🙏",
+  "Amazing work! The color palette is very professional 🎨",
+  "Sections feel cramped, add some spacing for readability 📝",
+  "Animations are subtle but make the UI feel alive ✨",
+  "Settings page was tricky to find 🤷 A sidebar might help",
+  "Icons match the theme perfectly. Nice attention to detail 👌",
+  "Typography is clear & readable even on small screens 📖",
+  "Hover effects on clickable items would improve UX 👆",
+  "Footer is text-heavy; maybe split into columns or shorten it 🗂️",
+  "Overall, very clean interface, easy to use & understand 💯",
+  "Add onboarding tips for first-time users – smoothens the experience 🛠️"
+];
+
+// Function to shuffle and slightly vary phrasing
+function getRandomReviews() {
+  // Shuffle array
+  const shuffled = fakeReviews
+    .map(r => ({text: r, sort: Math.random()}))
+    .sort((a, b) => a.sort - b.sort)
+    .map(r => r.text);
+
+  // Slight variations: add prefixes or emojis randomly
+  return shuffled.map(r => {
+    const prefixes = ["👍", "💡", "👀", "✅", "🔥"];
+    const suffixes = ["!", ".", " 😄", " 🙏", "✨"];
+    const addPrefix = Math.random() > 0.6 ? prefixes[Math.floor(Math.random() * prefixes.length)] + " " : "";
+    const addSuffix = Math.random() > 0.5 ? suffixes[Math.floor(Math.random() * suffixes.length)] : "";
+    return addPrefix + r + addSuffix;
+  });
+}
+
+// Usage
+function loadPeerReviews() {
+  let html = getRandomReviews().map(r => `<div class="leader-row">💻 ${r}</div>`).join("");
+
+  db.collection("reviews").get().then(snap => {
+    snap.forEach(doc => {
+      html += `<div class="leader-row">👤 ${doc.data().user}: ${doc.data().text}</div>`;
+    });
+    reviewsContainer.innerHTML = html;
+  });
+}
 }
 function submitReview(){
   db.collection("reviews").add({text:reviewText.value,user:currentUser.email}).then(()=>{reviewText.value=""; loadPeerReviews(); alert("Review Submitted!")});
