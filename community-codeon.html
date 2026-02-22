@@ -5,83 +5,35 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CODEON Africa Championship</title>
 
+<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
 <style>
-body{
-  font-family:Arial;
-  margin:0;
-  background:#f4f4f4;
-  transition:0.3s;
-}
-.dark{
-  background:#111;
-  color:white;
-}
-header{
-  background:black;
-  color:white;
-  padding:15px;
-  text-align:center;
-}
-button{
-  padding:8px 15px;
-  margin:5px;
-  cursor:pointer;
-}
-textarea{
-  width:100%;
-  height:150px;
-}
-section{
-  padding:20px;
-}
-.leader-row{
-  display:flex;
-  justify-content:space-between;
-  padding:6px;
-  border-bottom:1px solid #ccc;
-  transition:0.3s;
-}
+body{font-family:Arial; margin:0; background:#f4f4f4; transition:.3s;}
+.dark{background:#111; color:white;}
+header{background:black; color:white; padding:15px; text-align:center;}
+button{padding:8px 15px; margin:5px; cursor:pointer; border:none; border-radius:5px;}
+textarea,input,select{width:100%; padding:10px; margin:5px 0; border-radius:5px;}
+section{padding:20px;}
+.card{background:white; padding:15px; margin:15px auto; border-radius:10px; max-width:800px; box-shadow:0 2px 8px rgba(0,0,0,.2);}
+.dark .card{background:#222; color:white;}
+.leader-row{display:flex; justify-content:space-between; padding:6px; border-bottom:1px solid #ccc; transition:.3s;}
 .leader-row:hover{transform:scale(1.02);}
-.highlight{
-  background:gold;
-}
-.badge{
-  padding:3px 6px;
-  border-radius:4px;
-  font-size:12px;
-  animation:pulse 1s infinite;
-}
-.gold{background:gold;}
-.silver{background:silver;}
-.bronze{background:#cd7f32;color:white;}
-@keyframes pulse{
-  0%{opacity:1;}
-  50%{opacity:0.6;}
-  100%{opacity:1;}
-}
-.card{
-  background:white;
-  padding:15px;
-  margin-bottom:15px;
-  border-radius:8px;
-}
-.dark .card{background:#222;}
+.badge{padding:3px 6px; border-radius:4px; font-size:12px; animation:pulse 1s infinite;}
+.gold{background:gold;} .silver{background:silver;} .bronze{background:#cd7f32;color:white;}
+@keyframes pulse{0%{opacity:1;}50%{opacity:.6;}100%{opacity:1;}}
+.flag{margin-right:5px;}
+textarea{height:120px;}
+h2{margin-top:0;}
+@media(max-width:600px){.leader-row{flex-direction:column;}}
 </style>
 </head>
 <body>
 
 <header>
 <h1>🌍 CODEON Africa Championship</h1>
-<nav>
-  <a href="index.html">Home</a>
-  <a href="enroll.html">Enroll</a>
-  <a href="verify.html">Verify Certificate</a>
-  <a href="community-codeon.html">Community</a>
-</nav>
 <button onclick="toggleMode()">Toggle Dark/Light</button>
 <button onclick="logout()">Logout</button>
 </header>
@@ -104,19 +56,23 @@ section{
 
 <section id="main" style="display:none;">
 
+<!-- Weekly Challenge -->
 <div class="card">
 <h2>🔥 Weekly Challenge</h2>
-<p>Build a landing page for a tech startup.</p>
-<textarea id="challengeCode"></textarea>
+<p>Constraint: Build a landing page without using &lt;table&gt; tags.</p>
+<textarea id="challengeCode" placeholder="Write your HTML/CSS here..."></textarea>
 <button onclick="submitChallenge()">Submit Challenge</button>
 </div>
 
+<!-- Peer Review -->
 <div class="card">
 <h2>🤝 Peer Review</h2>
+<div id="reviewsContainer"></div>
 <textarea id="reviewText" placeholder="Write review here..."></textarea>
 <button onclick="submitReview()">Submit Review</button>
 </div>
 
+<!-- Leaderboards -->
 <div class="card">
 <h2>🏆 Africa Leaderboard</h2>
 <div id="leaderboard"></div>
@@ -132,6 +88,7 @@ section{
 <div id="countryBoard"></div>
 </div>
 
+<!-- Certificate -->
 <div class="card">
 <h2>📜 Certificate</h2>
 <div id="certificate"></div>
@@ -140,7 +97,7 @@ section{
 </section>
 
 <script>
-// 🔥 FIREBASE CONFIG
+// 🔥 Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyD_LR9Kllj7hoKTiJAaSxyHglSO6r5gh-g",
   authDomain: "codeon-3cb1c.firebaseapp.com",
@@ -152,26 +109,20 @@ const db=firebase.firestore();
 
 let currentUser=null;
 
-// AUTH
+// Fake competitors
+const fakeAfrica=[{name:"LagosCoder",flag:"🇳🇬"},{name:"NairobiDev",flag:"🇰🇪"},{name:"AccraTech",flag:"🇬🇭"},{name:"CairoWeb",flag:"🇪🇬"},{name:"CapeTownDev",flag:"🇿🇦"},{name:"KampalaStack",flag:"🇺🇬"},{name:"RwandaCode",flag:"🇷🇼"},{name:"TanzaniaLogic",flag:"🇹🇿"},{name:"MoroccoBuilder",flag:"🇲🇦"},{name:"BotswanaDev",flag:"🇧🇼"},{name:"EthiopiaTech",flag:"🇪🇹"},{name:"ZambiaCoder",flag:"🇿🇲"},{name:"ZimbabweDev",flag:"🇿🇼"},{name:"TunisiaWeb",flag:"🇹🇳"},{name:"AlgeriaCoder",flag:"🇩🇿"},{name:"NamibiaStack",flag:"🇳🇦"},{name:"SenegalDev",flag:"🇸🇳"},{name:"MaliTech",flag:"🇲🇱"},{name:"AngolaCode",flag:"🇦🇴"},{name:"IvoryWeb",flag:"🇨🇮"},{name:"SierraCoder",flag:"🇸🇱"},{name:"LibyaTech",flag:"🇱🇾"},{name:"NigerWeb",flag:"🇳🇪"},{name:"MauritiusDev",flag:"🇲🇺"},{name:"MadagascarStack",flag:"🇲🇬"},{name:"GabonCoder",flag:"🇬🇦"},{name:"CongoTech",flag:"🇨🇩"},{name:"DjiboutiWeb",flag:"🇩🇯"},{name:"SomaliaDev",flag:"🇸🇴"},{name:"BurundiStack",flag:"🇧🇮"},{name:"MalawiCoder",flag:"🇲🇼"}];
+const fakeSchools=Array.from({length:50},(_,i)=>({name:"Student"+(i+1),school:"School"+((i%10)+1),points:Math.floor(Math.random()*100)+10}));
+const fakeCountries=[{name:"KenyaCoder",country:"Kenya"},{name:"UgandaTech",country:"Uganda"},{name:"NigeriaDev",country:"Nigeria"},{name:"GhanaStack",country:"Ghana"},{name:"SouthAfricaWeb",country:"South Africa"},{name:"RwandaBuild",country:"Rwanda"},{name:"TanzaniaCoder",country:"Tanzania"},{name:"MoroccoTech",country:"Morocco"},{name:"EgyptDev",country:"Egypt"},{name:"BotswanaStack",country:"Botswana"},{name:"EthiopiaWeb",country:"Ethiopia"},{name:"ZambiaBuild",country:"Zambia"},{name:"ZimbabweCoder",country:"Zimbabwe"},{name:"TunisiaTech",country:"Tunisia"},{name:"AlgeriaDev",country:"Algeria"},{name:"NamibiaStack",country:"Namibia"},{name:"SenegalWeb",country:"Senegal"},{name:"MaliBuild",country:"Mali"},{name:"AngolaCoder",country:"Angola"},{name:"IvoryTech",country:"Ivory Coast"},{name:"SierraWeb",country:"Sierra Leone"},{name:"LibyaDev",country:"Libya"},{name:"NigerStack",country:"Niger"},{name:"MauritiusWeb",country:"Mauritius"},{name:"MadagascarBuild",country:"Madagascar"},{name:"GabonCoder",country:"Gabon"},{name:"CongoTech",country:"Congo"},{name:"DjiboutiWeb",country:"Djibouti"},{name:"SomaliaBuild",country:"Somalia"},{name:"BurundiCoder",country:"Burundi"},{name:"MalawiStack",country:"Malawi"},{name:"LesothoWeb",country:"Lesotho"},{name:"SwazilandDev",country:"Eswatini"},{name:"CameroonTech",country:"Cameroon"},{name:"TogoBuild",country:"Togo"},{name:"ChadCoder",country:"Chad"},{name:"BeninStack",country:"Benin"},{name:"MauritaniaWeb",country:"Mauritania"},{name:"GambiaBuild",country:"Gambia"},{name:"EquatorialTech",country:"Equatorial Guinea"},{name:"SaoCoder",country:"Sao Tome"},{name:"DjiboutiStack",country:"Djibouti"}];
+
+// Auth
 function signup(){
   auth.createUserWithEmailAndPassword(email.value,password.value)
-  .then(user=>{
-    db.collection("users").doc(user.user.uid).set({
-      email:email.value,
-      school:school.value,
-      country:country.value,
-      points:0
-    });
+  .then(u=>{
+    db.collection("users").doc(u.user.uid).set({email:email.value,school:school.value,country:country.value,points:0});
   });
 }
-
-function login(){
-  auth.signInWithEmailAndPassword(email.value,password.value);
-}
-
-function logout(){
-  auth.signOut();
-}
+function login(){auth.signInWithEmailAndPassword(email.value,password.value);}
+function logout(){auth.signOut();}
 
 auth.onAuthStateChanged(user=>{
   if(user){
@@ -179,112 +130,69 @@ auth.onAuthStateChanged(user=>{
     authSection.style.display="none";
     main.style.display="block";
     loadBoards();
-  }else{
-    authSection.style.display="block";
-    main.style.display="none";
-  }
+    loadPeerReviews();
+  } else {authSection.style.display="block"; main.style.display="none";}
 });
 
-// WEEKLY CHALLENGE SUBMIT
+// Submit challenge
 function submitChallenge(){
   let code=challengeCode.value;
-
-  // AI scoring simulation
-  let score = Math.floor(Math.random()*50)+50;
-
-  db.collection("users").doc(currentUser.uid).update({
-    points: firebase.firestore.FieldValue.increment(score)
-  });
-
+  let score=Math.floor(Math.random()*50)+50;
+  db.collection("users").doc(currentUser.uid).update({points:firebase.firestore.FieldValue.increment(score)});
   alert("AI Score: "+score+" points awarded!");
   generateCertificate(score);
 }
 
-// PEER REVIEW
+// Peer reviews
+const fakeReviews=["Great layout!","Needs more color contrast","Responsive design is awesome","Consider using flexbox","Check your fonts consistency"];
+function loadPeerReviews(){
+  let html=fakeReviews.map(r=>`<div class="leader-row">💻 ${r}</div>`).join("");
+  db.collection("reviews").get().then(snap=>{snap.forEach(doc=>{html+=`<div class="leader-row">👤 ${doc.data().user}: ${doc.data().text}</div>`})});
+  reviewsContainer.innerHTML=html;
+}
 function submitReview(){
-  db.collection("reviews").add({
-    text:reviewText.value,
-    user:currentUser.email
-  });
-  alert("Review Submitted!");
+  db.collection("reviews").add({text:reviewText.value,user:currentUser.email}).then(()=>{reviewText.value=""; loadPeerReviews(); alert("Review Submitted!")});
 }
 
-// LEADERBOARDS
+// Leaderboards
+function fillLeaderboard(realUsers,fakeList,total){
+  let combined=[...realUsers];
+  let needed=total-combined.length;
+  let shuffledFakes=fakeList.sort(()=>Math.random()-.5).slice(0,needed);
+  shuffledFakes=shuffledFakes.map(f=>({...f,points:Math.floor(Math.random()*120)+10}));
+  combined=[...combined,...shuffledFakes];
+  combined.sort((a,b)=>b.points-a.points);
+  return combined.slice(0,total);
+}
+function renderAfricaBoard(users){
+  const real=users.map(u=>({name:u.email,points:u.points,flag:"🇺🇬"}));
+  const top31=fillLeaderboard(real,fakeAfrica,31);
+  leaderboard.innerHTML=top31.map((p,i)=>`<div class="leader-row">${i+1}. <span class="flag">${p.flag||"🌍"}</span> ${p.name} - ${p.points} pts</div>`).join("");
+}
+function renderSchoolBoard(users){
+  const top50=fillLeaderboard(users.map(u=>({name:u.email,points:u.points,school:u.school})),fakeSchools,50);
+  schoolBoard.innerHTML=top50.map((p,i)=>`<div class="leader-row">${i+1}. ${p.name} (${p.school}) - ${p.points} pts</div>`).join("");
+}
+function renderCountryBoard(users){
+  const top43=fillLeaderboard(users.map(u=>({name:u.email,points:u.points,country:u.country})),fakeCountries,43);
+  countryBoard.innerHTML=top43.map((p,i)=>`<div class="leader-row">${i+1}. ${p.name} (${p.country}) - ${p.points} pts</div>`).join("");
+}
 function loadBoards(){
   db.collection("users").onSnapshot(snapshot=>{
-    let users=[];
-    snapshot.forEach(doc=>{
-      users.push(doc.data());
-    });
-
-    users.sort((a,b)=>b.points-a.points);
-
-    renderAfrica(users);
-    renderSchool(users);
-    renderCountry(users);
+    let users=[]; snapshot.forEach(doc=>{users.push(doc.data());});
+    renderAfricaBoard(users);
+    renderSchoolBoard(users);
+    renderCountryBoard(users);
   });
 }
 
-function renderAfrica(users){
-  let html="";
-  users.slice(0,30).forEach((u,i)=>{
-    let badge="";
-    if(u.points>200) badge="<span class='badge gold'>Gold</span>";
-    else if(u.points>100) badge="<span class='badge silver'>Silver</span>";
-    else badge="<span class='badge bronze'>Bronze</span>";
-
-    html+=`<div class="leader-row">
-      ${i+1}. ${u.email} - ${u.points} pts ${badge}
-    </div>`;
-  });
-  leaderboard.innerHTML=html;
-}
-
-function renderSchool(users){
-  let grouped={};
-  users.forEach(u=>{
-    grouped[u.school]=(grouped[u.school]||0)+u.points;
-  });
-
-  let arr=Object.entries(grouped);
-  arr.sort((a,b)=>b[1]-a[1]);
-
-  let html="";
-  arr.forEach((s,i)=>{
-    html+=`<div>${i+1}. ${s[0]} - ${s[1]} pts</div>`;
-  });
-  schoolBoard.innerHTML=html;
-}
-
-function renderCountry(users){
-  let grouped={};
-  users.forEach(u=>{
-    grouped[u.country]=(grouped[u.country]||0)+u.points;
-  });
-
-  let arr=Object.entries(grouped);
-  arr.sort((a,b)=>b[1]-a[1]);
-
-  let html="";
-  arr.forEach((c,i)=>{
-    html+=`<div>${i+1}. ${c[0]} - ${c[1]} pts</div>`;
-  });
-  countryBoard.innerHTML=html;
-}
-
-// CERTIFICATE
+// Certificate
 function generateCertificate(score){
-  certificate.innerHTML=`
-    <h3>CODEON Africa Championship Certificate</h3>
-    <p>${currentUser.email}</p>
-    <p>Awarded ${score} Championship Points</p>
-  `;
+  certificate.innerHTML=`<h3>CODEON Africa Championship Certificate</h3><p>${currentUser.email}</p><p>Awarded ${score} points</p>`;
 }
 
-// DARK MODE
-function toggleMode(){
-  document.body.classList.toggle("dark");
-}
+// Dark mode
+function toggleMode(){document.body.classList.toggle("dark");}
 </script>
 
 </body>
