@@ -11,117 +11,152 @@
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
-body{font-family:Arial;margin:0;background:#eef2f6;}
-header{background:#004aad;color:white;padding:20px;text-align:center;}
-.level, .lesson{background:white;max-width:1000px;margin:20px auto;padding:25px;border-radius:10px;box-shadow:0 3px 6px rgba(0,0,0,0.1);}
+body{
+  font-family: 'Arial', sans-serif;
+  margin:0;
+  background: linear-gradient(135deg,#eef2f6,#cfe0f5);
+  color:#111;
+}
+header{
+  background:#004aad;
+  color:white;
+  padding:20px;
+  text-align:center;
+}
+.level, .lesson{
+  background:white;
+  max-width:1000px;
+  margin:20px auto;
+  padding:25px;
+  border-radius:10px;
+  box-shadow:0 3px 6px rgba(0,0,0,0.1);
+}
 .locked{opacity:0.5;pointer-events:none;}
-button{padding:10px 18px;background:#004aad;color:white;border:none;border-radius:5px;cursor:pointer;margin-top:10px;margin-right:5px;}
+button{
+  padding:10px 18px;
+  background:#004aad;
+  color:white;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+  margin-top:10px;
+  margin-right:5px;
+}
 button:hover{background:#00337a;}
-#editor{height:450px;border:1px solid #ccc;margin-top:10px;border-radius:5px;width:100%;}
-iframe{width:100%;height:300px;border:1px solid #ccc;margin-top:10px;border-radius:5px;}
-.badge{display:none;margin-top:10px;padding:10px;background:#ffd700;color:black;font-weight:bold;border-radius:5px;text-align:center;}
-.guidance{background:#f0f4f8;padding:15px;border-left:5px solid #004aad;margin-bottom:10px;}
+#editor{height:400px;border:1px solid #ccc;margin-top:10px;border-radius:5px;width:100%;}
+iframe{width:100%;height:250px;border:1px solid #ccc;margin-top:10px;border-radius:5px;}
+.badge{
+  display:none;
+  margin-top:10px;
+  padding:10px;
+  background:#ffd700;
+  color:black;
+  font-weight:bold;
+  border-radius:5px;
+  text-align:center;
+}
+.guidance{
+  background:#f0f4f8;
+  padding:15px;
+  border-left:5px solid #004aad;
+  margin-bottom:10px;
+}
 .gitbtn{margin-top:10px;padding:8px 15px;background:#28a745;color:white;border:none;border-radius:5px;cursor:pointer;}
 .gitbtn:hover{background:#1e7e34;}
 .certificate-btn{background:#ff6600;color:white;margin-top:15px;}
 .certificate-btn:hover{background:#e65c00;}
-.confetti{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;}
-.protip{background:#e8f4ff;padding:10px;margin:10px 0;border-left:4px solid #2196F3;border-radius:5px;}
-.protip h3{margin-top:0;}
+#progressContainer{
+  max-width:1000px;
+  margin:10px auto;
+  background:#ccc;
+  border-radius:20px;
+  overflow:hidden;
+  height:20px;
+}
+#progressBar{
+  width:0%;
+  height:100%;
+  background:#28a745;
+  text-align:center;
+  color:white;
+  line-height:20px;
+  font-weight:bold;
+  transition: width 0.5s;
+}
+.pointsDisplay{
+  max-width:1000px;
+  margin:10px auto;
+  text-align:right;
+  font-weight:bold;
+}
 </style>
 </head>
 <body>
 
 <header>
-<h1>Course 2 – Interactive Projects</h1>
-<p>Build, code, deploy, earn badges & certificates! Complete lessons to unlock the next.</p>
+  <h1>Course 2 – Interactive Projects | CODEON</h1>
+  <p>Build, code, deploy, earn points & badges!</p>
 </header>
 
-<div id="courseContainer"></div>
+<div class="pointsDisplay">Points: <span id="points">0</span></div>
+<div id="progressContainer"><div id="progressBar">0%</div></div>
 
-<!-- Pesapal iframe example (dynamic) -->
+<div id="courseContainer"></div>
 <div id="paymentContainer"></div>
 
 <script>
-// ======= Levels & Lessons =======
-const levels = [
-  {
-    name:"Level 1 – Event Registration Form",
-    lessons:[
-      {
-        title:"HTML Form Structure",
-        guidance:`<strong>Project:</strong> Build a form that collects Name, Email, and Event type.<br>
-<strong>Allowed Tags:</strong> <code>&lt;form&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;label&gt;</code>, <code>&lt;select&gt;</code>, <code>&lt;button&gt;</code>.<br>
-<strong>Rules:</strong> Must include all fields, labeled, submit button must exist.<br>
-<strong>Tag Explanation:</strong>
+// ===== Levels & Lessons =======
+const levels=[{
+  name:"Level 1 – Event Registration Form",
+  lessons:[{
+    title:"HTML Form Structure",
+    guidance:`<strong>Project:</strong> Build a form that collects Name, Email, Event type.<br>
+<strong>Allowed:</strong> HTML tags: <code>&lt;form&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;label&gt;</code>, <code>&lt;select&gt;</code>, <code>&lt;button&gt;</code>.<br>
+<strong>Tag Explanations:</strong>
 <ul>
-<li><code>&lt;form&gt;</code>: Wraps all input fields</li>
-<li><code>&lt;input type="text/email"&gt;</code>: Text or email input</li>
-<li><code>&lt;label for="id"&gt;</code>: Describes input</li>
-<li><code>&lt;select&gt;</code>: Dropdown menu</li>
-<li><code>&lt;button type="submit"&gt;</code>: Submit form</li>
-</ul>
-<strong>Tip:</strong> Use placeholders, link labels using <code>for</code>.`
-      },
-      {
-        title:"JS Validation",
-        guidance:`<strong>Project:</strong> Validate Name and Email.<br>
-<strong>Allowed:</strong> JS DOM methods: getElementById, addEventListener.<br>
-<strong>Rules:</strong> Show alert if fields empty, prevent page reload.<br>
-<strong>Tag Explanation:</strong>
-<ul>
-<li><code>document.getElementById()</code>: Access DOM elements</li>
-<li><code>addEventListener('submit', func)</code>: Run on submit</li>
-<li><code>e.preventDefault()</code>: Prevent reload</li>
+<li><code>&lt;form&gt;</code>: Wraps all input fields.</li>
+<li><code>&lt;input type="text"&gt;</code>: Text field.</li>
+<li><code>&lt;input type="email"&gt;</code>: Validates email.</li>
+<li><code>&lt;label&gt;</code>: Describes field, use 'for' attribute.</li>
+<li><code>&lt;select&gt;</code>: Dropdown menu.</li>
+<li><code>&lt;button type="submit"&gt;</code>: Submits form.</li>
 </ul>`
-      },
-      {
-        title:"CSS Styling",
-        guidance:`<strong>Project:</strong> Style your form.<br>
-<strong>Rules:</strong> Layout neat, visible submit button.<br>
-<strong>Tips:</strong> Use <code>class</code>/<code>id</code> selectors, <code>flex</code>, padding, margin, colors.`
-      },
-      {
-        title:"Live Preview & Test",
-        guidance:`<strong>Project:</strong> Test form & JS validation.<br>
-<strong>Tips:</strong> Try empty/filled inputs, ensure alerts work.`
-      },
-      {
-        title:"GitHub Deployment & Monetization",
-        guidance:`<strong>Project:</strong> Push files to GitHub.<br>
-<strong>Tips:</strong> 
+  },{
+    title:"JS Validation",
+    guidance:`<strong>Project:</strong> Validate Name & Email fields.<br>
+<strong>Tips:</strong> Use getElementById and addEventListener. Prevent page reload.`
+  },{
+    title:"CSS Styling",
+    guidance:`<strong>Project:</strong> Style your form. Use padding, margin, colors, flex.`
+  },{
+    title:"Live Test",
+    guidance:`<strong>Project:</strong> Test form functionality.`
+  },{
+    title:"GitHub Deployment & Monetization",
+    guidance:`<strong>Project:</strong> Push your files to GitHub.<br>
+<strong>Monetization Tips:</strong>
 <ul>
-<li>Make repo public & deploy with GitHub Pages.</li>
-<li>Document projects to attract clients.</li>
-<li>Offer templates, freelance locally or online.</li>
-<li>Showcase skills in portfolio to monetize.</li>
+<li>Offer web design services.</li>
+<li>Create templates for sale.</li>
+<li>Freelance platforms.</li>
+<li>Share projects on social media.</li>
 </ul>`
-      }
-    ]
-  },
-  {
-    name:"Level 2 – School Website",
-    lessons:[
-      {title:"Homepage Layout", guidance:`<strong>Project:</strong> Header, nav, main, footer.<br><strong>Tag Explanation:</strong> <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code>`},
-      {title:"About Page", guidance:`<strong>Project:</strong> About section with <code>&lt;section&gt;</code>, paragraphs, <code>&lt;img&gt;</code>.`},
-      {title:"Contact Page", guidance:`<strong>Project:</strong> Contact form with Name, Email, Message, <code>&lt;textarea&gt;</code>.`},
-      {title:"CSS Styling & Responsive", guidance:`<strong>Project:</strong> Style using Flex/Grid & media queries.`},
-      {title:"GitHub Deployment & Monetization", guidance:`<strong>Project:</strong> Push website to GitHub.<br><strong>Tip:</strong> Showcase portfolio online to earn clients.`}
-    ]
-  }
-];
+  }]
+}];
 
-// ===== Build Levels Dynamically =====
+// ===== Build Levels =====
 const container=document.getElementById("courseContainer");
+let totalLessons=0, completedLessons=0, points=0;
+
 levels.forEach((level,li)=>{
   const levelDiv=document.createElement("div");
   levelDiv.className="level";
   if(li>0) levelDiv.classList.add("locked");
   levelDiv.id="level"+(li+1);
-  levelDiv.innerHTML=`<h2>${level.name}</h2>
-  <div class="guidance">Complete lessons to earn Level ${li+1} certificate (optional paid)</div>`;
+  levelDiv.innerHTML=`<h2>${level.name}</h2><div class="guidance">Complete all lessons to earn Level ${li+1} certificate (optional paid)</div>`;
   
   level.lessons.forEach((lesson,idx)=>{
+    totalLessons++;
     const lessonDiv=document.createElement("div");
     lessonDiv.className="lesson";
     if(idx>0) lessonDiv.classList.add("locked");
@@ -139,16 +174,15 @@ levels.forEach((level,li)=>{
     levelDiv.appendChild(lessonDiv);
   });
 
-  // Certificate
+  // Level certificate
   const certDiv=document.createElement("div");
   certDiv.className="lesson locked";
   certDiv.id=`level${li+1}-certificate`;
   certDiv.innerHTML=`
     <button class="certificate-btn" onclick="payCertificate(${li+1})">Get Level ${li+1} Certificate (Optional Paid)</button>
-    <div class="badge" id="badge${li+1}">🎉 Level ${li+1} Completed!</div>
+    <div class="badge" id="badgeLevel${li+1}">🎉 Level ${li+1} Completed!</div>
   `;
   levelDiv.appendChild(certDiv);
-
   container.appendChild(levelDiv);
 });
 
@@ -169,29 +203,36 @@ require(['vs/editor/editor.main'],function(){
 });
 
 // ===== Functions =====
-function runCode(id){document.getElementById("output"+id).srcdoc=editors[id].getValue();}
+function runCode(id){
+  document.getElementById("output"+id).srcdoc=editors[id].getValue();
+}
 
 function submitLesson(id){
   const code=editors[id].getValue();
   if(!code.trim()){alert("Write code before submitting!"); return;}
-  // Confetti celebration
-  confetti({particleCount:50, spread:70, origin:{y:0.6}});
-  setTimeout(()=>{document.querySelector('.confetti')?.remove();},3000);
-  
   document.getElementById(`badge${id}`).style.display='block';
-  alert(`Lesson ${id} submitted! 🎉`);
-  
+  celebrate(id);
+  points+=10;
+  document.getElementById("points").innerText=points;
+  completedLessons++;
+  updateProgress();
   const [level,lesson]=id.split('-').map(Number);
   const nextLessonEl=document.getElementById(`level${level}-lesson${lesson+1}`);
   if(nextLessonEl) nextLessonEl.classList.remove('locked');
   else document.getElementById(`level${level}-certificate`).classList.remove('locked');
 }
 
-function deployGitHub(id){
-  alert(`Deploy lesson ${id} to GitHub. Create repo & push your files. Use GitHub Pages for live preview!`);
+function updateProgress(){
+  const percent=Math.round((completedLessons/totalLessons)*100);
+  const bar=document.getElementById("progressBar");
+  bar.style.width=percent+'%';
+  bar.innerText=percent+'%';
 }
 
-// Pesapal Payment
+function deployGitHub(id){
+  alert(`Deploying lesson ${id} to GitHub...\nOpen GitHub and push your files manually for now.`);
+}
+
 function payCertificate(level){
   const paymentURL=`https://store.pesapal.com/embed-code?pageUrl=https://store.pesapal.com/level${level}`;
   document.getElementById("paymentContainer").innerHTML=`
@@ -199,6 +240,24 @@ function payCertificate(level){
   `;
   alert(`Payment window loaded. Complete payment to receive verified certificate.`);
 }
+
+// ===== Celebration effect =====
+function celebrate(id){
+  const emojis=["🌸","🌼","🌟","✨"];
+  for(let i=0;i<20;i++){
+    confetti({
+      particleCount:1,
+      startVelocity:Math.random()*30+10,
+      spread:60,
+      ticks:120,
+      gravity:0.5,
+      origin:{x:Math.random(),y:Math.random()*0.6},
+      shapes:['text'],
+      emojis:[emojis[Math.floor(Math.random()*emojis.length)]]
+    });
+  }
+}
 </script>
+
 </body>
 </html>
