@@ -3,158 +3,202 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CODEON – HTML & CSS Mastery Course</title>
+<title>CODEON – HTML & CSS Mastery</title>
 
-<!-- Monaco Editor -->
 <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs/loader.js"></script>
-
 <style>
-body{
-    margin:0;font-family:'Segoe UI',sans-serif;
-    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-    color:white;
-}
-header{
-    background:#111;padding:20px;text-align:center;
-}
+body{margin:0;font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);color:white;transition:0.3s;}
+header{background:#111;padding:20px;text-align:center;}
 header h1{margin:0;font-size:2em;}
-button{
-    padding:10px 20px;background:gold;color:black;border:none;border-radius:6px;font-weight:bold;cursor:pointer;margin-top:10px;
-}
+button{padding:10px 20px;background:gold;color:black;border:none;border-radius:6px;font-weight:bold;cursor:pointer;margin-top:10px;transition:0.3s;}
 button:hover{background:orange;}
-#editor{height:350px;width:100%;border-radius:6px;margin-top:10px;}
+.editor-container{height:300px;width:100%;border-radius:6px;margin-top:10px;}
 iframe{width:100%;height:250px;border:1px solid black;margin-top:10px;border-radius:6px;}
-.card{background:rgba(255,255,255,0.08);padding:20px;border-radius:12px;margin:20px;}
+.card{background:rgba(255,255,255,0.08);padding:20px;border-radius:12px;margin:20px;transition:0.3s;}
 .locked{opacity:0.4;pointer-events:none;}
-.protip{background:rgba(255,255,0,0.1);padding:10px;border-left:4px solid gold;margin:10px 0;border-radius:6px;color:black;}
+.protip{background:rgba(255,255,255,0.1);padding:10px;border-left:4px solid gold;margin:10px 0;border-radius:6px;color:black;}
 h2{margin-top:0;}
+#badge{position:fixed;top:20px;right:20px;background:gold;color:black;padding:15px;border-radius:50%;font-weight:bold;font-size:1.5em;display:none;animation:pop 0.8s;}
+@keyframes pop{0%{transform:scale(0);}60%{transform:scale(1.2);}100%{transform:scale(1);}}
+canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;}
+#leaderboard{background:rgba(0,0,0,0.2);border-radius:10px;padding:10px;margin:20px;max-width:600px;}
+.leader-row{display:flex;justify-content:space-between;padding:5px 10px;border-bottom:1px solid #ccc;transition:0.3s;}
+.leader-row:nth-child(1){background:gold;color:black;font-weight:bold;}
+.leader-row:nth-child(2){background:silver;color:black;font-weight:bold;}
+.leader-row:nth-child(3){background:#cd7f32;color:white;font-weight:bold;}
+#certificateCard{background:rgba(255,255,255,0.2);padding:20px;border-radius:12px;margin:20px;display:none;}
 </style>
 </head>
 <body>
 
 <header>
 <h1>CODEON – HTML & CSS Mastery</h1>
-<p>Learn by doing! Edit the code, run it, and see results live. 💻✨</p>
+<p>Interactive course: edit code, run it, unlock lessons, earn points & badges!</p>
+<p id="pointsDisplay">Points: 0</p>
 </header>
 
-<!-- LESSON 1 -->
-<section class="card" id="lesson1">
-<h2>Lesson 1 – HTML Structure</h2>
-<div class="protip">
-<b>Concepts:</b> HTML is the skeleton of web pages. <b>&lt;!DOCTYPE html&gt;</b> declares HTML5. <b>&lt;html&gt;</b> is root. <b>&lt;head&gt;</b> contains metadata. <b>&lt;body&gt;</b> contains visible content.
+<canvas id="confetti"></canvas>
+<div id="badge">🏆</div>
+
+<!-- Lessons -->
+<div id="lessonsContainer"></div>
+
+<!-- Leaderboard -->
+<div class="card" id="leaderboard">
+<h2>🏆 Leaderboard</h2>
+<div id="leaderboardRows"></div>
 </div>
-<p>Task: Replace "Your Name" in the &lt;h1&gt; tag with your real name.</p>
 
-<div id="editor"></div>
-
-<button onclick="runCode()">Run Code</button>
-<button onclick="checkLesson()">Submit Lesson 1</button>
-
-<p>Live Preview:</p>
-<iframe id="output"></iframe>
-<p id="status"></p>
-</section>
-
-<!-- LESSON 2 -->
-<section class="card locked" id="lesson2">
-<h2>Lesson 2 – Headings & Paragraphs</h2>
-<div class="protip">
-<b>Concepts:</b> Use headings (<b>&lt;h1&gt; to &lt;h6&gt;</b>) for titles. <b>&lt;p&gt;</b> tags are for paragraphs. Structure your content logically.
+<!-- Certificate -->
+<div id="certificateCard">
+<h2>🎓 CODEON Completion Certificate</h2>
+<p id="certName"></p>
+<p id="certPoints"></p>
+<p>Share your GitHub portfolio and show off your projects!</p>
 </div>
-<p>Task: Add an <b>&lt;h1&gt;</b> heading and a <b>&lt;p&gt;</b> paragraph inside the body.</p>
-<button onclick="unlockNext(2)">Unlock Lesson 2</button>
-</section>
-
-<!-- LESSON 3 -->
-<section class="card locked" id="lesson3">
-<h2>Lesson 3 – Images</h2>
-<div class="protip">
-<b>Concepts:</b> Use <b>&lt;img&gt;</b> to display images. Always add <b>alt</b> text for accessibility. Images make your page engaging!
-</div>
-<p>Task: Add an image of your choice inside the body.</p>
-<button onclick="unlockNext(3)">Unlock Lesson 3</button>
-</section>
-
-<!-- LESSON 4 -->
-<section class="card locked" id="lesson4">
-<h2>Lesson 4 – Sections & Layout</h2>
-<div class="protip">
-<b>Concepts:</b> <b>&lt;section&gt;</b> organizes content. Helps with semantic structure, SEO, and readability.
-</div>
-<p>Task: Create a &lt;section&gt; with a heading and paragraph describing your project.</p>
-<button onclick="unlockNext(4)">Unlock Lesson 4</button>
-</section>
-
-<!-- LESSON 5 -->
-<section class="card locked" id="lesson5">
-<h2>Lesson 5 – Multi-Page Website</h2>
-<div class="protip">
-<b>Concepts:</b> Learn to link pages. Use <b>&lt;a href="about.html"&gt;</b> to navigate. Deploy to GitHub Pages to make it live.
-</div>
-<p>Task: Create index.html and about.html, link them, and add content. <br>💡 Tip: Upload to GitHub to start your portfolio!</p>
-<button onclick="unlockNext(5)">Unlock Lesson 5</button>
-</section>
-
-<!-- LESSON 6 -->
-<section class="card locked" id="lesson6">
-<h2>Lesson 6 – Deployment & Monetization</h2>
-<div class="protip">
-<b>Concepts:</b> GitHub Pages lets you publish your site for free. Share your projects, learn portfolio tips, and explore monetization (like freelance or ads).
-</div>
-<p>Task: Deploy your site to GitHub Pages. Add a note on how someone could earn from web projects.</p>
-<button onclick="unlockNext(6)">Finish Course!</button>
-</section>
 
 <script>
-// Monaco Editor Initialization
+// ======= INITIALIZATION =======
+let points = 0;
+const editors = {};
+const lessonsData = [
+  {title:"HTML Structure", task:"Replace 'Your Name' in the <h1> tag with your real name.", concept:"HTML is the skeleton of web pages. <!DOCTYPE html> declares HTML5. <html> is root. <head> has metadata. <body> has visible content.", tip:"💡 Monetization Tip: Start a portfolio on GitHub for your HTML projects."},
+  {title:"Headings & Paragraphs", task:"Add an <h2> heading and a <p> paragraph.", concept:"Headings (<h1>-<h6>) organize titles. <p> is paragraph.", tip:"💡 Portfolio Tip: Each small project counts! Push to GitHub."},
+  {title:"Images", task:"Add an <img> inside body.", concept:"Images engage users. Add alt text for accessibility.", tip:"💡 Monetization Tip: Practice creating landing pages for small businesses."},
+  {title:"Sections & Layout", task:"Create a <section> with heading and paragraph.", concept:"Sections organize content. Each project goes in its own section.", tip:"💡 Portfolio Tip: Show structured layouts on your GitHub Pages site."},
+  {title:"Multi-Page Website", task:"Make index.html and about.html and link them.", concept:"Link pages with <a href='about.html'>. Deploy on GitHub Pages.", tip:"💡 Monetization Tip: Freelance small websites for local clients."},
+  {title:"Deployment & Monetization", task:"Deploy your site and write 1 monetization idea inside a paragraph.", concept:"Use GitHub Pages. Monetization: freelance, tutorials, ads, portfolio services.", tip:"💡 Portfolio Tip: Share deployed projects on LinkedIn & Twitter for visibility."}
+];
+
+// ======= CREATE LESSONS DYNAMICALLY =======
+const container = document.getElementById('lessonsContainer');
+lessonsData.forEach((l,i)=>{
+  const lesson = document.createElement('section');
+  lesson.className = 'card'+(i>0?' locked':'');
+  lesson.id = 'lesson'+(i+1);
+  lesson.innerHTML = `
+    <h2>Lesson ${i+1} – ${l.title}</h2>
+    <div class="protip"><b>Concepts:</b> ${l.concept}</div>
+    <p>Task: ${l.task}</p>
+    <div id="editor${i+1}" class="editor-container"></div>
+    <button onclick="runCode(${i+1})">Run Code</button>
+    <button onclick="checkLesson(${i+1})">Submit Lesson ${i+1}</button>
+    <p>Live Preview:</p>
+    <iframe id="output${i+1}"></iframe>
+    <p id="status${i+1}"></p>
+    <div class="protip">${l.tip}<br>GitHub guide: <a href="https://github.com/join" target="_blank">Sign up</a>, push your code, enable Pages, share portfolio!</div>`;
+  container.appendChild(lesson);
+});
+
+// ======= MONACO EDITOR =======
 require.config({ paths: { vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs' }});
 require(['vs/editor/editor.main'], function () {
-    window.editor = monaco.editor.create(document.getElementById('editor'), {
-        value: `<!DOCTYPE html>
+  for(let i=1;i<=lessonsData.length;i++){
+    editors[i] = monaco.editor.create(document.getElementById('editor'+i), {
+      value:`<!DOCTYPE html>
 <html>
 <head>
-<title>My First Website</title>
+<title>Lesson ${i}</title>
 </head>
 <body>
 <h1>Your Name</h1>
-<p>I want to become a Developer.</p>
-<footer>© 2026 CODEON Uganda</footer>
+<p>Starter content for Lesson ${i}.</p>
 </body>
 </html>`,
-        language: 'html',
-        theme: 'vs-dark',
-        automaticLayout: true
+      language:'html',
+      theme:'vs-dark',
+      automaticLayout:true
     });
+  }
 });
 
-// Run Live Preview
-function runCode() {
-    const code = editor.getValue();
-    document.getElementById('output').srcdoc = code;
+// ======= RUN CODE =======
+function runCode(num){
+  document.getElementById('output'+num).srcdoc = editors[num].getValue();
 }
 
-// Check Lesson 1 Completion
-function checkLesson() {
-    const code = editor.getValue().toLowerCase();
-    const status = document.getElementById('status');
-    if (code.includes('<h1>') && !code.includes('your name')) {
-        status.innerHTML = '✅ Lesson 1 Complete! Lesson 2 unlocked.';
-        document.getElementById('lesson2').classList.remove('locked');
-        window.scrollTo({ top: document.getElementById('lesson2').offsetTop-20, behavior:'smooth' });
+// ======= CONFETTI =======
+function confettiBurst(){
+  const canvas = document.getElementById('confetti');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const particles = [];
+  for(let i=0;i<200;i++){
+    particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,dx:(Math.random()-0.5)*5,dy:Math.random()*-5-2,color:['#ff0','#f0f','#0ff','#0f0','#f00'][Math.floor(Math.random()*5)]});
+  }
+  function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{
+      ctx.fillStyle=p.color;
+      ctx.fillRect(p.x,p.y,5,5);
+      p.x+=p.dx;p.y+=p.dy;
+      if(p.y>canvas.height||p.x>canvas.width||p.x<0)p.x=Math.random()*canvas.width,p.y=0;
+    });
+    requestAnimationFrame(animate);
+  }
+  animate();
+  setTimeout(()=>{ctx.clearRect(0,0,canvas.width,canvas.height);},3000);
+}
+
+// ======= BADGE =======
+function showBadge(){
+  const badge = document.getElementById('badge');
+  badge.style.display='block';
+  setTimeout(()=>{badge.style.display='none';},2000);
+}
+
+// ======= CHECK LESSON =======
+function checkLesson(num){
+  const code = editors[num].getValue().toLowerCase();
+  const status = document.getElementById('status'+num);
+  if(code.includes('<h1>') && !code.includes('your name')){
+    points += 10;
+    document.getElementById('pointsDisplay').innerText = 'Points: ' + points;
+    status.innerHTML = `✅ Lesson ${num} Complete! +10 points`;
+    confettiBurst();
+    showBadge();
+    if(num<lessonsData.length){
+      document.getElementById('lesson'+(num+1)).classList.remove('locked');
+      document.getElementById('lesson'+(num+1)).scrollIntoView({behavior:'smooth'});
     } else {
-        status.innerHTML = '❌ Please replace "Your Name" in the <h1> tag.';
+      alert('🎉 All lessons complete! Push projects to GitHub and share your portfolio!');
+      generateCertificate();
     }
+    updateLeaderboard('Student', points);
+  } else {
+    status.innerHTML = '❌ Please replace "Your Name" in the <h1> tag.';
+  }
 }
 
-// Unlock next lesson manually (for Lesson 2–6)
-function unlockNext(num) {
-    const lesson = document.getElementById('lesson'+num);
-    if(lesson) {
-        lesson.classList.remove('locked');
-        lesson.scrollIntoView({behavior:'smooth'});
-    }
+// ======= LEADERBOARD =======
+let leaderboardData = [];
+function updateLeaderboard(name, pts){
+  const existing = leaderboardData.find(u=>u.name===name);
+  if(existing) existing.points=pts;
+  else leaderboardData.push({name:name,points:pts});
+  leaderboardData.sort((a,b)=>b.points-a.points);
+  renderLeaderboard();
+}
+
+function renderLeaderboard(){
+  const container = document.getElementById('leaderboardRows');
+  container.innerHTML = '';
+  leaderboardData.forEach((u,i)=>{
+    const row = document.createElement('div');
+    row.className='leader-row';
+    row.innerHTML = `${i+1}. ${u.name} - ${u.points} pts`;
+    container.appendChild(row);
+  });
+}
+
+// ======= CERTIFICATE =======
+function generateCertificate(){
+  document.getElementById('certName').innerText = 'Student Name: You';
+  document.getElementById('certPoints').innerText = 'Total Points: '+points;
+  document.getElementById('certificateCard').style.display='block';
+  document.getElementById('certificateCard').scrollIntoView({behavior:'smooth'});
 }
 </script>
-
 </body>
 </html>
