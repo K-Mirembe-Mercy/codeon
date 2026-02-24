@@ -5,187 +5,112 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CODEON – HTML & CSS Mastery Course</title>
 
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-
 <!-- Monaco Editor -->
 <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs/loader.js"></script>
 
 <style>
-body{margin:0;font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);color:white;transition:.3s;}
-header{background:#111;padding:20px;text-align:center;position:sticky;top:0;z-index:10;}
-header h1{margin:0;font-size:1.8em;}
-header .progress-container{background:#333;border-radius:12px;height:14px;margin-top:10px;}
-header .progress-bar{background:gold;height:14px;width:0%;border-radius:12px;transition:.5s;}
-header #pointsDisplay{margin-top:5px;}
-nav{display:flex;justify-content:center;gap:15px;margin-top:10px;}
-nav a{color:white;text-decoration:none;font-weight:bold;transition:.3s;}
-nav a:hover{color:gold;}
-#confetti{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;}
-section{padding:20px;max-width:1000px;margin:0 auto;}
-.card{background:rgba(255,255,255,0.08);padding:20px;border-radius:12px;margin-bottom:20px;transition:.3s;}
-.locked{opacity:0.4;pointer-events:none;}
-button{padding:10px 20px;background:gold;color:black;border:none;border-radius:6px;font-weight:bold;cursor:pointer;margin-top:10px;transition:.3s;}
+body{
+    margin:0;font-family:'Segoe UI',sans-serif;
+    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    color:white;
+}
+header{
+    background:#111;padding:20px;text-align:center;
+}
+header h1{margin:0;font-size:2em;}
+button{
+    padding:10px 20px;background:gold;color:black;border:none;border-radius:6px;font-weight:bold;cursor:pointer;margin-top:10px;
+}
 button:hover{background:orange;}
-#editor{height:400px;width:100%;border:1px solid #ccc;margin-top:10px;border-radius:6px;background:#1e1e1e;}
+#editor{height:350px;width:100%;border-radius:6px;margin-top:10px;}
 iframe{width:100%;height:250px;border:1px solid black;margin-top:10px;border-radius:6px;}
-.badge{display:inline-block;padding:4px 8px;background:#ffda59;color:black;border-radius:6px;margin-right:4px;font-weight:bold;animation:pulse 1.2s infinite;}
-@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.6;}}
-.leader-row{display:flex;justify-content:space-between;padding:6px;border-bottom:1px solid #ccc;transition:.3s;}
-.leader-row:hover{transform:scale(1.02);}
-@media(max-width:600px){#editor{height:250px;}.leader-row{flex-direction:column;}}
-textarea,input,select{width:100%;padding:10px;margin:5px 0;border-radius:5px;}
-h2,h3{margin-top:0;}
-.protip{background:rgba(255,255,0,0.1);padding:10px;border-left:4px solid gold;margin:10px 0;border-radius:6px;}
-.preview-frame{height:400px;border:2px solid gold;border-radius:8px;margin-top:10px;}
-.feedback{background:rgba(0,0,0,0.2);padding:10px;margin-top:10px;border-radius:6px;color:#ffda59;}
+.card{background:rgba(255,255,255,0.08);padding:20px;border-radius:12px;margin:20px;}
+.locked{opacity:0.4;pointer-events:none;}
+.protip{background:rgba(255,255,0,0.1);padding:10px;border-left:4px solid gold;margin:10px 0;border-radius:6px;color:black;}
+h2{margin-top:0;}
 </style>
 </head>
 <body>
 
 <header>
 <h1>CODEON – HTML & CSS Mastery</h1>
-<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
-<p id="pointsDisplay">Points: 0</p>
-<nav>
-  <a href="#course">Course</a>
-  <a href="#challenge">Weekly Challenge</a>
-  <a href="#leaderboard">Leaderboard</a>
-</nav>
+<p>Learn by doing! Edit the code, run it, and see results live. 💻✨</p>
 </header>
 
-<div id="confetti"></div>
+<!-- LESSON 1 -->
+<section class="card" id="lesson1">
+<h2>Lesson 1 – HTML Structure</h2>
+<div class="protip">
+<b>Concepts:</b> HTML is the skeleton of web pages. <b>&lt;!DOCTYPE html&gt;</b> declares HTML5. <b>&lt;html&gt;</b> is root. <b>&lt;head&gt;</b> contains metadata. <b>&lt;body&gt;</b> contains visible content.
+</div>
+<p>Task: Replace "Your Name" in the &lt;h1&gt; tag with your real name.</p>
 
-<section id="authSection" class="card">
-<h2>Login / Sign Up</h2>
-<input type="email" id="email" placeholder="Email">
-<input type="password" id="password" placeholder="Password">
-<input type="text" id="school" placeholder="School Name">
-<select id="country">
-  <option value="Uganda">Uganda</option>
-  <option value="Kenya">Kenya</option>
-  <option value="Nigeria">Nigeria</option>
-  <option value="Ghana">Ghana</option>
-  <option value="South Africa">South Africa</option>
-</select>
-<button onclick="signup()">Sign Up</button>
-<button onclick="login()">Login</button>
+<div id="editor"></div>
+
+<button onclick="runCode()">Run Code</button>
+<button onclick="checkLesson()">Submit Lesson 1</button>
+
+<p>Live Preview:</p>
+<iframe id="output"></iframe>
+<p id="status"></p>
 </section>
 
-<section id="main" style="display:none;">
-
-<!-- COURSE -->
-<div id="course" class="card">
-<h2>📚 Course Lessons</h2>
-
-<!-- LESSON 1 -->
-<div class="lesson" id="lesson1">
-<h3>Lesson 1 – HTML Structure</h3>
-<div class="protip"><b>Concepts:</b> HTML is the skeleton of web pages. DOCTYPE declares HTML5. &lt;html&gt; is root, &lt;head&gt; contains metadata, &lt;body&gt; has visible content.</div>
-<p>Task: Change "Your Name" to your real name in the &lt;h1&gt; tag.</p>
-<div id="editor"></div>
-<button onclick="runCode()">Run Code</button>
-<button onclick="checkLesson(1)">Submit Lesson 1</button>
-
-<p>GitHub repo submission:</p>
-<input type="url" id="github1" placeholder="https://github.com/username/repo">
-<button onclick="submitGithub(1)">Submit GitHub Repo</button>
-
-<p>Preview GitHub Pages:</p>
-<input type="url" id="githubPages1" placeholder="https://username.github.io/repo">
-<button onclick="previewGitHub(1)">Preview</button>
-<iframe id="preview1" class="preview-frame"></iframe>
-
-<iframe id="output"></iframe>
-<p id="status1"></p>
-<div id="feedback1" class="feedback"></div>
-<div class="protip">
-💡 GitHub Guide: 
-<ol>
-<li>Sign up at <a href="https://github.com/" target="_blank">GitHub</a>.</li>
-<li>Create a repository (e.g., "my-first-site").</li>
-<li>Upload HTML files or push via Git commands.</li>
-<li>Settings → Pages → select main branch → Save.</li>
-<li>Use the URL in "Preview GitHub Pages".</li>
-<li>This builds your portfolio and impresses recruiters!</li>
-</ol>
-</div>
-</div>
-
 <!-- LESSON 2 -->
-<div class="lesson locked" id="lesson2">
-<h3>Lesson 2 – Headings & Paragraphs</h3>
-<div class="protip"><b>Concepts:</b> Headings (&lt;h1&gt;–&lt;h6&gt;) define importance. Paragraphs (&lt;p&gt;) structure text.</div>
-<p>Task: Add &lt;h2&gt; and a &lt;p&gt; describing your goals.</p>
-<button onclick="unlockNext(2)">Unlock Lesson 2</button>
+<section class="card locked" id="lesson2">
+<h2>Lesson 2 – Headings & Paragraphs</h2>
+<div class="protip">
+<b>Concepts:</b> Use headings (<b>&lt;h1&gt; to &lt;h6&gt;</b>) for titles. <b>&lt;p&gt;</b> tags are for paragraphs. Structure your content logically.
 </div>
+<p>Task: Add an <b>&lt;h1&gt;</b> heading and a <b>&lt;p&gt;</b> paragraph inside the body.</p>
+<button onclick="unlockNext(2)">Unlock Lesson 2</button>
+</section>
 
 <!-- LESSON 3 -->
-<div class="lesson locked" id="lesson3">
-<h3>Lesson 3 – Images & Links</h3>
-<div class="protip"><b>Concepts:</b> &lt;img&gt; embeds images. &lt;a&gt; creates hyperlinks.</div>
-<p>Task: Add your profile image and a link to your GitHub profile.</p>
-<button onclick="unlockNext(3)">Unlock Lesson 3</button>
+<section class="card locked" id="lesson3">
+<h2>Lesson 3 – Images</h2>
+<div class="protip">
+<b>Concepts:</b> Use <b>&lt;img&gt;</b> to display images. Always add <b>alt</b> text for accessibility. Images make your page engaging!
 </div>
+<p>Task: Add an image of your choice inside the body.</p>
+<button onclick="unlockNext(3)">Unlock Lesson 3</button>
+</section>
 
 <!-- LESSON 4 -->
-<div class="lesson locked" id="lesson4">
-<h3>Lesson 4 – Lists & Sections</h3>
-<div class="protip"><b>Concepts:</b> Lists organize items. Sections (&lt;section&gt;) divide page into logical blocks.</div>
-<p>Task: Add an ordered list of 3 favorite programming languages inside a section.</p>
-<button onclick="unlockNext(4)">Unlock Lesson 4</button>
+<section class="card locked" id="lesson4">
+<h2>Lesson 4 – Sections & Layout</h2>
+<div class="protip">
+<b>Concepts:</b> <b>&lt;section&gt;</b> organizes content. Helps with semantic structure, SEO, and readability.
 </div>
+<p>Task: Create a &lt;section&gt; with a heading and paragraph describing your project.</p>
+<button onclick="unlockNext(4)">Unlock Lesson 4</button>
+</section>
 
 <!-- LESSON 5 -->
-<div class="lesson locked" id="lesson5">
-<h3>Lesson 5 – CSS Basics</h3>
-<div class="protip"><b>Concepts:</b> CSS changes appearance. Use selectors, colors, fonts, and layouts.</div>
-<p>Task: Add background color, change font, and style your &lt;h1&gt;.</p>
-<button onclick="unlockNext(5)">Unlock Lesson 5</button>
+<section class="card locked" id="lesson5">
+<h2>Lesson 5 – Multi-Page Website</h2>
+<div class="protip">
+<b>Concepts:</b> Learn to link pages. Use <b>&lt;a href="about.html"&gt;</b> to navigate. Deploy to GitHub Pages to make it live.
 </div>
+<p>Task: Create index.html and about.html, link them, and add content. <br>💡 Tip: Upload to GitHub to start your portfolio!</p>
+<button onclick="unlockNext(5)">Unlock Lesson 5</button>
+</section>
 
 <!-- LESSON 6 -->
-<div class="lesson locked" id="lesson6">
-<h3>Lesson 6 – Multi-page Website & Deployment</h3>
-<div class="protip"><b>Concepts:</b> Create multiple pages (index.html, about.html). Link them. Deploy on GitHub Pages for live access.</div>
-<p>Task: Create index.html and about.html and deploy. Share your GitHub Pages URL.</p>
-<button onclick="unlockNext(6)">Final Lesson Complete!</button>
+<section class="card locked" id="lesson6">
+<h2>Lesson 6 – Deployment & Monetization</h2>
+<div class="protip">
+<b>Concepts:</b> GitHub Pages lets you publish your site for free. Share your projects, learn portfolio tips, and explore monetization (like freelance or ads).
 </div>
-</div>
-
-<!-- WEEKLY CHALLENGE -->
-<div id="challenge" class="card">
-<h2>🔥 Weekly Challenge</h2>
-<p>Build a landing page without &lt;table&gt; tags. Push to GitHub!</p>
-<textarea id="challengeCode" placeholder="Write your HTML/CSS here..."></textarea>
-<button onclick="submitChallenge()">Submit Challenge</button>
-<div id="challengeFeedback" class="feedback"></div>
-</div>
-
-<!-- LEADERBOARD -->
-<div id="leaderboard" class="card">
-<h2>🏆 Africa Leaderboard</h2>
-<div id="leaderboardBoard"></div>
-</div>
-
+<p>Task: Deploy your site to GitHub Pages. Add a note on how someone could earn from web projects.</p>
+<button onclick="unlockNext(6)">Finish Course!</button>
 </section>
 
 <script>
-// Firebase
-const firebaseConfig = {apiKey:"AIzaSyD_LR9Kllj7hoKTiJAaSxyHglSO6r5gh-g",authDomain:"codeon-3cb1c.firebaseapp.com",projectId:"codeon-3cb1c"};
-firebase.initializeApp(firebaseConfig);
-const auth=firebase.auth();
-const db=firebase.firestore();
-let currentUser=null;
-
-// Monaco Editor
-window.onload=function(){
-  require.config({ paths:{ vs:'https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs'}});
-  require(['vs/editor/editor.main'],function(){
-    window.editor=monaco.editor.create(document.getElementById('editor'),{
-      value:`<!DOCTYPE html>
+// Monaco Editor Initialization
+require.config({ paths: { vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs' }});
+require(['vs/editor/editor.main'], function () {
+    window.editor = monaco.editor.create(document.getElementById('editor'), {
+        value: `<!DOCTYPE html>
 <html>
 <head>
 <title>My First Website</title>
@@ -196,122 +121,39 @@ window.onload=function(){
 <footer>© 2026 CODEON Uganda</footer>
 </body>
 </html>`,
-      language:'html',theme:'vs-dark',automaticLayout:true
+        language: 'html',
+        theme: 'vs-dark',
+        automaticLayout: true
     });
-  });
-}
-
-// Run code
-function runCode(){document.getElementById("output").srcdoc=editor.getValue();}
-
-// Points & progress
-let totalPoints=0;
-function updateProgress(){
-  let progress=(totalPoints/600)*100;
-  if(progress>100) progress=100;
-  document.getElementById("progressBar").style.width=progress+"%";
-  document.getElementById("pointsDisplay").innerText="Points: "+totalPoints;
-}
-
-// Lesson check & feedback
-function checkLesson(lesson){
-  let code=editor.getValue().toLowerCase();
-  let status=document.getElementById("status"+lesson);
-  let feedback=document.getElementById("feedback"+lesson);
-  let valid=false; let pointsEarned=0; let msgs=[];
-  switch(lesson){
-    case 1:
-      if(code.includes("<h1>") && !code.includes("your name")){valid=true;pointsEarned=50;}
-      else msgs.push("❌ Replace 'Your Name' in <h1>.");
-      if(!code.includes("<footer>")) msgs.push("💡 Tip: Add a <footer> for page ownership.");
-      if(!code.includes("<p>")) msgs.push("💡 Tip: Add a <p> describing yourself or goals.");
-      break;
-  }
-  feedback.innerHTML=msgs.join("<br>");
-  if(valid){
-    status.innerHTML="✅ Lesson "+lesson+" Complete! 🎉";
-    totalPoints+=pointsEarned;
-    updateProgress();
-    if(currentUser) db.collection("users").doc(currentUser.uid).update({points:totalPoints});
-    triggerConfetti();
-  }else{status.innerHTML="❌ Complete the task correctly. See tips below.";}
-}
-
-// Unlock lessons
-function unlockNext(num){document.getElementById("lesson"+(num+1))?.classList.remove("locked");}
-
-// Confetti
-function triggerConfetti(){
-  const confetti=document.getElementById("confetti");
-  for(let i=0;i<100;i++){
-    let el=document.createElement("div");
-    el.style.position="absolute"; el.style.width="8px"; el.style.height="8px";
-    el.style.background=["gold","orange","yellow"][Math.floor(Math.random()*3)];
-    el.style.top=Math.random()*window.innerHeight+"px";
-    el.style.left=Math.random()*window.innerWidth+"px";
-    el.style.opacity=Math.random(); confetti.appendChild(el);
-    setTimeout(()=>el.remove(),2000);
-  }
-}
-
-// GitHub submission
-async function submitGithub(lesson){
-  const input=document.getElementById("github"+lesson);
-  const url=input.value.trim();
-  if(!url.startsWith("https://github.com/")) {alert("Enter valid GitHub URL."); return;}
-  try{
-    let apiURL=url.replace("https://github.com/","https://api.github.com/repos/");
-    let resp=await fetch(apiURL);
-    if(resp.ok){
-      alert("🎉 Verified GitHub repo! +20 bonus points");
-      totalPoints+=20; updateProgress();
-      if(currentUser) db.collection("users").doc(currentUser.uid).update({points:totalPoints,["githubLesson"+lesson]:url});
-      input.value="";
-    }else alert("❌ Repo not found. Check URL/privacy.");
-  }catch(e){alert("Error validating repo.");}
-}
-
-// GitHub Pages preview
-function previewGitHub(lesson){
-  const input=document.getElementById("githubPages"+lesson);
-  const url=input.value.trim();
-  if(!url.startsWith("https://")){alert("Enter valid URL.");return;}
-  document.getElementById("preview"+lesson).src=url;
-}
-
-// Firebase Auth
-function signup(){
-  auth.createUserWithEmailAndPassword(email.value,password.value)
-  .then(u=>{db.collection("users").doc(u.user.uid).set({email:email.value,school:school.value,country:country.value,points:0});})
-  .catch(alert);
-}
-function login(){auth.signInWithEmailAndPassword(email.value,password.value).catch(alert);}
-function logout(){auth.signOut();}
-auth.onAuthStateChanged(user=>{
-  if(user){currentUser=user;authSection.style.display="none";main.style.display="block";}
-  else{authSection.style.display="block";main.style.display="none";}
 });
 
-// Weekly Challenge
-function submitChallenge(){
-  let code=challengeCode.value;
-  let score=Math.floor(Math.random()*50)+50;
-  totalPoints+=score; updateProgress();
-  document.getElementById("challengeFeedback").innerHTML="🎯 AI Feedback: Nice work! You earned "+score+" points.";
-  if(currentUser) db.collection("users").doc(currentUser.uid).update({points:totalPoints});
+// Run Live Preview
+function runCode() {
+    const code = editor.getValue();
+    document.getElementById('output').srcdoc = code;
 }
 
-// Leaderboard
-function loadLeaderboard(){
-  db.collection("users").get().then(snap=>{
-    let html=""; snap.forEach(doc=>{let d=doc.data(); html+=`<div class="leader-row"><span>${d.email}</span><span>${d.points||0} pts</span></div>`;});
-    leaderboardBoard.innerHTML=html;
-  });
+// Check Lesson 1 Completion
+function checkLesson() {
+    const code = editor.getValue().toLowerCase();
+    const status = document.getElementById('status');
+    if (code.includes('<h1>') && !code.includes('your name')) {
+        status.innerHTML = '✅ Lesson 1 Complete! Lesson 2 unlocked.';
+        document.getElementById('lesson2').classList.remove('locked');
+        window.scrollTo({ top: document.getElementById('lesson2').offsetTop-20, behavior:'smooth' });
+    } else {
+        status.innerHTML = '❌ Please replace "Your Name" in the <h1> tag.';
+    }
 }
 
-// Persist points
-window.onbeforeunload=function(){localStorage.setItem("totalPoints",totalPoints);}
-window.onload=function(){if(localStorage.getItem("totalPoints")){totalPoints=parseInt(localStorage.getItem("totalPoints"));updateProgress();}};
+// Unlock next lesson manually (for Lesson 2–6)
+function unlockNext(num) {
+    const lesson = document.getElementById('lesson'+num);
+    if(lesson) {
+        lesson.classList.remove('locked');
+        lesson.scrollIntoView({behavior:'smooth'});
+    }
+}
 </script>
 
 </body>
