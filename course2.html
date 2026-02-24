@@ -7,6 +7,8 @@
 
 <!-- Monaco Editor -->
 <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs/loader.js"></script>
+<!-- Confetti -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
 body{font-family:Arial;margin:0;background:#eef2f6;}
@@ -23,13 +25,16 @@ iframe{width:100%;height:300px;border:1px solid #ccc;margin-top:10px;border-radi
 .gitbtn:hover{background:#1e7e34;}
 .certificate-btn{background:#ff6600;color:white;margin-top:15px;}
 .certificate-btn:hover{background:#e65c00;}
+.confetti{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;}
+.protip{background:#e8f4ff;padding:10px;margin:10px 0;border-left:4px solid #2196F3;border-radius:5px;}
+.protip h3{margin-top:0;}
 </style>
 </head>
 <body>
 
 <header>
 <h1>Course 2 – Interactive Projects</h1>
-<p>Build, code, deploy, earn badges & certificates!</p>
+<p>Build, code, deploy, earn badges & certificates! Complete lessons to unlock the next.</p>
 </header>
 
 <div id="courseContainer"></div>
@@ -46,104 +51,76 @@ const levels = [
       {
         title:"HTML Form Structure",
         guidance:`<strong>Project:</strong> Build a form that collects Name, Email, and Event type.<br>
-<strong>Allowed:</strong> HTML tags: <code>&lt;form&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;label&gt;</code>, <code>&lt;select&gt;</code>, <code>&lt;button&gt;</code>.<br>
-<strong>Rules:</strong>
+<strong>Allowed Tags:</strong> <code>&lt;form&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;label&gt;</code>, <code>&lt;select&gt;</code>, <code>&lt;button&gt;</code>.<br>
+<strong>Rules:</strong> Must include all fields, labeled, submit button must exist.<br>
+<strong>Tag Explanation:</strong>
 <ul>
-<li>Form must have all fields labeled.</li>
-<li>Submit button must exist.</li>
-<li>Code must run without errors.</li>
-<li>Submit code to unlock next lesson.</li>
+<li><code>&lt;form&gt;</code>: Wraps all input fields</li>
+<li><code>&lt;input type="text/email"&gt;</code>: Text or email input</li>
+<li><code>&lt;label for="id"&gt;</code>: Describes input</li>
+<li><code>&lt;select&gt;</code>: Dropdown menu</li>
+<li><code>&lt;button type="submit"&gt;</code>: Submit form</li>
 </ul>
-<strong>Tag Explanations:</strong>
-<ul>
-<li><code>&lt;form&gt;</code>: Wraps the input fields.</li>
-<li><code>&lt;input type="text"&gt;</code>: Collects text input.</li>
-<li><code>&lt;input type="email"&gt;</code>: Collects email and validates format.</li>
-<li><code>&lt;label&gt;</code>: Describes input and links with 'for' attribute.</li>
-<li><code>&lt;select&gt;</code>: Dropdown menu for options.</li>
-<li><code>&lt;button type="submit"&gt;</code>: Submits the form.</li>
-</ul>
-<strong>Tips:</strong> Always link labels using <code>for="id"</code>. Use placeholder attributes for guidance.`
+<strong>Tip:</strong> Use placeholders, link labels using <code>for</code>.`
       },
       {
         title:"JS Validation",
-        guidance:`<strong>Project:</strong> Validate that Name and Email are filled.<br>
-<strong>Allowed:</strong> JS: getElementById, addEventListener.<br>
-<strong>Rules:</strong>
+        guidance:`<strong>Project:</strong> Validate Name and Email.<br>
+<strong>Allowed:</strong> JS DOM methods: getElementById, addEventListener.<br>
+<strong>Rules:</strong> Show alert if fields empty, prevent page reload.<br>
+<strong>Tag Explanation:</strong>
 <ul>
-<li>Show alert if fields are empty.</li>
-<li>Do not reload page on submit.</li>
-</ul>
-<strong>Tag Explanations:</strong>
-<ul>
-<li><code>document.getElementById('id')</code>: Access a DOM element by id.</li>
-<li><code>addEventListener('submit', func)</code>: Run function on form submit.</li>
-<li><code>e.preventDefault()</code>: Prevents page reload on submit.</li>
+<li><code>document.getElementById()</code>: Access DOM elements</li>
+<li><code>addEventListener('submit', func)</code>: Run on submit</li>
+<li><code>e.preventDefault()</code>: Prevent reload</li>
 </ul>`
       },
       {
         title:"CSS Styling",
-        guidance:`<strong>Project:</strong> Style your form to look neat.<br>
-<strong>Allowed:</strong> CSS properties: margin, padding, colors, border, flex.<br>
-<strong>Rules:</strong> Form should look clean; submit button visible.<br>
-<strong>Tag Explanations:</strong>
-<ul>
-<li>Use <code>id</code> and <code>class</code> selectors to style elements.</li>
-<li>Use <code>flex</code> for arranging input fields.</li>
-<li><code>padding</code> and <code>margin</code> for spacing.</li>
-<li>Colors can be applied using <code>background-color</code> or <code>color</code>.</li>
-</ul>`
+        guidance:`<strong>Project:</strong> Style your form.<br>
+<strong>Rules:</strong> Layout neat, visible submit button.<br>
+<strong>Tips:</strong> Use <code>class</code>/<code>id</code> selectors, <code>flex</code>, padding, margin, colors.`
       },
       {
         title:"Live Preview & Test",
-        guidance:`<strong>Project:</strong> Test your form and validation.<br>
-<strong>Rules:</strong> Inputs must work, JS alerts show if fields empty.<br>
-<strong>Tips:</strong> Test combinations of empty and filled inputs.`
+        guidance:`<strong>Project:</strong> Test form & JS validation.<br>
+<strong>Tips:</strong> Try empty/filled inputs, ensure alerts work.`
       },
       {
-        title:"GitHub Deployment",
-        guidance:`<strong>Project:</strong> Push your HTML/CSS/JS files to GitHub.<br>
-<strong>Rules:</strong> Commit all files; create a repo named "Course2-Level1-Lesson5".<br>
-<strong>Tips:</strong> You can make your repo public and use GitHub Pages for live preview.`
+        title:"GitHub Deployment & Monetization",
+        guidance:`<strong>Project:</strong> Push files to GitHub.<br>
+<strong>Tips:</strong> 
+<ul>
+<li>Make repo public & deploy with GitHub Pages.</li>
+<li>Document projects to attract clients.</li>
+<li>Offer templates, freelance locally or online.</li>
+<li>Showcase skills in portfolio to monetize.</li>
+</ul>`
       }
     ]
   },
   {
     name:"Level 2 – School Website",
     lessons:[
-      {title:"Homepage Layout", guidance:`<strong>Project:</strong> Build a homepage with header, nav, main, footer.<br>
-<strong>Tag Explanations:</strong> <code>&lt;header&gt;</code> for top section, <code>&lt;nav&gt;</code> for navigation links, <code>&lt;main&gt;</code> for main content, <code>&lt;footer&gt;</code> for bottom info.`},
-      {title:"About Page", guidance:`<strong>Project:</strong> Add an about section with <code>&lt;section&gt;</code> and paragraphs. Include an image with <code>&lt;img&gt;</code>.`},
-      {title:"Contact Page", guidance:`<strong>Project:</strong> Build a contact form with Name, Email, Message fields.<br>
-Use <code>&lt;textarea&gt;</code> for message.`},
-      {title:"CSS Styling & Responsive", guidance:`<strong>Project:</strong> Style the pages. Use Flex/Grid.<br><strong>Tips:</strong> Add media queries for mobile view.`},
-      {title:"GitHub Deployment", guidance:`<strong>Project:</strong> Push website to GitHub. Use repo like "Course2-Level2".`}
-    ]
-  },
-  {
-    name:"Level 3 – Shop Inventory System",
-    lessons:[
-      {title:"Display Products Table", guidance:`<strong>Project:</strong> Use <code>&lt;table&gt;</code>, <code>&lt;tr&gt;</code>, <code>&lt;td&gt;</code> to display products.`},
-      {title:"Add/Remove Stock JS", guidance:`<strong>Project:</strong> Use JS to dynamically add/remove product rows.`},
-      {title:"Style & Responsive Design", guidance:`<strong>Project:</strong> Style the table and buttons.`},
-      {title:"Combine Previous Projects", guidance:`<strong>Project:</strong> Combine Event Registration and School Website features.`},
-      {title:"GitHub Deployment", guidance:`<strong>Project:</strong> Push final project to GitHub.`}
+      {title:"Homepage Layout", guidance:`<strong>Project:</strong> Header, nav, main, footer.<br><strong>Tag Explanation:</strong> <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code>`},
+      {title:"About Page", guidance:`<strong>Project:</strong> About section with <code>&lt;section&gt;</code>, paragraphs, <code>&lt;img&gt;</code>.`},
+      {title:"Contact Page", guidance:`<strong>Project:</strong> Contact form with Name, Email, Message, <code>&lt;textarea&gt;</code>.`},
+      {title:"CSS Styling & Responsive", guidance:`<strong>Project:</strong> Style using Flex/Grid & media queries.`},
+      {title:"GitHub Deployment & Monetization", guidance:`<strong>Project:</strong> Push website to GitHub.<br><strong>Tip:</strong> Showcase portfolio online to earn clients.`}
     ]
   }
 ];
-</script>
 
-<script>
+// ===== Build Levels Dynamically =====
 const container=document.getElementById("courseContainer");
-
-// Build levels dynamically
 levels.forEach((level,li)=>{
   const levelDiv=document.createElement("div");
   levelDiv.className="level";
   if(li>0) levelDiv.classList.add("locked");
   levelDiv.id="level"+(li+1);
-  levelDiv.innerHTML=`<h2>${level.name}</h2><div class="guidance">Complete all lessons to earn Level ${li+1} certificate (optional paid)</div>`;
-
+  levelDiv.innerHTML=`<h2>${level.name}</h2>
+  <div class="guidance">Complete lessons to earn Level ${li+1} certificate (optional paid)</div>`;
+  
   level.lessons.forEach((lesson,idx)=>{
     const lessonDiv=document.createElement("div");
     lessonDiv.className="lesson";
@@ -152,7 +129,7 @@ levels.forEach((level,li)=>{
     lessonDiv.innerHTML=`
       <h3>Lesson ${idx+1} – ${lesson.title}</h3>
       <div class="guidance">${lesson.guidance}</div>
-      <div id="editor${li+1}-${idx+1}" style="height:450px;"></div>
+      <div id="editor${li+1}-${idx+1}" style="height:400px;"></div>
       <button onclick="runCode('${li+1}-${idx+1}')">Run Code</button>
       <button onclick="submitLesson('${li+1}-${idx+1}')">Submit Lesson</button>
       <button class="gitbtn" onclick="deployGitHub('${li+1}-${idx+1}')">Deploy to GitHub</button>
@@ -162,7 +139,7 @@ levels.forEach((level,li)=>{
     levelDiv.appendChild(lessonDiv);
   });
 
-  // Level Certificate (Optional Paid)
+  // Certificate
   const certDiv=document.createElement("div");
   certDiv.className="lesson locked";
   certDiv.id=`level${li+1}-certificate`;
@@ -197,28 +174,25 @@ function runCode(id){document.getElementById("output"+id).srcdoc=editors[id].get
 function submitLesson(id){
   const code=editors[id].getValue();
   if(!code.trim()){alert("Write code before submitting!"); return;}
+  // Confetti celebration
+  confetti({particleCount:50, spread:70, origin:{y:0.6}});
+  setTimeout(()=>{document.querySelector('.confetti')?.remove();},3000);
+  
   document.getElementById(`badge${id}`).style.display='block';
-  alert(`Lesson ${id} submitted!`);
+  alert(`Lesson ${id} submitted! 🎉`);
+  
   const [level,lesson]=id.split('-').map(Number);
   const nextLessonEl=document.getElementById(`level${level}-lesson${lesson+1}`);
   if(nextLessonEl) nextLessonEl.classList.remove('locked');
   else document.getElementById(`level${level}-certificate`).classList.remove('locked');
 }
 
-function issueCertificate(level){
-  alert(`Congratulations! You earned Level ${level} Certificate!`);
-  document.getElementById(`badge${level}`).style.display='block';
-  const nextLevel=document.getElementById(`level${level+1}`);
-  if(nextLevel) nextLevel.classList.remove('locked');
-}
-
 function deployGitHub(id){
-  alert(`Deploying lesson ${id} to GitHub...\nOpen GitHub and push your files manually for now.`);
+  alert(`Deploy lesson ${id} to GitHub. Create repo & push your files. Use GitHub Pages for live preview!`);
 }
 
-// ===== Pesapal Payment for Certificate =====
+// Pesapal Payment
 function payCertificate(level){
-  // Example iframe URL – replace with your real Pesapal payment URL
   const paymentURL=`https://store.pesapal.com/embed-code?pageUrl=https://store.pesapal.com/level${level}`;
   document.getElementById("paymentContainer").innerHTML=`
     <iframe src="${paymentURL}" width="400" height="60" frameborder="0" allowfullscreen></iframe>
@@ -226,6 +200,5 @@ function payCertificate(level){
   alert(`Payment window loaded. Complete payment to receive verified certificate.`);
 }
 </script>
-
 </body>
 </html>
