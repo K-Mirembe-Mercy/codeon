@@ -3,170 +3,177 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CODEON Africa | Membership Certificate</title>
-
-<!-- QR + PDF -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
+<title>Membership Form</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <style>
-/* Base styles */
-* {box-sizing: border-box; margin:0; padding:0;}
-body {font-family:'Inter', sans-serif; background:#f4f4f4; color:#222; line-height:1.6;}
-a {text-decoration:none; color:inherit;}
-button {cursor:pointer; transition:0.3s ease;}
-input, select {border:1px solid #ccc; border-radius:5px;}
-
-/* Header */
-header {background:#1f1f1f; color:white; padding:30px 20px; text-align:center;}
-header h1 {font-size:2.5rem; margin-bottom:10px;}
-header p {font-size:1.2rem; opacity:0.8;}
-
-/* Navigation */
-nav {background:#222; display:flex; justify-content:center; flex-wrap:wrap; padding:15px;}
-nav a {color:#fff; margin:0 20px; font-weight:600; font-size:1rem;}
-nav a:hover {color:#00bfff;}
-
-/* Hero */
-.hero {background:linear-gradient(135deg,#00bfff,#111); color:#fff; text-align:center; padding:80px 20px;}
-.hero h2 {font-size:2.2rem; margin-bottom:20px;}
-.hero p {font-size:1.2rem; max-width:700px; margin:auto;}
-
-/* Certificate Section */
-.certificate-section {max-width:900px; margin:auto; padding:60px 20px;}
-.certificate-form, .verify-section {background:#fff; padding:25px; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.1); margin-bottom:40px;}
-.certificate-form h2, .verify-section h2 {text-align:center; color:#1f1f1f; margin-bottom:20px;}
-input, select, button {width:100%; padding:12px; margin:10px 0; font-size:1rem;}
-button {background:#00bfff; color:#fff; border:none; border-radius:8px; font-weight:600;}
-button:hover {background:#0095cc;}
-
-/* Certificate Card */
-.certificate {display:none; background:#fff; padding:50px 40px; border:10px solid #00bfff; border-radius:16px; text-align:center; position:relative; box-shadow:0 12px 30px rgba(0,0,0,0.2);}
-.certificate h1 {color:#00bfff; font-size:2.5rem; margin:15px 0;}
-.certificate h2 {font-size:2rem; margin-bottom:10px;}
-.certificate h3 {font-size:1.5rem; margin:10px 0; color:#111;}
-.certificate p {margin:8px 0; font-size:1.1rem;}
-#qrcode {margin:20px auto;}
-
-/* Verification Result */
-.verify-result {font-weight:bold; margin-top:15px; text-align:center;}
-
-/* Footer */
-footer {background:#1f1f1f; color:white; text-align:center; padding:30px 20px; margin-top:40px;}
-footer p {opacity:0.7;}
-
-/* Responsive */
-@media(max-width:768px){.certificate{padding:30px 20px;}}
+  body { font-family: Arial, sans-serif; margin: 20px; background: #f7f7f7; }
+  h1, h2 { text-align: center; }
+  form { max-width: 500px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; }
+  input, select, button { width: 100%; padding: 10px; margin: 8px 0; border-radius: 4px; border: 1px solid #ccc; }
+  .partners { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 30px; }
+  .badge { background: #4CAF50; color: white; padding: 10px 20px; border-radius: 8px; font-weight: bold; }
+  table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+  th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+  th { background: #eee; }
 </style>
 </head>
 <body>
 
-<header>
-<h1>CODEON Africa</h1>
-<p>Membership Certificate Portal</p>
-</header>
+<h1>Membership Registration</h1>
+<form id="membershipForm">
+  <label>Full Name:</label>
+  <input type="text" id="fullName" required>
 
-<nav>
-<a href="index.html">Home</a>
-<a href="enroll.html">Enroll</a>
-<a href="verify.html">Verify Membership</a>
-<a href="community-codeon.html">Community</a>
-</nav>
+  <label>Email:</label>
+  <input type="email" id="email" required>
 
-<section class="hero">
-<h2>Welcome to CODEON Africa</h2>
-<p>Become a part of Africa's leading coding community. Generate your official membership certificate here.</p>
-</section>
+  <label>Type:</label>
+  <select id="type" required>
+    <option value="">Select</option>
+    <option value="Individual">Individual</option>
+    <option value="School">School</option>
+  </select>
 
-<section class="certificate-section">
+  <label>School Name (if School):</label>
+  <input type="text" id="schoolName">
 
-<!-- Generate Membership Form -->
-<div class="certificate-form">
-<h2>Generate Membership Certificate</h2>
-<input type="text" id="studentName" placeholder="Enter Your Full Name">
-<select id="certLevel">
-<option>Level 1</option>
-<option>Level 2</option>
-<option>Level 3</option>
-</select>
-<button onclick="generateCertificate()">Generate Certificate</button>
-</div>
+  <button type="submit">Submit & Pay</button>
+</form>
 
-<!-- Certificate Display -->
-<div class="certificate" id="certificate">
-<h2>Certificate of Membership</h2>
-<p>We are proud to welcome</p>
-<h1 id="certName">Member Name</h1>
-<p>as an official member of</p>
-<h3>CODEON Africa</h3>
-<p>Level: <span id="certLevelDisplay">Level 1</span></p>
-<p>Membership ID: <span id="certID">MEM-XXXXXX</span></p>
-<p>Digital Signature: <span id="certHash">XXXXXXX</span></p>
-<div id="qrcode"></div>
-<p style="margin-top:15px; font-size:0.9rem; opacity:0.7;">Scan the QR code or use the Membership ID to verify authenticity.</p>
-<button onclick="downloadPDF()">Download Certificate</button>
-</div>
+<h2>Our Partners</h2>
+<div class="partners" id="partners"></div>
 
-<!-- Verification Section -->
-<div class="verify-section">
-<h2>Verify Membership</h2>
-<input type="text" id="verifyID" placeholder="Enter Membership ID">
-<button onclick="verifyCertificate()">Verify</button>
-<div id="verifyResult" class="verify-result"></div>
-</div>
-
-</section>
-
-<footer>
-<p>© 2026 CODEON Africa. All rights reserved.</p>
-</footer>
+<h2>Members List</h2>
+<table id="membersTable">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Type</th>
+      <th>School</th>
+      <th>Certificate Sent</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
 
 <script>
-// Generate Membership Certificate
-function generateCertificate(){
-  const name = document.getElementById('studentName').value || 'Member';
-  const level = document.getElementById('certLevel').value;
-  const id = 'MEM-'+Math.floor(Math.random()*1000000); // Unique Membership ID
+  // === CONFIGURE THESE ===
+  const EMAILJS_USER_ID = 'YOUR_EMAILJS_USER_ID';
+  const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';
+  const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+  const GOOGLE_SHEET_WEBAPP_URL = 'YOUR_GOOGLE_SHEET_WEBAPP_URL';
+  emailjs.init(EMAILJS_USER_ID);
 
-  document.getElementById('certName').innerText = name;
-  document.getElementById('certLevelDisplay').innerText = level;
-  document.getElementById('certID').innerText = id;
-  document.getElementById('certHash').innerText = btoa(name+id).substring(0,10);
+  const members = [];
+  const partnersDiv = document.getElementById('partners');
+  const membersTableBody = document.querySelector('#membersTable tbody');
 
-  document.getElementById('certificate').style.display = 'block';
+  document.getElementById('membershipForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
 
-  // Generate QR code
-  document.getElementById('qrcode').innerHTML = '';
-  new QRCode(document.getElementById("qrcode"), {
-    text:id,
-    width:120,
-    height:120
+    const fullName = document.getElementById('fullName').value;
+    const email = document.getElementById('email').value;
+    const type = document.getElementById('type').value;
+    const schoolName = document.getElementById('schoolName').value;
+
+    if (!fullName || !email || !type) {
+      alert('Please fill in all required fields!');
+      return;
+    }
+
+    // Redirect to PesaPal payment
+    alert('You will be redirected to the payment page. After payment, click OK.');
+    window.open('https://store.pesapal.com/subscribecodeon', '_blank');
+
+    // Simulate payment success (replace with webhook in production)
+    const paid = true; 
+
+    if(paid) {
+      // Generate PDF certificate as blob
+      const certificateBlob = await generateCertificateBlob(fullName, type, schoolName);
+
+      // Send certificate via EmailJS
+      sendEmailWithCertificate(email, fullName, certificateBlob);
+
+      // Add to members list (in-page)
+      const member = { fullName, email, type, schoolName, certificate: 'Sent' };
+      members.push(member);
+      updateMembersTable();
+
+      // Add badge if school
+      if (type === 'School') addPartnerBadge(schoolName || fullName);
+
+      // Save to Google Sheet
+      saveMemberOnline(member);
+
+      // Reset form
+      document.getElementById('membershipForm').reset();
+    }
   });
-}
 
-// Download PDF
-function downloadPDF(){
-  html2pdf(document.getElementById('certificate'), {
-    margin:0.5,
-    filename:'CODEON_Membership_Certificate.pdf',
-    image:{type:'jpeg', quality:0.98},
-    html2canvas:{scale:2},
-    jsPDF:{unit:'in', format:'letter', orientation:'landscape'}
-  });
-}
-
-// Membership Verification
-function verifyCertificate(){
-  const idInput = document.getElementById('verifyID').value.trim();
-  if(idInput.startsWith('MEM-')){
-    document.getElementById('verifyResult').innerText = `Membership ID ${idInput} is valid. Welcome to CODEON Africa!`;
-  } else {
-    document.getElementById('verifyResult').innerText = `Membership ID ${idInput} not recognized.`;
+  async function generateCertificateBlob(name, type, school) {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    doc.setFontSize(22);
+    doc.text('Certificate of Membership', 20, 30);
+    doc.setFontSize(16);
+    doc.text(`This certifies that ${name}`, 20, 50);
+    if(type === 'School') doc.text(`from ${school}`, 20, 60);
+    doc.text('is a valued member of our organization.', 20, 70);
+    doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 90);
+    return doc.output('blob');
   }
-}
+
+  function sendEmailWithCertificate(email, name, blob) {
+    const reader = new FileReader();
+    reader.onload = function() {
+      const base64 = reader.result.split(',')[1];
+      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        to_email: email,
+        to_name: name,
+        attachment: base64
+      }).then(function(response){
+        alert(`Certificate emailed to ${email}!`);
+      }, function(error){
+        alert('Email failed: '+error);
+      });
+    };
+    reader.readAsDataURL(blob);
+  }
+
+  function addPartnerBadge(name) {
+    const badge = document.createElement('div');
+    badge.className = 'badge';
+    badge.textContent = name;
+    partnersDiv.appendChild(badge);
+  }
+
+  function updateMembersTable() {
+    membersTableBody.innerHTML = '';
+    members.forEach(m => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${m.fullName}</td>
+        <td>${m.email}</td>
+        <td>${m.type}</td>
+        <td>${m.schoolName || '-'}</td>
+        <td>${m.certificate}</td>
+      `;
+      membersTableBody.appendChild(row);
+    });
+  }
+
+  function saveMemberOnline(member) {
+    fetch(GOOGLE_SHEET_WEBAPP_URL, {
+      method: 'POST',
+      body: JSON.stringify(member),
+      headers: {'Content-Type': 'application/json'}
+    }).then(res => res.json())
+      .then(data => console.log('Saved to Google Sheet', data))
+      .catch(err => console.error('Error saving to Google Sheet:', err));
+  }
 </script>
 
 </body>
