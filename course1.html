@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CODEON – HTML Foundations & Deployment</title>
+<title>CODEON – HTML & CSS Mastery Course</title>
 
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -29,13 +29,13 @@ section{padding:20px;max-width:1000px;margin:0 auto;}
 .locked{opacity:0.4;pointer-events:none;}
 button{padding:10px 20px;background:gold;color:black;border:none;border-radius:6px;font-weight:bold;cursor:pointer;margin-top:10px;transition:.3s;}
 button:hover{background:orange;}
-#editor{height:300px;border:1px solid #ccc;margin-top:10px;border-radius:6px;}
+#editor{height:400px;width:100%;border:1px solid #ccc;margin-top:10px;border-radius:6px;background:#1e1e1e;}
 iframe{width:100%;height:250px;border:1px solid black;margin-top:10px;border-radius:6px;}
 .badge{display:inline-block;padding:4px 8px;background:#ffda59;color:black;border-radius:6px;margin-right:4px;font-weight:bold;animation:pulse 1.2s infinite;}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.6;}}
 .leader-row{display:flex;justify-content:space-between;padding:6px;border-bottom:1px solid #ccc;transition:.3s;}
 .leader-row:hover{transform:scale(1.02);}
-@media(max-width:600px){#editor{height:200px;}.leader-row{flex-direction:column;}}
+@media(max-width:600px){#editor{height:250px;}.leader-row{flex-direction:column;}}
 textarea,input,select{width:100%;padding:10px;margin:5px 0;border-radius:5px;}
 h2,h3{margin-top:0;}
 .protip{background:rgba(255,255,0,0.1);padding:10px;border-left:4px solid gold;margin:10px 0;border-radius:6px;}
@@ -46,7 +46,7 @@ h2,h3{margin-top:0;}
 <body>
 
 <header>
-<h1>CODEON – HTML Foundations & Deployment</h1>
+<h1>CODEON – HTML & CSS Mastery</h1>
 <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
 <p id="pointsDisplay">Points: 0</p>
 <nav>
@@ -76,9 +76,11 @@ h2,h3{margin-top:0;}
 
 <section id="main" style="display:none;">
 
+<!-- COURSE -->
 <div id="course" class="card">
-<h2>📚 Course 1 – HTML Foundations</h2>
+<h2>📚 Course Lessons</h2>
 
+<!-- LESSON 1 -->
 <div class="lesson" id="lesson1">
 <h3>Lesson 1 – HTML Structure</h3>
 <div class="protip"><b>Concepts:</b> HTML is the skeleton of web pages. DOCTYPE declares HTML5. &lt;html&gt; is root, &lt;head&gt; contains metadata, &lt;body&gt; has visible content.</div>
@@ -87,78 +89,103 @@ h2,h3{margin-top:0;}
 <button onclick="runCode()">Run Code</button>
 <button onclick="checkLesson(1)">Submit Lesson 1</button>
 
-<p>Submit your GitHub repo URL for bonus points:</p>
+<p>GitHub repo submission:</p>
 <input type="url" id="github1" placeholder="https://github.com/username/repo">
 <button onclick="submitGithub(1)">Submit GitHub Repo</button>
 
-<p>Preview your GitHub Pages:</p>
+<p>Preview GitHub Pages:</p>
 <input type="url" id="githubPages1" placeholder="https://username.github.io/repo">
 <button onclick="previewGitHub(1)">Preview</button>
 <iframe id="preview1" class="preview-frame"></iframe>
 
 <iframe id="output"></iframe>
 <p id="status1"></p>
-<div class="protip">💡 Pro Tip: Deploying to GitHub Pages builds your portfolio and impresses recruiters.</div>
 <div id="feedback1" class="feedback"></div>
+<div class="protip">
+💡 GitHub Guide: 
+<ol>
+<li>Sign up at <a href="https://github.com/" target="_blank">GitHub</a>.</li>
+<li>Create a repository (e.g., "my-first-site").</li>
+<li>Upload HTML files or push via Git commands.</li>
+<li>Settings → Pages → select main branch → Save.</li>
+<li>Use the URL in "Preview GitHub Pages".</li>
+<li>This builds your portfolio and impresses recruiters!</li>
+</ol>
+</div>
 </div>
 
+<!-- LESSON 2 -->
+<div class="lesson locked" id="lesson2">
+<h3>Lesson 2 – Headings & Paragraphs</h3>
+<div class="protip"><b>Concepts:</b> Headings (&lt;h1&gt;–&lt;h6&gt;) define importance. Paragraphs (&lt;p&gt;) structure text.</div>
+<p>Task: Add &lt;h2&gt; and a &lt;p&gt; describing your goals.</p>
+<button onclick="unlockNext(2)">Unlock Lesson 2</button>
 </div>
 
+<!-- LESSON 3 -->
+<div class="lesson locked" id="lesson3">
+<h3>Lesson 3 – Images & Links</h3>
+<div class="protip"><b>Concepts:</b> &lt;img&gt; embeds images. &lt;a&gt; creates hyperlinks.</div>
+<p>Task: Add your profile image and a link to your GitHub profile.</p>
+<button onclick="unlockNext(3)">Unlock Lesson 3</button>
+</div>
+
+<!-- LESSON 4 -->
+<div class="lesson locked" id="lesson4">
+<h3>Lesson 4 – Lists & Sections</h3>
+<div class="protip"><b>Concepts:</b> Lists organize items. Sections (&lt;section&gt;) divide page into logical blocks.</div>
+<p>Task: Add an ordered list of 3 favorite programming languages inside a section.</p>
+<button onclick="unlockNext(4)">Unlock Lesson 4</button>
+</div>
+
+<!-- LESSON 5 -->
+<div class="lesson locked" id="lesson5">
+<h3>Lesson 5 – CSS Basics</h3>
+<div class="protip"><b>Concepts:</b> CSS changes appearance. Use selectors, colors, fonts, and layouts.</div>
+<p>Task: Add background color, change font, and style your &lt;h1&gt;.</p>
+<button onclick="unlockNext(5)">Unlock Lesson 5</button>
+</div>
+
+<!-- LESSON 6 -->
+<div class="lesson locked" id="lesson6">
+<h3>Lesson 6 – Multi-page Website & Deployment</h3>
+<div class="protip"><b>Concepts:</b> Create multiple pages (index.html, about.html). Link them. Deploy on GitHub Pages for live access.</div>
+<p>Task: Create index.html and about.html and deploy. Share your GitHub Pages URL.</p>
+<button onclick="unlockNext(6)">Final Lesson Complete!</button>
+</div>
+</div>
+
+<!-- WEEKLY CHALLENGE -->
 <div id="challenge" class="card">
 <h2>🔥 Weekly Challenge</h2>
-<p>Constraint: Build a landing page without using &lt;table&gt; tags.</p>
+<p>Build a landing page without &lt;table&gt; tags. Push to GitHub!</p>
 <textarea id="challengeCode" placeholder="Write your HTML/CSS here..."></textarea>
 <button onclick="submitChallenge()">Submit Challenge</button>
-<div class="protip">💡 Push challenge to GitHub to gain visibility and real-world practice!</div>
 <div id="challengeFeedback" class="feedback"></div>
 </div>
 
+<!-- LEADERBOARD -->
 <div id="leaderboard" class="card">
 <h2>🏆 Africa Leaderboard</h2>
 <div id="leaderboardBoard"></div>
 </div>
 
 </section>
-<script>
-window.onload = function() {
-  require.config({ paths: { vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs' }});
-  require(['vs/editor/editor.main'], function() {
-    window.editor = monaco.editor.create(document.getElementById('editor'), {
-      value: `<!DOCTYPE html>
-<html>
-<head>
-<title>My First Website</title>
-</head>
-<body>
-<h1>Your Name</h1>
-<p>I want to become a Developer.</p>
-<footer>© 2026 CODEON Uganda</footer>
-</body>
-</html>`,
-      language: 'html',
-      theme: 'vs-dark',
-      automaticLayout: true // this makes editor resize automatically
-    });
-  });
-}
-</script>
+
 <script>
 // Firebase
-const firebaseConfig = {
-  apiKey: "AIzaSyD_LR9Kllj7hoKTiJAaSxyHglSO6r5gh-g",
-  authDomain: "codeon-3cb1c.firebaseapp.com",
-  projectId: "codeon-3cb1c"
-};
+const firebaseConfig = {apiKey:"AIzaSyD_LR9Kllj7hoKTiJAaSxyHglSO6r5gh-g",authDomain:"codeon-3cb1c.firebaseapp.com",projectId:"codeon-3cb1c"};
 firebase.initializeApp(firebaseConfig);
 const auth=firebase.auth();
 const db=firebase.firestore();
 let currentUser=null;
 
 // Monaco Editor
-require.config({ paths: { vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs' }});
-require(['vs/editor/editor.main'], function() {
-window.editor = monaco.editor.create(document.getElementById('editor'), {
-value: `<!DOCTYPE html>
+window.onload=function(){
+  require.config({ paths:{ vs:'https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs'}});
+  require(['vs/editor/editor.main'],function(){
+    window.editor=monaco.editor.create(document.getElementById('editor'),{
+      value:`<!DOCTYPE html>
 <html>
 <head>
 <title>My First Website</title>
@@ -169,11 +196,12 @@ value: `<!DOCTYPE html>
 <footer>© 2026 CODEON Uganda</footer>
 </body>
 </html>`,
-language: 'html',
-theme: 'vs-dark'
-});
-});
+      language:'html',theme:'vs-dark',automaticLayout:true
+    });
+  });
+}
 
+// Run code
 function runCode(){document.getElementById("output").srcdoc=editor.getValue();}
 
 // Points & progress
@@ -185,24 +213,18 @@ function updateProgress(){
   document.getElementById("pointsDisplay").innerText="Points: "+totalPoints;
 }
 
-// Lesson checking + AI-style feedback
+// Lesson check & feedback
 function checkLesson(lesson){
   let code=editor.getValue().toLowerCase();
   let status=document.getElementById("status"+lesson);
   let feedback=document.getElementById("feedback"+lesson);
-  let valid=false;
-  let pointsEarned=0;
-  let msgs=[];
+  let valid=false; let pointsEarned=0; let msgs=[];
   switch(lesson){
-    case 1: 
-      if(code.includes("<h1>") && !code.includes("your name")){
-        valid=true;
-        pointsEarned=50;
-      }else{
-        msgs.push("❌ Remember to replace 'Your Name' in <h1> with your real name.");
-      }
-      if(!code.includes("<footer>")) msgs.push("💡 Tip: Add a <footer> to show page ownership.");
-      if(!code.includes("<p>")) msgs.push("💡 Tip: Add a <p> paragraph describing yourself or your goals.");
+    case 1:
+      if(code.includes("<h1>") && !code.includes("your name")){valid=true;pointsEarned=50;}
+      else msgs.push("❌ Replace 'Your Name' in <h1>.");
+      if(!code.includes("<footer>")) msgs.push("💡 Tip: Add a <footer> for page ownership.");
+      if(!code.includes("<p>")) msgs.push("💡 Tip: Add a <p> describing yourself or goals.");
       break;
   }
   feedback.innerHTML=msgs.join("<br>");
@@ -212,28 +234,27 @@ function checkLesson(lesson){
     updateProgress();
     if(currentUser) db.collection("users").doc(currentUser.uid).update({points:totalPoints});
     triggerConfetti();
-  }else{
-    status.innerHTML="❌ Complete the task correctly. See AI tips below.";
-  }
+  }else{status.innerHTML="❌ Complete the task correctly. See tips below.";}
 }
+
+// Unlock lessons
+function unlockNext(num){document.getElementById("lesson"+(num+1))?.classList.remove("locked");}
 
 // Confetti
 function triggerConfetti(){
   const confetti=document.getElementById("confetti");
   for(let i=0;i<100;i++){
     let el=document.createElement("div");
-    el.style.position="absolute";
-    el.style.width="8px"; el.style.height="8px";
+    el.style.position="absolute"; el.style.width="8px"; el.style.height="8px";
     el.style.background=["gold","orange","yellow"][Math.floor(Math.random()*3)];
     el.style.top=Math.random()*window.innerHeight+"px";
     el.style.left=Math.random()*window.innerWidth+"px";
-    el.style.opacity=Math.random();
-    confetti.appendChild(el);
+    el.style.opacity=Math.random(); confetti.appendChild(el);
     setTimeout(()=>el.remove(),2000);
   }
 }
 
-// GitHub submission validation
+// GitHub submission
 async function submitGithub(lesson){
   const input=document.getElementById("github"+lesson);
   const url=input.value.trim();
@@ -243,11 +264,10 @@ async function submitGithub(lesson){
     let resp=await fetch(apiURL);
     if(resp.ok){
       alert("🎉 Verified GitHub repo! +20 bonus points");
-      totalPoints+=20;
-      updateProgress();
+      totalPoints+=20; updateProgress();
       if(currentUser) db.collection("users").doc(currentUser.uid).update({points:totalPoints,["githubLesson"+lesson]:url});
       input.value="";
-    }else alert("❌ Repo not found. Check URL or privacy settings.");
+    }else alert("❌ Repo not found. Check URL/privacy.");
   }catch(e){alert("Error validating repo.");}
 }
 
@@ -255,42 +275,28 @@ async function submitGithub(lesson){
 function previewGitHub(lesson){
   const input=document.getElementById("githubPages"+lesson);
   const url=input.value.trim();
-  if(!url.startsWith("https://")) {alert("Enter valid GitHub Pages URL."); return;}
+  if(!url.startsWith("https://")){alert("Enter valid URL.");return;}
   document.getElementById("preview"+lesson).src=url;
 }
 
 // Firebase Auth
 function signup(){
   auth.createUserWithEmailAndPassword(email.value,password.value)
-  .then(u=>{
-    db.collection("users").doc(u.user.uid).set({
-      email:email.value,
-      school:school.value,
-      country:country.value,
-      points:0
-    });
-  }).catch(alert);
+  .then(u=>{db.collection("users").doc(u.user.uid).set({email:email.value,school:school.value,country:country.value,points:0});})
+  .catch(alert);
 }
 function login(){auth.signInWithEmailAndPassword(email.value,password.value).catch(alert);}
 function logout(){auth.signOut();}
 auth.onAuthStateChanged(user=>{
-  if(user){
-    currentUser=user;
-    authSection.style.display="none";
-    main.style.display="block";
-    loadLeaderboard();
-  }else{
-    authSection.style.display="block";
-    main.style.display="none";
-  }
+  if(user){currentUser=user;authSection.style.display="none";main.style.display="block";}
+  else{authSection.style.display="block";main.style.display="none";}
 });
 
 // Weekly Challenge
 function submitChallenge(){
   let code=challengeCode.value;
   let score=Math.floor(Math.random()*50)+50;
-  totalPoints+=score;
-  updateProgress();
+  totalPoints+=score; updateProgress();
   document.getElementById("challengeFeedback").innerHTML="🎯 AI Feedback: Nice work! You earned "+score+" points.";
   if(currentUser) db.collection("users").doc(currentUser.uid).update({points:totalPoints});
 }
@@ -298,23 +304,14 @@ function submitChallenge(){
 // Leaderboard
 function loadLeaderboard(){
   db.collection("users").get().then(snap=>{
-    let html="";
-    snap.forEach(doc=>{
-      let d=doc.data();
-      html+=`<div class="leader-row"><span>${d.email}</span><span>${d.points||0} pts</span></div>`;
-    });
+    let html=""; snap.forEach(doc=>{let d=doc.data(); html+=`<div class="leader-row"><span>${d.email}</span><span>${d.points||0} pts</span></div>`;});
     leaderboardBoard.innerHTML=html;
   });
 }
 
 // Persist points
-window.onload=function(){
-  if(localStorage.getItem("totalPoints")){
-    totalPoints=parseInt(localStorage.getItem("totalPoints"));
-    updateProgress();
-  }
-};
-window.onbeforeunload=function(){localStorage.setItem("totalPoints",totalPoints);};
+window.onbeforeunload=function(){localStorage.setItem("totalPoints",totalPoints);}
+window.onload=function(){if(localStorage.getItem("totalPoints")){totalPoints=parseInt(localStorage.getItem("totalPoints"));updateProgress();}};
 </script>
 
 </body>
