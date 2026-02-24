@@ -31,9 +31,9 @@ h2{margin-top:0;}
 .leader-row:nth-child(3){background:#cd7f32;color:white;font-weight:bold;}
 #certificateCard{background:rgba(255,255,255,0.2);padding:20px;border-radius:12px;margin:20px;display:none;text-align:center;opacity:0;transform:scale(0.7);}
 #certificateCard.show{animation:fadeIn 1s forwards;}
-@keyframes fadeIn{from{opacity:0;transform:scale(0.7);}to{opacity:1;transform:scale(1);}}
 #certificateCard img{width:150px;margin:auto;display:block;}
 #qrCode{margin:10px auto;display:block;}
+@keyframes fadeIn{from{opacity:0;transform:scale(0.7);}to{opacity:1;transform:scale(1);}}
 </style>
 </head>
 <body>
@@ -50,8 +50,21 @@ h2{margin-top:0;}
 <p><b>&lt;!DOCTYPE html&gt;</b> – tells browser this is HTML5.</p>
 <p><b>&lt;html&gt;</b> – root of the page.</p>
 <p><b>&lt;head&gt;</b> – contains metadata, title, scripts.</p>
-<p><b>&lt;body&gt;</b> – contains visible content.</p>
+<p><b>&lt;title&gt;</b> – page title shown on browser tab.</p>
+<p><b>&lt;body&gt;</b> – visible content.</p>
 <p>Your task: Replace "Your Name" with your real name.</p>
+
+<div class="protip">
+<h3>💡 Tags Guide:</h3>
+<ul>
+<li>&lt;html&gt; – Root of the page</li>
+<li>&lt;head&gt; – Metadata & title</li>
+<li>&lt;title&gt; – Page title</li>
+<li>&lt;body&gt; – Visible content</li>
+<li>&lt;h1&gt; – Main heading</li>
+<li>&lt;p&gt; – Paragraph</li>
+</ul>
+</div>
 
 <div id="editor" class="editor-container"></div>
 <button onclick="runCode()">Run Code</button>
@@ -64,7 +77,14 @@ h2{margin-top:0;}
 <div class="card locked" id="lesson2">
 <h2>Lesson 2 – Headings & Paragraphs</h2>
 <p>Add headings & paragraphs to structure content.</p>
-<p class="protip">💡 Tip: Always use <b>&lt;h1&gt;</b> for main title, <b>&lt;p&gt;</b> for text.</p>
+<div class="protip">
+<h3>💡 Tags Guide:</h3>
+<ul>
+<li>&lt;h1&gt; to &lt;h6&gt; – Headings</li>
+<li>&lt;p&gt; – Paragraph text</li>
+<li>Use headings to organize content and improve SEO</li>
+</ul>
+</div>
 <button onclick="unlockNext(2)">Unlock Lesson 2</button>
 </div>
 
@@ -72,21 +92,44 @@ h2{margin-top:0;}
 <div class="card locked" id="lesson3">
 <h2>Lesson 3 – Images</h2>
 <p>Add <b>&lt;img&gt;</b> to display pictures.</p>
+<div class="protip">
+<h3>💡 Tags Guide:</h3>
+<ul>
+<li>&lt;img src="path" alt="description"&gt; – insert images</li>
+<li>Always include alt text for accessibility</li>
+</ul>
+</div>
 <button onclick="unlockNext(3)">Unlock Lesson 3</button>
 </div>
 
 <!-- LESSON 4 -->
 <div class="card locked" id="lesson4">
 <h2>Lesson 4 – Sections</h2>
-<p><b>&lt;section&gt;</b> – organize content into blocks.</p>
+<p>Use <b>&lt;section&gt;</b> or <b>&lt;div&gt;</b> to group content logically.</p>
+<div class="protip">
+<h3>💡 Tags Guide:</h3>
+<ul>
+<li>&lt;section&gt; – logical block of content</li>
+<li>&lt;div&gt; – generic container</li>
+<li>&lt;article&gt; – self-contained content</li>
+</ul>
+</div>
 <button onclick="unlockNext(4)">Unlock Lesson 4</button>
 </div>
 
 <!-- LESSON 5 -->
 <div class="card locked" id="lesson5">
 <h2>Lesson 5 – Multi-page & Deployment</h2>
-<p>Create <b>index.html</b> and <b>about.html</b>, link them with <b>&lt;a&gt;</b> tags.</p>
-<p class="protip">💡 Tip: Push projects to GitHub & deploy with GitHub Pages!</p>
+<p>Create <b>index.html</b> and <b>about.html</b>, link them with <b>&lt;a&gt;</b>.</p>
+<div class="protip">
+<h3>💡 Tags Guide:</h3>
+<ul>
+<li>&lt;a href="page.html"&gt; – create links</li>
+<li>&lt;link rel="stylesheet"&gt; – link CSS files</li>
+<li>&lt;nav&gt; – navigation menu</li>
+</ul>
+<p>💡 Tip: Push projects to GitHub & deploy with GitHub Pages!</p>
+</div>
 <button onclick="unlockNext(5)">Unlock Lesson 5</button>
 </div>
 
@@ -205,7 +248,7 @@ size:150
 confetti({particleCount:150,spread:70,origin:{y:0.6}});
 }
 
-// Unlock lessons automatically for testing leaderboard
+// Leaderboard
 function loadLeaderboard(){
 let fakeUsers = [
 {name:"Alice",points:50},{name:"Bob",points:40},{name:"Charlie",points:30}
