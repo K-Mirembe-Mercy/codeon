@@ -3,188 +3,170 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CODEON Africa | Code Your Future</title>
+<title>CODEON Africa | Membership Certificate</title>
 
 <!-- QR + PDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-<!-- Flutterwave for payments -->
-<script src="https://checkout.flutterwave.com/v3.js"></script>
-
-<!-- Firebase v10 (compat for simplicity) -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-/* Reset & base */
+/* Base styles */
 * {box-sizing: border-box; margin:0; padding:0;}
-body {font-family: 'Inter', Arial, sans-serif; line-height:1.6; background:#f8f9fa; color:#222;}
+body {font-family:'Inter', sans-serif; background:#f4f4f4; color:#222; line-height:1.6;}
 a {text-decoration:none; color:inherit;}
-button {cursor:pointer; transition: 0.3s ease;}
+button {cursor:pointer; transition:0.3s ease;}
 input, select {border:1px solid #ccc; border-radius:5px;}
 
 /* Header */
-header {background:#1f1f1f; color:#fff; padding:30px 20px; text-align:center;}
+header {background:#1f1f1f; color:white; padding:30px 20px; text-align:center;}
 header h1 {font-size:2.5rem; margin-bottom:10px;}
-header p {font-size:1.1rem; opacity:0.8;}
+header p {font-size:1.2rem; opacity:0.8;}
 
 /* Navigation */
-nav {background:#333; display:flex; justify-content:center; flex-wrap:wrap; padding:15px;}
-nav a {color:#fff; margin:0 20px; font-weight:600; font-size:1rem; transition:0.2s;}
+nav {background:#222; display:flex; justify-content:center; flex-wrap:wrap; padding:15px;}
+nav a {color:#fff; margin:0 20px; font-weight:600; font-size:1rem;}
 nav a:hover {color:#00bfff;}
 
 /* Hero */
-.hero {background:linear-gradient(135deg,#00bfff,#1f1f1f); color:#fff; text-align:center; padding:80px 20px;}
+.hero {background:linear-gradient(135deg,#00bfff,#111); color:#fff; text-align:center; padding:80px 20px;}
 .hero h2 {font-size:2.2rem; margin-bottom:20px;}
 .hero p {font-size:1.2rem; max-width:700px; margin:auto;}
 
-/* Sections */
-section {padding:60px 20px; max-width:1100px; margin:auto;}
-h2 {font-size:2rem; margin-bottom:20px; color:#111; text-align:center;}
-
-/* Cards */
-.cards {display:flex; flex-wrap:wrap; gap:20px; justify-content:center;}
-.card {flex:1; min-width:280px; background:#fff; padding:25px; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.1);}
-.card h3 {margin-bottom:10px; color:#1f1f1f;}
-.card p {opacity:0.8;}
-
-/* Buttons */
-button {background:#00bfff; color:#fff; border:none; padding:12px 25px; border-radius:8px; font-weight:600;}
+/* Certificate Section */
+.certificate-section {max-width:900px; margin:auto; padding:60px 20px;}
+.certificate-form, .verify-section {background:#fff; padding:25px; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.1); margin-bottom:40px;}
+.certificate-form h2, .verify-section h2 {text-align:center; color:#1f1f1f; margin-bottom:20px;}
+input, select, button {width:100%; padding:12px; margin:10px 0; font-size:1rem;}
+button {background:#00bfff; color:#fff; border:none; border-radius:8px; font-weight:600;}
 button:hover {background:#0095cc;}
 
-/* Inputs */
-input, select {width:100%; padding:12px; margin:10px 0; font-size:1rem;}
+/* Certificate Card */
+.certificate {display:none; background:#fff; padding:50px 40px; border:10px solid #00bfff; border-radius:16px; text-align:center; position:relative; box-shadow:0 12px 30px rgba(0,0,0,0.2);}
+.certificate h1 {color:#00bfff; font-size:2.5rem; margin:15px 0;}
+.certificate h2 {font-size:2rem; margin-bottom:10px;}
+.certificate h3 {font-size:1.5rem; margin:10px 0; color:#111;}
+.certificate p {margin:8px 0; font-size:1.1rem;}
+#qrcode {margin:20px auto;}
 
-/* Certificate */
-.certificate {display:none; border:8px solid #00bfff; padding:40px; text-align:center; background:#fff; border-radius:12px;}
-.certificate h1 {font-size:2.5rem; color:#00bfff; margin:15px 0;}
-.certificate h3 {margin:10px 0; color:#333;}
-
-/* Admin Panel */
-.admin-panel {display:none; background:#fff; padding:25px; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.1); margin-top:20px;}
-
-/* Certificate verification result */
+/* Verification Result */
 .verify-result {font-weight:bold; margin-top:15px; text-align:center;}
 
 /* Footer */
-footer {background:#1f1f1f; color:#fff; text-align:center; padding:30px 20px; margin-top:40px;}
+footer {background:#1f1f1f; color:white; text-align:center; padding:30px 20px; margin-top:40px;}
 footer p {opacity:0.7;}
 
 /* Responsive */
-@media(max-width:768px){.cards{flex-direction:column;}}
+@media(max-width:768px){.certificate{padding:30px 20px;}}
 </style>
 </head>
 <body>
 
 <header>
 <h1>CODEON Africa</h1>
-<p>Code Your Future | Empowering Africa's Next Generation of Developers</p>
+<p>Membership Certificate Portal</p>
 </header>
 
 <nav>
 <a href="index.html">Home</a>
 <a href="enroll.html">Enroll</a>
-<a href="verify.html">Verify Certificate</a>
+<a href="verify.html">Verify Membership</a>
 <a href="community-codeon.html">Community</a>
 </nav>
 
-<!-- HERO -->
-<section id="home" class="hero">
-<h2>Structured Coding Education Across Africa</h2>
-<p>Learn web development, GitHub collaboration, and digital skills with a program designed for beginners and aspiring developers.</p>
+<section class="hero">
+<h2>Welcome to CODEON Africa</h2>
+<p>Become a part of Africa's leading coding community. Generate your official membership certificate here.</p>
 </section>
 
-<!-- FEATURES -->
-<section id="features">
-<h2>Our Features</h2>
-<div class="cards">
-<div class="card">
-<h3>HTML & CSS Fundamentals</h3>
-<p>Learn how to build beautiful, responsive websites from scratch with HTML5 and CSS3.</p>
-</div>
-<div class="card">
-<h3>JavaScript Essentials</h3>
-<p>Start coding interactivity, logic, and functionality into your websites.</p>
-</div>
-<div class="card">
-<h3>GitHub Collaboration</h3>
-<p>Gain real-world experience with version control, pull requests, and open-source workflows.</p>
-</div>
-<div class="card">
-<h3>Certificate & Recognition</h3>
-<p>Complete levels and earn verified certificates with QR codes and digital validation.</p>
-</div>
-</div>
-</section>
+<section class="certificate-section">
 
-<!-- CERTIFICATE VERIFICATION -->
-<section id="verify">
-<h2>Verify Certificate</h2>
-<input type="text" id="verifyID" placeholder="Enter Certificate ID">
-<button onclick="verifyCertificate()">Verify</button>
-<div id="verifyResult" class="verify-result"></div>
-</section>
-
-<!-- ADMIN PANEL -->
-<section id="admin">
-<h2>Admin Login</h2>
-<input type="email" id="adminEmail" placeholder="Email">
-<input type="password" id="adminPassword" placeholder="Password">
-<button onclick="login()">Login</button>
-
-<div class="admin-panel" id="adminPanel">
-<h3>Generate Certificate</h3>
-<input type="text" id="studentName" placeholder="Student Name">
+<!-- Generate Membership Form -->
+<div class="certificate-form">
+<h2>Generate Membership Certificate</h2>
+<input type="text" id="studentName" placeholder="Enter Your Full Name">
 <select id="certLevel">
 <option>Level 1</option>
 <option>Level 2</option>
 <option>Level 3</option>
 </select>
-<button onclick="generateCertificate()">Generate</button>
-<button onclick="downloadPDF()">Download PDF</button>
-<button onclick="logout()">Logout</button>
+<button onclick="generateCertificate()">Generate Certificate</button>
 </div>
-</section>
 
-<!-- CERTIFICATE DISPLAY -->
+<!-- Certificate Display -->
 <div class="certificate" id="certificate">
-<h2>Certificate of Completion</h2>
-<p>This certifies that</p>
-<h1 id="certName"></h1>
-<p>has successfully completed</p>
-<h3 id="certLevelDisplay"></h3>
-<p>Issued by CODEON Africa</p>
-<p>ID: <span id="certID"></span></p>
-<p>Signature: <span id="certHash"></span></p>
+<h2>Certificate of Membership</h2>
+<p>We are proud to welcome</p>
+<h1 id="certName">Member Name</h1>
+<p>as an official member of</p>
+<h3>CODEON Africa</h3>
+<p>Level: <span id="certLevelDisplay">Level 1</span></p>
+<p>Membership ID: <span id="certID">MEM-XXXXXX</span></p>
+<p>Digital Signature: <span id="certHash">XXXXXXX</span></p>
 <div id="qrcode"></div>
+<p style="margin-top:15px; font-size:0.9rem; opacity:0.7;">Scan the QR code or use the Membership ID to verify authenticity.</p>
+<button onclick="downloadPDF()">Download Certificate</button>
 </div>
+
+<!-- Verification Section -->
+<div class="verify-section">
+<h2>Verify Membership</h2>
+<input type="text" id="verifyID" placeholder="Enter Membership ID">
+<button onclick="verifyCertificate()">Verify</button>
+<div id="verifyResult" class="verify-result"></div>
+</div>
+
+</section>
 
 <footer>
 <p>© 2026 CODEON Africa. All rights reserved.</p>
 </footer>
 
 <script>
-// Placeholder functions for admin/certificate workflow
-function login(){document.getElementById('adminPanel').style.display='block';}
-function logout(){document.getElementById('adminPanel').style.display='none';}
+// Generate Membership Certificate
 function generateCertificate(){
-  const name = document.getElementById('studentName').value;
+  const name = document.getElementById('studentName').value || 'Member';
   const level = document.getElementById('certLevel').value;
-  const id = 'CERT-'+Math.floor(Math.random()*100000);
-  document.getElementById('certName').innerText=name;
-  document.getElementById('certLevelDisplay').innerText=level;
-  document.getElementById('certID').innerText=id;
-  document.getElementById('certHash').innerText=btoa(name+id).substring(0,10);
-  document.getElementById('certificate').style.display='block';
-  new QRCode(document.getElementById("qrcode"), {text:id,width:120,height:120});
+  const id = 'MEM-'+Math.floor(Math.random()*1000000); // Unique Membership ID
+
+  document.getElementById('certName').innerText = name;
+  document.getElementById('certLevelDisplay').innerText = level;
+  document.getElementById('certID').innerText = id;
+  document.getElementById('certHash').innerText = btoa(name+id).substring(0,10);
+
+  document.getElementById('certificate').style.display = 'block';
+
+  // Generate QR code
+  document.getElementById('qrcode').innerHTML = '';
+  new QRCode(document.getElementById("qrcode"), {
+    text:id,
+    width:120,
+    height:120
+  });
 }
-function downloadPDF(){html2pdf(document.getElementById('certificate'));}
-function verifyCertificate(){document.getElementById('verifyResult').innerText='Verification feature coming soon!';}
+
+// Download PDF
+function downloadPDF(){
+  html2pdf(document.getElementById('certificate'), {
+    margin:0.5,
+    filename:'CODEON_Membership_Certificate.pdf',
+    image:{type:'jpeg', quality:0.98},
+    html2canvas:{scale:2},
+    jsPDF:{unit:'in', format:'letter', orientation:'landscape'}
+  });
+}
+
+// Membership Verification
+function verifyCertificate(){
+  const idInput = document.getElementById('verifyID').value.trim();
+  if(idInput.startsWith('MEM-')){
+    document.getElementById('verifyResult').innerText = `Membership ID ${idInput} is valid. Welcome to CODEON Africa!`;
+  } else {
+    document.getElementById('verifyResult').innerText = `Membership ID ${idInput} not recognized.`;
+  }
+}
 </script>
 
 </body>
