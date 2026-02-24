@@ -1,73 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="description" content="CodeOn Uganda – empowering Uganda's next generation of developers with practical web development and real GitHub workflow training">
-<link rel="canonical" href="https://k-mirembe-mercy.github.io/codeon/" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Enroll – CODEON Uganda</title>
+
+<title>Enroll – CODEON Uganda | Learn Web Development</title>
+
+<meta name="description" content="Join CODEON Uganda and learn real-world web development, GitHub collaboration and industry-ready skills. Empowering Uganda's next generation of developers.">
+
+<link rel="canonical" href="https://k-mirembe-mercy.github.io/codeon/enroll.html"/>
+
+<!-- Open Graph -->
+<meta property="og:title" content="Enroll – CODEON Uganda">
+<meta property="og:description" content="Code Your Future with CODEON Uganda">
+<meta property="og:type" content="website">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
 <style>
-body { font-family: 'Segoe UI', sans-serif; margin:0; background:#0f2027; color:white; }
-header{background:#111; color:white; padding:15px; text-align:center;}
-nav{background:#222; padding:10px; text-align:center;}
-nav a{color:white; margin:0 15px; text-decoration:none; font-weight:bold;}
-.container { max-width:600px; margin:50px auto; padding:25px; background: rgba(255,255,255,0.05); border-radius:10px; }
-h1 { text-align:center; margin-bottom:20px; }
-input, select { width:100%; padding:12px; margin:10px 0; border-radius:5px; border:none; font-size:16px; }
-button { width:100%; padding:14px; margin-top:15px; background: gold; color:black; font-weight:bold; border:none; border-radius:8px; cursor:pointer; font-size:16px; }
-button:hover { background:orange; }
-p.note { font-size:14px; opacity:0.8; text-align:center; margin-top:15px; }
-footer{background:#111;color:white;text-align:center;padding:20px;margin-top:50px;}
-@media(max-width:600px){.container{margin:20px;padding:20px;}}
+* { box-sizing: border-box; margin:0; padding:0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: white;
+}
+
+/* HEADER */
+header {
+  padding: 30px;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+header p {
+  opacity: 0.8;
+  margin-top: 8px;
+}
+
+/* NAV */
+nav {
+  text-align:center;
+  padding:15px;
+}
+
+nav a {
+  color:white;
+  margin:0 15px;
+  text-decoration:none;
+  font-weight:600;
+  transition:0.3s;
+}
+
+nav a:hover {
+  color:gold;
+}
+
+/* CARD CONTAINER */
+.container {
+  max-width: 550px;
+  margin: 40px auto;
+  background: rgba(255,255,255,0.08);
+  padding: 40px;
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.container h2 {
+  text-align:center;
+  margin-bottom:25px;
+}
+
+/* INPUTS */
+input, select {
+  width:100%;
+  padding:14px;
+  margin:12px 0;
+  border-radius:8px;
+  border:none;
+  font-size:16px;
+  outline:none;
+}
+
+/* BUTTON */
+button {
+  width:100%;
+  padding:14px;
+  margin-top:20px;
+  background: linear-gradient(45deg, gold, orange);
+  color:black;
+  font-weight:700;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  transition:0.3s;
+  font-size:16px;
+}
+
+button:hover {
+  transform: scale(1.03);
+}
+
+/* SUCCESS MESSAGE */
+.success {
+  margin-top:20px;
+  padding:15px;
+  background:#1f9d55;
+  border-radius:8px;
+  display:none;
+  text-align:center;
+}
+
+/* INFO SECTION */
+.info {
+  margin-top:40px;
+  font-size:14px;
+  opacity:0.85;
+  line-height:1.6;
+}
+
+/* FOOTER */
+footer {
+  text-align:center;
+  padding:30px;
+  margin-top:50px;
+  opacity:0.7;
+}
+
+@media(max-width:600px){
+  .container{margin:20px;}
+}
 </style>
 </head>
+
 <body>
 
 <header>
   <h1>CODEON Uganda</h1>
-  <p>Code Your Future</p>
+  <p>Empowering Uganda's Next Generation of Developers</p>
 </header>
 
 <nav>
   <a href="index.html">Home</a>
   <a href="enroll.html">Enroll</a>
-  <a href="verify.html">Verify Certificate</a>
+  <a href="verify.html">Verify</a>
   <a href="community-codeon.html">Community</a>
 </nav>
 
 <div class="container">
-  <h1>Enroll at CODEON Uganda</h1>
+  <h2>Enroll Today</h2>
 
-  <input type="text" id="name" placeholder="Full Name" required>
-  <input type="email" id="email" placeholder="Email Address" required>
+  <input type="text" id="name" placeholder="Full Name">
+  <input type="email" id="email" placeholder="Email Address">
 
   <select id="level">
     <option value="">Select Level</option>
-    <option value="Level 1">Level 1 – Free (HTML, CSS, Git Basics)</option>
-    <option value="Level 2">Level 2 – Free (JavaScript & GitHub Collaboration)</option>
-    <option value="Level 3">Level 3 – UGX 50,000 (Advanced & Industry Preparation)</option>
+    <option value="Level 1">Level 1 – Free</option>
+    <option value="Level 2">Level 2 – Free</option>
+    <option value="Level 3">Level 3 – UGX 50,000</option>
   </select>
 
   <button onclick="enroll()">Enroll Now</button>
 
-  <p class="note">Level 3 requires payment via Pesapal. After payment, you will be redirected to Course 3 automatically.</p>
+  <div class="success" id="successMessage">
+    Enrollment successful! Redirecting...
+  </div>
 
-  <h3>WHO'S CODEON FOR?</h3>
-  <p>Secondary school students (S1–S6)<br>
-     Schools with computer labs<br>
-     Students interested in technology<br>
-     Beginners with no coding experience</p>
+  <div class="info">
+    <strong>Who is CODEON for?</strong><br>
+    Secondary students (S1–S6)<br>
+    Schools with computer labs<br>
+    Beginners in coding<br><br>
 
-  <h3>WHY PARTNER WITH CODEON?</h3>
-  <p>No cost to the school<br>
-     Uses existing computer lab<br>
-     Structured curriculum<br>
-     Improves school innovation profile<br>
-     Students receive certificates</p>
+    <strong>Why partner with CODEON?</strong><br>
+    No cost to schools<br>
+    Structured curriculum<br>
+    Industry-ready skills<br>
+    Certificates issued
+  </div>
 </div>
 
 <footer>
-  © 2026 CODEON Uganda
+  © 2026 CODEON Uganda | Built in Uganda 🇺🇬
 </footer>
 
 <script>
@@ -75,29 +194,30 @@ function enroll() {
   const name = document.getElementById("name").value.trim();
   const email = document.getElementById("email").value.trim();
   const level = document.getElementById("level").value;
+  const success = document.getElementById("successMessage");
 
   if(!name || !email || !level){
-    alert("Please fill all fields and select a level!");
+    alert("Please complete all fields.");
     return;
   }
 
-  // Save student info to localStorage for course pages
+  success.style.display = "block";
+
   localStorage.setItem("studentName", name);
   localStorage.setItem("studentEmail", email);
   localStorage.setItem("studentLevel", level);
 
-  if(level === "Level 1"){
-    window.location.href = "course1.html";
-  } else if(level === "Level 2"){
-    window.location.href = "course2.html";
-  } else if(level === "Level 3"){
-    // Redirect to Pesapal payment
-    window.location.href = "https://store.pesapal.com/level3";
-  }
+  setTimeout(() => {
+    if(level === "Level 1"){
+      window.location.href = "course1.html";
+    } else if(level === "Level 2"){
+      window.location.href = "course2.html";
+    } else if(level === "Level 3"){
+      window.location.href = "https://store.pesapal.com/level3";
+    }
+  }, 1500);
 }
 </script>
 
 </body>
 </html>
-
-
