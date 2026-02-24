@@ -1,45 +1,89 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CODEON Uganda | Code Your Future</title>
+<title>CODEON Africa | Code Your Future</title>
 
 <!-- QR + PDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-<!-- Flutterwave -->
+<!-- Flutterwave for payments -->
 <script src="https://checkout.flutterwave.com/v3.js"></script>
 
-<!-- Firebase v10 (modular via compat for simplicity) -->
+<!-- Firebase v10 (compat for simplicity) -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
 <style>
-body{font-family:Arial;margin:0;background:#f4f4f4}
-header{background:#111;color:#fff;padding:15px;text-align:center}
-nav{background:#222;padding:10px;text-align:center}
-nav a{color:white;margin:0 15px;text-decoration:none;font-weight:bold}
-section{padding:40px 20px;max-width:1000px;margin:auto}
-.hero{background:#000;color:white;text-align:center;padding:60px 20px}
-.cards{display:flex;flex-wrap:wrap;gap:20px}
-.card{flex:1;min-width:250px;background:white;padding:20px;border-radius:8px}
-button{padding:10px 20px;background:#111;color:white;border:none;cursor:pointer;margin-top:10px}
-button:hover{background:#333}
-input,select{width:100%;padding:10px;margin:8px 0}
-footer{background:#111;color:white;text-align:center;padding:20px}
-.certificate{display:none;border:8px solid #111;padding:40px;text-align:center;background:white}
-.admin-panel{display:none;background:#fff;padding:20px;border-radius:10px}
-.verify-result{font-weight:bold;margin-top:15px}
+/* Reset & base */
+* {box-sizing: border-box; margin:0; padding:0;}
+body {font-family: 'Inter', Arial, sans-serif; line-height:1.6; background:#f8f9fa; color:#222;}
+a {text-decoration:none; color:inherit;}
+button {cursor:pointer; transition: 0.3s ease;}
+input, select {border:1px solid #ccc; border-radius:5px;}
+
+/* Header */
+header {background:#1f1f1f; color:#fff; padding:30px 20px; text-align:center;}
+header h1 {font-size:2.5rem; margin-bottom:10px;}
+header p {font-size:1.1rem; opacity:0.8;}
+
+/* Navigation */
+nav {background:#333; display:flex; justify-content:center; flex-wrap:wrap; padding:15px;}
+nav a {color:#fff; margin:0 20px; font-weight:600; font-size:1rem; transition:0.2s;}
+nav a:hover {color:#00bfff;}
+
+/* Hero */
+.hero {background:linear-gradient(135deg,#00bfff,#1f1f1f); color:#fff; text-align:center; padding:80px 20px;}
+.hero h2 {font-size:2.2rem; margin-bottom:20px;}
+.hero p {font-size:1.2rem; max-width:700px; margin:auto;}
+
+/* Sections */
+section {padding:60px 20px; max-width:1100px; margin:auto;}
+h2 {font-size:2rem; margin-bottom:20px; color:#111; text-align:center;}
+
+/* Cards */
+.cards {display:flex; flex-wrap:wrap; gap:20px; justify-content:center;}
+.card {flex:1; min-width:280px; background:#fff; padding:25px; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.1);}
+.card h3 {margin-bottom:10px; color:#1f1f1f;}
+.card p {opacity:0.8;}
+
+/* Buttons */
+button {background:#00bfff; color:#fff; border:none; padding:12px 25px; border-radius:8px; font-weight:600;}
+button:hover {background:#0095cc;}
+
+/* Inputs */
+input, select {width:100%; padding:12px; margin:10px 0; font-size:1rem;}
+
+/* Certificate */
+.certificate {display:none; border:8px solid #00bfff; padding:40px; text-align:center; background:#fff; border-radius:12px;}
+.certificate h1 {font-size:2.5rem; color:#00bfff; margin:15px 0;}
+.certificate h3 {margin:10px 0; color:#333;}
+
+/* Admin Panel */
+.admin-panel {display:none; background:#fff; padding:25px; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.1); margin-top:20px;}
+
+/* Certificate verification result */
+.verify-result {font-weight:bold; margin-top:15px; text-align:center;}
+
+/* Footer */
+footer {background:#1f1f1f; color:#fff; text-align:center; padding:30px 20px; margin-top:40px;}
+footer p {opacity:0.7;}
+
+/* Responsive */
+@media(max-width:768px){.cards{flex-direction:column;}}
 </style>
 </head>
 <body>
 
 <header>
-<h1>CODEON Uganda</h1>
-<p>Code Your Future</p>
+<h1>CODEON Africa</h1>
+<p>Code Your Future | Empowering Africa's Next Generation of Developers</p>
 </header>
 
 <nav>
@@ -49,10 +93,33 @@ footer{background:#111;color:white;text-align:center;padding:20px}
 <a href="community-codeon.html">Community</a>
 </nav>
 
-<!-- HOME -->
+<!-- HERO -->
 <section id="home" class="hero">
-<h2>Empowering Uganda's Next Generation of Developers</h2>
-<p>Structured coding education with real GitHub collaboration workflow.</p>
+<h2>Structured Coding Education Across Africa</h2>
+<p>Learn web development, GitHub collaboration, and digital skills with a program designed for beginners and aspiring developers.</p>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+<h2>Our Features</h2>
+<div class="cards">
+<div class="card">
+<h3>HTML & CSS Fundamentals</h3>
+<p>Learn how to build beautiful, responsive websites from scratch with HTML5 and CSS3.</p>
+</div>
+<div class="card">
+<h3>JavaScript Essentials</h3>
+<p>Start coding interactivity, logic, and functionality into your websites.</p>
+</div>
+<div class="card">
+<h3>GitHub Collaboration</h3>
+<p>Gain real-world experience with version control, pull requests, and open-source workflows.</p>
+</div>
+<div class="card">
+<h3>Certificate & Recognition</h3>
+<p>Complete levels and earn verified certificates with QR codes and digital validation.</p>
+</div>
+</div>
 </section>
 
 <!-- CERTIFICATE VERIFICATION -->
@@ -63,7 +130,7 @@ footer{background:#111;color:white;text-align:center;padding:20px}
 <div id="verifyResult" class="verify-result"></div>
 </section>
 
-<!-- ADMIN -->
+<!-- ADMIN PANEL -->
 <section id="admin">
 <h2>Admin Login</h2>
 <input type="email" id="adminEmail" placeholder="Email">
@@ -84,20 +151,41 @@ footer{background:#111;color:white;text-align:center;padding:20px}
 </div>
 </section>
 
+<!-- CERTIFICATE DISPLAY -->
 <div class="certificate" id="certificate">
 <h2>Certificate of Completion</h2>
 <p>This certifies that</p>
 <h1 id="certName"></h1>
-<p>has completed</p>
+<p>has successfully completed</p>
 <h3 id="certLevelDisplay"></h3>
-<p>Issued by CODEON Uganda</p>
+<p>Issued by CODEON Africa</p>
 <p>ID: <span id="certID"></span></p>
 <p>Signature: <span id="certHash"></span></p>
 <div id="qrcode"></div>
 </div>
 
 <footer>
-© 2026 CODEON Uganda
-
+<p>© 2026 CODEON Africa. All rights reserved.</p>
 </footer>
 
+<script>
+// Placeholder functions for admin/certificate workflow
+function login(){document.getElementById('adminPanel').style.display='block';}
+function logout(){document.getElementById('adminPanel').style.display='none';}
+function generateCertificate(){
+  const name = document.getElementById('studentName').value;
+  const level = document.getElementById('certLevel').value;
+  const id = 'CERT-'+Math.floor(Math.random()*100000);
+  document.getElementById('certName').innerText=name;
+  document.getElementById('certLevelDisplay').innerText=level;
+  document.getElementById('certID').innerText=id;
+  document.getElementById('certHash').innerText=btoa(name+id).substring(0,10);
+  document.getElementById('certificate').style.display='block';
+  new QRCode(document.getElementById("qrcode"), {text:id,width:120,height:120});
+}
+function downloadPDF(){html2pdf(document.getElementById('certificate'));}
+function verifyCertificate(){document.getElementById('verifyResult').innerText='Verification feature coming soon!';}
+</script>
+
+</body>
+</html>
