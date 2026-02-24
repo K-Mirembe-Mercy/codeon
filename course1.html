@@ -1,139 +1,155 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Course 1 – HTML Foundations | CODEON</title>
+<title>CODEON – Learn & Compete</title>
 
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+<!-- Monaco Editor -->
 <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs/loader.js"></script>
 
 <style>
-body{
-font-family:Arial;
-margin:0;
-background:#f4f4f4;
-}
-
-header{
-background:#111;
-color:white;
-padding:20px;
-text-align:center;
-}
-
-.lesson{
-background:white;
-max-width:900px;
-margin:20px auto;
-padding:25px;
-border-radius:6px;
-}
-
-.locked{
-opacity:0.5;
-pointer-events:none;
-}
-
-button{
-padding:10px 20px;
-background:#111;
-color:white;
-border:none;
-cursor:pointer;
-margin-top:10px;
-}
-
-button:hover{
-background:#333;
-}
-
-#editor{
-height:300px;
-border:1px solid #ccc;
-margin-top:10px;
-}
-
-iframe{
-width:100%;
-height:200px;
-border:1px solid black;
-margin-top:10px;
-}
-
-.complete{
-color:green;
-font-weight:bold;
-}
+body{margin:0;font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);color:white;transition:.3s;}
+header{background:#111;padding:20px;text-align:center;position:sticky;top:0;z-index:10;}
+header h1{margin:0;font-size:1.8em;}
+header .progress-container{background:#333;border-radius:12px;height:14px;margin-top:10px;}
+header .progress-bar{background:gold;height:14px;width:0%;border-radius:12px;transition:.5s;}
+header #pointsDisplay{margin-top:5px;}
+nav{display:flex;justify-content:center;gap:15px;margin-top:10px;}
+nav a{color:white;text-decoration:none;font-weight:bold;transition:.3s;}
+nav a:hover{color:gold;}
+#confetti{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;}
+section{padding:20px;max-width:1000px;margin:0 auto;}
+.card{background:rgba(255,255,255,0.08);padding:20px;border-radius:12px;margin-bottom:20px;transition:.3s;}
+.locked{opacity:0.4;pointer-events:none;}
+button{padding:10px 20px;background:gold;color:black;border:none;border-radius:6px;font-weight:bold;cursor:pointer;margin-top:10px;transition:.3s;}
+button:hover{background:orange;}
+#editor{height:300px;border:1px solid #ccc;margin-top:10px;border-radius:6px;}
+iframe{width:100%;height:250px;border:1px solid black;margin-top:10px;border-radius:6px;}
+.badge{display:inline-block;padding:4px 8px;background:#ffda59;color:black;border-radius:6px;margin-right:4px;font-weight:bold;animation:pulse 1.2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.6;}}
+.leader-row{display:flex;justify-content:space-between;padding:6px;border-bottom:1px solid #ccc;transition:.3s;}
+.leader-row:hover{transform:scale(1.02);}
+@media(max-width:600px){#editor{height:200px;}.leader-row{flex-direction:column;}}
+textarea,input,select{width:100%;padding:10px;margin:5px 0;border-radius:5px;}
 </style>
 </head>
 <body>
 
 <header>
-<h1>CODEON Course 1 – HTML + Deployment</h1>
-<p>You must complete each lesson to unlock the next.</p>
+<h1>CODEON – Learn & Compete</h1>
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+<p id="pointsDisplay">Points: 0</p>
+<nav>
+  <a href="#course">Course</a>
+  <a href="#challenge">Weekly Challenge</a>
+  <a href="#leaderboard">Leaderboard</a>
+</nav>
 </header>
+
+<div id="confetti"></div>
+
+<section id="authSection" class="card">
+<h2>Login / Sign Up</h2>
+<input type="email" id="email" placeholder="Email">
+<input type="password" id="password" placeholder="Password">
+<input type="text" id="school" placeholder="School Name">
+<select id="country">
+  <option value="Uganda">Uganda</option>
+  <option value="Kenya">Kenya</option>
+  <option value="Nigeria">Nigeria</option>
+  <option value="Ghana">Ghana</option>
+  <option value="South Africa">South Africa</option>
+</select>
+<button onclick="signup()">Sign Up</button>
+<button onclick="login()">Login</button>
+</section>
+
+<section id="main" style="display:none;">
+
+<!-- Course Lessons -->
+<div id="course" class="card">
+<h2>📚 Course 1 – HTML Foundations</h2>
 
 <!-- LESSON 1 -->
 <div class="lesson" id="lesson1">
-<h2>Lesson 1 – HTML Structure</h2>
-
-<h3>Understanding the Code</h3>
-<p><b>&lt;!DOCTYPE html&gt;</b> tells browser this is HTML5.</p>
-<p><b>&lt;html&gt;</b> is the root of the page.</p>
-<p><b>&lt;head&gt;</b> contains hidden info.</p>
-<p><b>&lt;body&gt;</b> contains visible content.</p>
-
-<h3>Your Task</h3>
+<h3>Lesson 1 – HTML Structure</h3>
 <p>Change "Your Name" to your real name.</p>
-
 <div id="editor"></div>
-
 <button onclick="runCode()">Run Code</button>
-<button onclick="checkLesson1()">Submit Lesson 1</button>
-
+<button onclick="checkLesson(1)">Submit Lesson 1</button>
 <iframe id="output"></iframe>
-
 <p id="status1"></p>
 </div>
 
 <!-- LESSON 2 -->
 <div class="lesson locked" id="lesson2">
-<h2>Lesson 2 – Headings & Paragraphs</h2>
-
-<h3>Understanding the Code</h3>
-<p><b>&lt;h1&gt;</b> is main heading.</p>
-<p><b>&lt;p&gt;</b> creates a paragraph.</p>
-
+<h3>Lesson 2 – Headings & Paragraphs</h3>
 <p>Add an &lt;h1&gt; and a &lt;p&gt; inside body.</p>
-
-<button onclick="unlockNext(2)">Unlock Lesson 2</button>
+<button onclick="checkLesson(2)">Submit Lesson 2</button>
+<p id="status2"></p>
 </div>
 
 <!-- LESSON 3 -->
 <div class="lesson locked" id="lesson3">
-<h2>Lesson 3 – Images</h2>
-<p><b>&lt;img&gt;</b> displays images.</p>
-<button onclick="unlockNext(3)">Unlock Lesson 3</button>
+<h3>Lesson 3 – Images</h3>
+<p>Add an &lt;img&gt; to show an image.</p>
+<button onclick="checkLesson(3)">Submit Lesson 3</button>
+<p id="status3"></p>
 </div>
 
 <!-- LESSON 4 -->
 <div class="lesson locked" id="lesson4">
-<h2>Lesson 4 – Sections</h2>
-<p><b>&lt;section&gt;</b> organizes content.</p>
-<button onclick="unlockNext(4)">Unlock Lesson 4</button>
+<h3>Lesson 4 – Sections</h3>
+<p>Use &lt;section&gt; to organize content.</p>
+<button onclick="checkLesson(4)">Submit Lesson 4</button>
+<p id="status4"></p>
 </div>
 
 <!-- LESSON 5 -->
 <div class="lesson locked" id="lesson5">
-<h2>Lesson 5 – Multi-Page Website</h2>
-<p>Create index.html and about.html and link them.</p>
-<p class="complete">🎉 Final Mission: Deploy using GitHub Pages.</p>
+<h3>Lesson 5 – Multi-Page Website</h3>
+<p>Create index.html and about.html and link them. 🎉</p>
+<p class="badge">Final Mission Completed!</p>
+</div>
 </div>
 
+<!-- Weekly Challenge -->
+<div id="challenge" class="card">
+<h2>🔥 Weekly Challenge</h2>
+<p>Constraint: Build a landing page without using &lt;table&gt; tags.</p>
+<textarea id="challengeCode" placeholder="Write your HTML/CSS here..."></textarea>
+<button onclick="submitChallenge()">Submit Challenge</button>
+</div>
+
+<!-- Leaderboard -->
+<div id="leaderboard" class="card">
+<h2>🏆 Africa Leaderboard</h2>
+<div id="leaderboardBoard"></div>
+</div>
+
+</section>
+
 <script>
+// 🔥 Firebase Config
+const firebaseConfig = {
+  apiKey: "AIzaSyD_LR9Kllj7hoKTiJAaSxyHglSO6r5gh-g",
+  authDomain: "codeon-3cb1c.firebaseapp.com",
+  projectId: "codeon-3cb1c"
+};
+firebase.initializeApp(firebaseConfig);
+const auth=firebase.auth();
+const db=firebase.firestore();
+let currentUser=null;
+
+// Monaco Editor
 require.config({ paths: { vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs' }});
 require(['vs/editor/editor.main'], function() {
-
 window.editor = monaco.editor.create(document.getElementById('editor'), {
 value: `<!DOCTYPE html>
 <html>
@@ -141,41 +157,138 @@ value: `<!DOCTYPE html>
 <title>My First Website</title>
 </head>
 <body>
-
 <h1>Your Name</h1>
 <p>I want to become a Developer.</p>
-<footer>
-© 2026 CODEON Uganda
-</footer>
-
+<footer>© 2026 CODEON Uganda</footer>
 </body>
 </html>`,
 language: 'html',
 theme: 'vs-dark'
 });
-
 });
 
-function runCode(){
-const code = editor.getValue();
-document.getElementById("output").srcdoc = code;
+function runCode(){document.getElementById("output").srcdoc=editor.getValue();}
+
+// Global points & progress
+let totalPoints=0;
+function updateProgress(){
+  let progress=(totalPoints/500)*100;
+  if(progress>100) progress=100;
+  document.getElementById("progressBar").style.width=progress+"%";
+  document.getElementById("pointsDisplay").innerText="Points: "+totalPoints;
+  if(progress===100) confettiBurst();
 }
 
-function checkLesson1(){
-const code = editor.getValue();
+// Confetti animation
+function confettiBurst(){
+  const confettiDiv=document.getElementById("confetti");
+  for(let i=0;i<100;i++){
+    const c=document.createElement("div");
+    c.style.position="absolute";
+    c.style.width="8px"; c.style.height="8px";
+    c.style.background=["gold","red","cyan","magenta"][Math.floor(Math.random()*4)];
+    c.style.left=Math.random()*window.innerWidth+"px";
+    c.style.top="0px";
+    c.style.opacity=Math.random();
+    confettiDiv.appendChild(c);
+    let fall=Math.random()*3+2;
+    let angle=Math.random()*10-5;
+    (function(el,f,a){
+      const anim=setInterval(()=>{
+        let top=parseFloat(el.style.top);
+        let left=parseFloat(el.style.left);
+        if(top>window.innerHeight){el.remove(); clearInterval(anim);}
+        else{el.style.top=top+f+"px"; el.style.left=left+a+"px";}
+      },16);
+    })(c,fall,angle);
+  }
+}
 
-if(code.includes("<h1>") && !code.includes("Your Name")){
-document.getElementById("status1").innerHTML="✅ Lesson 1 Complete! Lesson 2 unlocked.";
-document.getElementById("lesson2").classList.remove("locked");
-localStorage.setItem("lesson1Complete","true");
-}else{
-document.getElementById("status1").innerHTML="❌ Please change 'Your Name' before submitting.";
-}
+// Lesson checking
+function checkLesson(lesson){
+  let code=editor.getValue().toLowerCase();
+  let status=document.getElementById("status"+lesson);
+  let valid=false;
+  let pointsEarned=0;
+  switch(lesson){
+    case 1: valid=code.includes("<h1>") && !code.includes("your name"); pointsEarned=50; break;
+    case 2: valid=code.includes("<h1>") && code.includes("<p>"); pointsEarned=50; break;
+    case 3: valid=code.includes("<img"); pointsEarned=50; break;
+    case 4: valid=code.includes("<section>"); pointsEarned=50; break;
+    case 5: valid=true; pointsEarned=50; break;
+  }
+  if(valid){
+    status.innerHTML="✅ Lesson "+lesson+" Complete!";
+    totalPoints+=pointsEarned;
+    updateProgress();
+    if(lesson<5) document.getElementById("lesson"+(lesson+1)).classList.remove("locked");
+    if(currentUser) db.collection("users").doc(currentUser.uid).update({points:totalPoints});
+  }else{
+    status.innerHTML="❌ Please complete the task correctly.";
+  }
 }
 
-function unlockNext(num){
-document.getElementById("lesson"+(num+1)).classList.remove("locked");
+// Firebase Auth
+function signup(){
+  auth.createUserWithEmailAndPassword(email.value,password.value)
+  .then(u=>{
+    db.collection("users").doc(u.user.uid).set({
+      email:email.value,
+      school:school.value,
+      country:country.value,
+      points:0
+    });
+  }).catch(alert);
 }
+function login(){
+  auth.signInWithEmailAndPassword(email.value,password.value).catch(alert);
+}
+function logout(){auth.signOut();}
+
+// On Auth Change
+auth.onAuthStateChanged(user=>{
+  if(user){
+    currentUser=user;
+    authSection.style.display="none";
+    main.style.display="block";
+    if(user.points) totalPoints=user.points;
+    loadLeaderboard();
+  }else{
+    authSection.style.display="block";
+    main.style.display="none";
+  }
+});
+
+// Weekly Challenge
+function submitChallenge(){
+  let code=challengeCode.value;
+  let score=Math.floor(Math.random()*50)+50;
+  totalPoints+=score;
+  updateProgress();
+  if(currentUser) db.collection("users").doc(currentUser.uid).update({points:totalPoints});
+  alert("AI Score: "+score+" points awarded!");
+}
+
+// Leaderboard
+function loadLeaderboard(){
+  db.collection("users").get().then(snap=>{
+    let html="";
+    snap.forEach(doc=>{
+      let d=doc.data();
+      html+=`<div class="leader-row"><span>${d.email}</span><span>${d.points||0} pts</span></div>`;
+    });
+    leaderboardBoard.innerHTML=html;
+  });
+}
+
+// Persist points
+window.onload=function(){
+  if(localStorage.getItem("totalPoints")){
+    totalPoints=parseInt(localStorage.getItem("totalPoints"));
+    updateProgress();
+  }
+};
+window.onbeforeunload=function(){localStorage.setItem("totalPoints",totalPoints);};
 </script>
 
 </body>
