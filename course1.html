@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CODEON – Learn & Compete</title>
+<title>CODEON – HTML Foundations & Deployment</title>
 
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -37,12 +37,16 @@ iframe{width:100%;height:250px;border:1px solid black;margin-top:10px;border-rad
 .leader-row:hover{transform:scale(1.02);}
 @media(max-width:600px){#editor{height:200px;}.leader-row{flex-direction:column;}}
 textarea,input,select{width:100%;padding:10px;margin:5px 0;border-radius:5px;}
+h2,h3{margin-top:0;}
+.protip{background:rgba(255,255,0,0.1);padding:10px;border-left:4px solid gold;margin:10px 0;border-radius:6px;}
+.preview-frame{height:400px;border:2px solid gold;border-radius:8px;margin-top:10px;}
+.feedback{background:rgba(0,0,0,0.2);padding:10px;margin-top:10px;border-radius:6px;color:#ffda59;}
 </style>
 </head>
 <body>
 
 <header>
-<h1>CODEON – Learn & Compete</h1>
+<h1>CODEON – HTML Foundations & Deployment</h1>
 <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
 <p id="pointsDisplay">Points: 0</p>
 <nav>
@@ -72,62 +76,43 @@ textarea,input,select{width:100%;padding:10px;margin:5px 0;border-radius:5px;}
 
 <section id="main" style="display:none;">
 
-<!-- Course Lessons -->
 <div id="course" class="card">
 <h2>📚 Course 1 – HTML Foundations</h2>
 
-<!-- LESSON 1 -->
 <div class="lesson" id="lesson1">
 <h3>Lesson 1 – HTML Structure</h3>
-<p>Change "Your Name" to your real name.</p>
+<div class="protip"><b>Concepts:</b> HTML is the skeleton of web pages. DOCTYPE declares HTML5. &lt;html&gt; is root, &lt;head&gt; contains metadata, &lt;body&gt; has visible content.</div>
+<p>Task: Change "Your Name" to your real name in the &lt;h1&gt; tag.</p>
 <div id="editor"></div>
 <button onclick="runCode()">Run Code</button>
 <button onclick="checkLesson(1)">Submit Lesson 1</button>
+
+<p>Submit your GitHub repo URL for bonus points:</p>
+<input type="url" id="github1" placeholder="https://github.com/username/repo">
+<button onclick="submitGithub(1)">Submit GitHub Repo</button>
+
+<p>Preview your GitHub Pages:</p>
+<input type="url" id="githubPages1" placeholder="https://username.github.io/repo">
+<button onclick="previewGitHub(1)">Preview</button>
+<iframe id="preview1" class="preview-frame"></iframe>
+
 <iframe id="output"></iframe>
 <p id="status1"></p>
+<div class="protip">💡 Pro Tip: Deploying to GitHub Pages builds your portfolio and impresses recruiters.</div>
+<div id="feedback1" class="feedback"></div>
 </div>
 
-<!-- LESSON 2 -->
-<div class="lesson locked" id="lesson2">
-<h3>Lesson 2 – Headings & Paragraphs</h3>
-<p>Add an &lt;h1&gt; and a &lt;p&gt; inside body.</p>
-<button onclick="checkLesson(2)">Submit Lesson 2</button>
-<p id="status2"></p>
 </div>
 
-<!-- LESSON 3 -->
-<div class="lesson locked" id="lesson3">
-<h3>Lesson 3 – Images</h3>
-<p>Add an &lt;img&gt; to show an image.</p>
-<button onclick="checkLesson(3)">Submit Lesson 3</button>
-<p id="status3"></p>
-</div>
-
-<!-- LESSON 4 -->
-<div class="lesson locked" id="lesson4">
-<h3>Lesson 4 – Sections</h3>
-<p>Use &lt;section&gt; to organize content.</p>
-<button onclick="checkLesson(4)">Submit Lesson 4</button>
-<p id="status4"></p>
-</div>
-
-<!-- LESSON 5 -->
-<div class="lesson locked" id="lesson5">
-<h3>Lesson 5 – Multi-Page Website</h3>
-<p>Create index.html and about.html and link them. 🎉</p>
-<p class="badge">Final Mission Completed!</p>
-</div>
-</div>
-
-<!-- Weekly Challenge -->
 <div id="challenge" class="card">
 <h2>🔥 Weekly Challenge</h2>
 <p>Constraint: Build a landing page without using &lt;table&gt; tags.</p>
 <textarea id="challengeCode" placeholder="Write your HTML/CSS here..."></textarea>
 <button onclick="submitChallenge()">Submit Challenge</button>
+<div class="protip">💡 Push challenge to GitHub to gain visibility and real-world practice!</div>
+<div id="challengeFeedback" class="feedback"></div>
 </div>
 
-<!-- Leaderboard -->
 <div id="leaderboard" class="card">
 <h2>🏆 Africa Leaderboard</h2>
 <div id="leaderboardBoard"></div>
@@ -136,7 +121,7 @@ textarea,input,select{width:100%;padding:10px;margin:5px 0;border-radius:5px;}
 </section>
 
 <script>
-// 🔥 Firebase Config
+// Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyD_LR9Kllj7hoKTiJAaSxyHglSO6r5gh-g",
   authDomain: "codeon-3cb1c.firebaseapp.com",
@@ -169,63 +154,87 @@ theme: 'vs-dark'
 
 function runCode(){document.getElementById("output").srcdoc=editor.getValue();}
 
-// Global points & progress
+// Points & progress
 let totalPoints=0;
 function updateProgress(){
-  let progress=(totalPoints/500)*100;
+  let progress=(totalPoints/600)*100;
   if(progress>100) progress=100;
   document.getElementById("progressBar").style.width=progress+"%";
   document.getElementById("pointsDisplay").innerText="Points: "+totalPoints;
-  if(progress===100) confettiBurst();
 }
 
-// Confetti animation
-function confettiBurst(){
-  const confettiDiv=document.getElementById("confetti");
-  for(let i=0;i<100;i++){
-    const c=document.createElement("div");
-    c.style.position="absolute";
-    c.style.width="8px"; c.style.height="8px";
-    c.style.background=["gold","red","cyan","magenta"][Math.floor(Math.random()*4)];
-    c.style.left=Math.random()*window.innerWidth+"px";
-    c.style.top="0px";
-    c.style.opacity=Math.random();
-    confettiDiv.appendChild(c);
-    let fall=Math.random()*3+2;
-    let angle=Math.random()*10-5;
-    (function(el,f,a){
-      const anim=setInterval(()=>{
-        let top=parseFloat(el.style.top);
-        let left=parseFloat(el.style.left);
-        if(top>window.innerHeight){el.remove(); clearInterval(anim);}
-        else{el.style.top=top+f+"px"; el.style.left=left+a+"px";}
-      },16);
-    })(c,fall,angle);
-  }
-}
-
-// Lesson checking
+// Lesson checking + AI-style feedback
 function checkLesson(lesson){
   let code=editor.getValue().toLowerCase();
   let status=document.getElementById("status"+lesson);
+  let feedback=document.getElementById("feedback"+lesson);
   let valid=false;
   let pointsEarned=0;
+  let msgs=[];
   switch(lesson){
-    case 1: valid=code.includes("<h1>") && !code.includes("your name"); pointsEarned=50; break;
-    case 2: valid=code.includes("<h1>") && code.includes("<p>"); pointsEarned=50; break;
-    case 3: valid=code.includes("<img"); pointsEarned=50; break;
-    case 4: valid=code.includes("<section>"); pointsEarned=50; break;
-    case 5: valid=true; pointsEarned=50; break;
+    case 1: 
+      if(code.includes("<h1>") && !code.includes("your name")){
+        valid=true;
+        pointsEarned=50;
+      }else{
+        msgs.push("❌ Remember to replace 'Your Name' in <h1> with your real name.");
+      }
+      if(!code.includes("<footer>")) msgs.push("💡 Tip: Add a <footer> to show page ownership.");
+      if(!code.includes("<p>")) msgs.push("💡 Tip: Add a <p> paragraph describing yourself or your goals.");
+      break;
   }
+  feedback.innerHTML=msgs.join("<br>");
   if(valid){
-    status.innerHTML="✅ Lesson "+lesson+" Complete!";
+    status.innerHTML="✅ Lesson "+lesson+" Complete! 🎉";
     totalPoints+=pointsEarned;
     updateProgress();
-    if(lesson<5) document.getElementById("lesson"+(lesson+1)).classList.remove("locked");
     if(currentUser) db.collection("users").doc(currentUser.uid).update({points:totalPoints});
+    triggerConfetti();
   }else{
-    status.innerHTML="❌ Please complete the task correctly.";
+    status.innerHTML="❌ Complete the task correctly. See AI tips below.";
   }
+}
+
+// Confetti
+function triggerConfetti(){
+  const confetti=document.getElementById("confetti");
+  for(let i=0;i<100;i++){
+    let el=document.createElement("div");
+    el.style.position="absolute";
+    el.style.width="8px"; el.style.height="8px";
+    el.style.background=["gold","orange","yellow"][Math.floor(Math.random()*3)];
+    el.style.top=Math.random()*window.innerHeight+"px";
+    el.style.left=Math.random()*window.innerWidth+"px";
+    el.style.opacity=Math.random();
+    confetti.appendChild(el);
+    setTimeout(()=>el.remove(),2000);
+  }
+}
+
+// GitHub submission validation
+async function submitGithub(lesson){
+  const input=document.getElementById("github"+lesson);
+  const url=input.value.trim();
+  if(!url.startsWith("https://github.com/")) {alert("Enter valid GitHub URL."); return;}
+  try{
+    let apiURL=url.replace("https://github.com/","https://api.github.com/repos/");
+    let resp=await fetch(apiURL);
+    if(resp.ok){
+      alert("🎉 Verified GitHub repo! +20 bonus points");
+      totalPoints+=20;
+      updateProgress();
+      if(currentUser) db.collection("users").doc(currentUser.uid).update({points:totalPoints,["githubLesson"+lesson]:url});
+      input.value="";
+    }else alert("❌ Repo not found. Check URL or privacy settings.");
+  }catch(e){alert("Error validating repo.");}
+}
+
+// GitHub Pages preview
+function previewGitHub(lesson){
+  const input=document.getElementById("githubPages"+lesson);
+  const url=input.value.trim();
+  if(!url.startsWith("https://")) {alert("Enter valid GitHub Pages URL."); return;}
+  document.getElementById("preview"+lesson).src=url;
 }
 
 // Firebase Auth
@@ -240,18 +249,13 @@ function signup(){
     });
   }).catch(alert);
 }
-function login(){
-  auth.signInWithEmailAndPassword(email.value,password.value).catch(alert);
-}
+function login(){auth.signInWithEmailAndPassword(email.value,password.value).catch(alert);}
 function logout(){auth.signOut();}
-
-// On Auth Change
 auth.onAuthStateChanged(user=>{
   if(user){
     currentUser=user;
     authSection.style.display="none";
     main.style.display="block";
-    if(user.points) totalPoints=user.points;
     loadLeaderboard();
   }else{
     authSection.style.display="block";
@@ -265,8 +269,8 @@ function submitChallenge(){
   let score=Math.floor(Math.random()*50)+50;
   totalPoints+=score;
   updateProgress();
+  document.getElementById("challengeFeedback").innerHTML="🎯 AI Feedback: Nice work! You earned "+score+" points.";
   if(currentUser) db.collection("users").doc(currentUser.uid).update({points:totalPoints});
-  alert("AI Score: "+score+" points awarded!");
 }
 
 // Leaderboard
