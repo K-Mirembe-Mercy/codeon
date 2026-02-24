@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,104 +10,130 @@
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
 <style>
-body{font-family:Arial; margin:0; background:dark green; transition:.3s;}
-.dark{background:#111; color:white;}
-header{background:black; color:white; padding:15px; text-align:center;}
-button{padding:8px 15px; margin:5px; cursor:pointer; border:none; border-radius:5px;}
-textarea,input,select{width:100%; padding:10px; margin:5px 0; border-radius:5px;}
-section{padding:20px;}
-.card{background:white; padding:15px; margin:15px auto; border-radius:10px; max-width:800px; box-shadow:0 2px 8px rgba(0,0,0,.2);}
-.dark .card{background:#222; color:white;}
-.leader-row{display:flex; justify-content:space-between; padding:6px; border-bottom:1px solid #ccc; transition:.3s;}
-.leader-row:hover{transform:scale(1.02);}
-.badge{padding:3px 6px; border-radius:4px; font-size:12px; animation:pulse 1s infinite;}
-.gold{background:gold;} .silver{background:silver;} .bronze{background:#cd7f32;color:white;}
-@keyframes pulse{0%{opacity:1;}50%{opacity:.6;}100%{opacity:1;}}
-.flag{margin-right:5px;}
-textarea{height:120px;}
-h2{margin-top:0;}
-@media(max-width:600px){.leader-row{flex-direction:column;}}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Inter',sans-serif;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  color:white;
+  min-height:100vh;
+}
+header{
+  text-align:center;
+  padding:25px;
+  background:rgba(0,0,0,.8);
+  backdrop-filter:blur(10px);
+}
+header h1{font-size:28px;font-weight:800;}
+nav{margin-top:10px;}
+nav a{color:white;margin:0 10px;text-decoration:none;font-weight:600;}
+nav a:hover{color:gold;}
+
+section{padding:30px;max-width:1100px;margin:auto;}
+.card{
+  background:rgba(255,255,255,.08);
+  padding:25px;
+  margin:20px 0;
+  border-radius:16px;
+  backdrop-filter:blur(12px);
+  box-shadow:0 15px 40px rgba(0,0,0,.4);
+}
+
+button{
+  padding:10px 18px;
+  background:linear-gradient(45deg,gold,orange);
+  border:none;
+  border-radius:8px;
+  font-weight:700;
+  cursor:pointer;
+  margin-top:10px;
+}
+
+textarea,input{
+  width:100%;
+  padding:12px;
+  margin:8px 0;
+  border-radius:8px;
+  border:none;
+}
+
+.leader-row{
+  display:flex;
+  justify-content:space-between;
+  padding:8px;
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.rank-1{color:gold;font-weight:800;}
+.rank-2{color:silver;font-weight:800;}
+.rank-3{color:#cd7f32;font-weight:800;}
+
+.badge{
+  background:gold;
+  color:black;
+  padding:4px 8px;
+  border-radius:6px;
+  font-size:12px;
+  margin-right:5px;
+}
+
+#countdown{margin-top:10px;font-weight:600;color:gold;}
 </style>
 </head>
 <body>
 
 <header>
-<h1>🌍 CODEON Africa Championship</h1>
-<button onclick="toggleMode()">Toggle Dark/Light</button>
-<button onclick="logout()">Logout</button>
+<h1>🏆 CODEON Africa Championship</h1>
+<div id="countdown"></div>
 <nav>
   <a href="index.html">Home</a>
   <a href="enroll.html">Enroll</a>
-  <a href="verify.html">Verify Certificate</a>
-  <a href="community-codeon.html">Community</a>
+  <a href="verify.html">Verify</a>
+  <a href="community-codeon.html"></a>
 </nav>
 </header>
 
 <section id="authSection">
-<h2>Login / Sign Up</h2>
-<input type="email" id="email" placeholder="Email"><br>
-<input type="password" id="password" placeholder="Password"><br>
-<input type="text" id="school" placeholder="School Name"><br>
-<select id="country">
-<option value="Uganda">Uganda</option>
-<option value="Kenya">Kenya</option>
-<option value="Nigeria">Nigeria</option>
-<option value="Ghana">Ghana</option>
-<option value="South Africa">South Africa</option>
-</select><br>
-<button onclick="signup()">Sign Up</button>
+<div class="card">
+<h2>Login to Compete</h2>
+<input type="email" id="email" placeholder="Email">
+<input type="password" id="password" placeholder="Password">
 <button onclick="login()">Login</button>
+</div>
 </section>
 
 <section id="main" style="display:none;">
 
-<!-- Weekly Challenge -->
+<div class="card">
+<h2>👤 Your Dashboard</h2>
+<p id="welcome"></p>
+<p>Points: <strong id="points">0</strong></p>
+<p>Streak: <strong id="streak">0</strong> 🔥</p>
+<div id="badges"></div>
+</div>
+
 <div class="card">
 <h2>🔥 Weekly Challenge</h2>
-<p>Constraint: Build a landing page without using &lt;table&gt; tags.</p>
+<p>Build a responsive landing page without using &lt;table&gt; tags.</p>
 <textarea id="challengeCode" placeholder="Write your HTML/CSS here..."></textarea>
 <button onclick="submitChallenge()">Submit Challenge</button>
 </div>
 
-<!-- Peer Review -->
-<div class="card">
-<h2>🤝 Peer Review</h2>
-<div id="reviewsContainer"></div>
-<textarea id="reviewText" placeholder="Write review here..."></textarea>
-<button onclick="submitReview()">Submit Review</button>
-</div>
-
-<!-- Leaderboards -->
 <div class="card">
 <h2>🏆 Africa Leaderboard</h2>
 <div id="leaderboard"></div>
 </div>
 
-<div class="card">
-<h2>🏫 School Championship</h2>
-<div id="schoolBoard"></div>
-</div>
-
-<div class="card">
-<h2>🌍 Country Championship</h2>
-<div id="countryBoard"></div>
-</div>
-
-<!-- Certificate -->
-<div class="card">
-<h2>📜 Certificate</h2>
-<div id="certificate"></div>
-</div>
-
 </section>
 
 <script>
-// 🔥 Firebase Config
-const firebaseConfig = {
-  apiKey: "AIzaSyD_LR9Kllj7hoKTiJAaSxyHglSO6r5gh-g",
-  authDomain: "codeon-3cb1c.firebaseapp.com",
-  projectId: "codeon-3cb1c"
+// Firebase
+const firebaseConfig={
+  apiKey:"AIzaSyD_LR9Kllj7hoKTiJAaSxyHglSO6r5gh-g",
+  authDomain:"codeon-3cb1c.firebaseapp.com",
+  projectId:"codeon-3cb1c"
 };
 firebase.initializeApp(firebaseConfig);
 const auth=firebase.auth();
@@ -115,221 +141,107 @@ const db=firebase.firestore();
 
 let currentUser=null;
 
-// Fake competitors
-const ugandaCoders = [
-  {name: "BabiryeCoder", flag: "🇺🇬"},
-  {name: "KatoDev", flag: "🇺🇬"},
-  {name: "MukasaTech", flag: "🇺🇬"},
-  {name: "MirembeWeb", flag: "🇺🇬"},
-  {name: "AkelloDev", flag: "🇺🇬"},
-  {name: "OkelloStack", flag: "🇺🇬"},
-  {name: "MusisiCode", flag: "🇺🇬"},
-  {name: "NamukasaLogic", flag: "🇺🇬"},
-  {name: "KiraboBuilder", flag: "🇺🇬"},
-  {name: "SanyuDev", flag: "🇺🇬"},
-  {name: "MugishaTech", flag: "🇺🇬"},
-  {name: "AsiimweCoder", flag: "🇺🇬"},
-  {name: "AgabaDev", flag: "🇺🇬"},
-  {name: "MbabaziWeb", flag: "🇺🇬"},
-  {name: "BirungiCoder", flag: "🇺🇬"},
-  {name: "KizzaTech", flag: "🇺🇬"},
-  {name: "OtimDev", flag: "🇺🇬"},
-  {name: "AumaStack", flag: "🇺🇬"},
-  {name: "OchenCode", flag: "🇺🇬"},
-  {name: "NasicheDev", flag: "🇺🇬"},
-  {name: "NafunaWeb", flag: "🇺🇬"},
-  {name: "NekesaCoder", flag: "🇺🇬"},
-  {name: "IsabiryeTech", flag: "🇺🇬"},
-  {name: "BwambaleDev", flag: "🇺🇬"},
-  {name: "MuhindoStack", flag: "🇺🇬"},
-  {name: "BiiraCode", flag: "🇺🇬"},
-  {name: "MasikaDev", flag: "🇺🇬"},
-  {name: "AtukundaWeb", flag: "🇺🇬"},
-  {name: "KagumahoCoder", flag: "🇺🇬"},
-  {name: "NsubugaTech", flag: "🇺🇬"},
-  {name: "LuleDev", flag: "🇺🇬"}
-];
-  const ugandaStudents = [
-  {name: "Emmanuel", points: Math.floor(Math.random()*100)+10, district: "Kampala"},
-  {name: "Grace", points: Math.floor(Math.random()*100)+10, district: "Gulu"},
-  {name: "Joseph", points: Math.floor(Math.random()*100)+10, district: "Mbarara"},
-  {name: "Mary", points: Math.floor(Math.random()*100)+10, district: "Jinja"},
-  {name: "Samuel", points: Math.floor(Math.random()*100)+10, district: "Mbale"},
-  {name: "Dorothy", points: Math.floor(Math.random()*100)+10, district: "Lira"},
-  {name: "Pius", points: Math.floor(Math.random()*100)+10, district: "Masaka"},
-  {name: "Mercy", points: Math.floor(Math.random()*100)+10, district: "Fort Portal"},
-  {name: "Stephen", points: Math.floor(Math.random()*100)+10, district: "Soroti"},
-  {name: "Proscovia", points: Math.floor(Math.random()*100)+10, district: "Hoima"},
-  {name: "John", points: Math.floor(Math.random()*100)+10, district: "Kabale"},
-  {name: "Elizabeth", points: Math.floor(Math.random()*100)+10, district: "Kitgum"},
-  {name: "Andrew", points: Math.floor(Math.random()*100)+10, district: "Iganga"},
-  {name: "Phiona", points: Math.floor(Math.random()*100)+10, district: "Masindi"},
-  {name: "Patrick", points: Math.floor(Math.random()*100)+10, district: "Mukono"},
-  {name: "Priscilla", points: Math.floor(Math.random()*100)+10, district: "Soroti"},
-  {name: "Charles", points: Math.floor(Math.random()*100)+10, district: "Ntungamo"},
-  {name: "Faith", points: Math.floor(Math.random()*100)+10, district: "Apac"},
-  {name: "Christopher", points: Math.floor(Math.random()*100)+10, district: "Arua"},
-  {name: "Resty", points: Math.floor(Math.random()*100)+10, district: "Kabarole"},
-  {name: "Simon", points: Math.floor(Math.random()*100)+10, district: "Kayunga"},
-  {name: "Sarah", points: Math.floor(Math.random()*100)+10, district: "Kumi"},
-  {name: "Francis", points: Math.floor(Math.random()*100)+10, district: "Nakasongola"},
-  {name: "Noeline", points: Math.floor(Math.random()*100)+10, district: "Koboko"},
-  {name: "David", points: Math.floor(Math.random()*100)+10, district: "Amuru"},
-  {name: "Immaculate", points: Math.floor(Math.random()*100)+10, district: "Nakapiripirit"},
-  {name: "Peter", points: Math.floor(Math.random()*100)+10, district: "Rukungiri"},
-  {name: "Annet", points: Math.floor(Math.random()*100)+10, district: "Yumbe"},
-  {name: "Moses", points: Math.floor(Math.random()*100)+10, district: "Soroti"},
-  {name: "Agnes", points: Math.floor(Math.random()*100)+10, district: "Kabarole"}
-];
-  const ugandaDistricts = [
-  {name: "Babirye", district: "Kampala"},
-  {name: "Kato", district: "Gulu"},
-  {name: "Mukasa", district: "Mbarara"},
-  {name: "Mirembe", district: "Jinja"},
-  {name: "Akello", district: "Mbale"},
-  {name: "Okello", district: "Lira"},
-  {name: "Musisi", district: "Masaka"},
-  {name: "Namukasa", district: "Fort Portal"},
-  {name: "Kirabo", district: "Soroti"},
-  {name: "Sanyu", district: "Hoima"},
-  {name: "Mugisha", district: "Kabale"},
-  {name: "Asiimwe", district: "Kitgum"},
-  {name: "Agaba", district: "Iganga"},
-  {name: "Mbabazi", district: "Masindi"},
-  {name: "Birungi", district: "Mukono"},
-  {name: "Kizza", district: "Soroti"},
-  {name: "Otim", district: "Ntungamo"},
-  {name: "Auma", district: "Apac"},
-  {name: "Ochen", district: "Arua"},
-  {name: "Nasiche", district: "Kabarole"}
-];
-  
-// Auth
-function signup(){
-  auth.createUserWithEmailAndPassword(email.value,password.value)
-  .then(u=>{
-    db.collection("users").doc(u.user.uid).set({email:email.value,school:school.value,country:country.value,points:0});
-  });
+// Countdown
+function startCountdown(){
+  const end=new Date("2026-12-31");
+  setInterval(()=>{
+    const now=new Date();
+    const diff=end-now;
+    const days=Math.floor(diff/(1000*60*60*24));
+    countdown.innerHTML="⏳ Championship ends in "+days+" days";
+  },1000);
 }
-function login(){auth.signInWithEmailAndPassword(email.value,password.value);}
-function logout(){auth.signOut();}
+startCountdown();
+
+// Login
+function login(){
+  auth.signInWithEmailAndPassword(email.value,password.value);
+}
 
 auth.onAuthStateChanged(user=>{
   if(user){
     currentUser=user;
     authSection.style.display="none";
     main.style.display="block";
-    loadBoards();
-    loadPeerReviews();
-  } else {authSection.style.display="block"; main.style.display="none";}
+    loadUserData();
+    loadLeaderboard();
+  }
 });
 
-// Submit challenge
+// AI-like scoring
+function calculateScore(code){
+  let score=50;
+  if(code.includes("<header>")) score+=10;
+  if(code.includes("@media")) score+=15;
+  if(code.includes("flex")) score+=10;
+  if(code.length>800) score+=20;
+  return score;
+}
+
 function submitChallenge(){
-  let code=challengeCode.value;
-  let score=Math.floor(Math.random()*50)+50;
-  db.collection("users").doc(currentUser.uid).update({points:firebase.firestore.FieldValue.increment(score)});
-  alert("AI Score: "+score+" points awarded!");
-  generateCertificate(score);
-}
+  const code=challengeCode.value;
+  const score=calculateScore(code);
 
-// Peer reviews
-const fakeReviews = [
-  "Great layout! 😍 Really intuitive and easy to navigate.",
-  "Color contrast could be better 🤔 Some text is hard to read.",
-  "Responsive design rocks! Checked on my phone & tablet 📱💻",
-  "Flexbox would make alignment easier than using margins.",
-  "Fonts are a bit inconsistent. Maybe pick 1 primary font? 🖋️",
-  "Loved the interactive charts! Super informative 📊",
-  "Menu should be sticky – lost it while scrolling 😅",
-  "Login flow is smooth, but tooltips for newbies would help 👀",
-  "Minimalistic & clean – short and sweet 👍",
-  "Buttons on mobile are tiny. Bigger tap targets pls 🙏",
-  "Amazing work! The color palette is very professional 🎨",
-  "Sections feel cramped, add some spacing for readability 📝",
-  "Animations are subtle but make the UI feel alive ✨",
-  "Settings page was tricky to find 🤷 A sidebar might help",
-  "Icons match the theme perfectly. Nice attention to detail 👌",
-  "Typography is clear & readable even on small screens 📖",
-  "Hover effects on clickable items would improve UX 👆",
-  "Footer is text-heavy; maybe split into columns or shorten it 🗂️",
-  "Overall, very clean interface, easy to use & understand 💯",
-  "Add onboarding tips for first-time users – smoothens the experience 🛠️"
-];
+  const userRef=db.collection("users").doc(currentUser.uid);
 
-// Function to shuffle and slightly vary phrasing
-function getRandomReviews() {
-  // Shuffle array
-  const shuffled = fakeReviews
-    .map(r => ({text: r, sort: Math.random()}))
-    .sort((a, b) => a.sort - b.sort)
-    .map(r => r.text);
+  userRef.get().then(doc=>{
+    let streak=doc.data()?.streak||0;
+    streak++;
 
-  // Slight variations: add prefixes or emojis randomly
-  return shuffled.map(r => {
-    const prefixes = ["👍", "💡", "👀", "✅", "🔥"];
-    const suffixes = ["!", ".", " 😄", " 🙏", "✨"];
-    const addPrefix = Math.random() > 0.6 ? prefixes[Math.floor(Math.random() * prefixes.length)] + " " : "";
-    const addSuffix = Math.random() > 0.5 ? suffixes[Math.floor(Math.random() * suffixes.length)] : "";
-    return addPrefix + r + addSuffix;
+    userRef.set({
+      email:currentUser.email,
+      points:firebase.firestore.FieldValue.increment(score),
+      streak:streak
+    },{merge:true});
+
+    alert("AI Score: "+score+" points awarded!");
   });
 }
 
-// Usage
-function loadPeerReviews() {
-  let html = getRandomReviews().map(r => `<div class="leader-row">💻 ${r}</div>`).join("");
+// Load User
+function loadUserData(){
+  db.collection("users").doc(currentUser.uid)
+  .onSnapshot(doc=>{
+    const data=doc.data();
+    if(!data) return;
 
-  db.collection("reviews").get().then(snap => {
-    snap.forEach(doc => {
-      html += `<div class="leader-row">👤 ${doc.data().user}: ${doc.data().text}</div>`;
+    welcome.innerHTML="Welcome, "+data.email;
+    points.innerText=data.points||0;
+    streak.innerText=data.streak||0;
+
+    let badgeHTML="";
+    if(data.points>=100) badgeHTML+='<span class="badge">Rising Coder</span>';
+    if(data.points>=300) badgeHTML+='<span class="badge">Elite Developer</span>';
+    if(data.points>=600) badgeHTML+='<span class="badge">Africa Finalist</span>';
+    badges.innerHTML=badgeHTML;
+  });
+}
+
+// Leaderboard
+function loadLeaderboard(){
+  db.collection("users")
+  .orderBy("points","desc")
+  .limit(20)
+  .onSnapshot(snapshot=>{
+    let html="";
+    let i=0;
+    snapshot.forEach(doc=>{
+      const d=doc.data();
+      i++;
+      let cls="";
+      if(i==1) cls="rank-1";
+      if(i==2) cls="rank-2";
+      if(i==3) cls="rank-3";
+
+      html+=`
+      <div class="leader-row ${cls}">
+        <span>${i}. ${d.email}</span>
+        <span>${d.points||0} pts</span>
+      </div>`;
     });
-    reviewsContainer.innerHTML = html;
+    leaderboard.innerHTML=html;
   });
 }
-}
-function submitReview(){
-  db.collection("reviews").add({text:reviewText.value,user:currentUser.email}).then(()=>{reviewText.value=""; loadPeerReviews(); alert("Review Submitted!")});
-}
-
-// Leaderboards
-function fillLeaderboard(realUsers,fakeList,total){
-  let combined=[...realUsers];
-  let needed=total-combined.length;
-  let shuffledFakes=fakeList.sort(()=>Math.random()-.5).slice(0,needed);
-  shuffledFakes=shuffledFakes.map(f=>({...f,points:Math.floor(Math.random()*120)+10}));
-  combined=[...combined,...shuffledFakes];
-  combined.sort((a,b)=>b.points-a.points);
-  return combined.slice(0,total);
-}
-function renderAfricaBoard(users){
-  const real=users.map(u=>({name:u.email,points:u.points,flag:"🇺🇬"}));
-  const top31=fillLeaderboard(real,fakeAfrica,31);
-  leaderboard.innerHTML=top31.map((p,i)=>`<div class="leader-row">${i+1}. <span class="flag">${p.flag||"🌍"}</span> ${p.name} - ${p.points} pts</div>`).join("");
-}
-function renderSchoolBoard(users){
-  const top50=fillLeaderboard(users.map(u=>({name:u.email,points:u.points,school:u.school})),fakeSchools,50);
-  schoolBoard.innerHTML=top50.map((p,i)=>`<div class="leader-row">${i+1}. ${p.name} (${p.school}) - ${p.points} pts</div>`).join("");
-}
-function renderCountryBoard(users){
-  const top43=fillLeaderboard(users.map(u=>({name:u.email,points:u.points,country:u.country})),fakeCountries,43);
-  countryBoard.innerHTML=top43.map((p,i)=>`<div class="leader-row">${i+1}. ${p.name} (${p.country}) - ${p.points} pts</div>`).join("");
-}
-function loadBoards(){
-  db.collection("users").onSnapshot(snapshot=>{
-    let users=[]; snapshot.forEach(doc=>{users.push(doc.data());});
-    renderAfricaBoard(users);
-    renderSchoolBoard(users);
-    renderCountryBoard(users);
-  });
-}
-
-// Certificate
-function generateCertificate(score){
-  certificate.innerHTML=`<h3>CODEON Africa Championship Certificate</h3><p>${currentUser.email}</p><p>Awarded ${score} points</p>`;
-}
-
-// Dark mode
-function toggleMode(){document.body.classList.toggle("dark");}
 </script>
 
 </body>
