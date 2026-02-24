@@ -1,422 +1,225 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CODEON Uganda | Code Your Future(Learn Coding with GitHub)</title>
-<meta name="description" content="CodeOn Uganda offers structured coding training with GitHub workflow, certificates and national verification system.">
+<title>CODEON – HTML & CSS Mastery</title>
 
-<!--EDITOR-->
+<!-- Monaco Editor -->
 <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs/loader.js"></script>
-<!-- QR + PDF -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
-<!-- Flutterwave -->
-<script src="https://checkout.flutterwave.com/v3.js"></script>
-
-<!-- Firebase v10 (modular via compat for simplicity) -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+<!-- QR Code -->
+<script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
+<!-- Confetti -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
-body{font-family:Arial;margin:0;background:#f4f4f4}
-header{background:#111;color:#fff;padding:15px;text-align:center}
-nav{background:#222;padding:10px;text-align:center}
-nav a{color:white;margin:0 15px;text-decoration:none;font-weight:bold}
-section{padding:40px 20px;max-width:1000px;margin:auto}
-.hero{background:#000;color:white;text-align:center;padding:60px 20px}
-.cards{display:flex;flex-wrap:wrap;gap:20px}
-.card{flex:1;min-width:250px;background:white;padding:20px;border-radius:8px}
-button{padding:10px 20px;background:#111;color:white;border:none;cursor:pointer;margin-top:10px}
-button:hover{background:#333}
-input,select{width:100%;padding:10px;margin:8px 0}
-footer{background:#111;color:white;text-align:center;padding:20px}
-.certificate{display:none;border:8px solid #111;padding:40px;text-align:center;background:white}
-.admin-panel{display:none;background:#fff;padding:20px;border-radius:10px}
-.verify-result{font-weight:bold;margin-top:15px}
+body{margin:0;font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);color:white;transition:0.3s;}
+header{background:#111;padding:20px;text-align:center;}
+header h1{margin:0;font-size:2em;}
+button{padding:10px 20px;background:gold;color:black;border:none;border-radius:6px;font-weight:bold;cursor:pointer;margin-top:10px;transition:0.3s;}
+button:hover{background:orange;}
+.editor-container{height:300px;width:100%;border-radius:6px;margin-top:10px;}
+iframe{width:100%;height:250px;border:1px solid black;margin-top:10px;border-radius:6px;}
+.card{background:rgba(255,255,255,0.08);padding:20px;border-radius:12px;margin:20px;transition:0.3s;}
+.locked{opacity:0.4;pointer-events:none;}
+.protip{background:rgba(255,255,255,0.1);padding:10px;border-left:4px solid gold;margin:10px 0;border-radius:6px;color:black;}
+h2{margin-top:0;}
+#leaderboard{background:rgba(0,0,0,0.2);border-radius:10px;padding:10px;margin:20px;max-width:600px;}
+.leader-row{display:flex;justify-content:space-between;padding:5px 10px;border-bottom:1px solid #ccc;transition:0.3s;}
+.leader-row:nth-child(1){background:gold;color:black;font-weight:bold;}
+.leader-row:nth-child(2){background:silver;color:black;font-weight:bold;}
+.leader-row:nth-child(3){background:#cd7f32;color:white;font-weight:bold;}
+#certificateCard{background:rgba(255,255,255,0.2);padding:20px;border-radius:12px;margin:20px;display:none;text-align:center;opacity:0;transform:scale(0.7);}
+#certificateCard.show{animation:fadeIn 1s forwards;}
+@keyframes fadeIn{from{opacity:0;transform:scale(0.7);}to{opacity:1;transform:scale(1);}}
+#certificateCard img{width:150px;margin:auto;display:block;}
+#qrCode{margin:10px auto;display:block;}
 </style>
 </head>
 <body>
 
 <header>
-    <div class="container">
-    <img src="codeon logo.png" width="100" height="100" alt="Description" class="side-image">
-    <div class="text-content">
-        <h1>CODEON Uganda</h1>
-        <p>Code Your Future</p>
-    </div>
-</div>
+<h1>CODEON – HTML & CSS Mastery</h1>
+<p>Interactive course: edit code, run it, unlock lessons, earn points & badges!</p>
+<p id="pointsDisplay">Points: 0</p>
 </header>
 
-<nav>
-<a href="index.html">Home</a>
-<a href="enroll.html">Enroll</a>
-<a href="verify.html">Verify Certificate</a>
-<a href="community-codeon.html">Community</a>
-</nav>
+<!-- LESSON 1 -->
+<div class="card" id="lesson1">
+<h2>Lesson 1 – HTML Structure</h2>
+<p><b>&lt;!DOCTYPE html&gt;</b> – tells browser this is HTML5.</p>
+<p><b>&lt;html&gt;</b> – root of the page.</p>
+<p><b>&lt;head&gt;</b> – contains metadata, title, scripts.</p>
+<p><b>&lt;body&gt;</b> – contains visible content.</p>
+<p>Your task: Replace "Your Name" with your real name.</p>
 
-<!-- HOME -->
-<section id="home" class="hero">
-<h2>Empowering Uganda's Next Generation of Developers</h2>
-<p>Structured coding education with real GitHub collaboration workflow.<br>Practical Coding Program for Secondary School Students</p>
-</section>
-
-<section>
-<h2>Why Choose CodeOn?</h2>
-<p>Students learn Web Development.GitHub forking, pull requests, collaboration and real-world development practices.</p>
-
-<h3>Testimonials</h3>
-<p>"CodeOn helped me understand real software development." –Kafeero Praise Student, Kampala</p>
-<p>"The GitHub workflow training prepared me for freelance work." – Nalubega Desire</p>
-</section>
-   <!-- PROGRAMS -->
-<section id="programs">
-<h2>Programs</h2>
-<div class="cards">
-
-
-  <div class="card">
-  <h3>Level 1 – FREE</h3>
-  <img src="html.png" alt="HTML Course" width="100%">
-  <p>HTML, CSS, Git Basics</p>
-  <p>Optional Certificate: UGX 10,000</p>
-  <div style="text-align:center;margin-top:15px;">
-<a href="course1.html">
-<button style="width:100%;">Start Course 1 </button>
-</a>
-</div>
-  <button onclick="openCertificatePopup()">Get Certified 🎓</button>
-  <!-- Payment Button (Optional) -->
-  <!-- <button onclick="payCertificate('Level 1',10000)">Pay for Certificate</button> -->
-
-  
-</div>
-
-<div class="card">
-<h3>Level 2 – FREE</h3>
-<img src="css.jpg" alt="CSS Course" width="100%">
-<p>JavaScript & GitHub Collaboration</p>
-<p>Optional Certificate: UGX 10,000</p>
-<a href="course2.html">
-<button style="width:100%;">Start Course 2</button>
-</a>  
-<button onclick="openCertificatePopup()">Get Certified 🎓</button>
-</div>
-<div class="card">
-<h3>Level 3 – UGX 50,000</h3>
-<img src="photo.avif" alt="Advanced Course" width="100%">
-<p>Advanced & Industry Preparation</p>
-<a href="course3.html">
-<button style="width:100%;">Start Course 3 </button>
-</a>
-<button onclick="openLevel3Popup()">Get Certified 🎓</button>
-</div>
-</div>
-
-<h2>CODEON Practice Editor</h2>
-
-<div id="editor" style="height:400px;border:1px solid #ccc;"></div>
-
+<div id="editor" class="editor-container"></div>
 <button onclick="runCode()">Run Code</button>
-
-<h3>Output:</h3>
-<iframe id="output" style="width:100%;height:300px;border:1px solid black;"></iframe>
-</section>
-<p text-align:center;><strong>WHAT STUDENTS GAIN</strong></p>
-  <p text-align:center;>Ability to build real websites<br>Strong problem-solving skills<br>Confidence using technology<br>A certificate of completion<br>Preparation for university and tech careers</p>
-
-  <section>
-  <h3 text-align:center;>Scan to Visit CodeOn</h3>
-  <img text-align:center; src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fk-mirembe-mercy.github.io%2Fcodeon%2F" alt="CodeOn QR Code">
-  <p text-align:center;>Scan this QR code to go directly to the CodeOn website.</p>
-</section>
-    <!-- CERTIFICATE POPUP -->
-<div id="certificatePopup" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); justify-content:center; align-items:center;">
-
-<div style="background:white; width:90%; max-width:400px; padding:25px; border-radius:8px; text-align:center; position:relative;">
-
-<span onclick="closeCertificatePopup()" 
-style="position:absolute; right:15px; top:10px; cursor:pointer; font-size:18px;">✖</span>
-
-<h2>Get Certified 🎓</h2>
-
-<p>You are about to apply for the CODEON Level 1 Certificate.</p>
-<p><strong>Certificate Fee: UGX 10,000</strong></p>
-
-<p>After payment, your certificate will be generated and verified online.</p>
-
-<a href="https://store.pesapal.com/certificatepayment" target="_blank">
-<button style="width:100%;">Proceed to Payment</button>
-</a>
-
+<button onclick="checkLesson(1)">Submit Lesson 1</button>
+<iframe id="output"></iframe>
+<p id="status1"></p>
 </div>
+
+<!-- LESSON 2 -->
+<div class="card locked" id="lesson2">
+<h2>Lesson 2 – Headings & Paragraphs</h2>
+<p>Add headings & paragraphs to structure content.</p>
+<p class="protip">💡 Tip: Always use <b>&lt;h1&gt;</b> for main title, <b>&lt;p&gt;</b> for text.</p>
+<button onclick="unlockNext(2)">Unlock Lesson 2</button>
 </div>
-<!-- LEVEL 3 CERTIFICATE POPUP -->
-<div id="level3Popup" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); justify-content:center; align-items:center;">
 
-<div style="background:white; width:90%; max-width:400px; padding:25px; border-radius:8px; text-align:center; position:relative;">
-
-<span onclick="closeLevel3Popup()" 
-style="position:absolute; right:15px; top:10px; cursor:pointer; font-size:18px;">✖</span>
-
-<h2>Level 3 Certificate 🎓</h2>
-
-<p>You are about to apply for the CODEON Level 3 Certificate.</p>
-<p><strong>Certificate Fee: UGX 50,000</strong></p>
-
-<p>After payment, your certificate will be generated and verified online.</p>
-
-<a href="https://store.pesapal.com/level3" target="_blank">
-  <button style="width:100%;">Proceed to Payment</button>
-</a>
-
+<!-- LESSON 3 -->
+<div class="card locked" id="lesson3">
+<h2>Lesson 3 – Images</h2>
+<p>Add <b>&lt;img&gt;</b> to display pictures.</p>
+<button onclick="unlockNext(3)">Unlock Lesson 3</button>
 </div>
-</div>
-<p>Lessons are held offline</p>
-<p><strong>Book a Free Coding Demo for Your School</strong></p>
-  <p>EMAIL:codeon.ug@gmail.com</p>
-  <p>CONTACT US: 0743733322</p>
-  <p>WHATSAPP:0777435942</p>
-<footer>
-© 2026 CODEON Uganda
-</footer>
-<!-- Subscription Popup -->
-<div id="subscriptionPopup" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:1000; justify-content:center; align-items:center;">
-  <div style="background:white; padding:30px; border-radius:10px; max-width:420px; width:90%; text-align:center;">
-    <h2>Subscribe to CODEON UG</h2>
-    <p>UGX 15,000 per month </p>
-    <p>Access premium lessons, advanced bugs, badges, and automatic certificates!</p>
-    
-    <!-- Pesapal iframe -->
-    <iframe width="200" height="40" src="https://store.pesapal.com/embed-code?pageUrl=https://store.pesapal.com/subscribecodeon" frameborder="0" allowfullscreen></iframe>
 
-    <br><br>
-    <button onclick="closeSubscriptionPopup()" style="padding:8px 20px; border:none; background:#555; color:white; border-radius:5px; cursor:pointer;">Maybe Later</button>
-  </div>
+<!-- LESSON 4 -->
+<div class="card locked" id="lesson4">
+<h2>Lesson 4 – Sections</h2>
+<p><b>&lt;section&gt;</b> – organize content into blocks.</p>
+<button onclick="unlockNext(4)">Unlock Lesson 4</button>
+</div>
+
+<!-- LESSON 5 -->
+<div class="card locked" id="lesson5">
+<h2>Lesson 5 – Multi-page & Deployment</h2>
+<p>Create <b>index.html</b> and <b>about.html</b>, link them with <b>&lt;a&gt;</b> tags.</p>
+<p class="protip">💡 Tip: Push projects to GitHub & deploy with GitHub Pages!</p>
+<button onclick="unlockNext(5)">Unlock Lesson 5</button>
+</div>
+
+<!-- Certificate -->
+<div id="certificateCard">
+<img src="logo.png" alt="CODEON Logo">
+<h2>🎓 CODEON Completion Certificate</h2>
+<p id="certName"></p>
+<p id="certPoints"></p>
+<p id="certID"></p>
+<canvas id="qrCode"></canvas>
+<p>Scan QR code to verify your certificate online!</p>
+</div>
+
+<!-- Leaderboard -->
+<div id="leaderboard">
+<h2>Leaderboard</h2>
+<div id="leaderRows"></div>
 </div>
 
 <script>
-// Show popup automatically after 3 seconds
-window.onload = function(){
-  setTimeout(()=>{document.getElementById('subscriptionPopup').style.display='flex'}, 3000);
-}
+// Student name from enrollment
+let studentName = localStorage.getItem("studentName") || "Student Name";
+let points = 0;
 
-function closeSubscriptionPopup(){
-  document.getElementById('subscriptionPopup').style.display='none';
-}
-</script>
-<script>
-// 🔥 FIREBASE CONFIG
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyD_LR9Kllj7hoKTiJAaSxyHglSO6r5gh-g",
-  authDomain: "codeon-3cb1c.firebaseapp.com",
-  projectId: "codeon-3cb1c",
-  storageBucket: "codeon-3cb1c.firebasestorage.app",
-  messagingSenderId: "730172148868",
-  appId: "1:730172148868:web:2c712c8124be40019506d1",
-  measurementId: "G-EBR3S0M396"
-};
-
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
- // ✅ ENROLL FUNCTION (put it here)
-async function enrollStudent(){
-  const name = document.getElementById("enrollName").value;
-  const email = document.getElementById("enrollEmail").value;
-  const level = document.getElementById("enrollLevel").value;
-
-  if(!name || !email){
-    alert("Please fill all fields");
-    return;
-  }
-
-  await db.collection("students").add({
-    name: name,
-    email: email,
-    level: level,
-    paid: false,
-    createdAt: new Date()
-  });
-
-  alert("Enrollment Successful!");
-} 
-
-// LOGIN
-function login(){
-auth.signInWithEmailAndPassword(
-document.getElementById("adminEmail").value,
-document.getElementById("adminPassword").value
-).then(()=>{
-document.getElementById("adminPanel").style.display="block";
-}).catch(()=>alert("Login Failed"));
-}
-
-function logout(){ auth.signOut(); location.reload(); }
-
-// GENERATE CERTIFICATE
-async function generateCertificate(){
-const name=document.getElementById("studentName").value;
-const level=document.getElementById("certLevel").value;
-const id="CODEON-"+Date.now();
-const data=name+level+id;
-const hashBuffer=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(data));
-const hashArray=Array.from(new Uint8Array(hashBuffer));
-const hash=hashArray.map(b=>b.toString(16).padStart(2,"0")).join("").substring(0,16);
-
-await db.collection("certificates").doc(id).set({name,level,id,hash});
-
-document.getElementById("certName").innerText=name;
-document.getElementById("certLevelDisplay").innerText=level;
-document.getElementById("certID").innerText=id;
-document.getElementById("certHash").innerText=hash;
-document.getElementById("certificate").style.display="block";
-
-document.getElementById("qrcode").innerHTML="";
-new QRCode(document.getElementById("qrcode"),{
-text:window.location.href+"?verify="+id,width:120,height:120
-});
-}
-
-// VERIFY
-async function verifyCertificate(){
-const id=document.getElementById("verifyID").value;
-const doc=await db.collection("certificates").doc(id).get();
-if(doc.exists){
-const d=doc.data();
-document.getElementById("verifyResult").innerHTML=
-"✅ VALID<br>Name:"+d.name+"<br>Level:"+d.level+"<br>Signature:"+d.hash;
-}else{
-document.getElementById("verifyResult").innerHTML="❌ Not Found";
-}
-}
-
-// PDF
-function downloadPDF(){
-html2pdf().from(document.getElementById("certificate")).save();
-}
-
-// AUTO VERIFY
-const params=new URLSearchParams(window.location.search);
-if(params.get("verify")){
-document.getElementById("verifyID").value=params.get("verify");
-verifyCertificate();
-}
-</script>
-<script>
+// Monaco Editor
 require.config({ paths: { vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs' }});
 require(['vs/editor/editor.main'], function() {
-
 window.editor = monaco.editor.create(document.getElementById('editor'), {
-value: `<h1>Hello CODEON 🚀</h1>
-<p>Start building...</p>`,
+value: `<!DOCTYPE html>
+<html>
+<head>
+<title>My First Website</title>
+</head>
+<body>
+<h1>${studentName}</h1>
+<p>I want to become a Developer.</p>
+</body>
+</html>`,
 language: 'html',
 theme: 'vs-dark'
 });
-
 });
 
-function runCode() {
+// Run code
+function runCode(){
 const code = editor.getValue();
-const iframe = document.getElementById("output");
-iframe.srcdoc = code;
-}
-</script>
-<script>
-function loadLesson1(){
-editor.setValue(`<h1>My First Website</h1>
-<p>I am learning at CODEON Uganda.</p>`);
+document.getElementById("output").srcdoc = code;
 }
 
-function loadLesson2(){
-editor.setValue(`<style>
-body{background:black;color:white;text-align:center;}
-</style>
-<h1>Styled Website</h1>
-<p>This looks better!</p>`);
+// Unlock next lesson
+function unlockNext(num){
+document.getElementById("lesson"+num).classList.remove("locked");
 }
 
-function loadLesson3(){
-editor.setValue(`<!DOCTYPE html>
-<html>
-<head>
-<title>My Portfolio</title>
-<style>
-body{font-family:Arial;text-align:center;}
-</style>
-</head>
-<body>
-<h1>Your Name</h1>
-<p>Future Developer</p>
-</body>
-</html>`);
+// Check lesson completion
+function checkLesson(num){
+if(num===1){
+  const code = editor.getValue();
+  if(code.includes("<h1>") && !code.includes("Your Name")){
+    document.getElementById("status1").innerHTML="✅ Lesson 1 Complete! Lesson 2 unlocked.";
+    unlockNext(2);
+    points+=10; updatePoints();
+    showPaymentButton();
+  } else {
+    document.getElementById("status1").innerHTML="❌ Please replace 'Your Name'.";
+  }
 }
-</script>
-<script>
-function openCertificatePopup(){
-document.getElementById("certificatePopup").style.display="flex";
 }
 
-function closeCertificatePopup(){
-document.getElementById("certificatePopup").style.display="none";
+// Update points display
+function updatePoints(){
+document.getElementById("pointsDisplay").innerText="Points: "+points;
 }
-</script>
-<script>
-function openLevel3Popup(){
-  document.getElementById("level3Popup").style.display="flex";
-}
-function closeLevel3Popup(){
-  document.getElementById("level3Popup").style.display="none";
-}
-</script>
 
+// Generate unique certificate ID
+function generateCertificateID() {
+return 'CODEON-' + Math.floor(Math.random()*1000000);
+}
+
+// Payment & certificate
+function showPaymentButton(){
+const lastLesson = document.getElementById("lesson5");
+if(!document.getElementById("paymentBtn")){
+  const btn = document.createElement('button');
+  btn.id="paymentBtn";
+  btn.innerText="💳 Pay & Generate Certificate";
+  btn.onclick=function(){
+    window.open("https://store.pesapal.com/certificatepayment","_blank");
+    setTimeout(()=>{
+      alert("Payment confirmed! Generating certificate...");
+      generateCertificate(studentName);
+    },3000);
+  };
+  lastLesson.appendChild(btn);
+}
+}
+
+// Generate certificate
+function generateCertificate(name){
+const certCard = document.getElementById("certificateCard");
+certCard.style.display="block";
+certCard.classList.add("show");
+document.getElementById("certName").innerText="Student Name: "+name;
+document.getElementById("certPoints").innerText="Total Points: "+points;
+document.getElementById("certID").innerText="Certificate ID: "+generateCertificateID();
+
+// QR code
+new QRious({
+element: document.getElementById('qrCode'),
+value:'https://codeonuganda.com/verify?student='+encodeURIComponent(name),
+size:150
+});
+
+// Confetti
+confetti({particleCount:150,spread:70,origin:{y:0.6}});
+}
+
+// Unlock lessons automatically for testing leaderboard
+function loadLeaderboard(){
+let fakeUsers = [
+{name:"Alice",points:50},{name:"Bob",points:40},{name:"Charlie",points:30}
+];
+fakeUsers.push({name:studentName,points:points});
+fakeUsers.sort((a,b)=>b.points-a.points);
+let html = "";
+fakeUsers.forEach((u,i)=>{
+html += `<div class="leader-row">${i+1}. ${u.name} - ${u.points} pts</div>`;
+});
+document.getElementById("leaderRows").innerHTML = html;
+}
+setInterval(loadLeaderboard,2000);
+
+</script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
