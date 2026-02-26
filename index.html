@@ -1,1 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CODEON Uganda | Code Your Future</title>
+
+<!-- QR + PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<!-- Flutterwave -->
+<script src="https://checkout.flutterwave.com/v3.js"></script>
+
+<!-- Firebase v10 (modular via compat for simplicity) -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+<style>
+body{font-family:Arial;margin:0;background:#f4f4f4}
+header{background:#111;color:#fff;padding:15px;text-align:center}
+nav{background:#222;padding:10px;text-align:center}
+nav a{color:white;margin:0 15px;text-decoration:none;font-weight:bold}
+section{padding:40px 20px;max-width:1000px;margin:auto}
+.hero{background:#000;color:white;text-align:center;padding:60px 20px}
+.cards{display:flex;flex-wrap:wrap;gap:20px}
+.card{flex:1;min-width:250px;background:white;padding:20px;border-radius:8px}
+button{padding:10px 20px;background:#111;color:white;border:none;cursor:pointer;margin-top:10px}
+button:hover{background:#333}
+input,select{width:100%;padding:10px;margin:8px 0}
+footer{background:#111;color:white;text-align:center;padding:20px}
+.certificate{display:none;border:8px solid #111;padding:40px;text-align:center;background:white}
+.admin-panel{display:none;background:#fff;padding:20px;border-radius:10px}
+.verify-result{font-weight:bold;margin-top:15px}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+    <img src="codeon logo.png" width="100" height="100" alt="Description" class="side-image">
+    <div class="text-content">
+        <h1>CODEON Uganda</h1>
+        <p>Code Your Future</p>
+    </div>
+</div>
+</header>
+
+<nav>
+<a href="codeon.html">Home</a>
+<a href="enroll.html">Enroll</a>
+<a href="verify.html">Verify Certificate</a>
+</nav>
+
+<!-- HOME -->
+<section id="home" class="hero">
+<h2>Empowering Uganda's Next Generation of Developers</h2>
+<p>Structured coding education with real GitHub collaboration workflow.</p>
+</section>
+
+<section>
+<h2>Why Choose CodeOn?</h2>
+<p>Students learn Web Development.GitHub forking, pull requests, collaboration and real-world development practices.</p>
+
+<h3>Testimonials</h3>
+<p>"CodeOn helped me understand real software development." –Kafeero Praise Student, Kampala</p>
+<p>"The GitHub workflow training prepared me for freelance work." – Nalubega Desire</p>
+</section>
+   <!-- PROGRAMS -->
+<section id="programs">
+<h2>Programs</h2>
+<div class="cards">
+<div class="card">
+<h3>Level 1 – FREE</h3>
+<img scr="html.png" alt="html">
+<p>HTML, CSS, Git Basics</p>
+<p>Optional Certificate: UGX 10,000</p>
+</div>
+<div class="card">
+<h3>Level 2 – FREE</h3>
+<img scr="css.jpg" alt="css">
+<p>JavaScript & GitHub Collaboration</p>
+<p>Optional Certificate: UGX 10,000</p>
+</div>
+<div class="card">
+<h3>Level 3 – UGX 50,000</h3>
+<img src="photo.avif" alt="Advanced " class="card">
+<p>Advanced & Industry Preparation</p>
+<button onclick="payLevel3()">Pay for Level 3</button>
+</div></div>
+</section>
+
+<footer>
+© 2026 CODEON Uganda
+</footer>
+
+<script>
+// 🔥 FIREBASE CONFIG
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyD_LR9Kllj7hoKTiJAaSxyHglSO6r5gh-g",
+  authDomain: "codeon-3cb1c.firebaseapp.com",
+  projectId: "codeon-3cb1c",
+  storageBucket: "codeon-3cb1c.firebasestorage.app",
+  messagingSenderId: "730172148868",
+  appId: "1:730172148868:web:2c712c8124be40019506d1",
+  measurementId: "G-EBR3S0M396"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+// LOGIN
+function login(){
+auth.signInWithEmailAndPassword(
+document.getElementById("adminEmail").value,
+document.getElementById("adminPassword").value
+).then(()=>{
+document.getElementById("adminPanel").style.display="block";
+}).catch(()=>alert("Login Failed"));
+}
+
+function logout(){ auth.signOut(); location.reload(); }
+
+// GENERATE CERTIFICATE
+async function generateCertificate(){
+const name=document.getElementById("studentName").value;
+const level=document.getElementById("certLevel").value;
+const id="CODEON-"+Date.now();
+const data=name+level+id;
+const hashBuffer=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(data));
+const hashArray=Array.from(new Uint8Array(hashBuffer));
+const hash=hashArray.map(b=>b.toString(16).padStart(2,"0")).join("").substring(0,16);
+
+await db.collection("certificates").doc(id).set({name,level,id,hash});
+
+document.getElementById("certName").innerText=name;
+document.getElementById("certLevelDisplay").innerText=level;
+document.getElementById("certID").innerText=id;
+document.getElementById("certHash").innerText=hash;
+document.getElementById("certificate").style.display="block";
+
+document.getElementById("qrcode").innerHTML="";
+new QRCode(document.getElementById("qrcode"),{
+text:window.location.href+"?verify="+id,width:120,height:120
+});
+}
+
+// VERIFY
+async function verifyCertificate(){
+const id=document.getElementById("verifyID").value;
+const doc=await db.collection("certificates").doc(id).get();
+if(doc.exists){
+const d=doc.data();
+document.getElementById("verifyResult").innerHTML=
+"✅ VALID<br>Name:"+d.name+"<br>Level:"+d.level+"<br>Signature:"+d.hash;
+}else{
+document.getElementById("verifyResult").innerHTML="❌ Not Found";
+}
+}
+
+// PDF
+function downloadPDF(){
+html2pdf().from(document.getElementById("certificate")).save();
+}
+
+// AUTO VERIFY
+const params=new URLSearchParams(window.location.search);
+if(params.get("verify")){
+document.getElementById("verifyID").value=params.get("verify");
+verifyCertificate();
+}
+
+// FLUTTERWAVE PAYMENT
+function payLevel3(){
+FlutterwaveCheckout({
+public_key:"YOUR_FLUTTERWAVE_PUBLIC_KEY",
+tx_ref:"CODEON-"+Date.now(),
+amount:50000,
+currency:"UGX",
+payment_options:"card,mobilemoneyuganda",
+customer:{email:"student@email.com"},
+callback:function(data){ alert("Payment Successful"); }
+});
+}
+</script>
+
+</body>
+</html>
 
