@@ -5,19 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CODEON Chat & Championship</title>
 <link rel="icon" href="codeon logo.png">
-<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
-<!-- Confetti -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
 body{background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);color:white;transition:.3s;}
 header{position:sticky;top:0;background:#111;padding:15px;display:flex;align-items:center;justify-content:space-between;z-index:10;}
 header img{height:40px;}
+header h1{color:white;margin-left:10px;font-size:24px;}
 nav a{color:white;text-decoration:none;margin:0 12px;font-weight:bold;}
 nav a:hover{color:gold;}
 nav .menu-toggle{display:none;cursor:pointer;}
@@ -37,14 +35,18 @@ button:hover{background:#e6c200;}
 .users-list div:hover{background:rgba(255,255,255,0.1);}
 .progress-container{background:#333;border-radius:10px;height:12px;margin-top:10px;}
 .progress-bar{background:gold;height:12px;width:0%;border-radius:10px;transition:.5s;}
-@media(max-width:768px){nav a{display:none;}nav .menu-toggle{display:block;}}
-.menu-open nav a{display:inline-block;margin:0 10px;margin-top:10px;display:block;text-align:center;}
+.error{color:red;margin-top:5px;}
+@media(max-width:768px){nav a{display:none;}nav .menu-toggle{display:block;color:white;font-size:20px;}}
+.menu-open nav a{display:block;margin:10px 0;text-align:center;}
 </style>
 </head>
 <body>
 
 <header>
+<div style="display:flex;align-items:center;">
 <img src="codeon logo.png" alt="CODEON Logo">
+<h1>CODEON</h1>
+</div>
 <nav>
 <a href="index.html">Home</a>
 <a href="enroll.html">Enroll</a>
@@ -58,18 +60,18 @@ button:hover{background:#e6c200;}
 <div class="container" id="authSection">
 <div class="card">
 <h2>Login / Sign Up</h2>
-<input type="text" id="username" placeholder="Username">
-<input type="email" id="email" placeholder="Email">
-<input type="password" id="password" placeholder="Password">
-<input type="text" id="school" placeholder="School">
-<select id="country">
+<input type="text" id="usernameInput" placeholder="Username">
+<input type="email" id="emailInput" placeholder="Email">
+<input type="password" id="passwordInput" placeholder="Password">
+<input type="text" id="schoolInput" placeholder="School">
+<select id="countryInput">
   <option value="Uganda">Uganda</option>
   <option value="Kenya">Kenya</option>
   <option value="Nigeria">Nigeria</option>
   <option value="Ghana">Ghana</option>
   <option value="South Africa">South Africa</option>
 </select>
-<input type="text" id="photoURL" placeholder="Profile Image URL (optional)">
+<input type="text" id="photoURLInput" placeholder="Profile Image URL (optional)">
 <button onclick="signup()">Sign Up</button>
 <button onclick="login()">Login</button>
 <p id="authError" class="error"></p>
@@ -130,86 +132,96 @@ const storage=firebase.storage();
 let currentUser=null;
 let selectedUser=null;
 
-// Responsive nav toggle
+// Responsive nav
 document.querySelector('.menu-toggle').addEventListener('click',()=>{document.body.classList.toggle('menu-open');});
 
 // Auth
 function signup(){
-  const email=email.value, password=password.value, username=username.value, school=school.value, country=country.value, photo=photoURL.value;
-  if(!email||!password||!username||!school){authError.innerText="All fields required";return;}
+  const email=document.getElementById('emailInput').value;
+  const password=document.getElementById('passwordInput').value;
+  const username=document.getElementById('usernameInput').value;
+  const school=document.getElementById('schoolInput').value;
+  const country=document.getElementById('countryInput').value;
+  const photo=document.getElementById('photoURLInput').value;
+  if(!email||!password||!username||!school){document.getElementById('authError').innerText="All fields required";return;}
   auth.createUserWithEmailAndPassword(email,password)
   .then(u=>{
     return db.collection("users").doc(u.user.uid).set({
       email,email,name:username,school,country,points:0,level:1,streak:0,photoURL:photo||'https://i.pravatar.cc/150'
     });
-  }).catch(e=>authError.innerText=e.message);
+  }).catch(e=>document.getElementById('authError').innerText=e.message);
 }
 
-function login(){auth.signInWithEmailAndPassword(email.value,password.value).catch(e=>authError.innerText=e.message);}
+function login(){
+  const email=document.getElementById('emailInput').value;
+  const password=document.getElementById('passwordInput').value;
+  auth.signInWithEmailAndPassword(email,password).catch(e=>document.getElementById('authError').innerText=e.message);
+}
+
 function logout(){auth.signOut();}
 
-// Real-time auth state
+// Dashboard
 auth.onAuthStateChanged(user=>{
   if(user){
     currentUser=user;
-    authSection.style.display="none";
-    main.style.display="block";
+    document.getElementById('authSection').style.display="none";
+    document.getElementById('main').style.display="block";
     loadUser();
     loadUsersList();
     loadGroupChat();
-  } else {authSection.style.display="block"; main.style.display="none";}
+  } else {
+    document.getElementById('authSection').style.display="block";
+    document.getElementById('main').style.display="none";
+  }
 });
 
-// Load user dashboard
 function loadUser(){
   db.collection("users").doc(currentUser.uid).onSnapshot(doc=>{
     const d=doc.data();
-    welcome.innerText="Welcome "+d.name;
-    points.innerText=d.points;
-    level.innerText=d.level;
-    streak.innerText=d.streak;
+    document.getElementById('welcome').innerText="Welcome "+d.name;
+    document.getElementById('points').innerText=d.points;
+    document.getElementById('level').innerText=d.level;
+    document.getElementById('streak').innerText=d.streak;
     const percent=((d.points||0)%200)/200*100;
-    progressBar.style.width=percent+"%";
+    document.getElementById('progressBar').style.width=percent+"%";
   });
 }
 
-// Claim daily bonus
 function claimDailyBonus(){
   const ref=db.collection("users").doc(currentUser.uid);
   ref.get().then(doc=>{
     const today=new Date().toDateString();
-    if(doc.data().lastBonus===today){bonusMsg.innerText="Already claimed today"; return;}
+    if(doc.data().lastBonus===today){document.getElementById('bonusMsg').innerText="Already claimed today"; return;}
     ref.update({points:(doc.data().points||0)+20,lastBonus:today});
-    bonusMsg.innerText="🔥 +20 XP!";
+    document.getElementById('bonusMsg').innerText="🔥 +20 XP!";
     confetti({particleCount:40,spread:70,origin:{y:0.6}});
   });
 }
 
-// Submit challenge
 function getXP(diff){if(diff==="Easy")return 50;if(diff==="Medium")return 100;if(diff==="Hard")return 200;return 50;}
 function submitChallenge(){
-  const xp=getXP(difficulty.value);
+  const xp=getXP(document.getElementById('difficulty').value);
   const ref=db.collection("users").doc(currentUser.uid);
   const today=new Date().toDateString();
   ref.get().then(doc=>{
-    if(doc.data().lastSubmit===today){challengeMsg.innerText="Already submitted today!"; return;}
+    if(doc.data().lastSubmit===today){document.getElementById('challengeMsg').innerText="Already submitted today!"; return;}
     ref.update({points:(doc.data().points||0)+xp,lastSubmit:today});
-    challengeMsg.innerText="✅ +"+xp+" XP!";
+    document.getElementById('challengeMsg').innerText="✅ +"+xp+" XP!";
     confetti({particleCount:30,spread:70,origin:{y:0.6}});
   });
 }
 
-// Load users list
+// Users list
 function loadUsersList(){
   db.collection("users").onSnapshot(snap=>{
-    usersList.innerHTML='';
+    const list=document.getElementById('usersList'); list.innerHTML='';
     snap.forEach(doc=>{
       const d=doc.data();
       if(doc.id!==currentUser.uid){
         const div=document.createElement('div');
         div.innerText=d.name;
-        div.onclick=()=>{selectedUser=doc.id;privateChat.innerHTML='';loadPrivateChat();};
-        usersList.appendChild(div);
+        div.onclick=()=>{selectedUser=doc.id;document.getElementById('privateChat').innerHTML='';loadPrivateChat();};
+        list.appendChild(div);
       }
     });
   });
@@ -218,23 +230,23 @@ function loadUsersList(){
 // Group chat
 function loadGroupChat(){
   db.collection("groupMessages").orderBy("timestamp").onSnapshot(snap=>{
-    groupChat.innerHTML='';
+    const chat=document.getElementById('groupChat'); chat.innerHTML='';
     snap.forEach(doc=>{
       const m=doc.data();
       const div=document.createElement('div'); div.className='message'+(m.sender===currentUser.uid?' message-self':'');
       div.innerHTML=`<img src="${m.photo}" alt="profile"><div class="message-content"><b>${m.name}</b>: ${m.text.startsWith('http')?'<img src="'+m.text+'" style="max-width:150px;">':m.text}</div>`;
-      groupChat.appendChild(div);
-      groupChat.scrollTop=groupChat.scrollHeight;
+      chat.appendChild(div);
+      chat.scrollTop=chat.scrollHeight;
     });
   });
 }
 function sendGroupMessage(){
-  const txt=groupMessage.value.trim();
+  const txt=document.getElementById('groupMessage').value.trim();
   if(!txt)return;
   db.collection("users").doc(currentUser.uid).get().then(doc=>{
     const d=doc.data();
     db.collection("groupMessages").add({sender:currentUser.uid,name:d.name,photo:d.photoURL,text:txt,timestamp:firebase.firestore.FieldValue.serverTimestamp()});
-    groupMessage.value='';
+    document.getElementById('groupMessage').value='';
     confetti({particleCount:20,spread:70,origin:{y:0.6}});
   });
 }
@@ -244,21 +256,21 @@ function loadPrivateChat(){
   if(!selectedUser)return;
   db.collection("privateMessages").where('participants','array-contains',currentUser.uid).orderBy('timestamp')
     .onSnapshot(snap=>{
-      privateChat.innerHTML='';
+      const chat=document.getElementById('privateChat'); chat.innerHTML='';
       snap.forEach(doc=>{
         const m=doc.data();
         if(m.participants.includes(selectedUser)){
           const div=document.createElement('div'); div.className='message'+(m.sender===currentUser.uid?' message-self':'');
           div.innerHTML=`<img src="${m.photo}" alt="profile"><div class="message-content"><b>${m.name}</b>: ${m.text.startsWith('http')?'<img src="'+m.text+'" style="max-width:150px;">':m.text}</div>`;
-          privateChat.appendChild(div);
-          privateChat.scrollTop=privateChat.scrollHeight;
+          chat.appendChild(div);
+          chat.scrollTop=chat.scrollHeight;
         }
       });
     });
 }
 function sendPrivateMessage(){
   if(!selectedUser)return alert('Select a user first');
-  const txt=privateMessage.value.trim(); if(!txt)return;
+  const txt=document.getElementById('privateMessage').value.trim(); if(!txt)return;
   db.collection("users").doc(currentUser.uid).get().then(doc=>{
     const d=doc.data();
     db.collection("privateMessages").add({
@@ -267,7 +279,7 @@ function sendPrivateMessage(){
       text:txt,
       timestamp:firebase.firestore.FieldValue.serverTimestamp()
     });
-    privateMessage.value='';
+    document.getElementById('privateMessage').value='';
     confetti({particleCount:15,spread:70,origin:{y:0.6}});
   });
 }
