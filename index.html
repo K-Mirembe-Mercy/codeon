@@ -13,7 +13,11 @@
 
 <style>
 :root{
---bg:#0f2027;--card:#ffffff10;--text:white;--accent:#00e0c6;--hover-accent:#00ffc8;
+--bg:#0e8b80; /* lighter deep teal */
+--card:#ffffff10;
+--text:white;
+--accent:#00e0c6;
+--hover-accent:#00ffc8;
 }
 .light{
 --bg:#f4f6f8;--card:#ffffffdd;--text:#111;--accent:#00695c;--hover-accent:#00e0c6;
@@ -58,6 +62,9 @@ footer{text-align:center;padding:30px;opacity:0.9;}
 footer a{color:var(--accent);text-decoration:none;margin:0 10px;}
 footer a:hover{text-decoration:underline;}
 
+.contact-section{margin-top:30px;text-align:center;}
+.contact-section p{margin:5px 0;color:var(--text);}
+
 .shape{position:absolute;width:150px;height:150px;background:linear-gradient(45deg,#00e0c6,#00695c);border-radius:50%;filter:blur(80px);opacity:0.4;animation:float 12s infinite alternate ease-in-out;}
 .shape2{top:15%;left:5%;}
 .shape3{bottom:5%;right:5%;}
@@ -101,7 +108,7 @@ footer a:hover{text-decoration:underline;}
 <div class="shape shape3"></div>
 
 <header>
-<img src="codeon logo.png" class="logo">
+<img src="codeon-logo.png" class="logo">
 <div class="nav" id="navLinks">
 <a href="index.html">Home</a>
 <a href="enroll.html">Enroll</a>
@@ -114,9 +121,8 @@ footer a:hover{text-decoration:underline;}
 </header>
 
 <section class="hero scroll-reveal">
-<h1>Empowering Uganda's Next Generation of Developers</h1>
-<p>Structured coding education with real GitHub collaboration workflow.</p>
-<div id="myQRCode" style="margin-top:20px;"></div>
+<h1>CODEON</h1>
+<p>Empowering Uganda's Next Generation of Developers</p>
 </section>
 
 <section class="glass scroll-reveal">
@@ -125,10 +131,10 @@ footer a:hover{text-decoration:underline;}
 <div class="card"><img src="html.png"><h3>Level 1 – FREE</h3><p>HTML, CSS, Git Basics</p>
 <button onclick="location.href='course1.html'">Open Course</button>
 <button onclick="payCert('Level 1')">Optional Certificate</button></div>
-<div class="card"><img src="css.jpg"><h3>Level 2 – FREE</h3><p>JavaScript & GitHub Collaboration</p>
+<div class="card"><img src="css.png"><h3>Level 2 – FREE</h3><p>JavaScript & GitHub Collaboration</p>
 <button onclick="location.href='course2.html'">Open Course</button>
 <button onclick="payCert('Level 2')">Optional Certificate</button></div>
-<div class="card"><img src="photo.avif"><h3>Level 3 – UGX 50,000</h3><p>Advanced & Industry Preparation</p>
+<div class="card"><img src="js.png"><h3>Level 3 – UGX 50,000</h3><p>Advanced & Industry Preparation</p>
 <div id="level3Status">Locked 🔒</div>
 <button onclick="payLevel3()">Pay</button>
 <button onclick="openLevel3()">Open Course</button></div>
@@ -152,6 +158,15 @@ footer a:hover{text-decoration:underline;}
 <div id="qrcode"></div>
 </div>
 
+<!-- QR code for your GitHub Pages link before footer -->
+<section class="glass scroll-reveal contact-section">
+<h3>Scan to Visit Our Page:</h3>
+<div id="pageQRCode" style="margin:20px auto;"></div>
+<p>Email: codeon.ug@gmail.com</p>
+<p>Call: 0743733322</p>
+<p>WhatsApp: 0777435942</p>
+</section>
+
 <footer class="scroll-reveal">
 <a href="course1.html">Course 1</a> | 
 <a href="course2.html">Course 2</a> | 
@@ -170,11 +185,13 @@ const auth=firebase.auth();
 const db=firebase.firestore();
 auth.signInAnonymously();
 
+// Loader and subscription
 window.addEventListener('load',()=>{
 document.getElementById('loader').style.display='none';
 showSubscription();
 scrollReveal();
-new QRCode(document.getElementById("myQRCode"),{text:"https://your-original-qr-link.com",width:120,height:120});
+// generate QR code for your page
+new QRCode(document.getElementById("pageQRCode"),{text:"https://k-mirembe-mercy.github.io/codeon/",width:120,height:120});
 });
 
 function showSubscription(){
@@ -185,13 +202,15 @@ sessionStorage.setItem('subscribed','true');
 function closeSubscription(){document.getElementById('subscriptionPopup').style.display='none';}
 function subscribeNow(){window.location.href='https://store.pesapal.com/subscribecodeon';}
 
+// Payment functions
 function payLevel3(){
 window.location.href='https://store.pesapal.com/level3';
-// After successful payment, auto-generate certificate for Level 3
+// auto-generate certificate after successful payment
 setTimeout(()=>generateCertificate("Student Name","Level 3"),2000); // replace with actual callback
 }
 function payCert(level){window.location.href='https://store.pesapal.com/certificatepayment';}
 
+// Certificate generation
 async function generateCertificate(name,level){
 const id="CODEON-"+Date.now();
 const data=name+level+id;
@@ -228,6 +247,7 @@ if(el.getBoundingClientRect().top < window.innerHeight-100){el.classList.add('vi
 window.addEventListener('scroll',scrollReveal);
 }
 
+// Background animation
 const canvas=document.getElementById('bgCanvas');
 const ctx=canvas.getContext('2d');
 canvas.width=window.innerWidth;canvas.height=window.innerHeight;
@@ -240,4 +260,3 @@ window.addEventListener('resize',()=>{canvas.width=window.innerWidth;canvas.heig
 
 </body>
 </html>
-
