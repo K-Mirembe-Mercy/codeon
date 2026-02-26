@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us | CODEON</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --primary:#004aad;
+  --accent:#00c6ff;
+  --text-light:#111;
+  --text-dark:#fff;
+}
+
+*{box-sizing:border-box;}
+
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  color:var(--text-light);
+  overflow-x:hidden;
+  transition:background 0.6s,color 0.4s,opacity 0.6s;
+}
+
+/* ===== Animated Gradient Background ===== */
+body::before{
+  content:"";
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:linear-gradient(-45deg,#eef2f6,#cfe0f5,#00c6ff,#004aad);
+  background-size:400% 400%;
+  animation:gradientMove 12s ease infinite;
+  z-index:-2;
+}
+
+@keyframes gradientMove{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+/* ===== Page Fade In Transition ===== */
+body{
+  opacity:0;
+}
+body.loaded{
+  opacity:1;
+}
+
+/* ===== Logo Intro Animation ===== */
+.logo-intro{
+  text-align:center;
+  font-size:48px;
+  font-weight:700;
+  letter-spacing:4px;
+  margin-top:80px;
+  opacity:0;
+  animation:logoReveal 2s ease forwards;
+}
+
+@keyframes logoReveal{
+  0%{transform:translateY(-40px);opacity:0;}
+  100%{transform:translateY(0);opacity:1;}
+}
+
+/* ===== Glass Container ===== */
+.glass{
+  max-width:1100px;
+  margin:40px auto;
+  padding:40px;
+  border-radius:20px;
+  backdrop-filter:blur(25px);
+  background:rgba(255,255,255,0.3);
+  box-shadow:0 10px 40px rgba(0,0,0,0.2);
+  transition:0.4s;
+}
+
+/* Scroll Animation */
+.section{
+  opacity:0;
+  transform:translateY(50px);
+  transition:1s ease;
+}
+.section.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* Stats */
+.stats{
+  display:flex;
+  justify-content:space-around;
+  flex-wrap:wrap;
+  margin-top:30px;
+}
+
+.stat{
+  text-align:center;
+  margin:20px;
+}
+
+.stat h2{
+  font-size:42px;
+  margin:0;
+  color:var(--primary);
+}
+
+/* Button */
+button{
+  padding:14px 28px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(45deg,var(--primary),var(--accent));
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+  margin-top:20px;
+  transition:0.3s;
+}
+
+button:hover{
+  transform:scale(1.07);
+}
+
+/* Smooth Link Transition */
+a{
+  text-decoration:none;
+}
+
+footer{
+  text-align:center;
+  padding:40px;
+  margin-top:50px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="logo-intro">CODEON</div>
+
+<div class="glass section">
+  <h2>🌍 About Our Global Academy</h2>
+  <p>
+    CODEON is an elite digital learning platform empowering students to become
+    professional developers. We combine interactive coding, project deployment,
+    GitHub mastery, and monetization skills to prepare learners for global success.
+  </p>
+
+  <div class="stats">
+    <div class="stat">
+      <h2 id="students">0</h2>
+      <p>Students Worldwide</p>
+    </div>
+    <div class="stat">
+      <h2 id="projects">0</h2>
+      <p>Projects Built</p>
+    </div>
+    <div class="stat">
+      <h2 id="countries">0</h2>
+      <p>Countries Reached</p>
+    </div>
+  </div>
+</div>
+
+<div class="glass section" style="text-align:center;">
+  <h2>🚀 Ready to Join the Future?</h2>
+  <p>Start building real-world projects and earning globally.</p>
+  <button onclick="smoothTransition('enroll.html')">
+    Enroll Now
+  </button>
+</div>
+
+<footer>
+  © 2026 CODEON • A Global Digital Academy
+</footer>
+
+<script>
+
+/* Page Load Fade In */
+window.addEventListener("load",()=>{
+  document.body.classList.add("loaded");
+});
+
+/* Scroll Animation */
+const sections=document.querySelectorAll('.section');
+window.addEventListener('scroll',()=>{
+  sections.forEach(sec=>{
+    const top=sec.getBoundingClientRect().top;
+    if(top<window.innerHeight-100){
+      sec.classList.add('show');
+    }
+  });
+});
+
+/* Animated Counters */
+function animate(id,end){
+  let obj=document.getElementById(id);
+  let count=0;
+  let interval=setInterval(()=>{
+    count+=Math.ceil(end/60);
+    if(count>=end){
+      count=end;
+      clearInterval(interval);
+    }
+    obj.innerText=count+"+";
+  },25);
+}
+
+animate("students",800);
+animate("projects",2000);
+animate("countries",35);
+
+/* Smooth Page Transition */
+function smoothTransition(page){
+  document.body.style.opacity="0";
+  setTimeout(()=>{
+    window.location.href=page;
+  },600);
+}
+
+</script>
+
+</body>
+</html>
