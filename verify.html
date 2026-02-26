@@ -3,184 +3,313 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Membership Form</title>
+<title>Membership | CODEON Uganda</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
 <style>
-  body { font-family: Arial, sans-serif; margin: 20px; background: #f7f7f7; }
-  h1, h2 { text-align: center; }
-  form { max-width: 500px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; }
-  input, select, button { width: 100%; padding: 10px; margin: 8px 0; border-radius: 4px; border: 1px solid #ccc; }
-  .partners { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 30px; }
-  .badge { background: #4CAF50; color: white; padding: 10px 20px; border-radius: 8px; font-weight: bold; }
-  table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-  th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-  th { background: #eee; }
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+/* ===== Animated Gradient Background ===== */
+body{
+  color:white;
+  background: linear-gradient(-45deg,#062f36,#0f4c4c,#083344,#0b3d3d);
+  background-size:400% 400%;
+  animation: gradientMove 12s ease infinite;
+  overflow-x:hidden;
+}
+
+@keyframes gradientMove{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+/* ===== Loader ===== */
+#loader{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:#062f36;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+
+.loader-circle{
+  width:60px;
+  height:60px;
+  border:6px solid rgba(255,255,255,0.2);
+  border-top:6px solid #ffcc00;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+  100%{transform:rotate(360deg);}
+}
+
+/* ===== Floating Particles ===== */
+.particles span{
+  position:absolute;
+  bottom:-50px;
+  width:6px;
+  height:6px;
+  background:rgba(255,255,255,0.3);
+  border-radius:50%;
+  animation: floatUp 12s linear infinite;
+}
+
+@keyframes floatUp{
+  0%{transform:translateY(0);}
+  100%{transform:translateY(-100vh);}
+}
+
+/* ===== Navbar ===== */
+.navbar{
+  position:sticky;
+  top:0;
+  backdrop-filter:blur(12px);
+  background:rgba(255,255,255,0.06);
+  padding:18px 25px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:1000;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:600;
+}
+
+.logo img{width:40px;}
+
+.nav-links{
+  list-style:none;
+  display:flex;
+  gap:25px;
+}
+
+.nav-links a{
+  text-decoration:none;
+  color:white;
+  transition:0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active{
+  color:#ffcc00;
+}
+
+.menu-toggle{display:none;font-size:26px;cursor:pointer;}
+
+@media(max-width:768px){
+  .nav-links{
+    position:absolute;
+    top:70px;
+    right:0;
+    background:rgba(0,0,0,0.8);
+    width:100%;
+    flex-direction:column;
+    align-items:center;
+    padding:20px 0;
+    display:none;
+  }
+  .nav-links.show{display:flex;}
+  .menu-toggle{display:block;}
+}
+
+/* ===== Dark Mode ===== */
+.dark{
+  background:#111 !important;
+  animation:none;
+}
+
+/* ===== Glass Card ===== */
+.glass{
+  max-width:600px;
+  margin:60px auto;
+  padding:40px;
+  border-radius:20px;
+  backdrop-filter:blur(15px);
+  background:rgba(255,255,255,0.08);
+  box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* ===== Form Styling ===== */
+input, select{
+  width:100%;
+  padding:14px;
+  margin:10px 0;
+  border:none;
+  border-radius:12px;
+  font-size:15px;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:15px;
+  font-size:17px;
+  font-weight:600;
+  cursor:pointer;
+  background:linear-gradient(90deg,#ffcc00,#ff9900);
+  transition:0.3s;
+}
+
+button:hover{
+  transform:scale(1.05);
+}
+
+/* ===== Partners ===== */
+.partners{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:30px;
+}
+
+.badge{
+  background:#ffcc00;
+  color:black;
+  padding:8px 15px;
+  border-radius:20px;
+  font-weight:600;
+}
+
+/* ===== Table ===== */
+table{
+  width:100%;
+  margin-top:30px;
+  border-collapse:collapse;
+}
+
+th,td{
+  padding:10px;
+  border-bottom:1px solid rgba(255,255,255,0.2);
+}
+
+th{
+  color:#ffcc00;
+}
 </style>
 </head>
+
 <body>
-<nav>
-  <a href="index.html">Home</a>
-  <a href="enroll.html">Enroll</a>
-  <a href="verify.html">Verify</a>
-  <a href="community-codeon.html">Community</a>
-  <a href="aboutus.html">About Us</a>
+
+<div id="loader"><div class="loader-circle"></div></div>
+
+<div class="particles">
+  <span style="left:10%;animation-delay:0s;"></span>
+  <span style="left:40%;animation-delay:3s;"></span>
+  <span style="left:70%;animation-delay:5s;"></span>
+</div>
+
+<nav class="navbar">
+  <div class="logo">
+    <img src="codeon logo.png">
+    <span>CODEON Uganda</span>
+  </div>
+
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Learn</a></li>
+    <li><a href="enroll.html">Enroll</a></li>
+    <li><a href="verify.html">Verify</a></li>
+    <li><a href="community-codeon.html">Community</a></li>
+    <li><a href="aboutus.html">About Us</a></li>
+  </ul>
+
+  <div>
+    <span onclick="toggleDark()" style="cursor:pointer;margin-right:15px;">🌙</span>
+    <span class="menu-toggle" onclick="toggleMenu()">☰</span>
+  </div>
 </nav>
 
-<h1>Membership Registration</h1>
-<form id="membershipForm">
-  <label>Full Name:</label>
-  <input type="text" id="fullName" required>
+<div class="glass">
+  <h2 style="text-align:center;margin-bottom:20px;">Membership Registration</h2>
 
-  <label>Email:</label>
-  <input type="email" id="email" required>
+  <form id="membershipForm">
+    <input type="text" id="fullName" placeholder="Full Name" required>
+    <input type="email" id="email" placeholder="Email Address" required>
 
-  <label>Type:</label>
-  <select id="type" required>
-    <option value="">Select</option>
-    <option value="Individual">Individual</option>
-    <option value="School">School</option>
-  </select>
+    <select id="type" required>
+      <option value="">Select Type</option>
+      <option value="Individual">Individual</option>
+      <option value="School">School</option>
+    </select>
 
-  <label>School Name (if School):</label>
-  <input type="text" id="schoolName">
+    <input type="text" id="schoolName" placeholder="School Name (if School)">
+    <button type="submit">Submit & Pay</button>
+  </form>
 
-  <button type="submit">Submit & Pay</button>
-</form>
+  <h3 style="margin-top:30px;">Our Partners</h3>
+  <div class="partners" id="partners"></div>
 
-<h2>Our Partners</h2>
-<div class="partners" id="partners"></div>
-
-<h2>Members List</h2>
-<table id="membersTable">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Type</th>
-      <th>School</th>
-      <th>Certificate Sent</th>
-    </tr>
-  </thead>
-  <tbody></tbody>
-</table>
+  <h3 style="margin-top:30px;">Members</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>School</th>
+      </tr>
+    </thead>
+    <tbody id="membersBody"></tbody>
+  </table>
+</div>
 
 <script>
-  // === CONFIGURE THESE ===
-  const EMAILJS_USER_ID = 'YOUR_EMAILJS_USER_ID';
-  const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';
-  const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-  const GOOGLE_SHEET_WEBAPP_URL = 'YOUR_GOOGLE_SHEET_WEBAPP_URL';
-  emailjs.init(EMAILJS_USER_ID);
+window.onload = () => document.getElementById("loader").style.display="none";
+function toggleMenu(){document.getElementById("navLinks").classList.toggle("show");}
+function toggleDark(){document.body.classList.toggle("dark");}
 
-  const members = [];
-  const partnersDiv = document.getElementById('partners');
-  const membersTableBody = document.querySelector('#membersTable tbody');
+const members=[];
+document.getElementById("membershipForm").addEventListener("submit", async function(e){
+e.preventDefault();
 
-  document.getElementById('membershipForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
+const name=fullName.value;
+const email=email.value;
+const type=type.value;
+const school=schoolName.value;
 
-    const fullName = document.getElementById('fullName').value;
-    const email = document.getElementById('email').value;
-    const type = document.getElementById('type').value;
-    const schoolName = document.getElementById('schoolName').value;
+alert("Redirecting to payment...");
+window.open("https://store.pesapal.com/subscribecodeon","_blank");
 
-    if (!fullName || !email || !type) {
-      alert('Please fill in all required fields!');
-      return;
-    }
+members.push({name,type,school});
+updateTable();
 
-    // Redirect to PesaPal payment
-    alert('You will be redirected to the payment page. After payment, click OK.');
-    window.open('https://store.pesapal.com/subscribecodeon', '_blank');
+if(type==="School"){
+const badge=document.createElement("div");
+badge.className="badge";
+badge.textContent=school||name;
+partners.appendChild(badge);
+}
 
-    // Simulate payment success (replace with webhook in production)
-    const paid = true; 
+this.reset();
+});
 
-    if(paid) {
-      // Generate PDF certificate as blob
-      const certificateBlob = await generateCertificateBlob(fullName, type, schoolName);
-
-      // Send certificate via EmailJS
-      sendEmailWithCertificate(email, fullName, certificateBlob);
-
-      // Add to members list (in-page)
-      const member = { fullName, email, type, schoolName, certificate: 'Sent' };
-      members.push(member);
-      updateMembersTable();
-
-      // Add badge if school
-      if (type === 'School') addPartnerBadge(schoolName || fullName);
-
-      // Save to Google Sheet
-      saveMemberOnline(member);
-
-      // Reset form
-      document.getElementById('membershipForm').reset();
-    }
-  });
-
-  async function generateCertificateBlob(name, type, school) {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    doc.setFontSize(22);
-    doc.text('Certificate of Membership', 20, 30);
-    doc.setFontSize(16);
-    doc.text(`This certifies that ${name}`, 20, 50);
-    if(type === 'School') doc.text(`from ${school}`, 20, 60);
-    doc.text('is a valued member of our organization.', 20, 70);
-    doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 90);
-    return doc.output('blob');
-  }
-
-  function sendEmailWithCertificate(email, name, blob) {
-    const reader = new FileReader();
-    reader.onload = function() {
-      const base64 = reader.result.split(',')[1];
-      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-        to_email: email,
-        to_name: name,
-        attachment: base64
-      }).then(function(response){
-        alert(`Certificate emailed to ${email}!`);
-      }, function(error){
-        alert('Email failed: '+error);
-      });
-    };
-    reader.readAsDataURL(blob);
-  }
-
-  function addPartnerBadge(name) {
-    const badge = document.createElement('div');
-    badge.className = 'badge';
-    badge.textContent = name;
-    partnersDiv.appendChild(badge);
-  }
-
-  function updateMembersTable() {
-    membersTableBody.innerHTML = '';
-    members.forEach(m => {
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td>${m.fullName}</td>
-        <td>${m.email}</td>
-        <td>${m.type}</td>
-        <td>${m.schoolName || '-'}</td>
-        <td>${m.certificate}</td>
-      `;
-      membersTableBody.appendChild(row);
-    });
-  }
-
-  function saveMemberOnline(member) {
-    fetch(GOOGLE_SHEET_WEBAPP_URL, {
-      method: 'POST',
-      body: JSON.stringify(member),
-      headers: {'Content-Type': 'application/json'}
-    }).then(res => res.json())
-      .then(data => console.log('Saved to Google Sheet', data))
-      .catch(err => console.error('Error saving to Google Sheet:', err));
-  }
+function updateTable(){
+membersBody.innerHTML="";
+members.forEach(m=>{
+membersBody.innerHTML+=`<tr>
+<td>${m.name}</td>
+<td>${m.type}</td>
+<td>${m.school||'-'}</td>
+</tr>`;
+});
+}
 </script>
 
 </body>
