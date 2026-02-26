@@ -4,177 +4,156 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CODEON Africa Championship</title>
-
+<link rel="icon" href="logo.png">
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{
-  font-family:'Segoe UI',sans-serif;
-  color:white;
-  overflow-x:hidden;
-  background:linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#1c1c1c);
-  background-size:400% 400%;
-  animation:gradientBG 12s ease infinite;
-  transition:0.4s;
-}
-@keyframes gradientBG{
-  0%{background-position:0% 50%;}
-  50%{background-position:100% 50%;}
-  100%{background-position:0% 50%;}
-}
-#loader{
-  position:fixed;width:100%;height:100vh;background:#000;
-  display:flex;justify-content:center;align-items:center;
-  z-index:9999;font-size:24px;letter-spacing:3px;
-}
-nav{
-  position:sticky;top:0;width:100%;background:rgba(0,0,0,0.8);
-  backdrop-filter:blur(10px);display:flex;justify-content:space-between;
-  align-items:center;padding:15px 40px;z-index:1000;
-}
-nav img{height:40px;}
-nav ul{display:flex;list-style:none;gap:25px;}
-nav ul li a{color:white;text-decoration:none;font-weight:500;transition:0.3s;}
-nav ul li a:hover{color:gold;}
-.toggle-btn{cursor:pointer;font-size:20px;}
-header{text-align:center;padding:40px 20px;}
-header h1{font-size:32px;margin-bottom:10px;}
-.card{
-  background:rgba(255,255,255,0.08);
-  backdrop-filter:blur(12px);
-  padding:25px;
-  margin:20px auto;
-  border-radius:16px;
-  max-width:900px;
-  box-shadow:0 0 30px rgba(0,0,0,0.3);
-  animation:fadeUp 1s ease;
-}
-@keyframes fadeUp{
-  from{opacity:0; transform:translateY(20px);}
-  to{opacity:1; transform:translateY(0);}
-}
-button{
-  padding:10px 15px;background:gold;border:none;border-radius:6px;font-weight:bold;cursor:pointer;margin-top:10px;transition:0.3s;
-}
-button:hover{transform:scale(1.05);}
-input,textarea,select{width:100%;padding:10px;margin:8px 0;border-radius:6px;border:none;}
-.leader-row{
-  display:flex;justify-content:space-between;padding:8px;border-bottom:1px solid rgba(255,255,255,.2);
-  transition:0.5s;
-}
-.progress-container{background:#333;border-radius:10px;height:12px;margin-top:10px;}
-.progress-bar{background:gold;height:12px;width:0%;border-radius:10px;transition:.5s;}
-.badge{
-  background:gold;color:black;padding:3px 6px;border-radius:5px;font-size:12px;
-  display:inline-block;margin-top:5px;margin-right:4px;
-}
-.dark-mode{background:#f4f4f4;color:#111;}
-.dark-mode nav{background:white;}
-.dark-mode .card{background:white;color:black;}
-canvas{position:fixed;top:0;left:0;z-index:-1;}
-@media(max-width:768px){nav ul{flex-direction:column;gap:10px;}}
+  /* --- Base --- */
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+  body{background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);color:white;transition:.3s;overflow-x:hidden;}
+  a{text-decoration:none;color:white;margin:0 10px;}
+  header{position:sticky;top:0;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);padding:15px 20px;z-index:10;display:flex;justify-content:space-between;align-items:center;}
+  header img{height:40px;}
+  nav{display:flex;align-items:center;}
+  nav a.active{border-bottom:2px solid gold;}
+  .toggle-dark{cursor:pointer;padding:5px 10px;border:1px solid white;border-radius:6px;}
+  section{padding:20px;}
+  .card{background:rgba(255,255,255,0.05);padding:20px;margin:20px auto;border-radius:12px;max-width:900px;transition:.3s;box-shadow:0 4px 10px rgba(0,0,0,.3);}
+  input,textarea,select,button{width:100%;padding:10px;margin:10px 0;border-radius:8px;border:none;font-size:14px;}
+  button{background:gold;color:black;font-weight:bold;cursor:pointer;transition:.3s;}
+  button:hover{background:#ffcc00;}
+  textarea{resize:none;height:100px;}
+  .leader-row{display:flex;justify-content:space-between;padding:8px;border-bottom:1px solid rgba(255,255,255,.2);transition:.3s;align-items:center;}
+  .leader-row:hover{background:rgba(255,255,255,.1);}
+  .badge{background:gold;color:black;padding:4px 6px;border-radius:5px;font-size:12px;margin-left:5px;}
+  .progress-container{background:rgba(255,255,255,.1);border-radius:10px;height:15px;margin:10px 0;}
+  .progress-bar{background:gold;height:15px;width:0%;border-radius:10px;transition:.5s;}
+  .chat{background:rgba(255,255,255,.05);padding:10px;height:300px;overflow-y:auto;border-radius:10px;margin-bottom:10px;}
+  .msg{margin:5px 0;padding:5px 10px;border-radius:8px;display:inline-block;max-width:80%;}
+  .msg.self{background:gold;color:black;align-self:flex-end;}
+  .msg.other{background:rgba(255,255,255,.1);}
+  .flex{display:flex;gap:10px;}
+  #particles-js{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;}
 </style>
 </head>
 <body>
 
-<div id="loader">CODEON AFRICA</div>
-<canvas id="particles"></canvas>
-
-<nav>
-<img src="codeon logo.png" alt="CODEON Logo">
-<ul>
-<li><a href="index.html">Learn</a></li>
-<li><a href="enroll.html">Enroll</a></li>
-<li><a href="aboutus.html">About</a></li>
-<li><a href="verify.html">Verify</a></li>
-<li><a href="community-codeon.html">Community</a></li>
-</ul>
-<div class="toggle-btn" onclick="toggleDark()">🌙</div>
-</nav>
+<div id="particles-js"></div>
 
 <header>
-<h1>🏆 CODEON Africa Championship</h1>
-<div id="countdown"></div>
+  <div class="logo"><img src="logo.png" alt="CODEON Logo"></div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="enroll.html">Enroll</a>
+    <a href="verify.html">Verify</a>
+    <a href="community-codeon.html">Community</a>
+    <a href="aboutus.html" class="active">About</a>
+  </nav>
+  <div class="toggle-dark" onclick="toggleDark()">🌙</div>
 </header>
 
 <section id="authSection">
-<div class="card">
-<h2>Login / Sign Up</h2>
-<input type="email" id="email" placeholder="Email">
-<input type="password" id="password" placeholder="Password">
-<input type="text" id="username" placeholder="Username">
-<input type="text" id="school" placeholder="School Name">
-<select id="country">
-<option>Uganda</option>
-<option>Kenya</option>
-<option>Nigeria</option>
-<option>Ghana</option>
-<option>South Africa</option>
-</select>
-<button onclick="signup()">Sign Up</button>
-<button onclick="login()">Login</button>
-<p id="authError"></p>
-</div>
+  <div class="card">
+    <h2>Login / Sign Up</h2>
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <input type="text" id="username" placeholder="Username">
+    <input type="text" id="school" placeholder="School Name">
+    <select id="country">
+      <option value="Uganda">Uganda</option>
+      <option value="Kenya">Kenya</option>
+      <option value="Nigeria">Nigeria</option>
+      <option value="Ghana">Ghana</option>
+      <option value="South Africa">South Africa</option>
+    </select>
+    <button onclick="signup()">Sign Up</button>
+    <button onclick="login()">Login</button>
+    <p id="authError" style="color:red;"></p>
+  </div>
 </section>
 
 <section id="main" style="display:none;">
+  <div class="card">
+    <h2>Welcome <span id="welcome"></span></h2>
+    <p>Points: <strong id="points">0</strong></p>
+    <p>Level: <strong id="level">1</strong></p>
+    <div class="progress-container"><div id="progressBar" class="progress-bar"></div></div>
+    <p>Streak: <strong id="streak">0</strong> 🔥</p>
+    <div id="badges"></div>
+    <button onclick="claimDaily()">Claim Daily Bonus</button>
+  </div>
 
-<div class="card">
-<h2>Daily Challenge</h2>
-<p id="welcome"></p>
-<p>Points: <strong id="points">0</strong></p>
-<p>Level: <strong id="level">1</strong></p>
-<div class="progress-container">
-<div id="progressBar" class="progress-bar"></div>
-</div>
-<p>Streak: <strong id="streak">0</strong> 🔥</p>
-<div id="badges"></div>
-<textarea id="challengeCode" placeholder="Write your HTML/CSS here..."></textarea>
-<select id="difficulty">
-<option value="Easy">Easy (+50 XP)</option>
-<option value="Medium">Medium (+100 XP)</option>
-<option value="Hard">Hard (+200 XP)</option>
-</select>
-<button onclick="submitChallenge('daily')">Submit Daily Challenge</button>
-<p id="challengeMsg"></p>
-</div>
+  <div class="card">
+    <h2>Daily Challenge</h2>
+    <textarea id="dailyCode" placeholder="Write your HTML/CSS/JS here..."></textarea>
+    <select id="dailyDifficulty">
+      <option value="Easy">Easy (+50 XP)</option>
+      <option value="Medium">Medium (+100 XP)</option>
+      <option value="Hard">Hard (+200 XP)</option>
+    </select>
+    <button onclick="submitDaily()">Submit Daily Challenge</button>
+    <p id="dailyMsg"></p>
+  </div>
 
-<div class="card">
-<h2>Weekly Challenge</h2>
-<textarea id="weeklyCode" placeholder="Write your HTML/CSS/JS here..."></textarea>
-<select id="weeklyDifficulty">
-<option value="Medium">Medium (+100 XP)</option>
-<option value="Hard">Hard (+200 XP)</option>
-<option value="Extreme">Extreme (+400 XP)</option>
-</select>
-<button onclick="submitChallenge('weekly')">Submit Weekly Challenge</button>
-<p id="weeklyMsg"></p>
-</div>
+  <div class="card">
+    <h2>Weekly Challenge</h2>
+    <textarea id="weeklyCode" placeholder="Write your HTML/CSS/JS here..."></textarea>
+    <select id="weeklyDifficulty">
+      <option value="Easy">Easy (+50 XP)</option>
+      <option value="Medium">Medium (+100 XP)</option>
+      <option value="Hard">Hard (+200 XP)</option>
+    </select>
+    <button onclick="submitWeekly()">Submit Weekly Challenge</button>
+    <p id="weeklyMsg"></p>
+  </div>
 
-<div class="card">
-<h2>Leaderboards</h2>
-<h3>Global</h3>
-<div id="leaderboard"></div>
-<h3>School</h3>
-<div id="schoolBoard"></div>
-<h3>Country</h3>
-<div id="countryBoard"></div>
-</div>
+  <div class="card">
+    <h2>Leaderboards</h2>
+    <h3>Global</h3>
+    <div id="leaderboard"></div>
+    <h3>School</h3>
+    <div id="schoolBoard"></div>
+    <h3>Country</h3>
+    <div id="countryBoard"></div>
+  </div>
 
+  <div class="card">
+    <h2>Chat</h2>
+    <div id="chatBox" class="chat"></div>
+    <div class="flex">
+      <input type="text" id="chatMsg" placeholder="Type a message...">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <button onclick="logout()">Logout</button>
 </section>
 
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script>
-// ===== LOADER =====
-window.onload=function(){setTimeout(()=>loader.style.display="none",1200);};
+// --- Particles ---
+particlesJS("particles-js", {
+  "particles": {
+    "number": {"value":80},
+    "color":{"value":"#ffffff"},
+    "shape":{"type":"circle"},
+    "opacity":{"value":0.5},
+    "size":{"value":3},
+    "line_linked":{"enable":true,"distance":150,"color":"#ffffff","opacity":0.4,"width":1},
+    "move":{"enable":true,"speed":2}
+  }
+});
 
-// ===== DARK MODE =====
-function toggleDark(){document.body.classList.toggle("dark-mode");}
+// --- Dark/Light Toggle ---
+function toggleDark(){
+  document.body.classList.toggle('dark');
+  if(document.body.classList.contains('dark')) document.body.style.background='linear-gradient(135deg,#1f1f1f,#2c2c2c,#444)';
+  else document.body.style.background='linear-gradient(135deg,#0f2027,#203a43,#2c5364)';
+}
 
-// ===== FIREBASE CONFIG =====
+// --- Firebase Setup ---
 firebase.initializeApp({
   apiKey:"AIzaSyD_LR9Kllj7hoKTiJAaSxyHglSO6r5gh-g",
   authDomain:"codeon-3cb1c.firebaseapp.com",
@@ -184,138 +163,98 @@ const auth=firebase.auth();
 const db=firebase.firestore();
 let currentUser=null;
 
-// ===== ADMINS =====
-const admins=["admin@example.com"];
-
-// ===== AUTH STATE =====
-auth.onAuthStateChanged(user=>{
-  if(user){
-    currentUser=user;
-    authSection.style.display="none";
-    main.style.display="block";
-    loadUser();
-    loadLeaderboards();
-  } else {
-    authSection.style.display="block";
-    main.style.display="none";
-  }
-});
-
-// ===== SIGNUP / LOGIN =====
+// --- Auth ---
 function signup(){
-  const emailVal=email.value.trim();
-  const passwordVal=password.value;
-  const usernameVal=username.value.trim();
-  const schoolVal=school.value.trim();
-  const countryVal=country.value;
-  if(!emailVal||!passwordVal||!usernameVal||!schoolVal){authError.innerText="All fields required";return;}
-  auth.createUserWithEmailAndPassword(emailVal,passwordVal)
-  .then(u=>db.collection("users").doc(u.user.uid).set({
-    email:emailVal,username:usernameVal,school:schoolVal,country:countryVal,
-    points:0,level:1,streak:0,lastDaily:null,lastWeekly:null
-  })).catch(e=>authError.innerText=e.message);
+  const emailVal=email.value.trim(),pass=password.value,usernameVal=username.value.trim(),
+        schoolVal=school.value.trim(),countryVal=country.value;
+  if(!emailVal||!pass||!usernameVal||!schoolVal){authError.innerText="All fields required";return;}
+  auth.createUserWithEmailAndPassword(emailVal,pass)
+    .then(u=>db.collection("users").doc(u.user.uid).set({
+      email:emailVal,username:usernameVal,school:schoolVal,country:countryVal,
+      points:0,level:1,streak:0,lastDaily:null,lastWeekly:null,lastBonus:null
+    })).catch(e=>authError.innerText=e.message);
 }
 function login(){auth.signInWithEmailAndPassword(email.value,password.value).catch(e=>authError.innerText=e.message);}
 function logout(){auth.signOut();}
 
-// ===== CHALLENGE SUBMISSION =====
-function getXP(diff){
-  if(diff==="Easy") return 50;
-  if(diff==="Medium") return 100;
-  if(diff==="Hard") return 200;
-  if(diff==="Extreme") return 400;
-  return 50;
-}
+// --- Dashboard ---
+auth.onAuthStateChanged(u=>{
+  if(u){currentUser=u;authSection.style.display='none';main.style.display='block';loadUser();loadLeaderboards();loadChat();}
+  else{authSection.style.display='block';main.style.display='none';}
+});
 
-function submitChallenge(type){
-  if(!currentUser) return;
-  const ref=db.collection("users").doc(currentUser.uid);
+// --- XP & Levels ---
+function getXP(d){return d==="Easy"?50:d==="Medium"?100:200;}
+function submitDaily(){
+  const xp=getXP(dailyDifficulty.value),ref=db.collection("users").doc(currentUser.uid),today=new Date().toDateString();
   ref.get().then(doc=>{
-    const data=doc.data();
-    const today=new Date().toDateString();
-    let lastField=(type==='daily')?'lastDaily':'lastWeekly';
-    let msgField=(type==='daily')?'challengeMsg':'weeklyMsg';
-    let diff=(type==='daily')?difficulty.value:weeklyDifficulty.value;
-    if(data[lastField]===today){window[msgField].innerText="Already submitted today!"; return;}
-    const xp=getXP(diff);
-    const newPoints=(data.points||0)+xp;
-    const newStreak=(type==='daily')?((data.lastDaily===today)?data.streak:data.streak+1):data.streak;
-    const newLevel=Math.floor(newPoints/200)+1;
-    ref.update({points:newPoints,streak:newStreak,level:newLevel,[lastField]:today});
-    window[msgField].innerText=`✅ +${xp} XP earned!`;
-    animateXP(newPoints);
-    showConfetti();
-    loadUser();
-    loadLeaderboards();
+    let d=doc.data();if(d.lastDaily===today){dailyMsg.innerText="Already submitted today!";return;}
+    const newPoints=(d.points||0)+xp,newLevel=Math.floor(newPoints/200)+1,newStreak=d.streak+1;
+    ref.update({points:newPoints,level:newLevel,streak:newStreak,lastDaily:today});
+    dailyMsg.innerText=`✅ +${xp} XP!`;
+    confetti();
   });
+}
+function submitWeekly(){
+  const xp=getXP(weeklyDifficulty.value),ref=db.collection("users").doc(currentUser.uid),today=new Date().toDateString();
+  ref.get().then(doc=>{
+    let d=doc.data();if(d.lastWeekly===today){weeklyMsg.innerText="Already submitted this week!";return;}
+    const newPoints=(d.points||0)+xp,newLevel=Math.floor(newPoints/200)+1,newStreak=d.streak+1;
+    ref.update({points:newPoints,level:newLevel,streak:newStreak,lastWeekly:today});
+    weeklyMsg.innerText=`✅ +${xp} XP!`;
+    confetti();
+  });
+}
+function claimDaily(){const ref=db.collection("users").doc(currentUser.uid),today=new Date().toDateString();
+ref.get().then(doc=>{let d=doc.data();if(d.lastBonus===today){alert("Bonus claimed");return;}ref.update({points:(d.points||0)+20,lastBonus:today});alert("🔥 +20 XP Daily Bonus");confetti();});}
+
+// --- Load User Info ---
+function loadUser(){db.collection("users").doc(currentUser.uid).onSnapshot(doc=>{
+  const d=doc.data();
+  welcome.innerText=d.username;
+  points.innerText=d.points||0;
+  level.innerText=d.level||1;
+  streak.innerText=d.streak||0;
+  progressBar.style.width=((d.points||0)%200)/200*100+"%";
+  let badgeHTML="";
+  if(d.points>100) badgeHTML+="<span class='badge'>Rising Star</span>";
+  if(d.points>300) badgeHTML+="<span class='badge'>Elite Coder</span>";
+  if(d.points>600) badgeHTML+="<span class='badge'>Africa Finalist</span>";
+  badges.innerHTML=badgeHTML;
+});}
+
+// --- Leaderboards ---
+function loadLeaderboards(){db.collection("users").onSnapshot(snapshot=>{
+  const users=[];snapshot.forEach(doc=>users.push(doc.data()));
+  function sortAndRender(usersArr,el){el.innerHTML="";usersArr.sort((a,b)=>b.points-a.points).slice(0,10)
+  .forEach((u,i)=>el.innerHTML+=`<div class="leader-row">${i+1}. ${u.username} (${u.points} pts)</div>`);}
+  sortAndRender(users,leaderboard);
+  const mySchool=users.find(u=>u.email===currentUser.email).school;
+  sortAndRender(users.filter(u=>u.school===mySchool),schoolBoard);
+  const myCountry=users.find(u=>u.email===currentUser.email).country;
+  sortAndRender(users.filter(u=>u.country===myCountry),countryBoard);
+});}
+
+// --- Chat ---
+function loadChat(){db.collection("chat").orderBy("time").onSnapshot(snapshot=>{
+  chatBox.innerHTML="";
+  snapshot.forEach(doc=>{
+    const m=doc.data();
+    const div=document.createElement("div");
+    div.className="msg "+(m.uid===currentUser.uid?"self":"other");
+    div.innerText=`${m.username}: ${m.text}`;
+    chatBox.appendChild(div);
+    chatBox.scrollTop=chatBox.scrollHeight;
+    if(m.uid!==currentUser.uid) new Notification("New message", {body:m.username+": "+m.text});
+  });
+});}
+function sendMessage(){const text=chatMsg.value.trim();if(!text)return;
+db.collection("chat").add({uid:currentUser.uid,username:username.value||currentUser.email,text: text,time: firebase.firestore.FieldValue.serverTimestamp()});
+chatMsg.value="";
 }
 
-// ===== XP BAR, BADGES, CONFETTI =====
-function animateXP(points){
-  const percent=(points%200)/200*100;
-  progressBar.style.width=percent+"%";
-}
-function showConfetti(){
-  confetti({particleCount:100,spread:70,origin:{y:0.6}});
-}
-function loadUser(){
-  if(!currentUser) return;
-  db.collection("users").doc(currentUser.uid).onSnapshot(doc=>{
-    const d=doc.data();
-    welcome.innerText="Welcome "+d.username+" | Rank calculating...";
-    points.innerText=d.points||0;
-    level.innerText=d.level||1;
-    streak.innerText=d.streak||0;
-    animateXP(d.points);
-    let badgeHTML="";
-    if(d.points>100) badgeHTML+="<span class='badge'>Rising Star</span>";
-    if(d.points>300) badgeHTML+="<span class='badge'>Elite Coder</span>";
-    if(d.points>600) badgeHTML+="<span class='badge'>Africa Finalist</span>";
-    badges.innerHTML=badgeHTML;
-  });
-}
-
-// ===== LEADERBOARDS =====
-function loadLeaderboards(){
-  db.collection("users").onSnapshot(snapshot=>{
-    const users=[];
-    snapshot.forEach(doc=>{users.push(doc.data());});
-    // Animate leaderboard
-    [leaderboard,schoolBoard,countryBoard].forEach(b=>b.innerHTML='');
-    const sortUsers=(arr)=>arr.sort((a,b)=>b.points-a.points).slice(0,10);
-    // Global
-    sortUsers(users).forEach((u,i)=>leaderboard.innerHTML+=`<div class='leader-row'>${i+1}. ${u.username} (${u.points} pts)</div>`);
-    // School
-    const mySchool=users.find(u=>u.email===currentUser.email).school;
-    sortUsers(users.filter(u=>u.school===mySchool)).forEach((u,i)=>schoolBoard.innerHTML+=`<div class='leader-row'>${i+1}. ${u.username} (${u.points} pts)</div>`);
-    // Country
-    const myCountry=users.find(u=>u.email===currentUser.email).country;
-    sortUsers(users.filter(u=>u.country===myCountry)).forEach((u,i)=>countryBoard.innerHTML+=`<div class='leader-row'>${i+1}. ${u.username} (${u.points} pts)</div>`);
-  });
-}
-
-// ===== PARTICLES BACKGROUND =====
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth; canvas.height=window.innerHeight;
-const particles=[];
-for(let i=0;i<100;i++){particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+1,dx:(Math.random()-0.5)*0.5,dy:(Math.random()-0.5)*0.5})}
-function animateParticles(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  particles.forEach(p=>{
-    p.x+=p.dx; p.y+=p.dy;
-    if(p.x>canvas.width)p.x=0;if(p.x<0)p.x=canvas.width;
-    if(p.y>canvas.height)p.y=0;if(p.y<0)p.y=canvas.height;
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fillStyle="rgba(255,255,255,0.3)";
-    ctx.fill();
-  });
-  requestAnimationFrame(animateParticles);
-}
-animateParticles();
-window.addEventListener("resize",()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
+// --- Confetti ---
+function confetti(){confetti({particleCount:100,spread:70,origin:{y:0.6}});}
 </script>
-
 </body>
 </html>
