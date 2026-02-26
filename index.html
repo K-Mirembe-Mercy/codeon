@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CODEON Uganda | Code Your Future</title>
+<title>CODEON Africa | Code Your Future</title>
 
 <!-- QR Code & Firebase -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -13,8 +13,8 @@
 
 <style>
 :root{
---bg:#0e8b80; /* lighter deep teal */
---card:#ffffff10;
+--bg:#0a5c58; /* darker deep teal */
+--card:#ffffff15;
 --text:white;
 --accent:#00e0c6;
 --hover-accent:#00ffc8;
@@ -26,7 +26,7 @@
 body{background:var(--bg);color:var(--text);transition:0.5s;overflow-x:hidden;position:relative;}
 a{text-decoration:none;color:var(--text);}
 header{display:flex;justify-content:space-between;align-items:center;padding:20px 8%;position:relative;z-index:10;flex-wrap:wrap;}
-.logo{height:60px;}
+.logo{height:60px;margin-right:15px;}
 .nav{display:flex;gap:15px;align-items:center;}
 .nav a{font-weight:bold;color:var(--text);}
 .menu-toggle{display:none;cursor:pointer;font-size:1.8rem;padding:5px;}
@@ -64,6 +64,7 @@ footer a:hover{text-decoration:underline;}
 
 .contact-section{margin-top:30px;text-align:center;}
 .contact-section p{margin:5px 0;color:var(--text);}
+#pageQRCode{margin:20px auto;text-align:center;}
 
 .shape{position:absolute;width:150px;height:150px;background:linear-gradient(45deg,#00e0c6,#00695c);border-radius:50%;filter:blur(80px);opacity:0.4;animation:float 12s infinite alternate ease-in-out;}
 .shape2{top:15%;left:5%;}
@@ -78,7 +79,6 @@ footer a:hover{text-decoration:underline;}
 #certificate{display:none;max-width:700px;margin:30px auto;padding:30px;border:8px solid var(--accent);border-radius:20px;background:var(--card);text-align:center;}
 #certificate h2{margin-bottom:15px;}
 #certificate p{margin-bottom:8px;}
-#qrcode{margin-top:15px;}
 
 @media(max-width:768px){.menu-toggle{display:block;}.nav{display:none;flex-direction:column;}.cards{flex-direction:column;align-items:center;}.card{width:90%;}.hero h1{font-size:2rem;}.hero p{font-size:0.9rem;}}
 @media(max-width:480px){.hero h1{font-size:1.6rem;}.hero p{font-size:0.85rem;}.card{width:95%;}}
@@ -108,7 +108,10 @@ footer a:hover{text-decoration:underline;}
 <div class="shape shape3"></div>
 
 <header>
+<div style="display:flex;align-items:center;">
 <img src="codeon-logo.png" class="logo">
+<h1 style="margin-right:20px;">CODEON</h1>
+</div>
 <div class="nav" id="navLinks">
 <a href="index.html">Home</a>
 <a href="enroll.html">Enroll</a>
@@ -121,23 +124,43 @@ footer a:hover{text-decoration:underline;}
 </header>
 
 <section class="hero scroll-reveal">
-<h1>CODEON</h1>
-<p>Empowering Uganda's Next Generation of Developers</p>
+<h2>Empowering Africa's Next Generation of Developers</h2>
+<p>Structured coding education with real GitHub collaboration workflow.</p>
 </section>
 
 <section class="glass scroll-reveal">
-<h2 style="text-align:center;margin-bottom:30px;">Programs</h2>
+<h2>Why Choose CODEON?</h2>
+<p>Students learn Web Development, GitHub forking, pull requests, collaboration and real-world development practices.</p>
+<h3>Testimonials</h3>
+<p>"CODEON helped me understand real software development." – Kafeero Praise, Student, Africa</p>
+<p>"The GitHub workflow training prepared me for freelance work." – Nalubega Desire</p>
+</section>
+
+<section class="glass scroll-reveal">
+<h2>Programs</h2>
 <div class="cards">
-<div class="card"><img src="html.png"><h3>Level 1 – FREE</h3><p>HTML, CSS, Git Basics</p>
-<button onclick="location.href='course1.html'">Open Course</button>
-<button onclick="payCert('Level 1')">Optional Certificate</button></div>
-<div class="card"><img src="css.png"><h3>Level 2 – FREE</h3><p>JavaScript & GitHub Collaboration</p>
-<button onclick="location.href='course2.html'">Open Course</button>
-<button onclick="payCert('Level 2')">Optional Certificate</button></div>
-<div class="card"><img src="js.png"><h3>Level 3 – UGX 50,000</h3><p>Advanced & Industry Preparation</p>
+<div class="card">
+<img src="html.png" alt="Level 3">
+<h3>Level 3 – UGX 50,000</h3>
+<p>Advanced & Industry Preparation</p>
 <div id="level3Status">Locked 🔒</div>
 <button onclick="payLevel3()">Pay</button>
-<button onclick="openLevel3()">Open Course</button></div>
+<button onclick="openLevel3()">Open Course</button>
+</div>
+<div class="card">
+<img src="css.jpg" alt="Level 2">
+<h3>Level 2 – FREE</h3>
+<p>JavaScript & GitHub Collaboration</p>
+<button onclick="location.href='course2.html'">Open Course</button>
+<button onclick="payCert('Level 2')">Optional Certificate</button>
+</div>
+<div class="card">
+<img src="html1.png" alt="Level 1">
+<h3>Level 1 – FREE</h3>
+<p>HTML, CSS, Git Basics</p>
+<button onclick="location.href='course1.html'">Open Course</button>
+<button onclick="payCert('Level 1')">Optional Certificate</button>
+</div>
 </div>
 </section>
 
@@ -146,22 +169,12 @@ footer a:hover{text-decoration:underline;}
 <input id="verifyID" placeholder="Enter Certificate ID">
 <button onclick="verifyCertificate()">Verify</button>
 <div id="verifyResult" style="margin-top:15px;font-weight:bold;"></div>
-<div id="qrDisplay"></div>
+<div id="qrcode"></div>
 </section>
 
-<div id="certificate">
-<h2>🎓 Certificate</h2>
-<p>Name: <span id="certName"></span></p>
-<p>Level: <span id="certLevel"></span></p>
-<p>ID: <span id="certID"></span></p>
-<p>Signature: <span id="certHash"></span></p>
-<div id="qrcode"></div>
-</div>
-
-<!-- QR code for your GitHub Pages link before footer -->
 <section class="glass scroll-reveal contact-section">
 <h3>Scan to Visit Our Page:</h3>
-<div id="pageQRCode" style="margin:20px auto;"></div>
+<div id="pageQRCode"></div>
 <p>Email: codeon.ug@gmail.com</p>
 <p>Call: 0743733322</p>
 <p>WhatsApp: 0777435942</p>
@@ -176,21 +189,22 @@ footer a:hover{text-decoration:underline;}
 </footer>
 
 <script>
+// Menu & dark/light toggle
 function toggleMenu(){document.getElementById('navLinks').classList.toggle('active');}
 function toggleMode(){document.body.classList.toggle("light");}
 
+// Firebase init
 const firebaseConfig={apiKey:"AIzaSy...",authDomain:"codeon-3cb1c.firebaseapp.com",projectId:"codeon-3cb1c"};
 firebase.initializeApp(firebaseConfig);
 const auth=firebase.auth();
 const db=firebase.firestore();
 auth.signInAnonymously();
 
-// Loader and subscription
+// Loader & subscription
 window.addEventListener('load',()=>{
 document.getElementById('loader').style.display='none';
 showSubscription();
 scrollReveal();
-// generate QR code for your page
 new QRCode(document.getElementById("pageQRCode"),{text:"https://k-mirembe-mercy.github.io/codeon/",width:120,height:120});
 });
 
@@ -202,15 +216,10 @@ sessionStorage.setItem('subscribed','true');
 function closeSubscription(){document.getElementById('subscriptionPopup').style.display='none';}
 function subscribeNow(){window.location.href='https://store.pesapal.com/subscribecodeon';}
 
-// Payment functions
-function payLevel3(){
-window.location.href='https://store.pesapal.com/level3';
-// auto-generate certificate after successful payment
-setTimeout(()=>generateCertificate("Student Name","Level 3"),2000); // replace with actual callback
-}
+// Payment & certificates
+function payLevel3(){window.location.href='https://store.pesapal.com/level3';setTimeout(()=>generateCertificate("Student Name","Level 3"),2000);}
 function payCert(level){window.location.href='https://store.pesapal.com/certificatepayment';}
 
-// Certificate generation
 async function generateCertificate(name,level){
 const id="CODEON-"+Date.now();
 const data=name+level+id;
@@ -241,13 +250,11 @@ new QRCode(document.getElementById("qrcode"),{text:window.location.href+"?verify
 }
 
 function scrollReveal(){
-document.querySelectorAll('.scroll-reveal').forEach(el=>{
-if(el.getBoundingClientRect().top < window.innerHeight-100){el.classList.add('visible');}
-});
+document.querySelectorAll('.scroll-reveal').forEach(el=>{if(el.getBoundingClientRect().top < window.innerHeight-100){el.classList.add('visible');}});
 window.addEventListener('scroll',scrollReveal);
 }
 
-// Background animation
+// Animated background
 const canvas=document.getElementById('bgCanvas');
 const ctx=canvas.getContext('2d');
 canvas.width=window.innerWidth;canvas.height=window.innerHeight;
