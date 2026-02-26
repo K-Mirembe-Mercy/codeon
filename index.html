@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CODEON Uganda | Code Your Future</title>
 
+<!-- QR Code & Firebase -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
@@ -19,37 +20,43 @@
 }
 *{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,sans-serif;}
 body{background:var(--bg);color:var(--text);transition:0.5s;overflow-x:hidden;position:relative;}
+a{text-decoration:none;color:var(--text);}
+header{display:flex;justify-content:space-between;align-items:center;padding:20px 8%;position:relative;z-index:10;flex-wrap:wrap;}
+.logo{height:60px;}
+.nav{display:flex;gap:15px;align-items:center;}
+.nav a{font-weight:bold;color:var(--text);}
+.menu-toggle{display:none;cursor:pointer;font-size:1.8rem;padding:5px;}
+.nav.active{display:flex;flex-direction:column;position:absolute;top:100%;left:0;width:100%;background:var(--card);padding:20px;gap:10px;border-radius:0 0 15px 15px;}
+.toggle{cursor:pointer;padding:8px 14px;border-radius:20px;background:var(--accent);color:#003b44;font-weight:bold;transition:0.3s;}
+.toggle:hover{box-shadow:0 0 25px var(--hover-accent);}
 #loader{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--bg);display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:9999;color:var(--accent);font-size:1.5rem;}
 .spinner{width:60px;height:60px;border:6px solid rgba(255,255,255,0.2);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite;margin-bottom:15px;}
 @keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
 
 #subscriptionPopup{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;z-index:9998;display:none;}
-#subscriptionPopup .content{background:var(--card);color:var(--text);padding:30px 20px;border-radius:20px;text-align:center;max-width:400px;}
+#subscriptionPopup .content{background:var(--card);color:var(--text);padding:30px 20px;border-radius:20px;text-align:center;max-width:400px;position:relative;}
+#subscriptionPopup .closeBtn{position:absolute;top:10px;right:15px;font-size:1.5rem;font-weight:bold;cursor:pointer;}
 #subscriptionPopup button{margin-top:20px;width:80%;cursor:pointer;transition:0.3s;box-shadow:0 0 15px var(--accent);}
 #subscriptionPopup button:hover{box-shadow:0 0 30px var(--hover-accent);}
-
-header{display:flex;justify-content:space-between;align-items:center;padding:20px 8%;position:relative;z-index:1;flex-wrap:wrap;}
-.logo{height:60px;margin-bottom:10px;}
-.toggle{cursor:pointer;padding:8px 14px;border-radius:20px;background:var(--accent);color:#003b44;font-weight:bold;transition:0.3s;}
-.toggle:hover{box-shadow:0 0 25px var(--hover-accent);}
 
 .hero{text-align:center;padding:100px 5% 60px;position:relative;overflow:hidden;}
 .hero h1{font-size:3rem;margin-bottom:20px;animation:fadeUp 1.2s ease forwards;opacity:0;}
 .hero p{opacity:0;animation:fadeUp 1.4s ease forwards;margin-top:15px;}
 @keyframes fadeUp{0%{opacity:0;transform:translateY(30px);}100%{opacity:1;transform:translateY(0);}}
 
-/* Glass sections */
 .glass{background:var(--card);backdrop-filter:blur(20px);border-radius:20px;padding:30px;margin:30px auto;max-width:1100px;opacity:0;transform:translateY(50px);transition:all 0.8s ease;}
 .cards{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;}
 .card{flex:1 1 250px;padding:20px;border-radius:20px;background:var(--card);transition:0.5s;transform-style:preserve-3d;cursor:pointer;min-width:250px;max-width:320px;text-align:center;}
-.card img{width:60px;margin-bottom:15px;}
+.card img{width:100px;height:100px;object-fit:cover;margin-bottom:15px;}
 .card:hover{transform:rotateY(10deg) rotateX(5deg) translateY(-10px);}
 button{padding:12px 18px;border:none;border-radius:8px;background:var(--accent);color:#003b44;font-weight:bold;margin-top:10px;cursor:pointer;box-shadow:0 0 15px var(--accent);transition:0.4s;}
 button:hover{box-shadow:0 0 30px var(--hover-accent);transform:translateY(-3px);}
 
 .verify{text-align:center;margin-top:20px;}
 input{padding:10px;width:100%;border-radius:8px;border:none;margin-top:10px;max-width:300px;}
-footer{text-align:center;padding:30px;opacity:0.7;}
+footer{text-align:center;padding:30px;opacity:0.9;}
+footer a{color:var(--accent);text-decoration:none;margin:0 10px;}
+footer a:hover{text-decoration:underline;}
 
 .shape{position:absolute;width:150px;height:150px;background:linear-gradient(45deg,#00e0c6,#00695c);border-radius:50%;filter:blur(80px);opacity:0.4;animation:float 12s infinite alternate ease-in-out;}
 .shape2{top:15%;left:5%;}
@@ -66,26 +73,8 @@ footer{text-align:center;padding:30px;opacity:0.7;}
 #certificate p{margin-bottom:8px;}
 #qrcode{margin-top:15px;}
 
-/* Responsive */
-@media(max-width:1024px){
-.hero h1{font-size:2.5rem;}
-.cards{flex-direction:row;justify-content:center;}
-.card{flex:1 1 220px;max-width:260px;}
-}
-@media(max-width:768px){
-.hero h1{font-size:2rem;padding:80px 5% 40px;}
-.hero p{font-size:0.9rem;}
-header{justify-content:center;gap:15px;}
-.cards{flex-direction:column;align-items:center;}
-.card{width:90%;}
-#subscriptionPopup .content{width:90%;padding:25px;}
-input{width:90%;}
-}
-@media(max-width:480px){
-.hero h1{font-size:1.6rem;}
-.hero p{font-size:0.85rem;}
-.card{width:95%;}
-}
+@media(max-width:768px){.menu-toggle{display:block;}.nav{display:none;flex-direction:column;}.cards{flex-direction:column;align-items:center;}.card{width:90%;}.hero h1{font-size:2rem;}.hero p{font-size:0.9rem;}}
+@media(max-width:480px){.hero h1{font-size:1.6rem;}.hero p{font-size:0.85rem;}.card{width:95%;}}
 </style>
 </head>
 
@@ -100,9 +89,11 @@ input{width:90%;}
 
 <div id="subscriptionPopup">
 <div class="content">
+<div class="closeBtn" onclick="closeSubscription()">×</div>
 <h2>Subscribe to CODEON</h2>
 <p>Unlock all features and updates by subscribing!</p>
 <button onclick="subscribeNow()">Subscribe Now</button>
+<button onclick="closeSubscription()" style="background:#444;color:white;margin-top:10px;">Pay Later</button>
 </div>
 </div>
 
@@ -111,20 +102,36 @@ input{width:90%;}
 
 <header>
 <img src="codeon-logo.png" class="logo">
+<div class="nav" id="navLinks">
+<a href="index.html">Home</a>
+<a href="enroll.html">Enroll</a>
+<a href="verify.html">Verify</a>
+<a href="community-codeon.html">Community</a>
+<a href="aboutus.html">About</a>
+</div>
+<span class="menu-toggle" onclick="toggleMenu()">☰</span>
 <div class="toggle" onclick="toggleMode()">Dark/Light</div>
 </header>
 
 <section class="hero scroll-reveal">
 <h1>Empowering Uganda's Next Generation of Developers</h1>
 <p>Structured coding education with real GitHub collaboration workflow.</p>
+<div id="myQRCode" style="margin-top:20px;"></div>
 </section>
 
 <section class="glass scroll-reveal">
 <h2 style="text-align:center;margin-bottom:30px;">Programs</h2>
 <div class="cards">
-<div class="card"><img src="html.png"><h3>Level 1 – FREE</h3><p>HTML, CSS, Git Basics</p><button onclick="location.href='course1.html'">Open Course</button><button onclick="payCert('Level 1')">Optional Certificate</button></div>
-<div class="card"><img src="css.png"><h3>Level 2 – FREE</h3><p>JavaScript & GitHub Collaboration</p><button onclick="location.href='course2.html'">Open Course</button><button onclick="payCert('Level 2')">Optional Certificate</button></div>
-<div class="card"><img src="js.png"><h3>Level 3 – UGX 50,000</h3><p>Advanced & Industry Preparation</p><div id="level3Status">Locked 🔒</div><button onclick="payLevel3()">Pay</button><button onclick="openLevel3()">Open Course</button></div>
+<div class="card"><img src="html.png"><h3>Level 1 – FREE</h3><p>HTML, CSS, Git Basics</p>
+<button onclick="location.href='course1.html'">Open Course</button>
+<button onclick="payCert('Level 1')">Optional Certificate</button></div>
+<div class="card"><img src="css.png"><h3>Level 2 – FREE</h3><p>JavaScript & GitHub Collaboration</p>
+<button onclick="location.href='course2.html'">Open Course</button>
+<button onclick="payCert('Level 2')">Optional Certificate</button></div>
+<div class="card"><img src="js.png"><h3>Level 3 – UGX 50,000</h3><p>Advanced & Industry Preparation</p>
+<div id="level3Status">Locked 🔒</div>
+<button onclick="payLevel3()">Pay</button>
+<button onclick="openLevel3()">Open Course</button></div>
 </div>
 </section>
 
@@ -145,10 +152,18 @@ input{width:90%;}
 <div id="qrcode"></div>
 </div>
 
-<footer class="scroll-reveal">© 2026 CODEON Uganda</footer>
+<footer class="scroll-reveal">
+<a href="course1.html">Course 1</a> | 
+<a href="course2.html">Course 2</a> | 
+<a href="course3.html">Course 3</a> | 
+<a href="https://store.pesapal.com/subscribecodeon" target="_blank">Subscribe</a> | 
+<a href="https://store.pesapal.com/certificatepayment" target="_blank">Certificate Payment</a>
+</footer>
 
 <script>
+function toggleMenu(){document.getElementById('navLinks').classList.toggle('active');}
 function toggleMode(){document.body.classList.toggle("light");}
+
 const firebaseConfig={apiKey:"AIzaSy...",authDomain:"codeon-3cb1c.firebaseapp.com",projectId:"codeon-3cb1c"};
 firebase.initializeApp(firebaseConfig);
 const auth=firebase.auth();
@@ -159,6 +174,7 @@ window.addEventListener('load',()=>{
 document.getElementById('loader').style.display='none';
 showSubscription();
 scrollReveal();
+new QRCode(document.getElementById("myQRCode"),{text:"https://your-original-qr-link.com",width:120,height:120});
 });
 
 function showSubscription(){
@@ -166,9 +182,14 @@ if(!sessionStorage.getItem('subscribed')){
 document.getElementById('subscriptionPopup').style.display='flex';
 sessionStorage.setItem('subscribed','true');
 }}
+function closeSubscription(){document.getElementById('subscriptionPopup').style.display='none';}
 function subscribeNow(){window.location.href='https://store.pesapal.com/subscribecodeon';}
 
-function payLevel3(){window.location.href='https://store.pesapal.com/level3';}
+function payLevel3(){
+window.location.href='https://store.pesapal.com/level3';
+// After successful payment, auto-generate certificate for Level 3
+setTimeout(()=>generateCertificate("Student Name","Level 3"),2000); // replace with actual callback
+}
 function payCert(level){window.location.href='https://store.pesapal.com/certificatepayment';}
 
 async function generateCertificate(name,level){
