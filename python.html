@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CODEON Uganda: Learn Python with Africa-Focused Projects</title>
+<meta name="description" content="CODEON Uganda – Interactive Python course with Africa-focused projects. Earn badges, submit to GitHub, and get a certificate upon payment. Mobile-first and world-class.">
+<meta name="keywords" content="Python course Uganda, learn Python Africa, Africa coding projects, Python projects, CODEON platform, earn Python certificate">
+<meta name="author" content="CODEON">
+<meta property="og:title" content="CODEON Uganda – Learn Python with Africa Projects">
+<meta property="og:description" content="Interactive, mobile-first Python learning platform with real projects, badges, and optional certificates.">
+<meta property="og:image" content="codeon logo.png">
+<meta property="og:type" content="website">
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<style>
+body{margin:0;padding:0;font-family:Arial,sans-serif;color:#fff;background:#004c4c;overflow-x:hidden;}
+header{display:flex;align-items:center;padding:10px 20px;position:sticky;top:0;background:rgba(0,76,76,0.9);z-index:10;}
+header img{height:50px;margin-right:15px;}
+h1,h2,h3,p{margin:10px 0;}
+.container{padding:20px;max-width:1000px;margin:auto;position:relative;z-index:5;}
+input,button,textarea{display:block;width:100%;margin:10px 0;padding:10px;border-radius:5px;border:none;font-size:16px;}
+textarea{height:200px;font-family:monospace;}
+button{background-color:#008080;color:#fff;cursor:pointer;transition:0.3s;}
+button:hover:not(:disabled){background-color:#00a0a0;}
+button:disabled{background-color:#006666;cursor:not-allowed;}
+.badge{display:inline-block;padding:5px 10px;background:#ffd700;color:#004c4c;border-radius:5px;margin:5px;}
+.lesson-explanation{background:#006666;padding:10px;margin:10px 0;border-radius:5px;}
+#progressBar{width:100%;background:#006666;border-radius:5px;margin:10px 0;}
+#progressFill{height:15px;background:#00a0a0;width:0%;border-radius:5px;}
+@media(max-width:600px){header{flex-direction:column;text-align:center;}header img{margin-bottom:10px;}}
+canvas#bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;}
+</style>
+</head>
+
+<body>
+<canvas id="bgCanvas"></canvas>
+<header>
+  <img src="codeon logo.png" alt="CODEON Logo">
+  <h1>CODEON Uganda Python </h1>
+</header>
+
+<div class="container">
+
+<div id="auth">
+  <input id="email" placeholder="Email">
+  <input id="password" type="password" placeholder="Password">
+  <button onclick="signup()">Sign Up</button>
+  <button onclick="login()">Login</button>
+</div>
+
+<div id="dashboard" style="display:none;">
+  <h2>Projects</h2>
+  <div id="projectButtons"></div>
+  <h2>Your Badges</h2>
+  <div id="badges"></div>
+  <div id="progressBar"><div id="progressFill"></div></div>
+</div>
+
+<div id="projectPage" style="display:none;">
+  <h2 id="projectTitle"></h2>
+  <h3 id="lessonTitle"></h3>
+  <p id="instruction"></p>
+  <div class="lesson-explanation" id="explanation"></div>
+  <textarea id="code"></textarea>
+  <button onclick="runPython()">Run Code</button>
+  <button id="submitBtn" onclick="submitLesson()">Complete Lesson</button>
+  <button id="downloadBtn" onclick="downloadCode()">Download Code for GitHub</button>
+</div>
+
+<div id="certificate" style="display:none;">
+  <h2>All Projects Completed!</h2>
+  <p>Optional Certificate:</p>
+  <button id="certificateBtn">Pay & Download Certificate</button>
+</div>
+
+</div>
+
+<script>
+// Firebase Initialization
+const firebaseConfig = {
+  apiKey: "AIzaSyD_LR9Kllj7hoKTiJAaSxyHglSO6r5gh-g",
+  authDomain: "codeon-3cb1c.firebaseapp.com",
+  projectId: "codeon-3cb1c",
+  storageBucket: "codeon-3cb1c.firebasestorage.app",
+  messagingSenderId: "730172148868",
+  appId: "1:730172148868:web:2c712c8124be40019506d1",
+  measurementId: "G-EBR3S0M396"
+};
+firebase.initializeApp(firebaseConfig);
+const auth=firebase.auth();
+const db=firebase.firestore();
+
+// Pyodide
+let pyodideReady=false, pyodide=null;
+async function initPyodide(){pyodide=await loadPyodide();pyodideReady=true;}
+initPyodide();
+
+// User State
+let currentUser=null, currentProject=null, currentLesson=0, totalXP=0;
+
+// 5 Projects × 8 Lessons
+const projects = [
+  // Project 1
+  {
+    id:"Agriculture Yield Predictor",
+    lessons:[
+      {title:"Introduction", instruction:"Understand crop yield prediction using rainfall and soil quality.",
+      explanation:"We introduce the concept of predicting agricultural yield using basic variables.",
+      starterCode:`print("Welcome to Agriculture Yield Prediction Project!")`,
+      sampleOutput:"Welcome to Agriculture Yield Prediction Project!"},
+      {title:"Data Variables", instruction:"Create rainfall and soil quality variables.",
+      explanation:"Variables store the inputs we will use in our yield function.",
+      starterCode:`rainfall = 100
+soil_quality = 5
+print(f"Rainfall: {rainfall}, Soil Quality: {soil_quality}")`,
+      sampleOutput:"Rainfall: 100, Soil Quality: 5"},
+      {title:"Function Basics", instruction:"Create a function that calculates yield.",
+      explanation:"Functions allow reusable code.",
+      starterCode:`def estimate_yield(rainfall, soil_quality):
+    return rainfall * soil_quality
+print(estimate_yield(rainfall, soil_quality))`,
+      sampleOutput:"500"},
+      {title:"Test Function", instruction:"Test the function with different inputs.",
+      explanation:"Ensure function works correctly.",
+      starterCode:`print(estimate_yield(120,6))`,
+      sampleOutput:"720"},
+      {title:"Enhance Function", instruction:"Add fertilizer parameter.",
+      explanation:"Optional parameters improve predictions.",
+      starterCode:`def estimate_yield(rainfall, soil_quality, fertilizer=0):
+    return rainfall * soil_quality + fertilizer
+print(estimate_yield(120,6,10))`,
+      sampleOutput:"730"},
+      {title:"Data Visualization", instruction:"Visualize yields using matplotlib.",
+      explanation:"Plot trends.",
+      starterCode:`import matplotlib.pyplot as plt
+rainfall_values=[100,150,200,250,300]
+yield_values=[estimate_yield(r,5) for r in rainfall_values]
+plt.plot(rainfall_values,yield_values)
+plt.show()`,
+      sampleOutput:"Line chart"},
+      {title:"Debugging", instruction:"Debug errors in your function.",
+      explanation:"Fix mistakes.",
+      starterCode:`def estimate_yield(rainfall, soil_quality, fertilizer=0):
+    return rainfall*soil_quality*fertilizer
+print(estimate_yield(120,6,10))`,
+      sampleOutput:"7200 (incorrect output to debug)"},
+      {title:"Project Summary", instruction:"Finalize project.",
+      explanation:"Ensure all code works correctly.",
+      starterCode:`print("Agriculture Yield Prediction Complete!")`,
+      sampleOutput:"Agriculture Yield Prediction Complete!"}
+    ]
+  },
+
+  // Project 2
+  {
+    id:"Local Market Price Tracker",
+    lessons:[
+      {title:"Introduction", instruction:"Track prices of local commodities.",
+       explanation:"We will store and compare prices.",
+       starterCode:`print("Welcome to Market Price Tracker!")`,
+       sampleOutput:"Welcome to Market Price Tracker!"},
+      {title:"Commodity Variables", instruction:"Create commodity price variables.",
+       explanation:"Store maize and beans prices.",
+       starterCode:`maize_price=1500
+beans_price=2000
+print(maize_price,beans_price)`,
+       sampleOutput:"1500 2000"},
+      {title:"Function to Compare Prices", instruction:"Compare two prices.",
+       explanation:"Functions for reusable comparisons.",
+       starterCode:`def compare_prices(p1,p2):
+ if p1>p2:return"Price1 higher"
+ elif p2>p1:return"Price2 higher"
+ else:return"Prices equal"
+print(compare_prices(maize_price,beans_price))`,
+       sampleOutput:"Price2 higher"},
+      {title:"Test Function", instruction:"Test with other prices.",
+       explanation:"Check logic correctness.",
+       starterCode:`print(compare_prices(1800,1700))`,
+       sampleOutput:"Price1 higher"},
+      {title:"Data Collection", instruction:"Store price history.",
+       explanation:"Lists store multiple values.",
+       starterCode:`maize_prices=[1500,1600,1550,1580]
+print(maize_prices)`,
+       sampleOutput:"[1500,1600,1550,1580]"},
+      {title:"Data Visualization", instruction:"Plot prices over time.",
+       explanation:"Visualize trends.",
+       starterCode:`import matplotlib.pyplot as plt
+plt.plot(maize_prices)
+plt.show()`,
+       sampleOutput:"Line chart"},
+      {title:"Debugging", instruction:"Fix function errors.",
+       explanation:"Ensure logic is correct.",
+       starterCode:`def compare_prices(p1,p2):return"Error"
+print(compare_prices(1500,1600))`,
+       sampleOutput:"Price2 higher"},
+      {title:"Project Summary", instruction:"Finalize project.",
+       explanation:"Save project.",
+       starterCode:`print("Local Market Price Tracker Complete!")`,
+       sampleOutput:"Local Market Price Tracker Complete!"}
+    ]
+  },
+
+  // Project 3: Solar Energy Estimator
+  {
+    id:"Solar Energy Estimator",
+    lessons:[
+      {title:"Introduction", instruction:"Estimate solar energy output.",
+       explanation:"Learn basic energy calculations.",
+       starterCode:`print("Welcome to Solar Energy Estimator!")`,
+       sampleOutput:"Welcome to Solar Energy Estimator!"},
+      {title:"Variables", instruction:"Sunlight hours and panel efficiency.",
+       explanation:"Inputs for energy calculation.",
+       starterCode:`sunlight_hours=5
+panel_efficiency=0.18
+print(sunlight_hours,panel_efficiency)`,
+       sampleOutput:"5 0.18"},
+      {title:"Function Basics", instruction:"Calculate energy output.",
+       explanation:"Energy = sunlight*efficiency*area",
+       starterCode:`def estimate_energy(sunlight,efficiency,area):
+ return sunlight*efficiency*area
+print(estimate_energy(5,0.18,10))`,
+       sampleOutput:"9.0"},
+      {title:"Test Function", instruction:"Try different values.",
+       explanation:"Ensure calculations correct.",
+       starterCode:`print(estimate_energy(6,0.2,12))`,
+       sampleOutput:"14.4"},
+      {title:"Enhancements", instruction:"Add shading factor.",
+       explanation:"Improve realistic output.",
+       starterCode:`def estimate_energy(sunlight,efficiency,area,shading=0):
+ return sunlight*efficiency*area*(1-shading)
+print(estimate_energy(6,0.2,12,0.1))`,
+       sampleOutput:"12.96"},
+      {title:"Visualization", instruction:"Plot energy output.",
+       explanation:"Use matplotlib to visualize output.",
+       starterCode:`import matplotlib.pyplot as plt
+sunlight_hours=[4,5,6,7,8]
+outputs=[estimate_energy(h,0.2,12) for h in sunlight_hours]
+plt.plot(sunlight_hours,outputs)
+plt.show()`,
+       sampleOutput:"Line chart"},
+      {title:"Debugging", instruction:"Fix calculation errors.",
+       explanation:"Check formulas.",
+       starterCode:`def estimate_energy(sunlight,efficiency,area):
+ return sunlight+efficiency+area
+print(estimate_energy(5,0.18,10))`,
+       sampleOutput:"9.18 (incorrect)"},
+      {title:"Project Summary", instruction:"Finalize project.",
+       explanation:"Ensure correct outputs.",
+       starterCode:`print("Solar Energy Estimator Complete!")`,
+       sampleOutput:"Solar Energy Estimator Complete!"}
+    ]
+  },
+
+  // Project 4: Health Reminder System
+  {
+    id:"Health Reminder System",
+    lessons:[
+      {title:"Introduction", instruction:"Create Python health reminder.",
+       explanation:"Learn scheduling.",
+       starterCode:`print("Welcome to Health Reminder System!")`,
+       sampleOutput:"Welcome to Health Reminder System!"},
+      {title:"Variables", instruction:"Medication schedule variables.",
+       explanation:"Store times for reminders.",
+       starterCode:`medications=["Paracetamol","Vitamin C"]
+times=["08:00","20:00"]
+print(medications,times)`,
+       sampleOutput:`['Paracetamol','Vitamin C'] ['08:00','20:00']`},
+      {title:"Function Basics", instruction:"Display reminders.",
+       explanation:"Automate notifications.",
+       starterCode:`def remind(meds,times):
+ for i in range(len(meds)):
+  print(f"Take {meds[i]} at {times[i]}")
+remind(medications,times)`,
+       sampleOutput:"Take Paracetamol at 08:00\nTake Vitamin C at 20:00"},
+      {title:"Test Function", instruction:"Add medication.",
+       explanation:"Test logic.",
+       starterCode:`medications.append("Ibuprofen")
+times.append("12:00")
+remind(medications,times)`,
+       sampleOutput:"..."},
+      {title:"Enhancements", instruction:"Add notes for meds.",
+       explanation:"More clarity.",
+       starterCode:`def remind(meds,times,notes=None):
+ for i in range(len(meds)):
+  note=notes[i] if notes else ""
+  print(f"Take {meds[i]} at {times[i]}. {note}")
+notes=["After breakfast","After dinner","With water"]
+remind(medications,times,notes)`,
+       sampleOutput:"..."},
+      {title:"Data Storage", instruction:"Use dictionary for schedule.",
+       explanation:"Flexible key-value storage.",
+       starterCode:`schedule={medications[i]:times[i] for i in range(len(medications))}
+print(schedule)`,
+       sampleOutput:"{'Paracetamol':'08:00','Vitamin C':'20:00','Ibuprofen':'12:00'}"},
+      {title:"Debugging", instruction:"Fix incorrect time display.",
+       explanation:"Check dictionary logic.",
+       starterCode:`schedule={medications[i]:times[i+1] for i in range(len(medications))}
+print(schedule)`,
+       sampleOutput:"Error: IndexError"},
+      {title:"Project Summary", instruction:"Finalize project.",
+       explanation:"Ensure reminders work.",
+       starterCode:`print("Health Reminder System Complete!")`,
+       sampleOutput:"Health Reminder System Complete!"}
+    ]
+  },
+
+  // Project 5: Water Access Analyzer
+  {
+    id:"Water Access Analyzer",
+    lessons:[
+      {title:"Introduction", instruction:"Analyze water access in villages.",
+       explanation:"Process datasets.",
+       starterCode:`print("Welcome to Water Access Analyzer!")`,
+       sampleOutput:"Welcome to Water Access Analyzer!"},
+      {title:"Variables", instruction:"Water sources and population.",
+       explanation:"Key data points.",
+       starterCode:`villages=["Village A","Village B","Village C"]
+water_sources=[3,1,2]
+population=[150,200,120]
+print(villages,water_sources,population)`,
+       sampleOutput:"..."},
+      {title:"Function Basics", instruction:"Calculate water access per person.",
+       explanation:"Access = sources/population",
+       starterCode:`def water_access(sources,pop,population):
+ return [sources[i]/population[i] for i in range(len(sources))]
+print(water_access(water_sources,population))`,
+       sampleOutput:"[0.02,0.005,0.0166667]"},
+      {title:"Test Function", instruction:"Add village.",
+       explanation:"Test function with new data.",
+       starterCode:`villages.append("Village D")
+water_sources.append(4)
+population.append(250)
+print(water_access(water_sources,population))`,
+       sampleOutput:"[0.02,0.005,0.0166667,0.016]"},
+      {title:"Enhancements", instruction:"Add quality factor.",
+       explanation:"Weighted access.",
+       starterCode:`def water_access(sources,pop,quality=None):
+ access=[sources[i]/pop[i] for i in range(len(sources))]
+ if quality: access=[access[i]*quality[i] for i in range(len(access))]
+ return access
+quality=[0.9,0.8,0.7,1.0]
+print(water_access(water_sources,population,quality))`,
+       sampleOutput:"[0.018,0.004,0.0116667,0.016]"},
+      {title:"Data Visualization", instruction:"Plot water access per village.",
+       explanation:"Use matplotlib bar chart.",
+       starterCode:`import matplotlib.pyplot as plt
+plt.bar(villages,water_access(water_sources,population,quality))
+plt.show()`,
+       sampleOutput:"Bar chart"},
+      {title:"Debugging", instruction:"Fix incorrect calculations.",
+       explanation:"Check indexing.",
+       starterCode:`print(water_access(water_sources,population,[0.9,0.8]))`,
+       sampleOutput:"Error: list length mismatch"},
+      {title:"Project Summary", instruction:"Finalize project.",
+       explanation:"Ensure charts and calculations correct.",
+       starterCode:`print("Water Access Analyzer Complete!")`,
+       sampleOutput:"Water Access Analyzer Complete!"}
+    ]
+  }
+];
+</script>
+
+<script>
+// Auth & Dashboard
+function signup(){const e=document.getElementById('email').value,p=document.getElementById('password').value;auth.createUserWithEmailAndPassword(e,p).then(u=>{currentUser=u.user;showDashboard();}).catch(console.error);}
+function login(){const e=document.getElementById('email').value,p=document.getElementById('password').value;auth.signInWithEmailAndPassword(e,p).then(u=>{currentUser=u.user;showDashboard();}).catch(console.error);}
+function showDashboard(){document.getElementById('auth').style.display='none';document.getElementById('dashboard').style.display='block';renderProjects();loadBadges();}
+function renderProjects(){const div=document.getElementById('projectButtons');div.innerHTML='';projects.forEach(p=>{const btn=document.createElement('button');btn.textContent=p.id;btn.onclick=()=>startProject(p.id);div.appendChild(btn);});}
+function loadBadges(){document.getElementById('badges').innerHTML='';}
+// Project Navigation
+function startProject(id){currentProject=projects.find(p=>p.id===id);currentLesson=0;document.getElementById('dashboard').style.display='none';document.getElementById('projectPage').style.display='block';showLesson();}
+function showLesson(){const l=currentProject.lessons[currentLesson];document.getElementById('projectTitle').textContent=currentProject.id;document.getElementById('lessonTitle').textContent=l.title;document.getElementById('instruction').textContent=l.instruction;document.getElementById('explanation').textContent=l.explanation;document.getElementById('code').value=l.starterCode;document.getElementById('submitBtn').disabled=false;}
+async function runPython(){if(!pyodideReady){alert("Loading Python...");return;}try{const r=await pyodide.runPythonAsync(document.getElementById('code').value);alert("Output: "+r);}catch(e){alert("Error: "+e.message);}}
+function submitLesson(){currentLesson++;if(currentLesson<currentProject.lessons.length){showLesson();}else{alert(currentProject.id+" Complete!");document.getElementById('projectPage').style.display='none';document.getElementById('dashboard').style.display='block';document.getElementById('certificate').style.display='block';document.getElementById('certificateBtn').onclick=()=>{window.open('https://store.pesapal.com/certificatepayment?user='+currentUser.uid,'_blank');}}}
+function downloadCode(){const code=document.getElementById('code').value;const blob=new Blob([code],{type:"text/plain"});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=currentProject.id+"_lesson"+(currentLesson+1)+".py";a.click();}
+
+// 3D Background
+const canvas=document.getElementById('bgCanvas');const renderer=new THREE.WebGLRenderer({canvas,alpha:true});renderer.setSize(window.innerWidth,window.innerHeight);const scene=new THREE.Scene();const camera=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);camera.position.z=5;const geometry=new THREE.SphereGeometry(0.05,8,8);const material=new THREE.MeshBasicMaterial({color:0x00a0a0});const spheres=[];for(let i=0;i<300;i++){let s=new THREE.Mesh(geometry,material);s.position.set(Math.random()*10-5,Math.random()*10-5,Math.random()*10-5);scene.add(s);spheres.push(s);}function animate(){requestAnimationFrame(animate);spheres.forEach(s=>{s.rotation.x+=0.01;s.rotation.y+=0.01;});renderer.render(scene,camera);}animate();window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight);});
+</script>
+</body>
+</html>
