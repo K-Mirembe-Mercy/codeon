@@ -3,7 +3,7 @@ CODEON
 Learn Coding & GitHub Workflows in Africa
 CODEON is a beginner-friendly web learning platform that teaches HTML, CSS, JavaScript, and GitHub collaboration skills. It’s designed for students and anyone starting their coding journey across Africa.
 Live Site
-[View CODEON Online](https://k-mirembe-mercy.github.io/codeon)
+[View CODEON Online](https://codeondigital.com/)
 
 Features
 - Learn basic HTML & CSS
