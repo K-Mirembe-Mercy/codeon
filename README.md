@@ -10,7 +10,6 @@ Features
 - Introduction to JavaScript
 - Practice GitHub workflows (forks, commits, pull requests)  
 - Beginner-friendly self-paced learning  
-- Hosted live with GitHub Pages
 
 Getting Started
 To run this project locally:
