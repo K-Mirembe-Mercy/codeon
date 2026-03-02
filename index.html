@@ -215,6 +215,11 @@ footer a:hover{text-decoration:underline;}
 <div id="verifyResult" style="margin-top:15px;font-weight:bold;"></div>
 <div id="qrcode"></div>
 </section>
+  
+  <h2>Sign Up for CodeOnDigital</h2>
+<input type="text" id="name" placeholder="Enter your name" required>
+<input type="email" id="email" placeholder="Enter a valid email" required>
+<button onclick="registerStudent()">Sign Up</button>
 
 <section class="glass scroll-reveal contact-section">
 <h3>Scan to Visit Our Page:</h3>
@@ -232,7 +237,48 @@ footer a:hover{text-decoration:underline;}
 <a href="https://store.pesapal.com/certificatepayment" target="_blank">Certificate Payment</a>
 </footer>
 <footer>CODEON Africa|Built in Uganda</footer>
+
+  <h2>Sign Up for CodeOnDigital</h2>
+<input type="text" id="name" placeholder="Enter your name" required>
+<input type="email" id="email" placeholder="Enter a valid email" required>
+<button onclick="registerStudent()">Sign Up</button>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
 <script>
+const firebaseConfig = {
+  apiKey:"AIzaSy...",
+  authDomain:"codeon-3cb1c.firebaseapp.com",
+  projectId:"codeon-3cb1c"
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+auth.signInAnonymously();
+
+// Signup function
+async function registerStudent(){
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(!pattern.test(email)){
+        alert("Enter a valid email!");
+        return;
+    }
+    const docRef = await db.collection("students").add({
+        name,
+        email,
+        level: 1,
+        progress: 0,
+        subscriptionStatus: "inactive",
+        certificateStatus: "not_issued",
+        lastVisited: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    alert("Welcome! Check your email for instructions.");
+}
+</script>
+  <script>
 // Menu & dark/light toggle
 function toggleMenu(){document.getElementById('navLinks').classList.toggle('active');}
 function toggleMode(){document.body.classList.toggle("light");}
@@ -311,6 +357,7 @@ window.addEventListener('resize',()=>{canvas.width=window.innerWidth;canvas.heig
 
 </body>
 </html>
+
 
 
 
