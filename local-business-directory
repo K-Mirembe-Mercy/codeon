@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Local Business Directory</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="business-directory">
+
+<header>
+  <h1>Local Business Directory</h1>
+</header>
+
+<section class="card">
+  <h2>Business Name 1</h2>
+  <p>Location: Kampala</p>
+  <p>Phone: 077-XXX-XXX</p>
+  <p>Description: What the business offers.</p>
+</section>
+
+<section class="card">
+  <h2>Business Name 2</h2>
+  <p>Location: Entebbe</p>
+  <p>Phone: 078-XXX-XXX</p>
+  <p>Description: What the business offers.</p>
+</section>
+
+<footer>
+  Built for the CodeOnDigital Schools Hackathon
+</footer>
+
+</body>
+</html>
