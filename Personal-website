@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Personal Website</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="personal-website">
+<header>
+  <h1>Your Name</h1>
+  <p>Welcome to my personal website!</p>
+</header>
+
+<section>
+  <h2>About Me</h2>
+  <p>Write a short paragraph about yourself.</p>
+</section>
+
+<section>
+  <h2>My Skills</h2>
+  <ul>
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>Other Skills</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Contact</h2>
+  <p>Email: your.email@example.com</p>
+</section>
+
+<footer>Built for the CodeOnDigital Schools Hackathon</footer>
+</body>
+</html>
