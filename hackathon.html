@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CodeOnDigital National Hackathon Uganda</title>
+<meta name="description" content="Join the CodeOnDigital National Hackathon Uganda! Edit and submit HTML/CSS projects like Personal Website, Agriculture Guide, Community Health Awareness and more.">
+<meta name="keywords" content="Hackathon, Uganda, Students, CodeOnDigital, HTML, CSS, Personal Website, Agriculture, Health, Tourism, Business, Schools">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="codeon logo.png">
+<style>
+  body { font-family: Arial; margin:0; padding:0; background:#f2f2f2; }
+  header { background:#2196F3; color:white; text-align:center; padding:30px 20px; }
+  header img { max-width:120px; display:block; margin:0 auto 10px auto; }
+  main { max-width:1100px; margin:20px auto; padding:20px; }
+  h1,h2,h3 { text-align:center; }
+  .project-list { display:flex; flex-wrap:wrap; justify-content: space-around; margin-top:30px; }
+  .project-card { background:white; width:300px; margin:15px; padding:20px; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.1); text-align:center; transition: transform 0.2s; }
+  .project-card:hover { transform: scale(1.05); }
+  .project-card button { margin-top:10px; padding:10px 20px; background:#4CAF50; color:white; border:none; border-radius:6px; cursor:pointer; font-size:16px; }
+  .project-card button:hover { background:#45a049; }
+  #editor-section { background:white; margin-top:40px; padding:20px; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
+  textarea { width:100%; height:250px; font-family: monospace; font-size:14px; margin-bottom:10px; }
+  #preview { border:1px solid #ccc; height:400px; width:100%; margin-top:10px; }
+  #instructions { background:#e7f3fe; padding:15px; border-left:5px solid #2196F3; margin-bottom:20px; border-radius:5px; }
+  #progressBarContainer { background:#ddd; width:100%; border-radius:5px; margin:15px 0; }
+  #progressBar { width:0%; height:20px; background:#4CAF50; border-radius:5px; text-align:center; color:white; line-height:20px; }
+  footer { text-align:center; color:#666; margin:40px 0 20px 0; }
+  .image-preview { display:flex; flex-wrap:wrap; margin-top:10px; }
+  .image-preview img { width:100px; height:100px; object-fit:cover; margin:5px; border:1px solid #ccc; border-radius:5px; }
+  @media(max-width:700px){ .project-list { flex-direction:column; align-items:center; } .project-card { width:90%; } }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="codeon logo.png" alt="CodeOnDigital Logo">
+  <h1>CodeOnDigital National Hackathon Uganda</h1>
+  <p>Live edit, preview, and submit your project!</p>
+</header>
+
+<main>
+<div id="instructions">
+<h2>Instructions</h2>
+<ol>
+<li>Select a project template and click "Load Template".</li>
+<li>Edit headings, paragraphs, lists, and add image references.</li>
+<li>Upload images using "Choose Images" button. Multiple images supported.</li>
+<li>Preview updates automatically as you type.</li>
+<li>Your progress is saved automatically in the browser.</li>
+<li>Click "Submit" to download your project for the Hackathon.</li>
+</ol>
+</div>
+
+<h2>Available Project Templates</h2>
+<div class="project-list">
+  <div class="project-card"><h3>Personal Website</h3><button onclick="loadTemplate('personal-website')">Load Template</button></div>
+  <div class="project-card"><h3>Agriculture Guide</h3><button onclick="loadTemplate('agriculture-guide')">Load Template</button></div>
+  <div class="project-card"><h3>Community Health Awareness</h3><button onclick="loadTemplate('community-health-awareness')">Load Template</button></div>
+  <div class="project-card"><h3>Local Business Directory</h3><button onclick="loadTemplate('local-business-directory')">Load Template</button></div>
+  <div class="project-card"><h3>Market Price Board</h3><button onclick="loadTemplate('market-price-board')">Load Template</button></div>
+  <div class="project-card"><h3>Mental Health Awareness</h3><button onclick="loadTemplate('mental-health-awareness')">Load Template</button></div>
+  <div class="project-card"><h3>Tourism Guide</h3><button onclick="loadTemplate('tourism-guide')">Load Template</button></div>
+</div>
+
+<div id="editor-section">
+<h2>HTML Editor</h2>
+<textarea id="editor"></textarea>
+<br>
+<input type="file" id="imageUpload" accept="image/*" multiple>
+<div class="image-preview" id="imagePreview"></div>
+<div id="progressBarContainer"><div id="progressBar">0%</div></div>
+<button onclick="submitProject()">Submit</button>
+
+<h2>Live Preview</h2>
+<iframe id="preview"></iframe>
+</div>
+</main>
+
+<footer>&copy; 2026 CodeOnDigital | National Hackathon Uganda</footer>
+
+<script>
+// Templates
+const templates = {
+"personal-website": `<body><header><h1>Your Name</h1><p>Welcome to my personal website!</p></header><section><h2>About Me</h2><p>Write a short paragraph about yourself.</p></section><section><h2>My Skills</h2><ul><li>HTML</li><li>CSS</li></ul></section><section><h2>Contact</h2><p>Email: your.email@example.com</p></section><footer>Built for Hackathon</footer></body>`,
+"agriculture-guide": `<body><header><h1>Agriculture Guide</h1></header><section><h2>Maize</h2><p>Tips for planting and harvesting.</p></section><section><h2>Coffee</h2><p>Best practices for growing coffee.</p></section><section><h2>Bananas</h2><p>Care and disease management tips.</p></section><footer>Built for Hackathon</footer></body>`,
+"community-health-awareness": `<body><header><h1>Community Health Awareness</h1></header><section><h2>Malaria Prevention</h2><p>Use mosquito nets and remove stagnant water.</p></section><section><h2>Clean Water</h2><p>Boil or filter water, wash hands regularly.</p></section><section><h2>First Aid</h2><p>Learn basic first aid for cuts and burns.</p></section><footer>Built for Hackathon</footer></body>`,
+"local-business-directory": `<body><header><h1>Local Business Directory</h1></header><section><h2>Business 1</h2><p>Location: Kampala</p><p>Phone: 077-XXX-XXX</p></section><section><h2>Business 2</h2><p>Location: Entebbe</p><p>Phone: 078-XXX-XXX</p></section><footer>Built for Hackathon</footer></body>`,
+"market-price-board": `<body><header><h1>Local Market Prices</h1></header><section><table border="1" style="width:100%; border-collapse: collapse; text-align:center;"><tr><th>Item</th><th>Price (UGX)</th></tr><tr><td>Matooke</td><td>5000</td></tr><tr><td>Beans</td><td>3500</td></tr><tr><td>Rice</td><td>4500</td></tr><tr><td>Irish Potatoes</td><td>4000</td></tr></table></section><footer>Built for Hackathon</footer></body>`,
+"mental-health-awareness": `<body><header><h1>Mental Health Awareness</h1></header><section><h2>About Mental Health</h2><p>Mental health includes emotional and social well-being.</p></section><section><h2>Common Issues</h2><ul><li>Depression</li><li>Anxiety</li><li>Stress</li><li>Substance Abuse</li></ul></section><section><h2>Support Tips</h2><p>Listen, encourage professional help, reduce stigma.</p></section><footer>Built for Hackathon</footer></body>`,
+"tourism-guide": `<body><header><h1>Tourism in My Area</h1></header><section><h2>National Parks</h2><p>Information about local parks.</p></section><section><h2>Waterfalls</h2><p>Add photos and interesting facts.</p></section><section><h2>Culture & Food</h2><p>Highlight cultural events and traditional dishes.</p></section><footer>Built for Hackathon</footer></body>`
+};
+
+// Load template
+function loadTemplate(name){
+  document.getElementById('editor').value = templates[name];
+  document.getElementById('preview').srcdoc = templates[name];
+  localStorage.setItem('hackathonProject', templates[name]);
+  updateProgress();
+}
+
+// Live preview + auto save
+const editor = document.getElementById('editor');
+editor.addEventListener('input', ()=>{
+  const html = editor.value;
+  document.getElementById('preview').srcdoc = html;
+  localStorage.setItem('hackathonProject', html);
+  updateProgress();
+});
+
+// Image upload preview
+document.getElementById('imageUpload').addEventListener('change', function(){
+  const files = this.files;
+  const previewDiv = document.getElementById('imagePreview');
+  previewDiv.innerHTML = '';
+  Array.from(files).forEach(file=>{
+    const reader = new FileReader();
+    reader.onload = e=>{
+      const img = document.createElement('img');
+      img.src = e.target.result;
+      previewDiv.appendChild(img);
+    }
+    reader.readAsDataURL(file);
+  });
+});
+
+// Load saved project if exists
+window.onload = ()=>{
+  const saved = localStorage.getItem('hackathonProject');
+  if(saved){ editor.value = saved; document.getElementById('preview').srcdoc = saved; updateProgress(); }
+}
+
+// Progress bar
+function updateProgress(){
+  const html = editor.value;
+  let filled = 0;
+  if(html.includes('<h1>')) filled += 33;
+  if(html.includes('<h2>')) filled += 33;
+  if(html.includes('<p>')) filled += 34;
+  document.getElementById('progressBar').style.width = filled+'%';
+  document.getElementById('progressBar').textContent = filled+'% Complete';
+}
+
+// Submit project
+function submitProject(){
+  const blob = new Blob([editor.value], {type:'text/html'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'hackathon_project.html';
+  a.click();
+  alert('Your project is saved! Submit the downloaded file.');
+}
+</script>
+</body>
+</html>
