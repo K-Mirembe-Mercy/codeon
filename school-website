@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>School Website</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="school-website">
+
+<header>
+  <h1>My School Name</h1>
+</header>
+
+<section>
+  <h2>About Us</h2>
+  <p>Brief description of your school: history, location, vision, and mission.</p>
+</section>
+
+<section>
+  <h2>Clubs & Activities</h2>
+  <ul>
+    <li>Science Club</li>
+    <li>Debate Club</li>
+    <li>Drama Club</li>
+    <li>Sports Team</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Gallery</h2>
+  <p>Add images of school events here. Example: <code>&lt;img src="images/event1.jpg" alt="Event"&gt;</code></p>
+</section>
+
+<footer>
+  Built for the CodeOnDigital Schools Hackathon
+</footer>
+
+</body>
+</html>
