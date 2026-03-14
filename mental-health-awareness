@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mental Health Awareness</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="mental-health-awareness">
+
+<header>
+  <h1>Mental Health Awareness</h1>
+  <p>Promoting understanding and support for mental well-being</p>
+</header>
+
+<section>
+  <h2>About Mental Health</h2>
+  <p>Mental health includes emotional, psychological, and social well-being. It affects how we think, feel, and act.</p>
+</section>
+
+<section>
+  <h2>Common Issues</h2>
+  <ul>
+    <li>Depression</li>
+    <li>Anxiety</li>
+    <li>Stress</li>
+    <li>Substance Abuse</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Support Tips</h2>
+  <p>Listen, encourage professional help, and reduce stigma in your community.</p>
+</section>
+
+<footer>
+  Built for the CodeOnDigital Schools Hackathon
+</footer>
+
+</body>
+</html>

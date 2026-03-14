@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Community Health Awareness</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="health-awareness">
+
+<header>
+  <h1>Community Health Awareness</h1>
+</header>
+
+<section class="card">
+  <h2>Malaria Prevention</h2>
+  <p>Use mosquito nets, remove stagnant water, and seek early treatment.</p>
+</section>
+
+<section class="card">
+  <h2>Clean Water & Hygiene</h2>
+  <p>Boil or filter water, wash hands regularly, and maintain toilets properly.</p>
+</section>
+
+<section class="card">
+  <h2>First Aid</h2>
+  <p>Learn basic first aid for cuts, burns, and injuries.</p>
+</section>
+
+<footer>
+  Built for the CodeOnDigital Schools Hackathon
+</footer>
+
+</body>
+</html>

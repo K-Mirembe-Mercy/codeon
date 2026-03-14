@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tourism Website</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="tourism-website">
+
+<header>
+  <h1>Tourism in My Area</h1>
+</header>
+
+<section class="card">
+  <h2>National Parks</h2>
+  <p>Information about local parks, best visiting times, and attractions.</p>
+</section>
+
+<section class="card">
+  <h2>Waterfalls</h2>
+  <p>Add directions, photos, and interesting facts.</p>
+</section>
+
+<section class="card">
+  <h2>Culture & Food</h2>
+  <p>Highlight local cultural events, festivals, and traditional dishes.</p>
+</section>
+
+<footer>
+  Built for the CodeOnDigital Schools Hackathon
+</footer>
+
+</body>
+</html>

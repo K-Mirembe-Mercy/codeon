@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Market Price Board</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="market-price-board">
+
+<header>
+  <h1>Local Market Prices</h1>
+</header>
+
+<section>
+  <table border="1" style="width:100%; border-collapse: collapse; text-align:center;">
+    <tr><th>Item</th><th>Price (UGX)</th></tr>
+    <tr><td>Matooke</td><td>5000</td></tr>
+    <tr><td>Beans</td><td>3500</td></tr>
+    <tr><td>Rice</td><td>4500</td></tr>
+    <tr><td>Irish Potatoes</td><td>4000</td></tr>
+  </table>
+</section>
+
+<footer>
+  Built for the CodeOnDigital Schools Hackathon
+</footer>
+
+</body>
+</html>
