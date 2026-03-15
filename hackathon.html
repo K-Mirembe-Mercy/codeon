@@ -169,17 +169,12 @@ function updateProgress() {
     return;
   }
 
-  // Count meaningful characters only (ignore spaces)
-  const originalLength = originalTemplate.replace(/\s/g, '').length;
+  // Calculate how much text has been added/edited
+  const originalLength = originalTemplate.replace(/\s/g, '').length; // ignore spaces
   const currentLength = html.replace(/\s/g, '').length;
 
-  // Calculate progress as percentage
-  let progress = Math.floor((currentLength / originalLength) * 100);
+  let progress = Math.min(100, Math.floor((currentLength / originalLength) * 100));
 
-  // Clamp between 0 and 100
-  progress = Math.max(0, Math.min(100, progress));
-
-  // Update the progress bar
   document.getElementById('progressBar').style.width = progress + "%";
   document.getElementById('progressBar').textContent = progress + "% Complete";
 }
