@@ -1,0 +1,153 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CodeOn Hackathon 2026 Uganda</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="codeon logo.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js"></script>
+<style>
+:root{
+  --bg1:#0f2027;
+  --bg2:#203a43;
+  --bg3:#2c5364;
+  --text:white;
+}
+body{font-family: Arial;margin:0;padding:0;color:var(--text);overflow-x:hidden;position:relative;background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);background-size:400% 400%;animation: gradientMove 15s ease infinite;}
+@keyframes gradientMove{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+header img{max-width:120px;display:block;margin:0 auto 10px auto;}
+main{max-width:1100px;margin:20px auto;padding:20px;}
+h1,h2,h3{text-align:center;}
+.project-list{display:flex;flex-wrap:wrap;justify-content: space-around;margin-top:30px;}
+.project-card{background:white;width:300px;margin:15px;padding:20px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.1);text-align:center;transition: transform 0.2s;}
+.project-card:hover{transform: scale(1.05);}
+.project-card button{margin-top:10px;padding:10px 20px;background:#4CAF50;color:white;border:none;border-radius:6px;cursor:pointer;font-size:16px;}
+.project-card button:hover{background:#45a049;}
+#editor-section{background:white;margin-top:40px;padding:20px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.1);color:black;}
+.CodeMirror{height:300px;}
+#preview{border:1px solid #ccc;height:400px;width:100%;margin-top:10px;}
+#instructions{background:#e7f3fe;padding:15px;border-left:5px solid #2196F3;margin-bottom:20px;border-radius:5px;color:black;}
+#progressBarContainer{background:#ddd;width:100%;border-radius:5px;margin:15px 0;}
+#progressBar{width:0%;height:20px;background:#4CAF50;border-radius:5px;text-align:center;color:white;line-height:20px;}
+footer{text-align:center;color:#ccc;margin:40px 0 20px 0;}
+.badge, .certificate{margin-top:20px;padding:20px;background:#fff;color:#000;border-radius:10px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.2);}
+input, button{margin:5px;}
+@media(max-width:700px){.project-list{flex-direction:column;align-items:center;}.project-card{width:90%;}}
+</style>
+</head>
+<body>
+<header>
+  <img src="codeon logo.png" alt="CodeOnDigital Logo">
+  <h1>CodeOn Hackathon 2026 Uganda</h1>
+  <p>Live edit, preview, and submit your project!</p>
+</header>
+<main>
+<div id="instructions">
+<h2>Instructions</h2>
+<ol>
+<li>Select a project template and click "Load Template".</li>
+<li>Edit headings, paragraphs, lists, and add image references.</li>
+<li>Preview updates automatically as you type.</li>
+<li>Click "Submit" to save your project as <code>name-school-project.html</code>.</li>
+<li>After submission, download your badge and certificate.</li>
+</ol>
+</div>
+<h2>Available Project Templates</h2>
+<div class="project-list" id="projectList"></div>
+<div id="editor-section">
+<h2>HTML Editor</h2>
+<textarea id="editor"></textarea>
+<div id="progressBarContainer"><div id="progressBar">0%</div></div>
+<button onclick="submitProject()">Submit Project</button>
+<button onclick="formatCode()">Format Code</button>
+<h2>Live Preview</h2>
+<iframe id="preview"></iframe>
+<div class="badge" id="badgeSection" style="display:none;"></div>
+<div class="certificate" id="certificateSection" style="display:none;"></div>
+</div>
+</main>
+<footer>&copy; 2026 CodeOnDigital | Hackathon Uganda</footer>
+<script>
+const templates={
+"Personal Website":"<body><header><h1>Your Name</h1><p>Welcome to my personal website!</p></header></body>",
+"Agriculture Guide":"<body><header><h1>Agriculture Guide</h1></header></body>",
+"Community Health Awareness":"<body><header><h1>Community Health Awareness</h1></header></body>"
+};
+const projectListDiv=document.getElementById('projectList');
+let originalTemplate='';
+Object.keys(templates).forEach(name=>{
+  const div=document.createElement('div');
+  div.className='project-card';
+  div.innerHTML=`<h3>${name}</h3><button onclick="loadTemplate('${name}')">Load Template</button>`;
+  projectListDiv.appendChild(div);
+});
+let editor=CodeMirror.fromTextArea(document.getElementById("editor"),{
+  mode:"htmlmixed",
+  theme:"material-darker",
+  lineNumbers:true,
+  autoCloseTags:true,
+  lineWrapping:true
+});
+editor.on("change",()=>{
+  const html=editor.getValue();
+  document.getElementById("preview").srcdoc=html;
+  updateProgress();
+});
+function loadTemplate(name){
+  const template=templates[name];
+  editor.setValue(template);
+  document.getElementById('preview').srcdoc=template;
+  originalTemplate=template;
+  updateProgress();
+}
+function updateProgress(){
+  if(!originalTemplate){document.getElementById('progressBar').style.width='0%';document.getElementById('progressBar').textContent='0% Complete';return;}
+  const originalLen=originalTemplate.replace(/\s/g,'').length;
+  const currentLen=editor.getValue().replace(/\s/g,'').length;
+  const progress=Math.min(100,Math.floor((currentLen/originalLen)*100));
+  document.getElementById('progressBar').style.width=progress+'%';
+  document.getElementById('progressBar').textContent=progress+'% Complete';
+}
+function submitProject(){
+  const name=prompt('Enter your name');
+  const school=prompt('Enter your school');
+  const filename=`${name}-${school}-project.html`;
+  const blob=new Blob([editor.getValue()],{type:'text/html'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=filename;
+  a.click();
+  generateBadge(name,school);
+  generateCertificate(name,school);
+  alert('Project submitted successfully!');
+}
+function formatCode(){
+  let code=editor.getValue();
+  let formatted=code.replace(/></g,'>\n<').trim();
+  let indent=0;let result='';
+  formatted.split('\n').forEach(line=>{
+    if(line.match(/^<\/\w/)) indent--;
+    result+='  '.repeat(Math.max(indent,0))+line+'\n';
+    if(line.match(/^<\w[^>]*[^\/]>/)) indent++;
+  });
+  editor.setValue(result);
+}
+function generateBadge(name,school){
+  const div=document.getElementById('badgeSection');
+  div.style.display='block';
+  div.innerHTML=`<h3>CodeOn Hackathon 2026 Badge</h3><p>${name} - ${school}</p>`;
+}
+function generateCertificate(name,school){
+  const div=document.getElementById('certificateSection');
+  div.style.display='block';
+  const uid='CODEON'+Math.floor(Math.random()*100000);
+  div.innerHTML=`<h2>Participation Certificate</h2><p>This certifies that ${name} from ${school} has participated in CodeOn Hackathon 2026</p><p>Unique ID: ${uid}</p>`;
+}
+</script>
+</body>
+</html>
