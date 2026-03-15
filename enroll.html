@@ -17,9 +17,23 @@ body{
   margin:0;
   padding:0;
 }
+header{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  padding:20px 10%;
+}
+header img{
+  height:60px;
+}
+header h1{
+  font-size:2rem;
+  margin:0;
+  font-weight:700;
+}
 .container{
   max-width:600px;
-  margin:60px auto;
+  margin:40px auto;
   background: var(--card);
   padding:40px;
   border-radius:20px;
@@ -51,6 +65,12 @@ button{
 }
 button:hover{transform: scale(1.03);}
 .success{margin-top:20px;padding:15px;background:#1f9d55;border-radius:8px;display:none;text-align:center;}
+.info{
+  margin-top:30px;
+  font-size:14px;
+  opacity:0.9;
+  line-height:1.6;
+}
 footer{text-align:center;padding:30px;margin-top:50px;opacity:0.7;}
 </style>
 
@@ -121,18 +141,38 @@ footer{text-align:center;padding:30px;margin-top:50px;opacity:0.7;}
 </head>
 <body>
 
+<header>
+  <img src="codeon-logo.png" alt="CODEON Logo">
+  <h1>CODEON</h1>
+</header>
+
 <div class="container">
   <h2>Enroll Today</h2>
+
   <input type="text" id="name" placeholder="Full Name">
   <input type="email" id="email" placeholder="Email Address">
+
   <select id="level">
     <option value="">Select Level</option>
     <option value="Level 1">Level 1 – Free</option>
     <option value="Level 2">Level 2 – Free</option>
     <option value="Level 3">Level 3 – UGX 50,000</option>
   </select>
+
   <button onclick="enroll()">Enroll Now</button>
   <div class="success" id="successMessage">Enrollment successful! Redirecting...</div>
+
+  <div class="info">
+    <strong>Who is CODEON for?</strong><br>
+    Secondary students (S1–S6)<br>
+    Schools with computer labs<br>
+    Beginners in coding<br><br>
+    <strong>Why partner with CODEON?</strong><br>
+    No cost to schools<br>
+    Structured curriculum<br>
+    Industry-ready skills<br>
+    Certificates issued
+  </div>
 </div>
 
 <footer>
