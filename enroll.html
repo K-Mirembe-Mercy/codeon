@@ -7,143 +7,180 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
+<!-- Firebase 10 Compat -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
 <style>
-* { box-sizing: border-box; margin:0; padding:0; }
 :root{
---bg:#11302e; --card:#ffffff15; --text:white; --accent:#00e0c6; --hover-accent:#00ffc8;
+  --bg:#11302e; --card:#ffffff15; --text:white; --accent:#00e0c6; --hover-accent:#00ffc8;
 }
-body{background:var(--bg);color:var(--text);font-family:Segoe UI,sans-serif;overflow-x:hidden;}
-.container {max-width:550px;margin:40px auto;background: rgba(255,255,255,0.08);padding:40px;border-radius:16px;backdrop-filter:blur(12px);box-shadow:0 10px 30px rgba(0,0,0,0.4);}
-.container h2 {text-align:center;margin-bottom:25px;}
-input, select {width:100%;padding:14px;margin:12px 0;border-radius:8px;border:none;font-size:16px;outline:none;}
-button {width:100%;padding:14px;margin-top:20px;background: linear-gradient(45deg, gold, orange);color:black;font-weight:700;border:none;border-radius:10px;cursor:pointer;transition:0.3s;font-size:16px;}
-button:hover {transform: scale(1.03);}
-.success {margin-top:20px;padding:15px;background:#1f9d55;border-radius:8px;display:none;text-align:center;}
-.info {margin-top:40px;font-size:14px;opacity:0.85;line-height:1.6;}
-footer {text-align:center;padding:30px;margin-top:50px;opacity:0.7;}
+body{margin:0;padding:0;font-family:Segoe UI,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
+header{display:flex;justify-content:space-between;align-items:center;padding:20px 8%;position:relative;z-index:10;flex-wrap:wrap;}
+.logo{height:60px;margin-right:15px;}
+.nav{display:flex;gap:15px;align-items:center;}
+.nav a{font-weight:bold;color:var(--text);}
+.menu-toggle{display:none;cursor:pointer;font-size:1.8rem;padding:5px;}
+.nav.active{display:flex;flex-direction:column;position:absolute;top:100%;left:0;width:100%;background:var(--card);padding:20px;gap:10px;border-radius:0 0 15px 15px;}
+.toggle{cursor:pointer;padding:8px 14px;border-radius:20px;background:var(--accent);color:#003b44;font-weight:bold;transition:0.3s;}
+.toggle:hover{box-shadow:0 0 25px var(--hover-accent);}
+#loader{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--bg);display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:9999;color:var(--accent);font-size:1.5rem;}
+.spinner{width:60px;height:60px;border:6px solid rgba(255,255,255,0.2);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite;margin-bottom:15px;}
+@keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+
+.container{max-width:600px;margin:80px auto;background:var(--card);padding:30px;border-radius:20px;backdrop-filter:blur(20px);box-shadow:0 10px 30px rgba(0,0,0,0.4);}
+.container h2{text-align:center;margin-bottom:25px;}
+input, select{width:100%;padding:12px;margin:12px 0;border-radius:8px;border:none;font-size:16px;outline:none;}
+button{width:100%;padding:12px;margin-top:20px;background:var(--accent);color:#003b44;font-weight:bold;border:none;border-radius:10px;cursor:pointer;transition:0.3s;}
+button:hover{box-shadow:0 0 20px var(--hover-accent);transform:translateY(-2px);}
+.success{margin-top:20px;padding:15px;background:#1f9d55;border-radius:8px;display:none;text-align:center;}
+footer{text-align:center;padding:30px;opacity:0.7;}
+.hero{text-align:center;padding:50px 5% 20px;}
+.scroll-reveal{opacity:0;transform:translateY(30px);transition:all 0.8s ease;}
+.scroll-reveal.visible{opacity:1;transform:translateY(0);}
+#bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;}
+.shape{position:absolute;width:150px;height:150px;background:linear-gradient(45deg,#00e0c6,#00695c);border-radius:50%;filter:blur(80px);opacity:0.4;animation:float 12s infinite alternate ease-in-out;}
+.shape2{top:15%;left:5%;}
+.shape3{bottom:5%;right:5%;}
+@keyframes float{0%{transform:translateY(0px) rotate(0deg);}100%{transform:translateY(80px) rotate(360deg);}}
+@media(max-width:768px){.menu-toggle{display:block;}.nav{display:none;flex-direction:column;}.container{width:90%;margin:60px auto;}}
 </style>
-
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
-
-<script>
-const firebaseConfig = {
-  apiKey: "AIzaSy...", // your API key
-  authDomain: "codeon-3cb1c.firebaseapp.com",
-  projectId: "codeon-3cb1c"
-};
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
-auth.signInAnonymously();
-</script>
-
 </head>
 <body>
 
+<canvas id="bgCanvas"></canvas>
+
+<div id="loader">
+  <div class="spinner"></div>
+  <div>Loading...</div>
+</div>
+
+<div class="shape shape2"></div>
+<div class="shape shape3"></div>
+
 <header>
-  <h1>CODEON Uganda</h1>
-  <p>Empowering Uganda's Next Generation of Developers</p>
+  <div style="display:flex;align-items:center;">
+    <img src="codeon logo.png" alt="CODEON Logo" class="logo">
+    <h1>CODEON</h1>
+  </div>
+  <div class="nav" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="enroll.html">Enroll</a>
+    <a href="verify.html">Verify</a>
+    <a href="community-codeon.html">Community</a>
+    <a href="aboutus.html">About</a>
+  </div>
+  <span class="menu-toggle" onclick="toggleMenu()">☰</span>
+  <div class="toggle" onclick="toggleMode()">🌙</div>
 </header>
 
-<div class="container">
-  <h2>Enroll Today</h2>
+<section class="hero scroll-reveal">
+<h2>Enroll and Start Coding Today</h2>
+<p>Structured coding education with real GitHub workflow</p>
+</section>
 
+<div class="container scroll-reveal">
+  <h2>Enroll Now</h2>
   <input type="text" id="name" placeholder="Full Name">
   <input type="email" id="email" placeholder="Email Address">
-
   <select id="level">
     <option value="">Select Level</option>
     <option value="Level 1">Level 1 – Free</option>
     <option value="Level 2">Level 2 – Free</option>
     <option value="Level 3">Level 3 – UGX 50,000</option>
   </select>
-
-  <button onclick="enroll()">Enroll Now</button>
-
-  <div class="success" id="successMessage">
-    Enrollment successful! Redirecting...
-  </div>
-
-  <div class="info">
-    <strong>Who is CODEON for?</strong><br>
-    Secondary students (S1–S6)<br>
-    Schools with computer labs<br>
-    Beginners in coding<br><br>
-    <strong>Why partner with CODEON?</strong><br>
-    No cost to schools<br>
-    Structured curriculum<br>
-    Industry-ready skills<br>
-    Certificates issued
-  </div>
+  <button onclick="enroll()">Enroll</button>
+  <div class="success" id="successMessage">Enrollment successful!</div>
 </div>
 
-<footer>
+<section class="scroll-reveal" style="text-align:center;margin:50px 0;">
+  <h3>NATIONAL HACKATHON</h3>
+  <p>Join the hackathon and compete at the national level</p>
+  <button onclick="location.href='hackathon.html'">Join Now</button>
+</section>
+
+<footer class="scroll-reveal">
   © 2026 CODEON Uganda | Built in Uganda 🇺🇬
 </footer>
 
 <script>
-// Main enrollment function
+// Firebase 10 compat init
+const firebaseConfig = {
+  apiKey: "AIzaSy...", 
+  authDomain: "codeon-3cb1c.firebaseapp.com",
+  projectId: "codeon-3cb1c"
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+auth.signInAnonymously().catch(err=>console.error(err));
+
+// Loader hide
+window.addEventListener('load',()=>{
+  document.getElementById('loader').style.display='none';
+  scrollReveal();
+});
+
+// Enrollment
 async function enroll() {
   const name = document.getElementById("name").value.trim();
   const email = document.getElementById("email").value.trim();
   const level = document.getElementById("level").value;
   const success = document.getElementById("successMessage");
 
-  // Validate all fields
-  if (!name || !email || !level) {
-    alert("Please complete all fields.");
-    return;
-  }
+  if(!name || !email || !level){alert("Complete all fields."); return;}
+  const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if(!pattern.test(email)){alert("Enter a valid email."); return;}
 
-  // Validate email format
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailPattern.test(email)) {
-    alert("Please enter a valid email address.");
-    return;
-  }
-
-  success.style.display = "block";
-
-  try {
-    // Save student in Firebase
+  try{
     await db.collection("students").doc(email).set({
-      name,
-      email,
-      level,
-      progress: 0,
-      certificateSent: false,
+      name, email, level, progress:0, certificateSent:false,
       lastVisited: firebase.firestore.FieldValue.serverTimestamp()
     });
-
-    // Trigger backend to send welcome email
-    fetch("https://<your-backend-or-cloud-function>/sendWelcomeEmail", {
-      method: "POST",
-      headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({name, email, level})
-    });
-
-    // Trigger optional certificate reminder email
-    fetch("https://<your-backend-or-cloud-function>/sendCertificateReminder", {
-      method: "POST",
-      headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({name, email, level, link: "https://store.pesapal.com/certificatepayment"})
-    });
-
-    // Redirect based on level
-    setTimeout(() => {
-      if(level === "Level 1") window.location.href = "course1.html";
-      else if(level === "Level 2") window.location.href = "course2.html";
-      else if(level === "Level 3") window.location.href = "https://store.pesapal.com/level3";
-    }, 500);
-
-  } catch(err) {
+    success.style.display="block";
+    setTimeout(()=>success.style.display="none",3000);
+  } catch(err){
     console.error(err);
     alert("Error saving enrollment. Try again.");
   }
 }
+
+// Scroll reveal
+function scrollReveal(){
+  document.querySelectorAll('.scroll-reveal').forEach(el=>{
+    if(el.getBoundingClientRect().top < window.innerHeight-100){el.classList.add('visible');}
+  });
+  window.addEventListener('scroll',scrollReveal);
+}
+
+// Menu & dark/light toggle
+function toggleMenu(){document.getElementById('navLinks').classList.toggle('active');}
+function toggleMode(){document.body.classList.toggle('light');}
+
+// Animated background
+const canvas=document.getElementById('bgCanvas');
+const ctx=canvas.getContext('2d');
+canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+let particles=[];
+for(let i=0;i<120;i++){
+  particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,dx:(Math.random()-0.5)*0.5,dy:(Math.random()-0.5)*0.5,r:Math.random()*2+1});
+}
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{
+    p.x+=p.dx; p.y+=p.dy;
+    if(p.x>canvas.width||p.x<0)p.dx*=-1;
+    if(p.y>canvas.height||p.y<0)p.dy*=-1;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle='rgba(0,224,198,0.7)';
+    ctx.fill();
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+window.addEventListener('resize',()=>{canvas.width=window.innerWidth; canvas.height=window.innerHeight;});
 </script>
 
 </body>
