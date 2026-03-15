@@ -8,8 +8,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="codeon logo.png">
 <style>
-  body { font-family: Arial; margin:0; padding:0;
-  background:var(--bg);color:var(--text);transition:0.5s;overflow-x:hidden;position:relative;}
+  :root{
+--bg1:#0f2027;
+--bg2:#203a43;
+--bg3:#2c5364;
+--text:white;
+}
+
+body{
+font-family: Arial;
+margin:0;
+padding:0;
+color:var(--text);
+overflow-x:hidden;
+position:relative;
+
+/* world class gradient */
+background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+background-size:400% 400%;
+animation: gradientMove 15s ease infinite;
+}
+
+/* gradient animation */
+@keyframes gradientMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
   header img { max-width:120px; display:block; margin:0 auto 10px auto; }
   main { max-width:1100px; margin:20px auto; padding:20px; }
   h1,h2,h3 { text-align:center; }
