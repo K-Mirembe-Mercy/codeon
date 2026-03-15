@@ -131,13 +131,7 @@ function loadTemplate(name){
 }
 
 // Live preview + auto save
-const editor = document.getElementById('editor');
-editor.addEventListener('input', ()=>{
-  const html = editor.value;
-  document.getElementById('preview').srcdoc = html;
-  localStorage.setItem('hackathonProject', html);
-  updateProgress();
-});
+
 
 // Image upload preview
 document.getElementById('imageUpload').addEventListener('change', function(){
@@ -158,12 +152,16 @@ document.getElementById('imageUpload').addEventListener('change', function(){
 // Load saved project if exists
 window.onload = ()=>{
   const saved = localStorage.getItem('hackathonProject');
-  if(saved){ editor.value = saved; document.getElementById('preview').srcdoc = saved; updateProgress(); }
+  if(saved){
+    editor.setValue(saved);
+    document.getElementById('preview').srcdoc = saved;
+    updateProgress();
+  }
 }
 
 // Progress bar
 function updateProgress(){
-  const html = editor.value;
+const html = editor.getValue();
   let filled = 0;
   if(html.includes('<h1>')) filled += 33;
   if(html.includes('<h2>')) filled += 33;
