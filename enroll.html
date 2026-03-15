@@ -5,179 +5,258 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Enroll – CODEON Uganda | Learn Web Development</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
 <style>
+* { box-sizing: border-box; margin:0; padding:0; }
+
 :root{
-  --bg:#11302e; --card:#ffffff15; --text:white; --accent:#00e0c6; --hover-accent:#00ffc8;
+--bg:#11302e;
+--card:#ffffff15;
+--text:white;
+--accent:#00e0c6;
 }
+
 body{
-  background: var(--bg);
-  color: var(--text);
-  font-family: "Segoe UI", sans-serif;
-  overflow-x: hidden;
-  margin:0;
-  padding:0;
+background:var(--bg);
+color:var(--text);
+font-family:Segoe UI,sans-serif;
+overflow-x:hidden;
 }
+
+/* HEADER WITH LOGO */
+
 header{
-  display:flex;
-  align-items:center;
-  gap:15px;
-  padding:20px 10%;
+display:flex;
+align-items:center;
+gap:15px;
+padding:25px 40px;
 }
+
 header img{
-  height:60px;
+height:55px;
 }
+
 header h1{
-  font-size:2rem;
-  margin:0;
-  font-weight:700;
+font-size:28px;
+font-weight:700;
 }
+
+/* MAIN FORM */
+
 .container{
-  max-width:600px;
-  margin:40px auto;
-  background: var(--card);
-  padding:40px;
-  border-radius:20px;
-  backdrop-filter: blur(20px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+max-width:550px;
+margin:40px auto;
+background:rgba(255,255,255,0.08);
+padding:40px;
+border-radius:16px;
+backdrop-filter:blur(12px);
+box-shadow:0 10px 30px rgba(0,0,0,0.4);
 }
-h2{text-align:center;margin-bottom:25px;}
-input, select{
-  width:100%;
-  padding:14px;
-  margin:12px 0;
-  border-radius:10px;
-  border:none;
-  outline:none;
-  font-size:16px;
+
+.container h2{
+text-align:center;
+margin-bottom:25px;
 }
+
+input,select{
+width:100%;
+padding:14px;
+margin:12px 0;
+border-radius:8px;
+border:none;
+font-size:16px;
+outline:none;
+}
+
 button{
-  width:100%;
-  padding:14px;
-  margin-top:20px;
-  background: linear-gradient(45deg, gold, orange);
-  color:black;
-  font-weight:700;
-  border:none;
-  border-radius:10px;
-  cursor:pointer;
-  transition:0.3s;
-  font-size:16px;
+width:100%;
+padding:14px;
+margin-top:20px;
+background:linear-gradient(45deg,gold,orange);
+color:black;
+font-weight:700;
+border:none;
+border-radius:10px;
+cursor:pointer;
+transition:0.3s;
+font-size:16px;
 }
-button:hover{transform: scale(1.03);}
-.success{margin-top:20px;padding:15px;background:#1f9d55;border-radius:8px;display:none;text-align:center;}
+
+button:hover{
+transform:scale(1.03);
+}
+
+.success{
+margin-top:20px;
+padding:15px;
+background:#1f9d55;
+border-radius:8px;
+display:none;
+text-align:center;
+}
+
+/* INFORMATION SECTIONS */
+
 .info{
-  margin-top:30px;
-  font-size:14px;
-  opacity:0.9;
-  line-height:1.6;
+margin-top:40px;
+font-size:14px;
+opacity:0.85;
+line-height:1.6;
 }
-footer{text-align:center;padding:30px;margin-top:50px;opacity:0.7;}
+
+footer{
+text-align:center;
+padding:30px;
+margin-top:50px;
+opacity:0.7;
+}
+
 </style>
 
-<!-- Firebase 10 compat -->
+<!-- FIREBASE (same version as homepage) -->
+
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
 <script>
-  // Firebase init
-  const firebaseConfig = {
-    apiKey: "AIzaSy...", // your API key
-    authDomain: "codeon-3cb1c.firebaseapp.com",
-    projectId: "codeon-3cb1c"
-  };
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const db = firebase.firestore();
 
-  // Anonymous login
-  auth.signInAnonymously().catch(err=>console.error(err));
+const firebaseConfig = {
+apiKey:"AIzaSy...",
+authDomain:"codeon-3cb1c.firebaseapp.com",
+projectId:"codeon-3cb1c"
+};
 
-  // Enroll function
-  async function enroll(){
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const level = document.getElementById("level").value;
-    const success = document.getElementById("successMessage");
+firebase.initializeApp(firebaseConfig);
 
-    if(!name || !email || !level){
-      alert("Please complete all fields.");
-      return;
-    }
+const auth=firebase.auth();
+const db=firebase.firestore();
 
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if(!emailPattern.test(email)){
-      alert("Please enter a valid email address.");
-      return;
-    }
+auth.signInAnonymously().catch(err=>console.log(err));
 
-    try{
-      await db.collection("students").doc(email).set({
-        name: name,
-        email: email,
-        level: level,
-        progress: 0,
-        subscriptionStatus: "inactive",
-        certificateStatus: "not_issued",
-        lastVisited: firebase.firestore.FieldValue.serverTimestamp()
-      });
-
-      success.style.display = "block";
-
-      // Redirect based on level
-      setTimeout(()=>{
-        if(level === "Level 1") window.location.href="course1.html";
-        else if(level === "Level 2") window.location.href="course2.html";
-        else if(level === "Level 3") window.location.href="https://store.pesapal.com/level3";
-      }, 800);
-
-    }catch(err){
-      console.error(err);
-      alert("Error saving enrollment. Try again later.");
-    }
-  }
 </script>
 
 </head>
+
 <body>
 
 <header>
-  <img src="codeon-logo.png" alt="CODEON Logo">
-  <h1>CODEON</h1>
+<img src="codeon logo.png" alt="CODEON logo">
+<h1>CODEON</h1>
 </header>
 
 <div class="container">
-  <h2>Enroll Today</h2>
 
-  <input type="text" id="name" placeholder="Full Name">
-  <input type="email" id="email" placeholder="Email Address">
+<h2>Enroll Today</h2>
 
-  <select id="level">
-    <option value="">Select Level</option>
-    <option value="Level 1">Level 1 – Free</option>
-    <option value="Level 2">Level 2 – Free</option>
-    <option value="Level 3">Level 3 – UGX 50,000</option>
-  </select>
+<input type="text" id="name" placeholder="Full Name">
 
-  <button onclick="enroll()">Enroll Now</button>
-  <div class="success" id="successMessage">Enrollment successful! Redirecting...</div>
+<input type="email" id="email" placeholder="Email Address">
 
-  <div class="info">
-    <strong>Who is CODEON for?</strong><br>
-    Secondary students (S1–S6)<br>
-    Schools with computer labs<br>
-    Beginners in coding<br><br>
-    <strong>Why partner with CODEON?</strong><br>
-    No cost to schools<br>
-    Structured curriculum<br>
-    Industry-ready skills<br>
-    Certificates issued
-  </div>
+<select id="level">
+<option value="">Select Level</option>
+<option value="Level 1">Level 1 – Free</option>
+<option value="Level 2">Level 2 – Free</option>
+<option value="Level 3">Level 3 – UGX 50,000</option>
+</select>
+
+<button onclick="enroll()">Enroll Now</button>
+
+<div class="success" id="successMessage">
+Enrollment successful! Redirecting...
+</div>
+
+<div class="info">
+
+<strong>Who is CODEON for?</strong><br>
+
+Secondary students (S1–S6)<br>
+Schools with computer labs<br>
+Beginners in coding
+
+</div>
+
+<div class="info">
+
+<strong>Why partner with CODEON?</strong><br>
+
+No cost to schools<br>
+Structured curriculum<br>
+Industry-ready skills<br>
+Certificates issued
+
+</div>
+
 </div>
 
 <footer>
-  © 2026 CODEON Uganda | Built in Uganda 🇺🇬
+
+© 2026 CODEON Uganda | Built in Uganda 🇺🇬
+
 </footer>
+
+<script>
+
+async function enroll(){
+
+const name=document.getElementById("name").value.trim();
+const email=document.getElementById("email").value.trim();
+const level=document.getElementById("level").value;
+const success=document.getElementById("successMessage");
+
+if(!name || !email || !level){
+alert("Please complete all fields.");
+return;
+}
+
+const pattern=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+if(!pattern.test(email)){
+alert("Enter a valid email.");
+return;
+}
+
+try{
+
+await db.collection("students").doc(email).set({
+
+name:name,
+email:email,
+level:level,
+progress:0,
+certificateSent:false,
+lastVisited:firebase.firestore.FieldValue.serverTimestamp()
+
+});
+
+success.style.display="block";
+
+setTimeout(()=>{
+
+if(level==="Level 1")
+window.location.href="course1.html";
+
+else if(level==="Level 2")
+window.location.href="course2.html";
+
+else if(level==="Level 3")
+window.location.href="https://store.pesapal.com/level3";
+
+},700);
+
+}
+
+catch(err){
+
+console.error(err);
+alert("Error saving enrollment. Try again.");
+
+}
+
+}
+
+</script>
 
 </body>
 </html>
