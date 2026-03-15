@@ -161,14 +161,27 @@ window.onload = ()=>{
 }
 
 // Progress bar
-function updateProgress(){
-const html = editor.getValue();
-  let filled = 0;
-  if(html.includes('<h1>')) filled += 33;
-  if(html.includes('<h2>')) filled += 33;
-  if(html.includes('<p>')) filled += 34;
-  document.getElementById('progressBar').style.width = filled+'%';
-  document.getElementById('progressBar').textContent = filled+'% Complete';
+function updateProgress() {
+  const html = editor.getValue();
+  if (!originalTemplate) {
+    document.getElementById('progressBar').style.width = "0%";
+    document.getElementById('progressBar').textContent = "0% Complete";
+    return;
+  }
+
+  // Count meaningful characters only (ignore spaces)
+  const originalLength = originalTemplate.replace(/\s/g, '').length;
+  const currentLength = html.replace(/\s/g, '').length;
+
+  // Calculate progress as percentage
+  let progress = Math.floor((currentLength / originalLength) * 100);
+
+  // Clamp between 0 and 100
+  progress = Math.max(0, Math.min(100, progress));
+
+  // Update the progress bar
+  document.getElementById('progressBar').style.width = progress + "%";
+  document.getElementById('progressBar').textContent = progress + "% Complete";
 }
 
 // Submit project
@@ -220,6 +233,19 @@ if(line.match(/^<\w[^>]*[^\/]>$/)) indent++;
 
 editor.setValue(result);
 
+}
+  let originalTemplate = ""; // global variable
+
+function loadTemplate(name){
+  const template = templates[name];
+  editor.setValue(template);
+  document.getElementById('preview').srcdoc = template;
+  localStorage.setItem('hackathonProject', template);
+
+  // Save this template for progress calculation
+  originalTemplate = template;
+
+  updateProgress();
 }
 </script>
 </body>
