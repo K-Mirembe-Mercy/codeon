@@ -14,21 +14,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
   <style>
-  :root{
-  --bg1:#0f2027;
-  --bg2:#203a43;
-  --bg3:#2c5364;
-  --text:#ffffff;       /* changed from grey to white */
-  --accent:#00ffd5;     /* optional accent color for headings/links */
-  }
+:root{
+  --bg1:#0f2027;      /* dark navy */
+  --bg2:#203a43;      /* slate blue */
+  --bg3:#2c5364;      /* deep teal */
+  --text:#e0e6f0;     /* soft white/light grey for readability */
+  --accent:#00bfae;   /* soft teal/cyan for headings and buttons */
+  --button-hover:#009f94; /* slightly darker teal for hover effect */
+}
 
-body {
+    body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
   color: var(--text);
   overflow-x: hidden;
-  position: relative;
   background: linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
   background-size: 400% 400%;
   animation: gradientMove 15s ease infinite;
@@ -36,9 +36,10 @@ body {
 
 h1, h2, h3 {
   text-align: center;
-  color: var(--accent);  /* make headings pop with accent color */
+  color: var(--accent);  /* soft, professional accent */
 }
-.project-card button {
+
+    .project-card button {
   margin-top: 10px;
   padding: 10px 20px;
   background: var(--accent);
@@ -47,10 +48,11 @@ h1, h2, h3 {
   border-radius: 6px;
   cursor: pointer;
   font-size: 16px;
+  transition: background 0.3s ease;
 }
 
 .project-card button:hover {
-  background: #00e6c2; /* slightly lighter on hover */
+  background: var(--button-hover);
 }
 /* world class gradient */
 background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
