@@ -101,6 +101,7 @@ animation: gradientMove 15s ease infinite;
 <div class="image-preview" id="imagePreview"></div>
 <div id="progressBarContainer"><div id="progressBar">0%</div></div>
 <button onclick="submitProject()">Submit</button>
+  <button onclick="formatCode()">Format Code</button>
 
 <h2>Live Preview</h2>
 <iframe id="preview"></iframe>
@@ -195,7 +196,31 @@ editor.on("change", () => {
   updateProgress();
 });
 
+function formatCode(){
 
+let code = editor.getValue();
+
+let formatted = code
+.replace(/></g, ">\n<")   // break lines between tags
+.replace(/^\s+|\s+$/g, "");
+
+let indent = 0;
+let lines = formatted.split("\n");
+let result = "";
+
+lines.forEach(line => {
+
+if(line.match(/^<\/\w/)) indent--;
+
+result += "  ".repeat(indent) + line + "\n";
+
+if(line.match(/^<\w[^>]*[^\/]>$/)) indent++;
+
+});
+
+editor.setValue(result);
+
+}
 </script>
 </body>
 </html>
