@@ -29,6 +29,7 @@
     "target": "https://k-mirembe-mercy.github.io/codeon/search?q={search_term_string}",
     "query-input": "required name=search_term_string"
   }
+ }
   </script>
 <title>CODEON Africa |Code Your Future – Learn Coding Online | HTML, CSS, JavaScript Courses</title>
 <!-- QR Code & Firebase -->
@@ -220,10 +221,6 @@ footer a:hover{text-decoration:underline;}
 <div id="qrcode"></div>
 </section>
   
-  <h2>Sign Up for CodeOnDigital</h2>
-<input type="text" id="name" placeholder="Enter your name" required>
-<input type="email" id="email" placeholder="Enter a valid email" required>
-<button onclick="registerStudent()">Sign Up</button>
 
 <section class="glass scroll-reveal contact-section">
 <h3>Scan to Visit Our Page:</h3>
@@ -247,41 +244,50 @@ footer a:hover{text-decoration:underline;}
 <input type="email" id="email" placeholder="Enter a valid email" required>
 <button onclick="registerStudent()">Sign Up</button>
 
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
 <script>
 const firebaseConfig = {
-  apiKey:"AIzaSy...",
-  authDomain:"codeon-3cb1c.firebaseapp.com",
-  projectId:"codeon-3cb1c"
+  apiKey: "AIzaSy...",
+  authDomain: "codeon-3cb1c.firebaseapp.com",
+  projectId: "codeon-3cb1c"
 };
-//firebase.initializeApp(firebaseConfig);
-//const auth = firebase.auth();
-//const db = firebase.firestore();
-//auth.signInAnonymously();
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+// Sign in anonymously
+auth.signInAnonymously().catch(err => console.error(err));
 
 // Signup function
 async function registerStudent(){
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
     const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     if(!pattern.test(email)){
         alert("Enter a valid email!");
         return;
     }
-    const docRef = await db.collection("students").add({
-        name,
-        email,
-        level: 1,
-        progress: 0,
-        subscriptionStatus: "inactive",
-        certificateStatus: "not_issued",
-        lastVisited: firebase.firestore.FieldValue.serverTimestamp()
-    });
-    alert("Welcome! Check your email for instructions.");
+
+    try {
+        const docRef = await db.collection("students").add({
+            name,
+            email,
+            level: 1,
+            progress: 0,
+            subscriptionStatus: "inactive",
+            certificateStatus: "not_issued",
+            lastVisited: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        alert("Welcome! Check your email for instructions.");
+    } catch (err) {
+        console.error(err);
+        alert("Something went wrong. Try again later.");
+    }
 }
 </script>
+
   <script>
 // Menu & dark/light toggle
 function toggleMenu(){document.getElementById('navLinks').classList.toggle('active');}
@@ -357,7 +363,23 @@ for(let i=0;i<120;i++){particles.push({x:Math.random()*canvas.width,y:Math.rando
 function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(p=>{p.x+=p.dx;p.y+=p.dy;if(p.x>canvas.width||p.x<0)p.dx*=-1;if(p.y>canvas.height||p.y<0)p.dy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='rgba(0,224,198,0.7)';ctx.fill();});requestAnimationFrame(animate);}
 animate();
 window.addEventListener('resize',()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
-</script>
+
+    window.addEventListener('load', () => {
+    try {
+        document.getElementById('loader').style.display = 'none';
+        showSubscription();
+        scrollReveal();
+        new QRCode(document.getElementById("pageQRCode"), {
+            text: "https://k-mirembe-mercy.github.io/codeon/",
+            width: 120,
+            height: 120
+        });
+    } catch (err) {
+        console.error(err);
+        document.getElementById('loader').style.display = 'none'; // Always hide loader
+    }
+});
+  </script>
 
 </body>
 </html>
