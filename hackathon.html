@@ -2,274 +2,1854 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>CodeOnDigital National Hackathon Uganda</title>
-<meta name="description" content="Join the CodeOnDigital National Hackathon Uganda! Edit and submit HTML/CSS projects like Personal Website, Agriculture Guide, Community Health Awareness and more.">
-<meta name="keywords" content="Hackathon, Uganda, Students, CodeOnDigital, HTML, CSS, Personal Website, Agriculture, Health, Tourism, Business, Schools">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" href="codeon logo.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#04100e">
+<title>CODEON National Hackathon Uganda 2025 | Build Your Future</title>
+<meta name="description" content="Join the CODEON National Hackathon Uganda 2025. Edit real HTML/CSS projects, preview live, and submit your work. Open to all students — beginner friendly.">
+<meta name="keywords" content="Hackathon Uganda 2025, CODEON, student coding competition, HTML CSS hackathon, Uganda coding, web development competition Africa">
+<meta name="author" content="CODEON Africa">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://codeondigital.com/hackathon">
+<link rel="icon" href="codeon logo.png" type="image/png">
+<link rel="apple-touch-icon" href="codeon logo.png">
+
+<!-- OG -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://codeondigital.com/hackathon">
+<meta property="og:title" content="CODEON National Hackathon Uganda 2025">
+<meta property="og:description" content="Build real web projects, preview live, and compete at the national level. Open to all students — beginner friendly.">
+<meta property="og:image" content="https://codeondigital.com/og-hackathon.png">
+<meta property="og:site_name" content="CODEON Africa">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CODEON National Hackathon Uganda 2025">
+<meta name="twitter:description" content="Build real web projects, preview live, and compete at the national level.">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Event",
+  "name":"CODEON National Hackathon Uganda 2025",
+  "description":"A national coding competition for Ugandan students. Build HTML/CSS web projects, preview live, and submit for judging.",
+  "url":"https://codeondigital.com/hackathon",
+  "organizer":{"@type":"Organization","name":"CODEON Africa","url":"https://codeondigital.com"},
+  "location":{"@type":"VirtualLocation","url":"https://codeondigital.com/hackathon"},
+  "eventAttendanceMode":"https://schema.org/OnlineEventAttendanceMode",
+  "eventStatus":"https://schema.org/EventScheduled"
+}
+</script>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- CodeMirror -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css">
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
-  <style>
-    body {
-  color: #ffffff; /* default: white text for dark gradient */
-    }
-    
-:root{
-  --bg1:#0f2027;      /* dark navy */
-  --bg2:#203a43;      /* slate blue */
-  --bg3:#2c5364;      /* deep teal */
-  --text:#e0e6f0;     /* soft white/light grey for readability */
-  --accent:#00bfae;   /* soft teal/cyan for headings and buttons */
-  --button-hover:#009f94; /* slightly darker teal for hover effect */
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closetag.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchbrackets.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/comment/comment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/fold/foldcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/html-hint.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+
+<style>
+/* ═══════════════════════════════
+   TOKENS
+═══════════════════════════════ */
+:root {
+  --bg:       #04100e;
+  --surface:  #081a17;
+  --surface2: #0c2420;
+  --border:   #163028;
+  --accent:   #00e0c6;
+  --accent2:  #00ffd5;
+  --gold:     #f5c518;
+  --red:      #ff5252;
+  --text:     #dff0ed;
+  --muted:    #4d7a74;
+  --fd:       'Syne', sans-serif;
+  --fb:       'Inter', sans-serif;
+  --fm:       'JetBrains Mono', monospace;
+  --r:        14px;
+  --glow:     0 0 40px rgba(0,224,198,.12);
+  --tr:       .25s cubic-bezier(.4,0,.2,1);
 }
 
-    body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  color: var(--text);
-  overflow-x: hidden;
-  background: linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
-  background-size: 400% 400%;
-  animation: gradientMove 15s ease infinite;
-}
+/* ═══════════════════════════════
+   RESET
+═══════════════════════════════ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{background:var(--bg);color:var(--text);font-family:var(--fb);overflow-x:hidden;line-height:1.6;min-height:100vh;}
+a{text-decoration:none;color:inherit;}
+img{display:block;max-width:100%;}
+button{cursor:pointer;font-family:var(--fb);}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
 
-h1, h2, h3 {
-  text-align: center;
-  color: var(--accent);  /* soft, professional accent */
-}
+/* ═══════════════════════════════
+   CANVAS
+═══════════════════════════════ */
+#bgCanvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.6;}
 
-    .project-card button {
-  margin-top: 10px;
-  padding: 10px 20px;
-  background: var(--accent);
-  color: #0f2027; /* dark text for contrast */
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background 0.3s ease;
+/* ═══════════════════════════════
+   TOAST
+═══════════════════════════════ */
+#toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);
+  background:var(--surface2);border:1px solid var(--border);
+  color:var(--text);font-family:var(--fm);font-size:.78rem;letter-spacing:.5px;
+  padding:12px 22px;border-radius:100px;
+  box-shadow:0 8px 32px rgba(0,0,0,.5);
+  z-index:9999;white-space:nowrap;
+  transition:transform .4s cubic-bezier(.34,1.56,.64,1);pointer-events:none;
 }
+#toast.show{transform:translateX(-50%) translateY(0);}
+#toast.ok{border-color:rgba(0,224,198,.4);color:var(--accent);}
+#toast.err{border-color:rgba(255,82,82,.4);color:var(--red);}
+#toast.warn{border-color:rgba(245,197,24,.4);color:var(--gold);}
 
-.project-card button:hover {
-  background: var(--button-hover);
-}
-/* world class gradient */
-background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-background-size:400% 400%;
-animation: gradientMove 15s ease infinite;
-}
+/* ═══════════════════════════════
+   MODAL
+═══════════════════════════════ */
+#modal{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;z-index:9998;padding:16px;}
+#modal.open{display:flex;}
+.modal-box{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:clamp(24px,5vw,40px);max-width:480px;width:100%;position:relative;box-shadow:var(--glow);animation:popIn .35s cubic-bezier(.34,1.56,.64,1);}
+@keyframes popIn{from{opacity:0;transform:scale(.88) translateY(16px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-close{position:absolute;top:14px;right:16px;background:none;border:none;color:var(--muted);font-size:1.4rem;line-height:1;padding:4px;}
+.modal-close:hover{color:var(--text);}
+.modal-icon{font-size:2.5rem;margin-bottom:12px;text-align:center;}
+.modal-box h2{font-family:var(--fd);font-size:1.4rem;font-weight:800;margin-bottom:8px;text-align:center;}
+.modal-box p{color:var(--muted);font-size:.88rem;line-height:1.7;margin-bottom:20px;text-align:center;}
+.modal-fields{display:flex;flex-direction:column;gap:12px;margin-bottom:20px;}
+.modal-fields label{font-family:var(--fm);font-size:.6rem;letter-spacing:2px;color:var(--muted);display:block;margin-bottom:4px;}
+.modal-fields input,.modal-fields select{width:100%;padding:11px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--fb);font-size:.88rem;transition:border-color var(--tr);}
+.modal-fields input:focus,.modal-fields select:focus{outline:none;border-color:var(--accent);}
+.modal-fields select option{background:var(--surface);}
+.modal-btns{display:flex;flex-direction:column;gap:10px;}
 
-/* gradient animation */
-@keyframes gradientMove{
-0%{background-position:0% 50%;}
-50%{background-position:100% 50%;}
-100%{background-position:0% 50%;}
+/* ═══════════════════════════════
+   HEADER
+═══════════════════════════════ */
+header{
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(14px,4%,40px);height:60px;
+  background:rgba(4,16,14,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
 }
-  header img { max-width:120px; display:block; margin:0 auto 10px auto; }
-  main { max-width:1100px; margin:20px auto; padding:20px; }
-  h1,h2,h3 { text-align:center; }
-  .project-list { display:flex; flex-wrap:wrap; justify-content: space-around; margin-top:30px; }
-  .project-card { background:white; width:300px; margin:15px; padding:20px; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.1); text-align:center; transition: transform 0.2s; }
-  .project-card:hover { transform: scale(1.05); }
-  .project-card button { margin-top:10px; padding:10px 20px; background:#4CAF50; color:white; border:none; border-radius:6px; cursor:pointer; font-size:16px; }
-  .project-card button:hover { background:#45a049; }
-  #editor-section { background:white; margin-top:40px; padding:20px; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
-  textarea { width:100%; height:250px; font-family: monospace; font-size:14px; margin-bottom:10px; }
-  #preview { border:1px solid #ccc; height:400px; width:100%; margin-top:10px; }
-  #instructions { background:#e7f3fe; padding:15px; border-left:5px solid #2196F3; margin-bottom:20px; border-radius:5px; }
-  #progressBarContainer { background:#ddd; width:100%; border-radius:5px; margin:15px 0; }
-  #progressBar { width:0%; height:20px; background:#4CAF50; border-radius:5px; text-align:center; color:white; line-height:20px; }
-  footer { text-align:center; color:#666; margin:40px 0 20px 0; }
-  .image-preview { display:flex; flex-wrap:wrap; margin-top:10px; }
-  .image-preview img { width:100px; height:100px; object-fit:cover; margin:5px; border:1px solid #ccc; border-radius:5px; }
-  @media(max-width:700px){ .project-list { flex-direction:column; align-items:center; } .project-card { width:90%; } }
+.hd-left{display:flex;align-items:center;gap:10px;}
+.hd-logo{height:32px;}
+.hd-name{font-family:var(--fd);font-size:1.05rem;font-weight:900;color:var(--accent);letter-spacing:-1px;}
+.hd-badge{font-family:var(--fm);font-size:.55rem;letter-spacing:2px;color:var(--gold);background:rgba(245,197,24,.1);border:1px solid rgba(245,197,24,.25);padding:3px 8px;border-radius:100px;white-space:nowrap;}
+.hd-right{display:flex;align-items:center;gap:10px;}
+.hd-timer{font-family:var(--fm);font-size:.78rem;color:var(--gold);background:rgba(245,197,24,.08);border:1px solid rgba(245,197,24,.2);padding:6px 12px;border-radius:8px;letter-spacing:1px;white-space:nowrap;}
+nav a{font-family:var(--fm);font-size:.68rem;letter-spacing:1px;color:var(--muted);transition:color var(--tr);}
+nav a:hover{color:var(--text);}
+@media(max-width:640px){nav{display:none;}.hd-badge{display:none;}}
+
+/* ═══════════════════════════════
+   BUTTONS
+═══════════════════════════════ */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;border:none;border-radius:8px;font-family:var(--fb);font-weight:600;font-size:.84rem;transition:transform var(--tr),box-shadow var(--tr),background var(--tr);-webkit-tap-highlight-color:transparent;white-space:nowrap;}
+.btn:active{transform:scale(.96)!important;}
+.btn-primary{background:var(--accent);color:#001a17;box-shadow:0 0 20px rgba(0,224,198,.25);}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 0 36px rgba(0,224,198,.4);}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border);}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+.btn-gold{background:var(--gold);color:#1a1200;box-shadow:0 0 20px rgba(245,197,24,.25);}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 0 36px rgba(245,197,24,.4);}
+.btn-red{background:rgba(255,82,82,.15);color:var(--red);border:1px solid rgba(255,82,82,.3);}
+.btn-red:hover{background:rgba(255,82,82,.25);}
+.btn-sm{padding:7px 14px;font-size:.78rem;}
+.btn-full{width:100%;justify-content:center;}
+
+/* ═══════════════════════════════
+   HERO BANNER
+═══════════════════════════════ */
+.hero{
+  position:relative;z-index:1;
+  text-align:center;
+  padding:clamp(48px,10vw,80px) clamp(16px,5%,60px) clamp(32px,6vw,56px);
+  overflow:hidden;
+}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(0,224,198,.07),transparent 70%);pointer-events:none;}
+.hero-eye{display:inline-flex;align-items:center;gap:8px;font-family:var(--fm);font-size:.6rem;letter-spacing:3px;color:var(--gold);background:rgba(245,197,24,.07);border:1px solid rgba(245,197,24,.2);padding:5px 14px;border-radius:100px;margin-bottom:20px;animation:fadeUp .7s .1s both;}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 1.8s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.hero h1{font-family:var(--fd);font-size:clamp(2rem,7vw,4.2rem);font-weight:900;letter-spacing:-2px;line-height:1.05;max-width:800px;margin:0 auto 16px;animation:fadeUp .7s .2s both;}
+.hero h1 span{color:var(--accent);}
+.hero-sub{color:var(--muted);font-size:clamp(.88rem,2vw,1rem);max-width:500px;margin:0 auto 28px;line-height:1.7;animation:fadeUp .7s .35s both;}
+.hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;animation:fadeUp .7s .5s both;}
+.hero-meta{margin-top:32px;display:flex;gap:clamp(20px,4vw,40px);justify-content:center;flex-wrap:wrap;animation:fadeUp .7s .65s both;}
+.meta-item{text-align:center;}
+.meta-n{font-family:var(--fm);font-size:clamp(1.2rem,3vw,1.8rem);font-weight:700;color:var(--accent);}
+.meta-l{font-family:var(--fm);font-size:.55rem;letter-spacing:2px;color:var(--muted);margin-top:2px;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+/* ═══════════════════════════════
+   STEPS GUIDE
+═══════════════════════════════ */
+.steps-wrap{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 clamp(16px,5%,40px) 40px;}
+.steps-head{text-align:center;margin-bottom:28px;}
+.steps-head h2{font-family:var(--fd);font-size:clamp(1.3rem,3vw,1.9rem);font-weight:800;margin-bottom:6px;}
+.steps-head p{color:var(--muted);font-size:.88rem;}
+.steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;}
+.step-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:20px;position:relative;overflow:hidden;transition:border-color var(--tr),transform var(--tr);}
+.step-card:hover{border-color:rgba(0,224,198,.3);transform:translateY(-3px);}
+.step-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+.step-card:hover::before{transform:scaleX(1);}
+.step-num{font-family:var(--fm);font-size:.6rem;letter-spacing:3px;color:var(--accent);margin-bottom:10px;}
+.step-icon{font-size:1.6rem;margin-bottom:8px;}
+.step-card h3{font-family:var(--fd);font-size:.92rem;font-weight:700;margin-bottom:6px;}
+.step-card p{color:var(--muted);font-size:.8rem;line-height:1.6;}
+
+/* ═══════════════════════════════
+   TEMPLATE PICKER
+═══════════════════════════════ */
+.picker-wrap{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 clamp(16px,5%,40px) 40px;}
+.picker-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px;}
+.picker-head h2{font-family:var(--fd);font-size:clamp(1.2rem,3vw,1.7rem);font-weight:800;}
+.picker-head p{color:var(--muted);font-size:.84rem;}
+.templates-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;}
+.tpl-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:20px;cursor:pointer;
+  transition:border-color var(--tr),transform var(--tr),box-shadow var(--tr);
+  -webkit-tap-highlight-color:transparent;
+}
+.tpl-card:hover{border-color:rgba(0,224,198,.35);transform:translateY(-4px);box-shadow:var(--glow);}
+.tpl-card.active{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent);}
+.tpl-card:active{transform:scale(.97);}
+.tpl-emoji{font-size:1.8rem;margin-bottom:10px;}
+.tpl-difficulty{font-family:var(--fm);font-size:.55rem;letter-spacing:2px;margin-bottom:8px;}
+.tpl-difficulty.easy{color:#4caf8a;}
+.tpl-difficulty.medium{color:var(--gold);}
+.tpl-card h3{font-family:var(--fd);font-size:.95rem;font-weight:700;margin-bottom:6px;}
+.tpl-card p{color:var(--muted);font-size:.78rem;line-height:1.55;}
+.tpl-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px;}
+.tpl-tag{font-family:var(--fm);font-size:.55rem;letter-spacing:1px;padding:2px 8px;border-radius:100px;background:rgba(0,224,198,.07);color:var(--accent);border:1px solid rgba(0,224,198,.15);}
+
+/* ═══════════════════════════════
+   EDITOR AREA
+═══════════════════════════════ */
+.editor-wrap{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 clamp(16px,5%,40px) 40px;}
+.editor-shell{background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:0 0 60px rgba(0,0,0,.4);}
+
+/* Editor toolbar */
+.editor-toolbar{
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  padding:12px 16px;
+  background:var(--surface2);border-bottom:1px solid var(--border);
+}
+.toolbar-dots{display:flex;gap:6px;margin-right:8px;}
+.td{width:12px;height:12px;border-radius:50%;}
+.td-r{background:#ff5f57;}.td-y{background:#febc2e;}.td-g{background:#28c840;}
+.toolbar-file{font-family:var(--fm);font-size:.68rem;color:var(--muted);margin-right:auto;letter-spacing:.5px;}
+.toolbar-actions{display:flex;gap:6px;flex-wrap:wrap;}
+
+/* CodeMirror override */
+.CodeMirror{
+  height:400px !important;
+  font-family:var(--fm) !important;
+  font-size:clamp(12px,1.8vw,14px) !important;
+  line-height:1.7 !important;
+  background:#0b1f1c !important;
+  color:#d4f0ec !important;
+}
+.CodeMirror-scroll{padding-bottom:20px;}
+.CodeMirror-linenumber{color:#2a5550 !important;font-family:var(--fm);font-size:.72rem;}
+.CodeMirror-cursor{border-left-color:var(--accent) !important;}
+.CodeMirror-selected{background:rgba(0,224,198,.12) !important;}
+.CodeMirror-gutters{background:#091a17 !important;border-right:1px solid var(--border) !important;}
+
+/* Editor bottom bar */
+.editor-statusbar{
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  padding:8px 16px;background:var(--surface2);border-top:1px solid var(--border);
+  font-family:var(--fm);font-size:.65rem;color:var(--muted);
+}
+.status-left{display:flex;gap:16px;}
+.status-item{display:flex;align-items:center;gap:5px;}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);}
+.status-dot.saving{background:var(--gold);animation:blink 1s infinite;}
+
+/* ═══════════════════════════════
+   PREVIEW PANEL
+═══════════════════════════════ */
+.preview-wrap{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 clamp(16px,5%,40px) 40px;}
+.preview-shell{background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;}
+.preview-toolbar{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--surface2);border-bottom:1px solid var(--border);}
+.preview-toolbar h3{font-family:var(--fd);font-size:.92rem;font-weight:700;color:var(--text);margin-right:auto;}
+.preview-bar{display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:6px 12px;flex:1;max-width:320px;}
+.preview-bar span{font-family:var(--fm);font-size:.65rem;color:var(--muted);flex:1;}
+.preview-dots{display:flex;gap:5px;}
+#preview{
+  width:100%;height:clamp(300px,50vw,520px);
+  border:none;background:white;
+  display:block;
+}
+.preview-sizes{display:flex;gap:6px;}
+
+/* ═══════════════════════════════
+   PROGRESS
+═══════════════════════════════ */
+.progress-wrap{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 clamp(16px,5%,40px) 24px;}
+.progress-shell{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.progress-label{font-family:var(--fm);font-size:.65rem;letter-spacing:2px;color:var(--accent);white-space:nowrap;}
+.progress-bar-wrap{flex:1;min-width:120px;height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:3px;width:0;transition:width .6s ease;}
+.progress-pct{font-family:var(--fm);font-size:.72rem;color:var(--text);white-space:nowrap;min-width:42px;text-align:right;}
+.progress-tip{font-family:var(--fm);font-size:.65rem;color:var(--muted);flex-basis:100%;}
+
+/* ═══════════════════════════════
+   IMAGES
+═══════════════════════════════ */
+.images-wrap{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 clamp(16px,5%,40px) 24px;}
+.images-shell{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;}
+.images-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap;}
+.images-head h3{font-family:var(--fd);font-size:.92rem;font-weight:700;margin-right:auto;}
+.drop-zone{
+  border:2px dashed var(--border);border-radius:10px;
+  padding:24px;text-align:center;
+  transition:border-color var(--tr),background var(--tr);
+  cursor:pointer;
+}
+.drop-zone:hover,.drop-zone.dragover{border-color:var(--accent);background:rgba(0,224,198,.04);}
+.drop-zone input{display:none;}
+.drop-icon{font-size:1.8rem;margin-bottom:8px;}
+.drop-text{font-family:var(--fm);font-size:.72rem;color:var(--muted);letter-spacing:.5px;}
+.drop-sub{font-size:.65rem;color:var(--muted);margin-top:4px;opacity:.6;}
+.img-grid{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+.img-thumb{position:relative;width:80px;height:80px;border-radius:8px;overflow:hidden;border:1px solid var(--border);}
+.img-thumb img{width:100%;height:100%;object-fit:cover;}
+.img-thumb .img-del{position:absolute;top:3px;right:3px;background:rgba(0,0,0,.7);border:none;color:white;width:18px;height:18px;border-radius:50%;font-size:.6rem;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity .2s;}
+.img-thumb:hover .img-del{opacity:1;}
+.img-copy{position:absolute;bottom:3px;left:3px;right:3px;background:rgba(0,0,0,.7);border:none;color:var(--accent);font-family:var(--fm);font-size:.5rem;padding:3px;border-radius:4px;cursor:pointer;opacity:0;transition:opacity .2s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.3px;}
+.img-thumb:hover .img-copy{opacity:1;}
+
+/* ═══════════════════════════════
+   SUBMIT SECTION
+═══════════════════════════════ */
+.submit-wrap{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 clamp(16px,5%,40px) 60px;}
+.submit-shell{background:linear-gradient(135deg,var(--surface),var(--surface2));border:1px solid var(--border);border-radius:18px;padding:clamp(24px,5vw,40px);text-align:center;overflow:hidden;}
+.submit-shell::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(245,197,24,.08),transparent 70%);border-radius:50%;}
+.submit-eye{font-family:var(--fm);font-size:.6rem;letter-spacing:4px;color:var(--gold);margin-bottom:12px;}
+.submit-shell h2{font-family:var(--fd);font-size:clamp(1.4rem,4vw,2rem);font-weight:900;letter-spacing:-1px;margin-bottom:10px;}
+.submit-shell p{color:var(--muted);font-size:.9rem;max-width:480px;margin:0 auto 28px;line-height:1.65;}
+.submit-checklist{display:flex;flex-direction:column;gap:8px;max-width:360px;margin:0 auto 28px;text-align:left;}
+.check-item{display:flex;align-items:center;gap:10px;font-size:.85rem;}
+.check-icon{font-size:1rem;flex-shrink:0;}
+.check-item.done{color:var(--accent);}
+.check-item.pending{color:var(--muted);}
+.submit-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+
+/* ═══════════════════════════════
+   FOOTER
+═══════════════════════════════ */
+footer{border-top:1px solid var(--border);padding:24px clamp(16px,5%,40px);text-align:center;position:relative;z-index:1;}
+footer p{font-family:var(--fm);font-size:.65rem;letter-spacing:1px;color:var(--muted);}
+footer a{color:var(--accent);transition:opacity var(--tr);}
+footer a:hover{opacity:.7;}
+
+/* ═══════════════════════════════
+   RESPONSIVE
+═══════════════════════════════ */
+@media(max-width:600px){
+  .CodeMirror{height:320px!important;font-size:12px!important;}
+  #preview{height:260px;}
+  .editor-toolbar{padding:10px 12px;}
+  .toolbar-actions .btn{padding:6px 10px;font-size:.72rem;}
+}
 </style>
 </head>
 <body>
 
+<canvas id="bgCanvas" aria-hidden="true"></canvas>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<!-- SUBMIT MODAL -->
+<div id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close">×</button>
+    <div class="modal-icon">🏆</div>
+    <h2 id="modalTitle">Submit Your Project</h2>
+    <p>Fill in your details and we'll package your project for the judges. Your hard work is about to pay off!</p>
+    <div class="modal-fields">
+      <div>
+        <label for="submitterName">YOUR FULL NAME</label>
+        <input id="submitterName" type="text" placeholder="e.g. Kafeero Praise" autocomplete="name" required>
+      </div>
+      <div>
+        <label for="submitterSchool">SCHOOL / INSTITUTION</label>
+        <input id="submitterSchool" type="text" placeholder="e.g. Makerere University" autocomplete="organization">
+      </div>
+      <div>
+        <label for="submitterEmail">EMAIL ADDRESS</label>
+        <input id="submitterEmail" type="email" placeholder="you@example.com" autocomplete="email" required>
+      </div>
+      <div>
+        <label for="submitterTemplate">PROJECT TEMPLATE</label>
+        <select id="submitterTemplate">
+          <option value="">Select your project...</option>
+          <option value="personal-website">Personal Website</option>
+          <option value="agriculture-guide">Agriculture Guide</option>
+          <option value="community-health">Community Health Awareness</option>
+          <option value="business-directory">Local Business Directory</option>
+          <option value="market-prices">Market Price Board</option>
+          <option value="mental-health">Mental Health Awareness</option>
+          <option value="tourism-guide">Tourism Guide</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-btns">
+      <button class="btn btn-gold btn-full" onclick="finalSubmit()">🚀 Download & Submit Project</button>
+      <button class="btn btn-ghost btn-full" onclick="closeModal()">Keep Editing</button>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
 <header>
-  <img src="codeon logo.png" alt="CodeOnDigital Logo">
-  <h1>CodeOnDigital National Hackathon Uganda</h1>
-  <p>Live edit, preview, and submit your project!</p>
+  <div class="hd-left">
+    <img src="codeon logo.png" alt="CODEON" class="hd-logo" width="32" height="32">
+    <span class="hd-name">CODEON</span>
+    <span class="hd-badge">HACKATHON 2025</span>
+  </div>
+  <nav style="display:flex;gap:20px;">
+    <a href="index.html">Home</a>
+    <a href="community-codeon.html">Community</a>
+  </nav>
+  <div class="hd-right">
+    <div class="hd-timer" id="countdownTimer" aria-live="polite">⏱ --:--:--</div>
+  </div>
 </header>
 
-<main>
-<div id="instructions">
-<h2>Instructions</h2>
-<ol>
-<li>Select a project template and click "Load Template".</li>
-<li>Edit headings, paragraphs, lists, and add image references.</li>
-<li>Upload images using "Choose Images" button. Multiple images supported.</li>
-<li>Preview updates automatically as you type.</li>
-<li>Your progress is saved automatically in the browser.</li>
-<li>Click "Submit" to download your project for the Hackathon.</li>
-</ol>
+<!-- HERO -->
+<section class="hero" aria-label="Hackathon hero">
+  <div class="hero-eye"><div class="hero-dot"></div>NATIONAL HACKATHON UGANDA 2025</div>
+  <h1>Build Real Websites.<br><span>Win at the National Level.</span></h1>
+  <p class="hero-sub">Choose a project, write HTML &amp; CSS, see your work live instantly — then submit for the judges. No experience needed to start.</p>
+  <div class="hero-ctas">
+    <a href="#templates" class="btn btn-primary">Choose a Template →</a>
+    <a href="#editor" class="btn btn-ghost">Open Editor</a>
+  </div>
+  <div class="hero-meta">
+    <div class="meta-item"><div class="meta-n">7</div><div class="meta-l">TEMPLATES</div></div>
+    <div class="meta-item"><div class="meta-n">48h</div><div class="meta-l">TO BUILD</div></div>
+    <div class="meta-item"><div class="meta-n">🥇</div><div class="meta-l">PRIZES</div></div>
+    <div class="meta-item"><div class="meta-n">🇺🇬</div><div class="meta-l">NATIONWIDE</div></div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<div class="steps-wrap" aria-label="How it works">
+  <div class="steps-head">
+    <h2>How It Works</h2>
+    <p>Four steps from zero to submission — beginner friendly at every step.</p>
+  </div>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">STEP 01</div>
+      <div class="step-icon">📋</div>
+      <h3>Pick a Template</h3>
+      <p>Choose from 7 real-world project templates. Each has beginner-friendly starter code already written for you.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">STEP 02</div>
+      <div class="step-icon">✏️</div>
+      <h3>Edit the Code</h3>
+      <p>Change headings, paragraphs, colors, and content. The editor highlights your code and shows errors.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">STEP 03</div>
+      <div class="step-icon">👁️</div>
+      <h3>Preview Live</h3>
+      <p>Every change you make appears instantly in the preview below. What you see is what judges will see.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">STEP 04</div>
+      <div class="step-icon">🚀</div>
+      <h3>Submit Your Work</h3>
+      <p>Enter your name and school, download your project file, and share it with the CODEON judges.</p>
+    </div>
+  </div>
 </div>
 
-<h2>Available Project Templates</h2>
-<div class="project-list">
-  <div class="project-card"><h3>Personal Website</h3><button onclick="loadTemplate('personal-website')">Load Template</button></div>
-  <div class="project-card"><h3>Agriculture Guide</h3><button onclick="loadTemplate('agriculture-guide')">Load Template</button></div>
-  <div class="project-card"><h3>Community Health Awareness</h3><button onclick="loadTemplate('community-health-awareness')">Load Template</button></div>
-  <div class="project-card"><h3>Local Business Directory</h3><button onclick="loadTemplate('local-business-directory')">Load Template</button></div>
-  <div class="project-card"><h3>Market Price Board</h3><button onclick="loadTemplate('market-price-board')">Load Template</button></div>
-  <div class="project-card"><h3>Mental Health Awareness</h3><button onclick="loadTemplate('mental-health-awareness')">Load Template</button></div>
-  <div class="project-card"><h3>Tourism Guide</h3><button onclick="loadTemplate('tourism-guide')">Load Template</button></div>
+<!-- TEMPLATE PICKER -->
+<div class="picker-wrap" id="templates" aria-label="Project templates">
+  <div class="picker-head">
+    <div>
+      <h2>Choose Your Project</h2>
+      <p style="color:var(--muted);font-size:.84rem;margin-top:4px;">Click a card then click "Load into Editor" to begin</p>
+    </div>
+  </div>
+  <div class="templates-grid" role="list">
+
+    <div class="tpl-card" role="listitem" onclick="selectTemplate('personal-website')" tabindex="0" onkeydown="if(event.key==='Enter')selectTemplate('personal-website')">
+      <div class="tpl-emoji">🙋</div>
+      <div class="tpl-difficulty easy">★ BEGINNER</div>
+      <h3>Personal Website</h3>
+      <p>Introduce yourself online. Great first project — add your name, bio, skills, and contact info.</p>
+      <div class="tpl-tags"><span class="tpl-tag">HTML</span><span class="tpl-tag">CSS</span><span class="tpl-tag">BEGINNER</span></div>
+    </div>
+
+    <div class="tpl-card" role="listitem" onclick="selectTemplate('agriculture-guide')" tabindex="0" onkeydown="if(event.key==='Enter')selectTemplate('agriculture-guide')">
+      <div class="tpl-emoji">🌱</div>
+      <div class="tpl-difficulty easy">★ BEGINNER</div>
+      <h3>Agriculture Guide</h3>
+      <p>Build a guide for Ugandan farmers with tips for maize, coffee, and bananas.</p>
+      <div class="tpl-tags"><span class="tpl-tag">HTML</span><span class="tpl-tag">TABLES</span><span class="tpl-tag">BEGINNER</span></div>
+    </div>
+
+    <div class="tpl-card" role="listitem" onclick="selectTemplate('community-health')" tabindex="0" onkeydown="if(event.key==='Enter')selectTemplate('community-health')">
+      <div class="tpl-emoji">🏥</div>
+      <div class="tpl-difficulty easy">★ BEGINNER</div>
+      <h3>Community Health</h3>
+      <p>Spread health awareness. Cover malaria prevention, clean water, and first aid tips.</p>
+      <div class="tpl-tags"><span class="tpl-tag">HTML</span><span class="tpl-tag">LISTS</span><span class="tpl-tag">BEGINNER</span></div>
+    </div>
+
+    <div class="tpl-card" role="listitem" onclick="selectTemplate('business-directory')" tabindex="0" onkeydown="if(event.key==='Enter')selectTemplate('business-directory')">
+      <div class="tpl-emoji">🏪</div>
+      <div class="tpl-difficulty medium">★★ INTERMEDIATE</div>
+      <h3>Business Directory</h3>
+      <p>Create a local business listing for your area with names, locations, and contacts.</p>
+      <div class="tpl-tags"><span class="tpl-tag">HTML</span><span class="tpl-tag">CSS</span><span class="tpl-tag">CARDS</span></div>
+    </div>
+
+    <div class="tpl-card" role="listitem" onclick="selectTemplate('market-prices')" tabindex="0" onkeydown="if(event.key==='Enter')selectTemplate('market-prices')">
+      <div class="tpl-emoji">📊</div>
+      <div class="tpl-difficulty medium">★★ INTERMEDIATE</div>
+      <h3>Market Price Board</h3>
+      <p>Display local market prices in a clean table. Very useful for communities in Uganda.</p>
+      <div class="tpl-tags"><span class="tpl-tag">HTML</span><span class="tpl-tag">TABLES</span><span class="tpl-tag">CSS</span></div>
+    </div>
+
+    <div class="tpl-card" role="listitem" onclick="selectTemplate('mental-health')" tabindex="0" onkeydown="if(event.key==='Enter')selectTemplate('mental-health')">
+      <div class="tpl-emoji">💚</div>
+      <div class="tpl-difficulty easy">★ BEGINNER</div>
+      <h3>Mental Health Awareness</h3>
+      <p>Build a page to reduce stigma and share support resources for mental health in Uganda.</p>
+      <div class="tpl-tags"><span class="tpl-tag">HTML</span><span class="tpl-tag">LISTS</span><span class="tpl-tag">BEGINNER</span></div>
+    </div>
+
+    <div class="tpl-card" role="listitem" onclick="selectTemplate('tourism-guide')" tabindex="0" onkeydown="if(event.key==='Enter')selectTemplate('tourism-guide')">
+      <div class="tpl-emoji">🦁</div>
+      <div class="tpl-difficulty medium">★★ INTERMEDIATE</div>
+      <h3>Uganda Tourism Guide</h3>
+      <p>Showcase Uganda's parks, waterfalls, culture and food to the world. Make Uganda shine!</p>
+      <div class="tpl-tags"><span class="tpl-tag">HTML</span><span class="tpl-tag">CSS</span><span class="tpl-tag">PHOTOS</span></div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;">
+    <button class="btn btn-primary" onclick="loadSelectedTemplate()" id="loadBtn" disabled>Load into Editor →</button>
+    <button class="btn btn-ghost" onclick="clearEditor()">Clear Editor</button>
+  </div>
 </div>
 
-<div id="editor-section">
-<h2>HTML Editor</h2>
-<textarea id="editor"></textarea>
-<br>
-<input type="file" id="imageUpload" accept="image/*" multiple>
-<div class="image-preview" id="imagePreview"></div>
-<div id="progressBarContainer"><div id="progressBar">0%</div></div>
-<button onclick="submitProject()">Submit</button>
-  <button onclick="formatCode()">Format Code</button>
-
-<h2>Live Preview</h2>
-<iframe id="preview"></iframe>
+<!-- PROGRESS BAR -->
+<div class="progress-wrap">
+  <div class="progress-shell">
+    <div class="progress-label">YOUR PROGRESS</div>
+    <div class="progress-bar-wrap"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-pct" id="progressPct">0%</div>
+    <div class="progress-tip" id="progressTip">Load a template to start tracking your edits</div>
+  </div>
 </div>
-</main>
 
-<footer>&copy; 2026 CodeOnDigital | National Hackathon Uganda</footer>
+<!-- EDITOR -->
+<div class="editor-wrap" id="editor">
+  <div class="editor-shell">
+    <div class="editor-toolbar">
+      <div class="toolbar-dots" aria-hidden="true">
+        <div class="td td-r"></div><div class="td td-y"></div><div class="td td-g"></div>
+      </div>
+      <div class="toolbar-file" id="toolbarFile">index.html — no template loaded</div>
+      <div class="toolbar-actions">
+        <button class="btn btn-ghost btn-sm" onclick="formatCode()" title="Auto-format your HTML">⚙ Format</button>
+        <button class="btn btn-ghost btn-sm" onclick="undoCode()" title="Undo last change">↩ Undo</button>
+        <button class="btn btn-ghost btn-sm" onclick="copyCode()" title="Copy all code">⎘ Copy</button>
+        <button class="btn btn-ghost btn-sm" onclick="clearEditor()" title="Clear editor">✕ Clear</button>
+        <button class="btn btn-primary btn-sm" onclick="openModal()" title="Submit your project">🏆 Submit</button>
+      </div>
+    </div>
+
+    <!-- CodeMirror mounts here -->
+    <textarea id="codeEditor"></textarea>
+
+    <div class="editor-statusbar">
+      <div class="status-left">
+        <div class="status-item"><div class="status-dot" id="statusDot"></div><span id="statusText">Ready</span></div>
+        <div class="status-item"><span id="lineCount">Lines: 0</span></div>
+        <div class="status-item"><span id="charCount">Chars: 0</span></div>
+      </div>
+      <div style="display:flex;gap:16px;font-size:.6rem;color:var(--muted);">
+        <span>HTML Mixed</span>
+        <span>UTF-8</span>
+        <span>CODEON Editor</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- IMAGE UPLOAD -->
+<div class="images-wrap">
+  <div class="images-shell">
+    <div class="images-head">
+      <h3>📸 Add Images to Your Project</h3>
+      <button class="btn btn-ghost btn-sm" onclick="document.getElementById('fileInput').click()">+ Upload Images</button>
+    </div>
+    <p style="color:var(--muted);font-size:.82rem;margin-bottom:14px;">Upload images, then click "Copy Tag" on any image to paste an <code style="color:var(--accent);font-family:var(--fm);">&lt;img&gt;</code> tag into your editor.</p>
+    <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+      <input type="file" id="fileInput" accept="image/*" multiple>
+      <div class="drop-icon">🖼️</div>
+      <div class="drop-text">Click to upload or drag &amp; drop images here</div>
+      <div class="drop-sub">PNG, JPG, GIF, WebP supported · Multiple files OK</div>
+    </div>
+    <div class="img-grid" id="imgGrid"></div>
+  </div>
+</div>
+
+<!-- LIVE PREVIEW -->
+<div class="preview-wrap">
+  <div class="preview-shell">
+    <div class="preview-toolbar">
+      <h3>👁 Live Preview</h3>
+      <div class="preview-bar">
+        <span id="previewUrl">codeon://your-project/index.html</span>
+      </div>
+      <div class="preview-sizes">
+        <button class="btn btn-ghost btn-sm" onclick="setPreviewSize('100%','auto')" title="Desktop view">🖥</button>
+        <button class="btn btn-ghost btn-sm" onclick="setPreviewSize('768px','auto')" title="Tablet view">📱</button>
+        <button class="btn btn-ghost btn-sm" onclick="setPreviewSize('375px','auto')" title="Mobile view">📲</button>
+        <button class="btn btn-ghost btn-sm" onclick="refreshPreview()" title="Refresh preview">↺</button>
+      </div>
+    </div>
+    <div style="overflow:auto;display:flex;justify-content:center;background:#1a1a1a;min-height:200px;">
+      <iframe id="preview" title="Live preview of your project" sandbox="allow-scripts allow-same-origin"></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- SUBMIT SECTION -->
+<div class="submit-wrap">
+  <div class="submit-shell">
+    <div class="submit-eye">READY TO COMPETE?</div>
+    <h2>Submit Your Hackathon Project</h2>
+    <p>Before you submit, make sure you've customized the content, tested on mobile view, and added at least one image if possible.</p>
+    <div class="submit-checklist" id="submitChecklist">
+      <div class="check-item pending" id="chk-template"><span class="check-icon">⬜</span> Template loaded</div>
+      <div class="check-item pending" id="chk-edited"><span class="check-icon">⬜</span> Code has been edited</div>
+      <div class="check-item pending" id="chk-image"><span class="check-icon">⬜</span> At least one image added</div>
+      <div class="check-item pending" id="chk-preview"><span class="check-icon">⬜</span> Preview looks good</div>
+    </div>
+    <div class="submit-actions">
+      <button class="btn btn-gold" onclick="openModal()">🏆 Submit My Project</button>
+      <button class="btn btn-ghost" onclick="previewFullscreen()">👁 Full Preview</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 <a href="index.html">CODEON Africa</a> · National Hackathon Uganda · Built with ❤️ in Uganda 🇺🇬</p>
+</footer>
 
 <script>
-// Templates
-const templates = {
-"personal-website": `<body><header><h1>Your Name</h1><p>Welcome to my personal website!</p></header><section><h2>About Me</h2><p>Write a short paragraph about yourself.</p></section><section><h2>My Skills</h2><ul><li>HTML</li><li>CSS</li></ul></section><section><h2>Contact</h2><p>Email: your.email@example.com</p></section><footer>Built for Hackathon</footer></body>`,
-"agriculture-guide": `<body><header><h1>Agriculture Guide</h1></header><section><h2>Maize</h2><p>Tips for planting and harvesting.</p></section><section><h2>Coffee</h2><p>Best practices for growing coffee.</p></section><section><h2>Bananas</h2><p>Care and disease management tips.</p></section><footer>Built for Hackathon</footer></body>`,
-"community-health-awareness": `<body><header><h1>Community Health Awareness</h1></header><section><h2>Malaria Prevention</h2><p>Use mosquito nets and remove stagnant water.</p></section><section><h2>Clean Water</h2><p>Boil or filter water, wash hands regularly.</p></section><section><h2>First Aid</h2><p>Learn basic first aid for cuts and burns.</p></section><footer>Built for Hackathon</footer></body>`,
-"local-business-directory": `<body><header><h1>Local Business Directory</h1></header><section><h2>Business 1</h2><p>Location: Kampala</p><p>Phone: 077-XXX-XXX</p></section><section><h2>Business 2</h2><p>Location: Entebbe</p><p>Phone: 078-XXX-XXX</p></section><footer>Built for Hackathon</footer></body>`,
-"market-price-board": `<body><header><h1>Local Market Prices</h1></header><section><table border="1" style="width:100%; border-collapse: collapse; text-align:center;"><tr><th>Item</th><th>Price (UGX)</th></tr><tr><td>Matooke</td><td>5000</td></tr><tr><td>Beans</td><td>3500</td></tr><tr><td>Rice</td><td>4500</td></tr><tr><td>Irish Potatoes</td><td>4000</td></tr></table></section><footer>Built for Hackathon</footer></body>`,
-"mental-health-awareness": `<body><header><h1>Mental Health Awareness</h1></header><section><h2>About Mental Health</h2><p>Mental health includes emotional and social well-being.</p></section><section><h2>Common Issues</h2><ul><li>Depression</li><li>Anxiety</li><li>Stress</li><li>Substance Abuse</li></ul></section><section><h2>Support Tips</h2><p>Listen, encourage professional help, reduce stigma.</p></section><footer>Built for Hackathon</footer></body>`,
-"tourism-guide": `<body><header><h1>Tourism in My Area</h1></header><section><h2>National Parks</h2><p>Information about local parks.</p></section><section><h2>Waterfalls</h2><p>Add photos and interesting facts.</p></section><section><h2>Culture & Food</h2><p>Highlight cultural events and traditional dishes.</p></section><footer>Built for Hackathon</footer></body>`
+/* ═══════════════════════════════════════
+   TEMPLATES
+═══════════════════════════════════════ */
+const TEMPLATES = {
+  'personal-website': {
+    name: 'Personal Website',
+    file: 'personal_website.html',
+    code: `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Personal Website</title>
+  <style>
+    /* ── Change these colors to make it yours! ── */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    header {
+      background-color: #2c5364;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    header h1 { font-size: 2.5rem; margin-bottom: 8px; }
+    header p  { font-size: 1.1rem; opacity: 0.85; }
+    main { max-width: 800px; margin: 30px auto; padding: 0 20px; }
+    section { background: white; border-radius: 10px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    h2 { color: #2c5364; border-bottom: 2px solid #00bfae; padding-bottom: 8px; }
+    ul { list-style: none; padding: 0; }
+    ul li { padding: 6px 0; border-bottom: 1px solid #eee; }
+    ul li::before { content: "✓ "; color: #00bfae; font-weight: bold; }
+    .contact a { color: #2c5364; font-weight: bold; }
+    footer { text-align: center; padding: 20px; color: #888; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <!-- ✏️ CHANGE: Replace with your name and tagline -->
+    <h1>Your Name Here</h1>
+    <p>Student | Coder | Future Developer</p>
+  </header>
+
+  <main>
+
+    <section>
+      <h2>About Me</h2>
+      <!-- ✏️ CHANGE: Write a short paragraph about yourself -->
+      <p>Hello! I am a student from Uganda learning to build websites. I love technology and want to use it to solve problems in my community.</p>
+    </section>
+
+    <section>
+      <h2>My Skills</h2>
+      <!-- ✏️ CHANGE: Update this list with your real skills -->
+      <ul>
+        <li>HTML - Web Structure</li>
+        <li>CSS - Styling Websites</li>
+        <li>Problem Solving</li>
+        <li>Teamwork</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>My Projects</h2>
+      <!-- ✏️ CHANGE: Describe a project you are proud of -->
+      <p><strong>CODEON Hackathon:</strong> I built this personal website as part of the CODEON National Hackathon Uganda 2025.</p>
+    </section>
+
+    <section class="contact">
+      <h2>Contact Me</h2>
+      <!-- ✏️ CHANGE: Add your real contact details -->
+      <p>📧 Email: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
+      <p>📍 Location: Kampala, Uganda</p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Built for the CODEON National Hackathon Uganda 2025 🇺🇬</p>
+  </footer>
+
+</body>
+</html>`
+  },
+
+  'agriculture-guide': {
+    name: 'Agriculture Guide',
+    file: 'agriculture_guide.html',
+    code: `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Uganda Agriculture Guide</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f9f6f0; color: #333; }
+    header { background: #2d6a2d; color: white; padding: 36px 20px; text-align: center; }
+    header h1 { font-size: 2rem; margin-bottom: 6px; }
+    header p  { opacity: 0.85; }
+    main { max-width: 900px; margin: 30px auto; padding: 0 20px; }
+    .crop { background: white; border-radius: 10px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,.08); border-left: 5px solid #4CAF50; }
+    h2 { color: #2d6a2d; margin-bottom: 6px; }
+    .tip-box { background: #e8f5e9; border-radius: 8px; padding: 12px 16px; margin-top: 12px; }
+    .tip-box strong { color: #2d6a2d; }
+    table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+    th { background: #2d6a2d; color: white; padding: 10px; text-align: left; }
+    td { padding: 10px; border-bottom: 1px solid #eee; }
+    tr:nth-child(even) { background: #f1f8f1; }
+    footer { text-align: center; padding: 20px; color: #666; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <!-- ✏️ CHANGE: Update the title for your region or village -->
+    <h1>🌱 Uganda Agriculture Guide</h1>
+    <p>Practical tips for Ugandan farmers — maize, coffee, bananas and more</p>
+  </header>
+
+  <main>
+
+    <div class="crop">
+      <h2>🌽 Maize (Kasooli)</h2>
+      <!-- ✏️ CHANGE: Add more tips you know about maize farming -->
+      <p>Maize is one of Uganda's most important food crops. It grows best in well-drained soils with moderate rainfall.</p>
+      <div class="tip-box">
+        <strong>🌾 Planting Tips:</strong>
+        <ul>
+          <li>Plant at start of rainy season (March or October)</li>
+          <li>Space seeds 75cm apart in rows</li>
+          <li>Add compost or fertiliser at planting</li>
+          <li>Harvest when husks turn brown (90–120 days)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="crop">
+      <h2>☕ Coffee (Kawawa)</h2>
+      <!-- ✏️ CHANGE: Add your own coffee farming knowledge -->
+      <p>Uganda is one of Africa's top coffee exporters. Robusta coffee grows best in humid lowland areas.</p>
+      <div class="tip-box">
+        <strong>☕ Growing Tips:</strong>
+        <ul>
+          <li>Plant in shade of banana or other trees</li>
+          <li>Water regularly during dry spells</li>
+          <li>Prune old branches each year after harvest</li>
+          <li>Harvest red cherries only — do not pick green ones</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="crop">
+      <h2>🍌 Matooke (Bananas)</h2>
+      <!-- ✏️ CHANGE: Add facts about banana farming in your area -->
+      <p>Matooke is Uganda's national dish and a vital crop for millions of families across the country.</p>
+      <div class="tip-box">
+        <strong>🍌 Care Tips:</strong>
+        <ul>
+          <li>Remove dry leaves regularly</li>
+          <li>Watch for banana wilt disease (yellowing leaves)</li>
+          <li>Plant suckers from healthy plants only</li>
+          <li>Mulch heavily to keep soil moist</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="crop">
+      <h2>📊 Seasonal Calendar</h2>
+      <!-- ✏️ CHANGE: Update months based on your region's rainfall -->
+      <table>
+        <tr><th>Month</th><th>Activity</th><th>Crops</th></tr>
+        <tr><td>March – April</td><td>First planting season</td><td>Maize, Beans, Groundnuts</td></tr>
+        <tr><td>June – July</td><td>Harvest + dry season</td><td>Maize, Sorghum</td></tr>
+        <tr><td>September</td><td>Second planting season</td><td>Maize, Vegetables</td></tr>
+        <tr><td>December</td><td>Second harvest</td><td>Beans, Sweet Potatoes</td></tr>
+      </table>
+    </div>
+
+  </main>
+
+  <footer><p>Built for the CODEON National Hackathon Uganda 2025 🇺🇬</p></footer>
+</body>
+</html>`
+  },
+
+  'community-health': {
+    name: 'Community Health Awareness',
+    file: 'community_health.html',
+    code: `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Community Health Awareness Uganda</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f0f8ff; color: #333; }
+    header { background: #1565c0; color: white; padding: 36px 20px; text-align: center; }
+    header h1 { font-size: 2rem; margin-bottom: 6px; }
+    main { max-width: 900px; margin: 30px auto; padding: 0 20px; }
+    .health-card { background: white; border-radius: 10px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+    .health-card h2 { color: #1565c0; display: flex; align-items: center; gap: 10px; }
+    .alert { background: #fff3e0; border-left: 4px solid #ff9800; padding: 12px 16px; border-radius: 6px; margin-top: 12px; }
+    .tip { background: #e8f5e9; border-left: 4px solid #4caf50; padding: 12px 16px; border-radius: 6px; margin-top: 10px; }
+    ul { padding-left: 20px; }
+    ul li { padding: 5px 0; }
+    .emergency { background: #ffebee; border: 2px solid #f44336; border-radius: 10px; padding: 20px; text-align: center; margin-top: 20px; }
+    .emergency h2 { color: #c62828; }
+    .emergency .number { font-size: 2rem; font-weight: bold; color: #c62828; }
+    footer { text-align: center; padding: 20px; color: #666; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <!-- ✏️ CHANGE: Add your community or village name -->
+    <h1>🏥 Community Health Awareness</h1>
+    <p>Keeping Uganda healthy — one family at a time</p>
+  </header>
+
+  <main>
+
+    <div class="health-card">
+      <h2>🦟 Malaria Prevention</h2>
+      <!-- ✏️ CHANGE: Add tips specific to your area -->
+      <p>Malaria is the leading cause of illness in Uganda. It is spread by mosquito bites — but it is 100% preventable.</p>
+      <div class="tip">
+        <strong>✅ How to prevent malaria:</strong>
+        <ul>
+          <li>Sleep under a treated mosquito net every night</li>
+          <li>Remove all stagnant water around your home</li>
+          <li>Keep windows and doors closed at dusk</li>
+          <li>Visit a health centre if you get a fever</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="health-card">
+      <h2>💧 Clean Water & Hygiene</h2>
+      <p>Dirty water causes cholera, typhoid and diarrhoea. Clean water saves lives.</p>
+      <div class="tip">
+        <strong>✅ Safe water tips:</strong>
+        <ul>
+          <li>Always boil or filter drinking water</li>
+          <li>Wash hands with soap before eating and after toilet</li>
+          <li>Cover water storage containers</li>
+          <li>Keep toilets clean and away from water sources</li>
+        </ul>
+      </div>
+      <div class="alert">
+        <strong>⚠️ Warning signs of waterborne disease:</strong> Vomiting, diarrhoea, stomach pain, fever — go to a health centre immediately.
+      </div>
+    </div>
+
+    <div class="health-card">
+      <h2>🤱 Maternal & Child Health</h2>
+      <!-- ✏️ CHANGE: Add resources available in your area -->
+      <p>Uganda has made great progress in reducing child deaths. Routine check-ups make a huge difference.</p>
+      <div class="tip">
+        <strong>✅ Key actions:</strong>
+        <ul>
+          <li>Attend all antenatal care visits during pregnancy</li>
+          <li>Vaccinate children on the national schedule</li>
+          <li>Breastfeed exclusively for the first 6 months</li>
+          <li>Monitor child growth at health centres</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="health-card">
+      <h2>🩹 Basic First Aid</h2>
+      <ul>
+        <li><strong>Cuts:</strong> Clean with clean water, apply pressure, cover with clean cloth</li>
+        <li><strong>Burns:</strong> Cool with running water for 10 minutes. Do NOT use butter or toothpaste.</li>
+        <li><strong>Choking:</strong> Give 5 firm back blows. Call for help immediately.</li>
+        <li><strong>Fever:</strong> Give paracetamol, drink fluids, seek care if it worsens.</li>
+      </ul>
+    </div>
+
+    <div class="emergency">
+      <h2>🚨 Emergency Numbers Uganda</h2>
+      <!-- ✏️ CHANGE: Add local health centre contacts for your area -->
+      <p>National Emergency Line:</p>
+      <div class="number">999 / 112</div>
+      <p style="margin-top:10px;">Uganda Red Cross: <strong>0800 199 699</strong></p>
+    </div>
+
+  </main>
+
+  <footer><p>Built for the CODEON National Hackathon Uganda 2025 🇺🇬</p></footer>
+</body>
+</html>`
+  },
+
+  'business-directory': {
+    name: 'Local Business Directory',
+    file: 'business_directory.html',
+    code: `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Local Business Directory Uganda</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #fafafa; color: #333; }
+    header { background: #4a148c; color: white; padding: 36px 20px; text-align: center; }
+    header h1 { font-size: 2rem; margin-bottom: 6px; }
+    main { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
+    .search-bar { display: flex; gap: 10px; margin-bottom: 24px; }
+    .search-bar input { flex: 1; padding: 12px 16px; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; }
+    .categories { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+    .cat-btn { padding: 6px 16px; border: 1px solid #ccc; border-radius: 100px; background: white; cursor: pointer; font-size: .85rem; transition: all .2s; }
+    .cat-btn:hover { background: #4a148c; color: white; border-color: #4a148c; }
+    .biz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+    .biz-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,.08); border-top: 4px solid #4a148c; transition: transform .2s; }
+    .biz-card:hover { transform: translateY(-4px); }
+    .biz-name { font-size: 1.1rem; font-weight: bold; color: #4a148c; margin-bottom: 4px; }
+    .biz-cat  { font-size: .78rem; color: #888; margin-bottom: 10px; }
+    .biz-info { font-size: .88rem; line-height: 1.8; }
+    .biz-info span { display: block; }
+    footer { text-align: center; padding: 20px; color: #666; font-size: .85rem; margin-top: 40px; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <!-- ✏️ CHANGE: Change the city/area name -->
+    <h1>🏪 Kampala Business Directory</h1>
+    <p>Find local businesses, services and shops in your area</p>
+  </header>
+
+  <main>
+    <div class="search-bar">
+      <!-- ✏️ This search bar shows how inputs work — it is display only -->
+      <input type="text" placeholder="Search businesses, e.g. pharmacy, salon...">
+    </div>
+
+    <div class="categories">
+      <button class="cat-btn">All</button>
+      <button class="cat-btn">Food & Drink</button>
+      <button class="cat-btn">Health</button>
+      <button class="cat-btn">Education</button>
+      <button class="cat-btn">Transport</button>
+    </div>
+
+    <div class="biz-grid">
+
+      <!-- ✏️ CHANGE: Replace with real businesses you know -->
+      <div class="biz-card">
+        <div class="biz-name">Mama Grace Restaurant</div>
+        <div class="biz-cat">🍽️ Food & Drink</div>
+        <div class="biz-info">
+          <span>📍 Nakasero Market, Kampala</span>
+          <span>📞 0772 123 456</span>
+          <span>⏰ Mon–Sat: 7am – 9pm</span>
+          <span>⭐ Local food, affordable prices</span>
+        </div>
+      </div>
+
+      <div class="biz-card">
+        <div class="biz-name">City Pharmacy</div>
+        <div class="biz-cat">💊 Health</div>
+        <div class="biz-info">
+          <span>📍 Ggaba Road, Kampala</span>
+          <span>📞 0701 987 654</span>
+          <span>⏰ Mon–Sun: 8am – 10pm</span>
+          <span>⭐ Prescription & OTC medicines</span>
+        </div>
+      </div>
+
+      <div class="biz-card">
+        <div class="biz-name">Excel Boda Services</div>
+        <div class="biz-cat">🏍️ Transport</div>
+        <div class="biz-info">
+          <span>📍 Old Taxi Park, Kampala</span>
+          <span>📞 0756 555 888</span>
+          <span>⏰ Daily: 6am – 11pm</span>
+          <span>⭐ Safe, affordable boda rides</span>
+        </div>
+      </div>
+
+      <!-- ✏️ ADD MORE CARDS: Copy the block above and change the details -->
+      <div class="biz-card">
+        <div class="biz-name">Your Business Here</div>
+        <div class="biz-cat">🏷️ Your Category</div>
+        <div class="biz-info">
+          <span>📍 Your Location</span>
+          <span>📞 Your Phone Number</span>
+          <span>⏰ Your Opening Hours</span>
+          <span>⭐ Short description</span>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer><p>Built for the CODEON National Hackathon Uganda 2025 🇺🇬</p></footer>
+</body>
+</html>`
+  },
+
+  'market-prices': {
+    name: 'Market Price Board',
+    file: 'market_prices.html',
+    code: `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Uganda Market Price Board</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #fff8e1; color: #333; }
+    header { background: #e65100; color: white; padding: 36px 20px; text-align: center; }
+    header h1 { font-size: 2rem; margin-bottom: 6px; }
+    .last-updated { font-size: .8rem; opacity: .85; margin-top: 6px; }
+    main { max-width: 900px; margin: 30px auto; padding: 0 20px; }
+    .market-section { background: white; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+    .market-section h2 { color: #e65100; border-bottom: 2px solid #ff9800; padding-bottom: 8px; margin-bottom: 16px; }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #e65100; color: white; padding: 12px 14px; text-align: left; }
+    td { padding: 11px 14px; border-bottom: 1px solid #f5f5f5; }
+    tr:nth-child(even) td { background: #fff8e1; }
+    .price { font-weight: bold; color: #2e7d32; }
+    .trend-up   { color: #c62828; font-size: .8rem; }
+    .trend-down { color: #2e7d32; font-size: .8rem; }
+    .trend-same { color: #888;    font-size: .8rem; }
+    .note { background: #fff3e0; border-left: 4px solid #ff9800; padding: 12px 16px; border-radius: 6px; font-size: .88rem; margin-top: 16px; }
+    footer { text-align: center; padding: 20px; color: #666; font-size: .85rem; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <!-- ✏️ CHANGE: Add your market name and location -->
+    <h1>📊 Owino Market Price Board</h1>
+    <p>Kampala, Uganda</p>
+    <!-- ✏️ CHANGE: Update the date -->
+    <p class="last-updated">Last updated: March 2025 | Prices in Uganda Shillings (UGX)</p>
+  </header>
+
+  <main>
+
+    <div class="market-section">
+      <h2>🌾 Staple Foods</h2>
+      <!-- ✏️ CHANGE: Update prices to match your local market -->
+      <table>
+        <tr><th>Item</th><th>Unit</th><th>Price (UGX)</th><th>Trend</th></tr>
+        <tr><td>Matooke</td><td>Bunch</td><td class="price">15,000</td><td class="trend-up">▲ Rising</td></tr>
+        <tr><td>Posho (Maize Flour)</td><td>1 kg</td><td class="price">3,500</td><td class="trend-same">● Stable</td></tr>
+        <tr><td>Rice (imported)</td><td>1 kg</td><td class="price">5,000</td><td class="trend-up">▲ Rising</td></tr>
+        <tr><td>Beans (dry)</td><td>1 kg</td><td class="price">4,000</td><td class="trend-down">▼ Falling</td></tr>
+        <tr><td>Irish Potatoes</td><td>1 kg</td><td class="price">3,000</td><td class="trend-same">● Stable</td></tr>
+        <tr><td>Sweet Potatoes</td><td>1 kg</td><td class="price">2,000</td><td class="trend-down">▼ Falling</td></tr>
+      </table>
+    </div>
+
+    <div class="market-section">
+      <h2>🥬 Vegetables & Fruits</h2>
+      <table>
+        <tr><th>Item</th><th>Unit</th><th>Price (UGX)</th><th>Trend</th></tr>
+        <tr><td>Tomatoes</td><td>1 kg</td><td class="price">4,500</td><td class="trend-up">▲ Rising</td></tr>
+        <tr><td>Onions</td><td>1 kg</td><td class="price">3,500</td><td class="trend-same">● Stable</td></tr>
+        <tr><td>Cabbage</td><td>Head</td><td class="price">2,500</td><td class="trend-same">● Stable</td></tr>
+        <tr><td>Mangoes</td><td>Dozen</td><td class="price">6,000</td><td class="trend-down">▼ Falling</td></tr>
+        <tr><td>Avocado</td><td>Each</td><td class="price">500</td><td class="trend-same">● Stable</td></tr>
+      </table>
+    </div>
+
+    <div class="market-section">
+      <h2>🥩 Proteins</h2>
+      <table>
+        <tr><th>Item</th><th>Unit</th><th>Price (UGX)</th><th>Trend</th></tr>
+        <tr><td>Beef</td><td>1 kg</td><td class="price">18,000</td><td class="trend-up">▲ Rising</td></tr>
+        <tr><td>Chicken (whole)</td><td>Each</td><td class="price">25,000</td><td class="trend-same">● Stable</td></tr>
+        <tr><td>Eggs</td><td>Tray (30)</td><td class="price">14,000</td><td class="trend-same">● Stable</td></tr>
+        <tr><td>Nile Perch</td><td>1 kg</td><td class="price">12,000</td><td class="trend-up">▲ Rising</td></tr>
+      </table>
+    </div>
+
+    <div class="note">
+      ℹ️ Prices are approximate and vary by vendor and season. Always confirm prices at the market. Add your area's prices to make this page more useful!
+    </div>
+
+  </main>
+
+  <footer><p>Built for the CODEON National Hackathon Uganda 2025 🇺🇬</p></footer>
+</body>
+</html>`
+  },
+
+  'mental-health': {
+    name: 'Mental Health Awareness',
+    file: 'mental_health.html',
+    code: `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mental Health Awareness Uganda</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f3e5f5; color: #333; }
+    header { background: #4a148c; color: white; padding: 40px 20px; text-align: center; }
+    header h1 { font-size: 2rem; margin-bottom: 6px; }
+    header p  { opacity: .85; font-size: 1rem; }
+    main { max-width: 900px; margin: 30px auto; padding: 0 20px; }
+    .card { background: white; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+    .card h2 { color: #4a148c; margin-bottom: 10px; }
+    .green-box { background: #e8f5e9; border-left: 4px solid #4caf50; padding: 14px 16px; border-radius: 8px; margin-top: 12px; }
+    .purple-box{ background: #f3e5f5; border-left: 4px solid #9c27b0; padding: 14px 16px; border-radius: 8px; margin-top: 12px; }
+    ul { padding-left: 20px; }
+    ul li { padding: 5px 0; }
+    .myths { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+    .myth  { background: #ffebee; border-radius: 8px; padding: 14px; }
+    .fact  { background: #e8f5e9; border-radius: 8px; padding: 14px; }
+    .myth strong { color: #c62828; }
+    .fact strong  { color: #2e7d32; }
+    .helpline { background: #4a148c; color: white; border-radius: 12px; padding: 24px; text-align: center; margin-top: 20px; }
+    .helpline h2 { color: #e1bee7; margin-bottom: 10px; }
+    .helpline .number { font-size: 2rem; font-weight: bold; color: #e040fb; }
+    footer { text-align: center; padding: 20px; color: #666; font-size: .85rem; }
+    @media(max-width:500px){ .myths { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <header>
+    <!-- ✏️ CHANGE: Personalize this to your community -->
+    <h1>💚 Mental Health Matters in Uganda</h1>
+    <p>Breaking the stigma — one conversation at a time</p>
+  </header>
+
+  <main>
+
+    <div class="card">
+      <h2>What is Mental Health?</h2>
+      <!-- ✏️ CHANGE: Add your own understanding or research -->
+      <p>Mental health includes our emotional, psychological, and social well-being. It affects how we think, feel, and act every day. Good mental health is just as important as physical health.</p>
+      <p style="margin-top:10px;"><strong>1 in 4 people</strong> worldwide experiences a mental health condition at some point in their life — including many Ugandans.</p>
+    </div>
+
+    <div class="card">
+      <h2>Common Mental Health Challenges</h2>
+      <ul>
+        <li><strong>Depression:</strong> Persistent sadness, loss of interest in activities</li>
+        <li><strong>Anxiety:</strong> Excessive worry, fear, or nervousness</li>
+        <li><strong>Post-Traumatic Stress (PTSD):</strong> After experiencing trauma or violence</li>
+        <li><strong>Substance Abuse:</strong> Using alcohol or drugs to cope with pain</li>
+        <li><strong>Grief:</strong> Deep sadness from loss of a loved one</li>
+      </ul>
+      <div class="purple-box">
+        <strong>⚠️ Warning signs to watch for:</strong> Withdrawal from friends and family, changes in sleep or appetite, extreme mood swings, feeling hopeless, or talking about death.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Myths vs. Facts</h2>
+      <!-- ✏️ CHANGE: Add myths you've heard in your community -->
+      <div class="myths">
+        <div class="myth"><strong>❌ MYTH:</strong><br>Mental illness is caused by evil spirits or witchcraft.</div>
+        <div class="fact"><strong>✅ FACT:</strong><br>Mental illness is a medical condition with real causes — stress, genetics, trauma, or chemical imbalances.</div>
+        <div class="myth"><strong>❌ MYTH:</strong><br>Mentally ill people are violent and dangerous.</div>
+        <div class="fact"><strong>✅ FACT:</strong><br>Most people with mental illness are not violent. They are more likely to be victims of violence than perpetrators.</div>
+        <div class="myth"><strong>❌ MYTH:</strong><br>You should just pray it away or "be strong."</div>
+        <div class="fact"><strong>✅ FACT:</strong><br>Seeking professional help is a sign of strength, not weakness. Treatment works.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>How to Support Someone</h2>
+      <div class="green-box">
+        <ul>
+          <li>Listen without judgment — just being present helps</li>
+          <li>Never dismiss their feelings ("just be happy" is not helpful)</li>
+          <li>Encourage them to speak to a professional</li>
+          <li>Check in regularly — a simple "How are you?" matters</li>
+          <li>Reduce stigma by speaking openly about mental health</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="helpline">
+      <h2>🆘 Need Help? You Are Not Alone.</h2>
+      <!-- ✏️ CHANGE: Add local mental health contacts for your area -->
+      <p>Uganda Mental Health Support Line:</p>
+      <div class="number">0800 22 44 55</div>
+      <p style="margin-top:10px;font-size:.9rem;opacity:.85;">Butabika National Referral Hospital: <strong>0414 505 050</strong></p>
+      <p style="margin-top:6px;font-size:.85rem;opacity:.75;">All calls are free and confidential.</p>
+    </div>
+
+  </main>
+
+  <footer><p>Built for the CODEON National Hackathon Uganda 2025 🇺🇬</p></footer>
+</body>
+</html>`
+  },
+
+  'tourism-guide': {
+    name: 'Uganda Tourism Guide',
+    file: 'tourism_guide.html',
+    code: `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discover Uganda — Tourism Guide</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #e8f5e9; color: #333; }
+    header { background: linear-gradient(135deg, #1b5e20, #388e3c); color: white; padding: 50px 20px; text-align: center; }
+    header h1 { font-size: 2.5rem; margin-bottom: 8px; text-shadow: 0 2px 4px rgba(0,0,0,.3); }
+    header p  { font-size: 1.1rem; opacity: .9; }
+    .tagline  { font-size: .85rem; opacity: .75; margin-top: 8px; font-style: italic; }
+    main { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
+    .section { background: white; border-radius: 14px; padding: 28px; margin-bottom: 24px; box-shadow: 0 2px 10px rgba(0,0,0,.08); }
+    .section h2 { color: #1b5e20; font-size: 1.4rem; margin-bottom: 16px; border-bottom: 2px solid #a5d6a7; padding-bottom: 8px; }
+    .places-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+    .place-card { border: 1px solid #c8e6c9; border-radius: 10px; padding: 16px; transition: transform .2s; }
+    .place-card:hover { transform: translateY(-3px); border-color: #4caf50; }
+    .place-card h3 { color: #2e7d32; margin-bottom: 6px; font-size: 1rem; }
+    .place-card p  { color: #555; font-size: .84rem; line-height: 1.55; }
+    .place-tag { display: inline-block; background: #e8f5e9; color: #2e7d32; font-size: .7rem; padding: 2px 8px; border-radius: 100px; margin-top: 8px; border: 1px solid #a5d6a7; }
+    .food-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+    .food-item { background: #fff8e1; border-radius: 10px; padding: 14px; border-left: 4px solid #ffc107; }
+    .food-item h3 { color: #e65100; margin-bottom: 4px; font-size: .95rem; }
+    .food-item p  { color: #666; font-size: .82rem; }
+    .tips { background: #e3f2fd; border-radius: 10px; padding: 18px; }
+    .tips h3 { color: #0d47a1; margin-bottom: 10px; }
+    .tips ul { padding-left: 20px; }
+    .tips li  { padding: 4px 0; font-size: .88rem; }
+    footer { text-align: center; padding: 20px; color: #555; font-size: .85rem; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <!-- ✏️ CHANGE: Make this about YOUR local area or favourite place in Uganda -->
+    <h1>🦁 Discover Uganda</h1>
+    <p>The Pearl of Africa — Where Wildlife Meets Wonder</p>
+    <p class="tagline">"For in my beginning is my end" — Explore Uganda's breathtaking beauty</p>
+  </header>
+
+  <main>
+
+    <div class="section">
+      <h2>🌿 National Parks & Wildlife</h2>
+      <div class="places-grid">
+        <!-- ✏️ CHANGE: Add parks or places you have visited or read about -->
+        <div class="place-card">
+          <h3>🦍 Bwindi Impenetrable Forest</h3>
+          <p>Home to half the world's remaining mountain gorillas. A UNESCO World Heritage Site in southwestern Uganda.</p>
+          <span class="place-tag">Wildlife</span>
+          <span class="place-tag">UNESCO</span>
+        </div>
+        <div class="place-card">
+          <h3>🌊 Murchison Falls NP</h3>
+          <p>The world's most powerful waterfall. Watch the Nile squeeze through a 7-metre gorge with tremendous force.</p>
+          <span class="place-tag">Waterfalls</span>
+          <span class="place-tag">Nile</span>
+        </div>
+        <div class="place-card">
+          <h3>🐘 Queen Elizabeth NP</h3>
+          <p>Famous for tree-climbing lions and boat safaris along the Kazinga Channel with hundreds of hippos.</p>
+          <span class="place-tag">Safari</span>
+          <span class="place-tag">Lions</span>
+        </div>
+        <div class="place-card">
+          <h3>🦅 Kibale Forest NP</h3>
+          <p>The primate capital of the world — home to 13 species including 1,500 chimpanzees.</p>
+          <span class="place-tag">Primates</span>
+          <span class="place-tag">Forest</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>🍽️ Traditional Food & Culture</h2>
+      <div class="food-grid">
+        <!-- ✏️ CHANGE: Add your favourite Ugandan foods -->
+        <div class="food-item">
+          <h3>🍌 Matooke</h3>
+          <p>Steamed green bananas — the heart of Ugandan cuisine. Served with groundnut stew or beans.</p>
+        </div>
+        <div class="food-item">
+          <h3>🍗 Rolex</h3>
+          <p>Uganda's iconic street food — a chapati rolled with eggs and vegetables. A must-try!</p>
+        </div>
+        <div class="food-item">
+          <h3>🥜 G-Nut Stew</h3>
+          <p>Rich groundnut (peanut) stew cooked with chicken, pork or vegetables. Absolutely delicious.</p>
+        </div>
+        <div class="food-item">
+          <h3>🐟 Tilapia</h3>
+          <p>Fresh Nile tilapia grilled or fried, served with fried matoke and salad. A lakeside favourite.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>📅 Cultural Events & Festivals</h2>
+      <!-- ✏️ CHANGE: Add events from your region -->
+      <ul style="padding-left:20px;line-height:2;">
+        <li><strong>Eid al-Fitr & Eid al-Adha</strong> — Celebrated across Uganda with feasting and community gatherings</li>
+        <li><strong>Independence Day (Oct 9)</strong> — National celebrations, parades and cultural shows across Uganda</li>
+        <li><strong>Kabaka's Birthday Run</strong> — Annual marathon celebrating the Buganda Kingdom in Kampala</li>
+        <li><strong>Nyege Nyege Festival</strong> — East Africa's largest music festival, held in Jinja every September</li>
+        <li><strong>Martyrs Day (Jun 3)</strong> — A major Catholic and Anglican pilgrimage to Namugongo</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <div class="tips">
+        <h3>💡 Travel Tips for Visitors</h3>
+        <!-- ✏️ CHANGE: Add your own tips -->
+        <ul>
+          <li>Best time to visit: June–September (dry season) for wildlife viewing</li>
+          <li>Currency: Uganda Shillings (UGX) — carry some cash for rural areas</li>
+          <li>Transport: Boda-boda (motorcycle) for short trips, matatu for longer routes</li>
+          <li>Safety: Uganda is generally safe — respect local customs and greet elders</li>
+          <li>Language: English is official; Luganda is widely spoken in central Uganda</li>
+        </ul>
+      </div>
+    </div>
+
+  </main>
+
+  <footer><p>Built for the CODEON National Hackathon Uganda 2025 🇺🇬 | Visit Uganda — The Pearl of Africa</p></footer>
+</body>
+</html>`
+  }
 };
 
-// Load template
-function loadTemplate(name){
-  editor.setValue(templates[name]);
+/* ═══════════════════════════════════════
+   STATE
+═══════════════════════════════════════ */
+let selectedTemplate = null;
+let originalCode = '';
+let imagesAdded = 0;
+let previewRefreshed = false;
+let editor;
 
-  document.getElementById('preview').srcdoc = templates[name];
-  localStorage.setItem('hackathonProject', templates[name]);
-  updateProgress();
+/* ═══════════════════════════════════════
+   TOAST
+═══════════════════════════════════════ */
+let toastTimer;
+function showToast(msg, type='') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'show ' + type;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.className = '', 3500);
 }
 
-// Live preview + auto save
-
-
-// Image upload preview
-document.getElementById('imageUpload').addEventListener('change', function(){
-  const files = this.files;
-  const previewDiv = document.getElementById('imagePreview');
-  previewDiv.innerHTML = '';
-  Array.from(files).forEach(file=>{
-    const reader = new FileReader();
-    reader.onload = e=>{
-      const img = document.createElement('img');
-      img.src = e.target.result;
-      previewDiv.appendChild(img);
+/* ═══════════════════════════════════════
+   INIT CODEMIRROR
+═══════════════════════════════════════ */
+window.addEventListener('DOMContentLoaded', () => {
+  editor = CodeMirror.fromTextArea(document.getElementById('codeEditor'), {
+    mode: 'htmlmixed',
+    theme: 'material-darker',
+    lineNumbers: true,
+    autoCloseTags: true,
+    matchBrackets: true,
+    lineWrapping: true,
+    tabSize: 2,
+    indentWithTabs: false,
+    extraKeys: {
+      'Ctrl-/': 'toggleComment',
+      'Cmd-/': 'toggleComment',
+      'Ctrl-Z': 'undo',
+      'Cmd-Z': 'undo',
+      'Ctrl-Space': 'autocomplete',
     }
-    reader.readAsDataURL(file);
   });
+
+  editor.on('change', () => {
+    debouncedUpdate();
+    updateStatus();
+  });
+
+  // Load saved project
+  const saved = localStorage.getItem('codeon_hackathon_code');
+  const savedTpl = localStorage.getItem('codeon_hackathon_tpl');
+  if (saved) {
+    editor.setValue(saved);
+    updatePreview();
+    updateStatus();
+    if (savedTpl) {
+      selectedTemplate = savedTpl;
+      originalCode = TEMPLATES[savedTpl]?.code || saved;
+      document.getElementById('toolbarFile').textContent = TEMPLATES[savedTpl]?.file || 'index.html';
+      // Mark active card
+      document.querySelectorAll('.tpl-card').forEach(c => c.classList.remove('active'));
+      const card = document.querySelector(`[onclick*="${savedTpl}"]`);
+      if (card) card.classList.add('active');
+      document.getElementById('loadBtn').disabled = false;
+      document.getElementById('loadBtn').textContent = '✓ Template Loaded';
+    }
+    updateProgress();
+    updateChecklist();
+  }
+
+  initCountdown();
+  initCanvas();
 });
 
-// Load saved project if exists
-window.onload = ()=>{
-  const saved = localStorage.getItem('hackathonProject');
-  if(saved){
-    editor.setValue(saved);
-    document.getElementById('preview').srcdoc = saved;
-    updateProgress();
-  }
+/* ═══════════════════════════════════════
+   TEMPLATE SELECTION
+═══════════════════════════════════════ */
+function selectTemplate(name) {
+  selectedTemplate = name;
+  document.querySelectorAll('.tpl-card').forEach(c => c.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  const btn = document.getElementById('loadBtn');
+  btn.disabled = false;
+  btn.textContent = `Load "${TEMPLATES[name].name}" →`;
+  // Update modal select
+  document.getElementById('submitterTemplate').value = name;
 }
 
-// Progress bar
-function updateProgress() {
+function loadSelectedTemplate() {
+  if (!selectedTemplate) { showToast('Please select a template first!','warn'); return; }
+  const tpl = TEMPLATES[selectedTemplate];
+  if (!tpl) return;
+  const current = editor.getValue();
+  if (current && current !== originalCode) {
+    if (!confirm('This will replace your current code. Continue?')) return;
+  }
+  editor.setValue(tpl.code);
+  originalCode = tpl.code;
+  localStorage.setItem('codeon_hackathon_code', tpl.code);
+  localStorage.setItem('codeon_hackathon_tpl', selectedTemplate);
+  document.getElementById('toolbarFile').textContent = tpl.file;
+  document.getElementById('loadBtn').textContent = '✓ Template Loaded';
+  updatePreview();
+  updateProgress();
+  updateChecklist();
+  showToast(`✓ "${tpl.name}" loaded! Start editing to make it yours.`, 'ok');
+  setTimeout(() => document.getElementById('editor').scrollIntoView({behavior:'smooth',block:'start'}), 300);
+}
+
+function clearEditor() {
+  if (!confirm('Clear all code? This cannot be undone.')) return;
+  editor.setValue('');
+  document.getElementById('toolbarFile').textContent = 'index.html — no template loaded';
+  originalCode = '';
+  selectedTemplate = null;
+  localStorage.removeItem('codeon_hackathon_code');
+  localStorage.removeItem('codeon_hackathon_tpl');
+  document.querySelectorAll('.tpl-card').forEach(c => c.classList.remove('active'));
+  document.getElementById('loadBtn').disabled = true;
+  document.getElementById('loadBtn').textContent = 'Load into Editor →';
+  updatePreview();
+  updateProgress();
+  updateChecklist();
+  showToast('Editor cleared.','warn');
+}
+
+/* ═══════════════════════════════════════
+   PREVIEW
+═══════════════════════════════════════ */
+let previewTimer;
+function debouncedUpdate() {
+  const dot = document.getElementById('statusDot');
+  dot.classList.add('saving');
+  clearTimeout(previewTimer);
+  previewTimer = setTimeout(() => {
+    updatePreview();
+    localStorage.setItem('codeon_hackathon_code', editor.getValue());
+    dot.classList.remove('saving');
+    previewRefreshed = true;
+    updateChecklist();
+    updateProgress();
+  }, 400);
+}
+
+function updatePreview() {
   const html = editor.getValue();
-  if (!originalTemplate) {
-    document.getElementById('progressBar').style.width = "0%";
-    document.getElementById('progressBar').textContent = "0% Complete";
+  const iframe = document.getElementById('preview');
+  iframe.srcdoc = html;
+  document.getElementById('previewUrl').textContent = 'codeon://preview/' + (TEMPLATES[selectedTemplate]?.file || 'index.html');
+}
+
+function refreshPreview() { updatePreview(); showToast('Preview refreshed','ok'); }
+
+function setPreviewSize(w) {
+  const iframe = document.getElementById('preview');
+  iframe.style.width = w;
+  iframe.style.maxWidth = '100%';
+}
+
+function previewFullscreen() {
+  const html = editor.getValue();
+  const win = window.open('', '_blank');
+  win.document.open();
+  win.document.write(html);
+  win.document.close();
+}
+
+/* ═══════════════════════════════════════
+   STATUS BAR
+═══════════════════════════════════════ */
+function updateStatus() {
+  const code = editor.getValue();
+  document.getElementById('lineCount').textContent = 'Lines: ' + code.split('\n').length;
+  document.getElementById('charCount').textContent = 'Chars: ' + code.length;
+  document.getElementById('statusText').textContent = 'Auto-saved';
+}
+
+/* ═══════════════════════════════════════
+   PROGRESS
+═══════════════════════════════════════ */
+function updateProgress() {
+  const current = editor.getValue().replace(/\s/g,'');
+  const orig = originalCode.replace(/\s/g,'');
+  if (!orig) {
+    setProgress(0, 'Load a template to start tracking your edits');
     return;
   }
-
-  // Calculate how much text has been added/edited
-  const originalLength = originalTemplate.replace(/\s/g, '').length; // ignore spaces
-  const currentLength = html.replace(/\s/g, '').length;
-
-  let progress = Math.min(100, Math.floor((currentLength / originalLength) * 100));
-
-  document.getElementById('progressBar').style.width = progress + "%";
-  document.getElementById('progressBar').textContent = progress + "% Complete";
+  const diff = Math.abs(current.length - orig.length);
+  const threshold = orig.length * 0.15; // 15% change = 100%
+  const pct = Math.min(100, Math.floor((diff / threshold) * 100));
+  let tip = 'Keep going — change headings, paragraphs, and colours!';
+  if (pct >= 100) tip = '🎉 Great work! Your project looks highly customized.';
+  else if (pct >= 60) tip = '👍 Looking good — try changing colours and adding more content.';
+  else if (pct >= 30) tip = '✏️ Good start! Keep editing to make it truly yours.';
+  setProgress(pct, tip);
 }
 
-// Submit project
-function submitProject(){
-const blob = new Blob([editor.getValue()], {type:'text/html'});
+function setProgress(pct, tip) {
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '%';
+  document.getElementById('progressTip').textContent = tip;
+}
+
+/* ═══════════════════════════════════════
+   SUBMIT CHECKLIST
+═══════════════════════════════════════ */
+function updateChecklist() {
+  const hasTemplate = !!selectedTemplate;
+  const hasEdits = originalCode && editor.getValue().replace(/\s/g,'') !== originalCode.replace(/\s/g,'');
+  const hasImage = imagesAdded > 0;
+  const hasPreview = previewRefreshed;
+
+  setCheck('chk-template', hasTemplate, 'Template loaded');
+  setCheck('chk-edited', hasEdits, 'Code has been edited');
+  setCheck('chk-image', hasImage, 'At least one image added');
+  setCheck('chk-preview', hasPreview, 'Preview looks good');
+}
+
+function setCheck(id, done, label) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.className = 'check-item ' + (done ? 'done' : 'pending');
+  el.querySelector('.check-icon').textContent = done ? '✅' : '⬜';
+  el.childNodes[1].textContent = ' ' + label;
+}
+
+/* ═══════════════════════════════════════
+   CODE ACTIONS
+═══════════════════════════════════════ */
+function formatCode() {
+  let code = editor.getValue();
+  // Simple formatter
+  code = code.replace(/></g, '>\n<').replace(/^\s+|\s+$/g, '');
+  let indent = 0;
+  const voidTags = new Set(['area','base','br','col','embed','hr','img','input','link','meta','param','source','track','wbr']);
+  const result = code.split('\n').map(raw => {
+    const line = raw.trim();
+    if (!line) return '';
+    const isClose = /^<\/\w/.test(line);
+    const isVoid  = voidTags.has((line.match(/^<(\w+)/)||[])[1]?.toLowerCase());
+    const isSelf  = /\/>$/.test(line);
+    if (isClose) indent = Math.max(0, indent - 1);
+    const out = '  '.repeat(indent) + line;
+    if (!isClose && !isVoid && !isSelf && /^<\w[^>]*[^\/]>$/.test(line)) indent++;
+    return out;
+  }).join('\n');
+  editor.setValue(result);
+  showToast('Code formatted ✓', 'ok');
+}
+
+function undoCode() { editor.undo(); showToast('Undone', 'ok'); }
+
+function copyCode() {
+  navigator.clipboard.writeText(editor.getValue())
+    .then(() => showToast('Code copied to clipboard ✓', 'ok'))
+    .catch(() => showToast('Copy failed — please select all and copy manually', 'err'));
+}
+
+/* ═══════════════════════════════════════
+   IMAGE UPLOAD
+═══════════════════════════════════════ */
+const uploadedImages = {};
+
+document.getElementById('fileInput').addEventListener('change', function () {
+  handleFiles(this.files);
+});
+
+const dropZone = document.getElementById('dropZone');
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.classList.remove('dragover');
+  handleFiles(e.dataTransfer.files);
+});
+
+function handleFiles(files) {
+  Array.from(files).forEach(file => {
+    if (!file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      const dataUrl = e.target.result;
+      const id = 'img_' + Date.now() + '_' + Math.random().toString(36).slice(2,6);
+      uploadedImages[id] = { name: file.name, src: dataUrl };
+      addImageThumb(id, dataUrl, file.name);
+      imagesAdded++;
+      updateChecklist();
+      showToast(`Image "${file.name}" uploaded ✓`, 'ok');
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function addImageThumb(id, src, name) {
+  const grid = document.getElementById('imgGrid');
+  const wrap = document.createElement('div');
+  wrap.className = 'img-thumb';
+  wrap.id = 'thumb_' + id;
+  wrap.innerHTML = `
+    <img src="${src}" alt="${name}" loading="lazy">
+    <button class="img-del" onclick="deleteImage('${id}')" title="Remove image">✕</button>
+    <button class="img-copy" onclick="copyImgTag('${id}')" title="Copy img tag">Copy Tag</button>
+  `;
+  grid.appendChild(wrap);
+}
+
+function deleteImage(id) {
+  delete uploadedImages[id];
+  const el = document.getElementById('thumb_' + id);
+  if (el) el.remove();
+  imagesAdded = Math.max(0, imagesAdded - 1);
+  updateChecklist();
+}
+
+function copyImgTag(id) {
+  const img = uploadedImages[id];
+  if (!img) return;
+  const tag = `<img src="${img.src}" alt="${img.name}" style="max-width:100%;border-radius:8px;">`;
+  navigator.clipboard.writeText(tag)
+    .then(() => showToast('Image tag copied! Paste it in the editor where you want the image.', 'ok'))
+    .catch(() => {
+      // Fallback: insert at cursor
+      editor.replaceSelection(tag);
+      showToast('Image tag inserted at cursor ✓', 'ok');
+    });
+}
+
+/* ═══════════════════════════════════════
+   SUBMIT MODAL
+═══════════════════════════════════════ */
+function openModal() {
+  const code = editor.getValue();
+  if (!code.trim()) { showToast('Please write some code first!', 'warn'); return; }
+  if (selectedTemplate) document.getElementById('submitterTemplate').value = selectedTemplate;
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+
+document.getElementById('modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('modal')) closeModal();
+});
+
+function finalSubmit() {
+  const name   = document.getElementById('submitterName').value.trim();
+  const school = document.getElementById('submitterSchool').value.trim();
+  const email  = document.getElementById('submitterEmail').value.trim();
+  const tpl    = document.getElementById('submitterTemplate').value;
+
+  if (!name)  { showToast('Please enter your full name', 'err'); return; }
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showToast('Please enter a valid email', 'err'); return; }
+
+  const code = editor.getValue();
+  const tplName = tpl ? TEMPLATES[tpl]?.name || tpl : 'Custom Project';
+
+  // Inject submission metadata as HTML comment at top
+  const timestamp = new Date().toLocaleString('en-UG');
+  const metadata = `<!--
+  ╔═══════════════════════════════════════════╗
+  ║  CODEON National Hackathon Uganda 2025    ║
+  ╠═══════════════════════════════════════════╣
+  ║  Participant : ${name.padEnd(28)}║
+  ║  School      : ${(school||'Not specified').padEnd(28)}║
+  ║  Email       : ${email.padEnd(28)}║
+  ║  Template    : ${tplName.padEnd(28)}║
+  ║  Submitted   : ${timestamp.padEnd(28)}║
+  ╚═══════════════════════════════════════════╝
+-->
+`;
+  const finalHtml = metadata + code;
+  const safeFilename = name.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'') || 'student';
+  const filename = `codeon_hackathon_${safeFilename}.html`;
+
+  const blob = new Blob([finalHtml], {type: 'text/html;charset=utf-8'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = 'hackathon_project.html';
+  a.download = filename;
   a.click();
-  alert('Your project is saved! Submit the downloaded file.');
+  URL.revokeObjectURL(a.href);
+
+  closeModal();
+  showToast(`🏆 Project downloaded as "${filename}" — send this file to the judges!`, 'ok');
+
+  // Mark preview as submitted
+  previewRefreshed = true;
+  updateChecklist();
 }
 
-let editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
-  mode: "htmlmixed",
-  theme: "material-darker",
-  lineNumbers: true,
-  autoCloseTags: true,
-  lineWrapping: true
-});
+/* ═══════════════════════════════════════
+   COUNTDOWN TIMER
+═══════════════════════════════════════ */
+function initCountdown() {
+  // 48 hours from first visit, stored in localStorage
+  let deadline = localStorage.getItem('codeon_hackathon_deadline');
+  if (!deadline) {
+    deadline = Date.now() + 48 * 60 * 60 * 1000;
+    localStorage.setItem('codeon_hackathon_deadline', deadline);
+  }
+  deadline = parseInt(deadline);
 
-editor.on("change", () => {
-  const html = editor.getValue();
-  document.getElementById("preview").srcdoc = html;
-  localStorage.setItem("hackathonProject", html);
-  updateProgress();
-});
-
-function formatCode(){
-
-let code = editor.getValue();
-
-let formatted = code
-.replace(/></g, ">\n<")   // break lines between tags
-.replace(/^\s+|\s+$/g, "");
-
-let indent = 0;
-let lines = formatted.split("\n");
-let result = "";
-
-lines.forEach(line => {
-
-if(line.match(/^<\/\w/)) indent--;
-
-result += "  ".repeat(indent) + line + "\n";
-
-if(line.match(/^<\w[^>]*[^\/]>$/)) indent++;
-
-});
-
-editor.setValue(result);
-
+  function tick() {
+    const remaining = deadline - Date.now();
+    if (remaining <= 0) {
+      document.getElementById('countdownTimer').textContent = '⏱ TIME UP!';
+      document.getElementById('countdownTimer').style.color = '#ff5252';
+      return;
+    }
+    const h = Math.floor(remaining / 3600000);
+    const m = Math.floor((remaining % 3600000) / 60000);
+    const s = Math.floor((remaining % 60000) / 1000);
+    document.getElementById('countdownTimer').textContent =
+      `⏱ ${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    if (remaining < 3600000) document.getElementById('countdownTimer').style.color = '#ff5252';
+    else if (remaining < 7200000) document.getElementById('countdownTimer').style.color = '#ff9800';
+  }
+  tick();
+  setInterval(tick, 1000);
 }
-  let originalTemplate = ""; // global variable
 
-function loadTemplate(name){
-  const template = templates[name];
-  editor.setValue(template);
-  document.getElementById('preview').srcdoc = template;
-  localStorage.setItem('hackathonProject', template);
+/* ═══════════════════════════════════════
+   PARTICLE CANVAS
+═══════════════════════════════════════ */
+function initCanvas() {
+  const canvas = document.getElementById('bgCanvas');
+  const ctx = canvas.getContext('2d');
+  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize, {passive:true});
 
-  // Save this template for progress calculation
-  originalTemplate = template;
+  const pts = Array.from({length:50}, () => ({
+    x: Math.random()*canvas.width, y: Math.random()*canvas.height,
+    dx: (Math.random()-.5)*.25, dy: (Math.random()-.5)*.25,
+    r: Math.random()*1.2+.4, a: Math.random()*.3+.05
+  }));
 
-  updateProgress();
+  function draw() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    pts.forEach(p => {
+      p.x += p.dx; p.y += p.dy;
+      if (p.x>canvas.width||p.x<0) p.dx*=-1;
+      if (p.y>canvas.height||p.y<0) p.dy*=-1;
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(0,224,198,${p.a})`; ctx.fill();
+    });
+    for (let i=0;i<pts.length;i++) for (let j=i+1;j<pts.length;j++) {
+      const d = Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);
+      if (d<100) { ctx.beginPath(); ctx.moveTo(pts[i].x,pts[i].y); ctx.lineTo(pts[j].x,pts[j].y); ctx.strokeStyle=`rgba(0,224,198,${.04*(1-d/100)})`; ctx.lineWidth=.5; ctx.stroke(); }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
 }
 </script>
 </body>
