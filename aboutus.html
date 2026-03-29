@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#040d0b">
+<title>About CODEON Africa | Uganda's #1 Student Coding Platform</title>
+<meta name="description" content="CODEON is Uganda's leading student coding platform. Learn HTML, CSS, JavaScript and Python. Earn verified certificates, compete in national hackathons, and build your future. Founded in Uganda, built for Africa.">
+<meta name="keywords" content="about CODEON Uganda, coding platform Africa, student developer Uganda, learn coding Uganda, CODEON mission, web development Uganda, coding community Africa">
+<meta name="author" content="CODEON Africa">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://codeondigital.com/aboutus">
+<link rel="icon" href="codeon logo.png" type="image/png">
+<link rel="apple-touch-icon" href="codeon logo.png">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://codeondigital.com/aboutus">
+<meta property="og:title" content="About CODEON Africa | Uganda's #1 Student Coding Platform">
+<meta property="og:description" content="Learn about CODEON's mission to build Africa's strongest student developer ecosystem through practical coding education, hackathons, and community.">
+<meta property="og:image" content="https://codeondigital.com/og-about.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="About CODEON Africa">
+<meta name="twitter:description" content="Uganda's #1 student coding platform. Practical learning, real certificates, national hackathons.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "AboutPage",
+      "@id": "https://codeondigital.com/aboutus",
+      "name": "About CODEON Africa",
+      "url": "https://codeondigital.com/aboutus",
+      "description": "CODEON is Uganda's leading student coding platform offering practical web development education, hackathons, and verified certificates.",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type":"ListItem","position":1,"name":"Home","item":"https://codeondigital.com"},
+          {"@type":"ListItem","position":2,"name":"About","item":"https://codeondigital.com/aboutus"}
+        ]
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://codeondigital.com/#org",
+      "name": "CODEON Africa",
+      "url": "https://codeondigital.com",
+      "foundingDate": "2023",
+      "foundingLocation": {"@type":"Place","name":"Kampala, Uganda"},
+      "description": "Uganda's leading student coding platform. Practical web development education, hackathons, and verified certificates for African students.",
+      "areaServed": {"@type":"Country","name":"Uganda"},
+      "contactPoint": {"@type":"ContactPoint","telephone":"+256743733322","contactType":"customer support"},
+      "sameAs": ["https://k-mirembe-mercy.github.io/codeon/"]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"Who is CODEON for?","acceptedAnswer":{"@type":"Answer","text":"CODEON is built for secondary school and university students across Uganda and Africa who want to learn web development and programming in a practical, gamified way."}},
+        {"@type":"Question","name":"What makes CODEON different?","acceptedAnswer":{"@type":"Answer","text":"Students don't just watch tutorials. They build real projects using GitHub workflows, deploy live sites, and earn verifiable certificates recognized by employers."}},
+        {"@type":"Question","name":"Is CODEON free?","acceptedAnswer":{"@type":"Answer","text":"Yes. Creating an account and accessing core content is completely free. Premium features like mentorship and certificate issuance require a subscription."}}
+      ]
+    }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800;900&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ══════════════════════════════
+   TOKENS
+══════════════════════════════ */
+:root {
+  --bg:     #040d0b;
+  --s1:     #071510;
+  --s2:     #0a1e18;
+  --border: #122820;
+  --accent: #00e0c6;
+  --a2:     #00ffd5;
+  --gold:   #f5c518;
+  --text:   #dff0ed;
+  --muted:  #4d7a74;
+  --fd:     'Syne', sans-serif;
+  --fb:     'DM Sans', sans-serif;
+  --fm:     'Space Mono', monospace;
+  --r:      16px;
+  --glow:   0 0 60px rgba(0,224,198,.1);
+  --tr:     .3s cubic-bezier(.4,0,.2,1);
+}
+.light {
+  --bg:#f0f7f6; --s1:#fff; --s2:#e8f4f2; --border:#c5ddd9;
+  --text:#0a2522; --muted:#4a7a74;
+  --glow: 0 0 60px rgba(0,122,110,.08);
+}
+
+/* ══════════════════════════════
+   RESET
+══════════════════════════════ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{background:var(--bg);color:var(--text);font-family:var(--fb);overflow-x:hidden;line-height:1.6;}
+a{text-decoration:none;color:inherit;}
+img{display:block;max-width:100%;}
+button{cursor:pointer;font-family:var(--fb);}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
+
+/* ══════════════════════════════
+   CANVAS
+══════════════════════════════ */
+#bgCanvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
+
+/* ══════════════════════════════
+   LOADER
+══════════════════════════════ */
+#loader{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;gap:18px;transition:opacity .6s,visibility .6s;}
+#loader.gone{opacity:0;visibility:hidden;pointer-events:none;}
+.ld-logo{font-family:var(--fd);font-size:clamp(2rem,7vw,3rem);font-weight:900;color:var(--accent);letter-spacing:-2px;}
+.ld-bar{width:min(200px,65vw);height:2px;background:var(--border);border-radius:2px;overflow:hidden;}
+.ld-fill{height:100%;background:var(--accent);animation:ldFill 1.4s ease forwards;}
+@keyframes ldFill{from{width:0}to{width:100%}}
+.ld-sub{font-family:var(--fm);font-size:.62rem;letter-spacing:4px;color:var(--muted);}
+
+/* ══════════════════════════════
+   HEADER
+══════════════════════════════ */
+header{position:sticky;top:0;z-index:100;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(14px,5%,52px);background:rgba(4,13,11,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:background var(--tr);}
+.light header{background:rgba(240,247,246,.93);}
+.hd-brand{display:flex;align-items:center;gap:10px;}
+.hd-logo{height:34px;}
+.hd-name{font-family:var(--fd);font-size:1.05rem;font-weight:900;color:var(--accent);letter-spacing:-1px;}
+nav{display:flex;align-items:center;gap:clamp(14px,3vw,28px);}
+nav a{font-family:var(--fm);font-size:.68rem;letter-spacing:1px;color:var(--muted);transition:color var(--tr);position:relative;}
+nav a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--accent);transition:width var(--tr);}
+nav a:hover{color:var(--text);}
+nav a:hover::after,nav a.active::after{width:100%;}
+nav a.active{color:var(--accent);}
+.hd-right{display:flex;align-items:center;gap:10px;}
+.btn-icon{background:none;border:1px solid var(--border);color:var(--muted);width:36px;height:36px;border-radius:50%;font-size:.9rem;display:flex;align-items:center;justify-content:center;transition:border-color var(--tr),color var(--tr);}
+.btn-icon:hover{border-color:var(--accent);color:var(--text);}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:6px;}
+.hamburger span{display:block;width:20px;height:2px;background:var(--text);border-radius:2px;transition:transform .3s,opacity .3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+@media(max-width:768px){nav{display:none;}.hamburger{display:flex;}}
+
+/* MOBILE DRAWER */
+.drawer{position:fixed;inset:0;top:62px;background:var(--s1);transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);z-index:99;padding:28px clamp(16px,6%,36px);display:flex;flex-direction:column;gap:4px;border-top:1px solid var(--border);}
+.drawer.open{transform:translateX(0);}
+.drawer a{font-size:1.2rem;font-weight:700;padding:13px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;transition:color var(--tr);}
+.drawer a::after{content:'→';font-size:.9rem;color:var(--muted);}
+.drawer a:hover{color:var(--accent);}
+
+/* ══════════════════════════════
+   BUTTONS
+══════════════════════════════ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:11px 24px;border:none;border-radius:8px;font-family:var(--fb);font-weight:600;font-size:.88rem;transition:transform var(--tr),box-shadow var(--tr);-webkit-tap-highlight-color:transparent;white-space:nowrap;}
+.btn:active{transform:scale(.96)!important;}
+.btn-primary{background:var(--accent);color:#001a17;box-shadow:0 0 20px rgba(0,224,198,.22);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 36px rgba(0,224,198,.4);}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border);}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+
+/* ══════════════════════════════
+   SECTIONS
+══════════════════════════════ */
+.z1{position:relative;z-index:1;}
+.shell{max-width:1100px;margin:0 auto;padding:clamp(56px,10vw,96px) clamp(16px,5%,52px);}
+.shell-sm{max-width:720px;margin:0 auto;padding:clamp(56px,10vw,96px) clamp(16px,5%,52px);}
+.alt{background:var(--s1);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.sec-tag{font-family:var(--fm);font-size:.58rem;letter-spacing:4px;color:var(--accent);margin-bottom:12px;}
+.sec-title{font-family:var(--fd);font-size:clamp(1.7rem,5vw,2.8rem);font-weight:900;letter-spacing:-1px;line-height:1.1;margin-bottom:14px;}
+.sec-desc{color:var(--muted);font-size:clamp(.88rem,2vw,.96rem);line-height:1.8;max-width:560px;}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .75s ease,transform .75s ease;}
+.reveal.up{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.1s;}.d2{transition-delay:.2s;}.d3{transition-delay:.3s;}.d4{transition-delay:.4s;}
+
+/* ══════════════════════════════
+   HERO
+══════════════════════════════ */
+.hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(90px,18vw,130px) clamp(16px,5%,52px) clamp(48px,8vw,72px);position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(0,224,198,.06),transparent 65%);pointer-events:none;}
+
+/* PILL */
+.hero-pill{display:inline-flex;align-items:center;gap:8px;font-family:var(--fm);font-size:.6rem;letter-spacing:3px;color:var(--gold);background:rgba(245,197,24,.07);border:1px solid rgba(245,197,24,.22);padding:5px 16px;border-radius:100px;margin-bottom:clamp(18px,4vw,28px);animation:fadeUp .8s .1s both;}
+.pill-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s infinite;flex-shrink:0;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+
+.hero h1{font-family:var(--fd);font-size:clamp(2.3rem,8vw,5.2rem);font-weight:900;letter-spacing:clamp(-2px,-0.5vw,-3px);line-height:1.04;max-width:860px;animation:fadeUp .8s .25s both;}
+.hero h1 em{font-style:normal;color:var(--accent);position:relative;display:inline-block;}
+.hero h1 em::after{content:'';position:absolute;bottom:3px;left:0;right:0;height:3px;background:var(--accent);opacity:.3;border-radius:2px;}
+.hero-sub{margin-top:clamp(14px,3vw,22px);font-size:clamp(.9rem,2.5vw,1.05rem);color:var(--muted);max-width:500px;line-height:1.8;animation:fadeUp .8s .4s both;}
+.hero-ctas{margin-top:clamp(24px,5vw,38px);display:flex;gap:12px;flex-wrap:wrap;justify-content:center;animation:fadeUp .8s .55s both;}
+
+/* hero scroll cue */
+.scroll-cue{margin-top:clamp(40px,8vw,60px);display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--muted);font-family:var(--fm);font-size:.55rem;letter-spacing:3px;animation:fadeUp .8s .7s both;}
+.sc-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--accent),transparent);animation:scLine 2.2s ease-in-out infinite;}
+@keyframes scLine{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* ══════════════════════════════
+   STATS ROW
+══════════════════════════════ */
+.stats-row{display:flex;gap:clamp(20px,5vw,52px);flex-wrap:wrap;justify-content:center;margin-top:clamp(36px,6vw,52px);}
+.stat-item{text-align:center;}
+.stat-n{font-family:var(--fm);font-size:clamp(1.4rem,4vw,2.2rem);font-weight:700;color:var(--accent);}
+.stat-l{font-family:var(--fm);font-size:.55rem;letter-spacing:2.5px;color:var(--muted);margin-top:3px;}
+
+/* ══════════════════════════════
+   MARQUEE
+══════════════════════════════ */
+.marquee-wrap{overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:12px 0;background:var(--s1);z-index:1;position:relative;}
+.marquee-track{display:flex;width:max-content;gap:40px;animation:marquee 22s linear infinite;}
+.marquee-wrap:hover .marquee-track{animation-play-state:paused;}
+.m-item{font-family:var(--fm);font-size:.68rem;letter-spacing:2px;color:var(--muted);white-space:nowrap;display:flex;align-items:center;gap:10px;}
+.m-item strong{color:var(--accent);}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+/* ══════════════════════════════
+   MISSION / VALUES GRID
+══════════════════════════════ */
+.mission-split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,6vw,64px);align-items:center;}
+@media(max-width:700px){.mission-split{grid-template-columns:1fr;}}
+.mission-text .big-quote{font-family:var(--fd);font-size:clamp(1.4rem,4vw,2rem);font-weight:900;line-height:1.2;letter-spacing:-1px;color:var(--text);margin-bottom:20px;}
+.mission-text .big-quote span{color:var(--accent);}
+.mission-cards{display:flex;flex-direction:column;gap:14px;}
+.m-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:20px 22px;display:flex;gap:14px;align-items:flex-start;transition:border-color var(--tr),transform var(--tr);}
+.m-card:hover{border-color:rgba(0,224,198,.3);transform:translateX(4px);}
+.m-card-icon{font-size:1.5rem;flex-shrink:0;margin-top:2px;}
+.m-card h3{font-family:var(--fd);font-size:.92rem;font-weight:800;margin-bottom:5px;}
+.m-card p{color:var(--muted);font-size:.82rem;line-height:1.65;}
+
+/* ══════════════════════════════
+   VALUES
+══════════════════════════════ */
+.values-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
+.val-card{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:clamp(18px,3vw,26px);position:relative;overflow:hidden;transition:border-color var(--tr),transform var(--tr);}
+.val-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+.val-card:hover{border-color:rgba(0,224,198,.3);transform:translateY(-3px);}
+.val-card:hover::before{transform:scaleX(1);}
+.val-icon{font-size:1.8rem;margin-bottom:12px;}
+.val-card h3{font-family:var(--fd);font-size:.95rem;font-weight:800;margin-bottom:8px;}
+.val-card p{color:var(--muted);font-size:.82rem;line-height:1.65;}
+
+/* ══════════════════════════════
+   TEAM
+══════════════════════════════ */
+.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;}
+.team-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:26px 20px;text-align:center;transition:border-color var(--tr),transform var(--tr);}
+.team-card:hover{border-color:rgba(0,224,198,.3);transform:translateY(-4px);}
+.team-av{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,rgba(0,224,198,.15),rgba(0,224,198,.05));border:2px solid rgba(0,224,198,.25);margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:1.4rem;font-weight:900;color:var(--accent);}
+.team-name{font-family:var(--fd);font-size:.95rem;font-weight:800;margin-bottom:4px;}
+.team-role{font-family:var(--fm);font-size:.6rem;letter-spacing:2px;color:var(--accent);margin-bottom:8px;}
+.team-bio{color:var(--muted);font-size:.78rem;line-height:1.6;}
+
+/* ══════════════════════════════
+   TIMELINE
+══════════════════════════════ */
+.timeline{display:flex;flex-direction:column;gap:0;position:relative;}
+.timeline::before{content:'';position:absolute;left:20px;top:0;bottom:0;width:1px;background:var(--border);}
+.tl-item{display:flex;gap:20px;padding-bottom:32px;position:relative;}
+.tl-dot{width:40px;height:40px;border-radius:50%;background:var(--s2);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;z-index:1;transition:border-color var(--tr);}
+.tl-item:hover .tl-dot{border-color:var(--accent);}
+.tl-body{flex:1;padding-top:8px;}
+.tl-date{font-family:var(--fm);font-size:.6rem;letter-spacing:2px;color:var(--accent);margin-bottom:5px;}
+.tl-body h3{font-family:var(--fd);font-size:.95rem;font-weight:800;margin-bottom:4px;}
+.tl-body p{color:var(--muted);font-size:.82rem;line-height:1.6;}
+
+/* ══════════════════════════════
+   FAQ
+══════════════════════════════ */
+.faq-list{display:flex;flex-direction:column;gap:4px;}
+.faq-item{border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.faq-q{width:100%;background:var(--s1);color:var(--text);font-family:var(--fd);font-size:clamp(.88rem,2vw,.96rem);font-weight:700;padding:17px clamp(14px,3vw,22px);text-align:left;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;border:none;transition:color var(--tr);-webkit-tap-highlight-color:transparent;}
+.faq-q:hover{color:var(--accent);}
+.faq-arrow{font-size:1.1rem;transition:transform .3s;color:var(--muted);flex-shrink:0;}
+.faq-item.open .faq-arrow{transform:rotate(180deg);color:var(--accent);}
+.faq-item.open .faq-q{color:var(--accent);}
+.faq-a{display:none;padding:0 clamp(14px,3vw,22px) 17px;color:var(--muted);font-size:.88rem;line-height:1.8;background:var(--s1);}
+.faq-item.open .faq-a{display:block;}
+
+/* ══════════════════════════════
+   CTA BANNER
+══════════════════════════════ */
+.cta-banner{background:linear-gradient(135deg,var(--s1),var(--s2));border:1px solid var(--border);border-radius:20px;padding:clamp(28px,6vw,52px);text-align:center;overflow:hidden;position:relative;}
+.cta-banner::before{content:'';position:absolute;right:-60px;top:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(0,224,198,.08),transparent 70%);border-radius:50%;}
+.cta-banner h2{font-family:var(--fd);font-size:clamp(1.4rem,4vw,2rem);font-weight:900;letter-spacing:-1px;margin-bottom:10px;}
+.cta-banner p{color:var(--muted);font-size:.9rem;max-width:460px;margin:0 auto 26px;line-height:1.7;}
+
+/* ══════════════════════════════
+   FOOTER
+══════════════════════════════ */
+footer{border-top:1px solid var(--border);z-index:1;position:relative;}
+.footer-inner{max-width:1100px;margin:0 auto;padding:clamp(28px,5vw,44px) clamp(16px,5%,52px);display:flex;flex-wrap:wrap;gap:clamp(16px,3vw,28px);align-items:center;justify-content:space-between;}
+.footer-brand{font-family:var(--fd);font-size:1.05rem;font-weight:900;color:var(--accent);}
+.footer-links{display:flex;gap:20px;flex-wrap:wrap;}
+.footer-links a{font-family:var(--fm);font-size:.65rem;letter-spacing:1px;color:var(--muted);transition:color var(--tr);}
+.footer-links a:hover{color:var(--accent);}
+.footer-copy{font-family:var(--fm);font-size:.62rem;letter-spacing:1px;color:var(--muted);}
+
+/* ══════════════════════════════
+   FIREBASE NOTICE
+══════════════════════════════ */
+.firebase-notice{background:rgba(245,197,24,.06);border:1px solid rgba(245,197,24,.25);border-radius:var(--r);padding:clamp(18px,3vw,26px);margin-bottom:16px;}
+.firebase-notice h3{font-family:var(--fd);font-size:1rem;font-weight:800;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.firebase-notice p{color:var(--muted);font-size:.85rem;line-height:1.7;margin-bottom:10px;}
+.firebase-notice ol{padding-left:20px;color:var(--muted);font-size:.84rem;line-height:1.8;}
+.firebase-notice ol li{margin-bottom:4px;}
+.firebase-notice code{font-family:var(--fm);background:rgba(0,224,198,.08);color:var(--accent);padding:2px 7px;border-radius:4px;font-size:.82em;}
+.firebase-notice a{color:var(--accent);}
+.firebase-notice a:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<canvas id="bgCanvas" aria-hidden="true"></canvas>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="ld-logo">CODEON</div>
+  <div class="ld-bar"><div class="ld-fill"></div></div>
+  <div class="ld-sub">LOADING</div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="hd-brand">
+    <img src="codeon logo.png" alt="CODEON Africa" class="hd-logo" width="34" height="34" loading="eager">
+    <span class="hd-name">CODEON</span>
+  </div>
+  <nav id="desktopNav" aria-label="Main navigation">
+    <a href="index.html">Home</a>
+    <a href="enroll.html">Enroll</a>
+    <a href="community-codeon.html">Community</a>
+    <a href="hackathon.html">Hackathon</a>
+    <a href="aboutus.html" class="active" aria-current="page">About</a>
+  </nav>
+  <div class="hd-right">
+    <button class="btn-icon" onclick="toggleMode()" aria-label="Toggle theme" id="modeBtn">🌙</button>
+    <a href="enroll.html" class="btn btn-primary" style="padding:9px 18px;font-size:.78rem;display:none;" id="hd-enroll">Enroll Free</a>
+    <button class="hamburger" id="hamburger" onclick="toggleDrawer()" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- MOBILE DRAWER -->
+<nav class="drawer" id="drawer" aria-label="Mobile navigation">
+  <a href="index.html">Home</a>
+  <a href="enroll.html">Enroll</a>
+  <a href="community-codeon.html">Community</a>
+  <a href="hackathon.html">Hackathon</a>
+  <a href="aboutus.html">About</a>
+  <a href="verify.html">Verify</a>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero z1" aria-label="About CODEON">
+  <div class="hero-pill"><div class="pill-dot"></div>FOUNDED IN KAMPALA, UGANDA</div>
+  <h1>We Are Building<br>Africa's <em>Developer</em><br>Generation</h1>
+  <p class="hero-sub">CODEON equips African students with practical coding skills, real GitHub workflows, and verified credentials that employers trust.</p>
+  <div class="hero-ctas">
+    <a href="enroll.html" class="btn btn-primary">Join CODEON Free →</a>
+    <a href="community-codeon.html" class="btn btn-ghost">Meet the Community</a>
+  </div>
+  <div class="stats-row" aria-label="Platform stats">
+    <div class="stat-item"><div class="stat-n" data-count="500">0</div><div class="stat-l">STUDENTS</div></div>
+    <div class="stat-item"><div class="stat-n">4</div><div class="stat-l">PROGRAMS</div></div>
+    <div class="stat-item"><div class="stat-n">2023</div><div class="stat-l">FOUNDED</div></div>
+    <div class="stat-item"><div class="stat-n">🇺🇬</div><div class="stat-l">BUILT IN AFRICA</div></div>
+  </div>
+  <div class="scroll-cue" aria-hidden="true"><span>SCROLL</span><div class="sc-line"></div></div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap z1" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="m-item"><strong>HTML5</strong> · Web Structure</span>
+    <span class="m-item"><strong>CSS3</strong> · Responsive Design</span>
+    <span class="m-item"><strong>JavaScript</strong> · Interactivity</span>
+    <span class="m-item"><strong>Python</strong> · Automation</span>
+    <span class="m-item"><strong>GitHub</strong> · Real Workflows</span>
+    <span class="m-item"><strong>Certificates</strong> · Verified</span>
+    <span class="m-item"><strong>Hackathons</strong> · National Level</span>
+    <span class="m-item"><strong>Community</strong> · 500+ Students</span>
+    <span class="m-item"><strong>HTML5</strong> · Web Structure</span>
+    <span class="m-item"><strong>CSS3</strong> · Responsive Design</span>
+    <span class="m-item"><strong>JavaScript</strong> · Interactivity</span>
+    <span class="m-item"><strong>Python</strong> · Automation</span>
+    <span class="m-item"><strong>GitHub</strong> · Real Workflows</span>
+    <span class="m-item"><strong>Certificates</strong> · Verified</span>
+    <span class="m-item"><strong>Hackathons</strong> · National Level</span>
+    <span class="m-item"><strong>Community</strong> · 500+ Students</span>
+  </div>
+</div>
+
+<!-- ══ MISSION ══ -->
+<div class="z1 alt">
+  <div class="shell">
+    <div class="mission-split">
+      <div class="mission-text reveal">
+        <div class="sec-tag">OUR MISSION</div>
+        <div class="big-quote">"We don't teach syntax.<br>We build <span>real developers.</span>"</div>
+        <p style="color:var(--muted);font-size:.92rem;line-height:1.8;">CODEON was born from a simple belief — that African students are just as capable as any developer anywhere in the world. They just need the right tools, the right community, and a curriculum that meets them where they are.</p>
+        <p style="color:var(--muted);font-size:.92rem;line-height:1.8;margin-top:14px;">We teach students to code the way professionals do — with version control, real projects, peer review, and the soft skills that make a developer employable, not just technically capable.</p>
+      </div>
+      <div class="mission-cards reveal d2">
+        <div class="m-card">
+          <div class="m-card-icon">🎯</div>
+          <div><h3>Practical First</h3><p>Every lesson produces something real. No passive video watching — students build, deploy, and share from day one.</p></div>
+        </div>
+        <div class="m-card">
+          <div class="m-card-icon">🌍</div>
+          <div><h3>Africa-Rooted</h3><p>Our projects, case studies, and examples reflect Ugandan and African reality — not copied from Silicon Valley curricula.</p></div>
+        </div>
+        <div class="m-card">
+          <div class="m-card-icon">🏆</div>
+          <div><h3>Competition-Driven</h3><p>Weekly challenges, national hackathons, and leaderboards keep students motivated long after the first lesson.</p></div>
+        </div>
+        <div class="m-card">
+          <div class="m-card-icon">📜</div>
+          <div><h3>Credentials That Count</h3><p>Every CODEON certificate is verifiable online. Share it on LinkedIn or present it to any employer — it means something.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ VALUES ══ -->
+<div class="z1">
+  <div class="shell">
+    <div class="reveal" style="text-align:center;margin-bottom:clamp(32px,5vw,52px);">
+      <div class="sec-tag" style="text-align:center;">WHAT WE STAND FOR</div>
+      <h2 class="sec-title" style="text-align:center;">Our Core Values</h2>
+    </div>
+    <div class="values-grid">
+      <div class="val-card reveal d1"><div class="val-icon">⚡</div><h3>Excellence</h3><p>We hold students to professional standards from day one, because mediocrity doesn't build Africa's future.</p></div>
+      <div class="val-card reveal d2"><div class="val-icon">🤝</div><h3>Community</h3><p>No one codes alone. Every student joins a community of peers, mentors, and fellow builders across the continent.</p></div>
+      <div class="val-card reveal d1"><div class="val-icon">🔓</div><h3>Access</h3><p>World-class coding education should not be gated by geography or income. CODEON is free to start — always.</p></div>
+      <div class="val-card reveal d2"><div class="val-icon">🌱</div><h3>Growth</h3><p>We meet every student where they are and create clear, motivating paths from beginner to professional.</p></div>
+      <div class="val-card reveal d1"><div class="val-icon">🔬</div><h3>Practicality</h3><p>Theory without application is useless. Every CODEON lesson produces something you can show, share, and deploy.</p></div>
+      <div class="val-card reveal d2"><div class="val-icon">🦁</div><h3>African Pride</h3><p>We celebrate Uganda and Africa at every turn. Our students are not catching up — they are leading.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ STORY / TIMELINE ══ -->
+<div class="z1 alt">
+  <div class="shell">
+    <div class="reveal" style="margin-bottom:clamp(32px,5vw,48px);">
+      <div class="sec-tag">OUR STORY</div>
+      <h2 class="sec-title">How CODEON Was Born</h2>
+      <p class="sec-desc">From a small idea in Kampala to Uganda's leading student coding platform.</p>
+    </div>
+    <div class="timeline reveal">
+      <div class="tl-item">
+        <div class="tl-dot">💡</div>
+        <div class="tl-body">
+          <div class="tl-date">2023 · THE IDEA</div>
+          <h3>A Problem Worth Solving</h3>
+          <p>A group of students in Kampala realized that Ugandan learners were graduating without the practical skills employers wanted. Most coding courses taught theory — not GitHub, not deployment, not real collaboration. CODEON was the answer.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">🚀</div>
+        <div class="tl-body">
+          <div class="tl-date">2023 · LAUNCH</div>
+          <h3>First Students, First Lessons</h3>
+          <p>CODEON launched with its first cohort of HTML and CSS students. The feedback was immediate — students wanted more structure, more competition, and more community. So we built it.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">🏆</div>
+        <div class="tl-body">
+          <div class="tl-date">2024 · HACKATHON</div>
+          <h3>The First National Hackathon</h3>
+          <p>CODEON hosted its first national hackathon, bringing together students from across Uganda to compete in real web development challenges. The energy was electric — and it proved that Ugandan students thrive under real competitive pressure.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">📊</div>
+        <div class="tl-body">
+          <div class="tl-date">2024 · GROWTH</div>
+          <h3>500+ Students & Counting</h3>
+          <p>CODEON crossed 500 active students, with learners from Uganda, Kenya, Tanzania, and Nigeria. The community platform launched with daily challenges, leaderboards, and group chat — making learning social and addictive.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">🌍</div>
+        <div class="tl-body">
+          <div class="tl-date">2025 · TODAY</div>
+          <h3>Building Africa's Developer Generation</h3>
+          <p>Today CODEON operates a full platform — daily challenges in 3 languages, weekly championships, verified certificates, and a growing mentorship program. The mission is unchanged: build real developers, rooted in Africa.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TEAM ══ -->
+<div class="z1">
+  <div class="shell">
+    <div class="reveal" style="text-align:center;margin-bottom:clamp(28px,5vw,44px);">
+      <div class="sec-tag" style="text-align:center;">THE PEOPLE BEHIND CODEON</div>
+      <h2 class="sec-title" style="text-align:center;">Meet the Team</h2>
+      <p class="sec-desc" style="margin:0 auto;text-align:center;">A small, passionate team of Ugandan technologists committed to transforming African education through code.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal d1">
+        <div class="team-av">KM</div>
+        <div class="team-name">K. Mirembe Mercy</div>
+        <div class="team-role">FOUNDER & LEAD DEVELOPER</div>
+        <div class="team-bio">Full-stack developer and educator. Built CODEON from the ground up to solve the practical skills gap in Ugandan tech education.</div>
+      </div>
+      <div class="team-card reveal d2">
+        <div class="team-av">🎓</div>
+        <div class="team-name">Curriculum Team</div>
+        <div class="team-role">CONTENT & CHALLENGES</div>
+        <div class="team-bio">A team of working developers who design CODEON's daily challenges, weekly championships, and course content to reflect real-world standards.</div>
+      </div>
+      <div class="team-card reveal d1">
+        <div class="team-av">🤝</div>
+        <div class="team-name">Mentors & Coaches</div>
+        <div class="team-role">COMMUNITY MENTORS</div>
+        <div class="team-bio">Senior CODEON graduates and external developers who guide students through challenges, code reviews, and career preparation.</div>
+      </div>
+      <div class="team-card reveal d2">
+        <div class="team-av">💼</div>
+        <div class="team-name">Join the Team</div>
+        <div class="team-role">WE'RE GROWING</div>
+        <div class="team-bio">Passionate about education technology and African development? We are always looking for mentors, curriculum writers, and community managers.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FAQ ══ -->
+<div class="z1 alt">
+  <div class="shell-sm">
+    <div class="reveal" style="text-align:center;margin-bottom:clamp(28px,5vw,44px);">
+      <div class="sec-tag" style="text-align:center;">FREQUENTLY ASKED</div>
+      <h2 class="sec-title" style="text-align:center;">Questions About CODEON</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">Who is CODEON designed for? <span class="faq-arrow">▾</span></button>
+        <div class="faq-a" hidden>CODEON is built for secondary school and university students across Uganda and Africa who want to learn web development and programming in a practical, hands-on way. All levels welcome — beginners to advanced.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">What makes CODEON different from other platforms? <span class="faq-arrow">▾</span></button>
+        <div class="faq-a" hidden>Most coding platforms teach you to watch. CODEON teaches you to build. Students use real GitHub workflows, deploy live projects, compete in national hackathons, and earn verifiable certificates — all in a curriculum rooted in African context.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">Is CODEON free? <span class="faq-arrow">▾</span></button>
+        <div class="faq-a" hidden>Yes. Creating an account and accessing core content — including daily challenges, community chat, and the leaderboard — is completely free. Premium features like mentorship sessions and certificate issuance require a subscription.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">Do I need a laptop to learn on CODEON? <span class="faq-arrow">▾</span></button>
+        <div class="faq-a" hidden>No. CODEON is fully optimized for mobile devices. We know most African students learn primarily on smartphones, so the entire platform — including the code editor, chat, and challenges — works on your phone.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">How do I get a verified certificate? <span class="faq-arrow">▾</span></button>
+        <div class="faq-a" hidden>Complete a CODEON program, pass the final assessment, and subscribe to receive your verifiable digital certificate. Every certificate gets a unique ID that employers can verify instantly on our website.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">Can I become a CODEON mentor? <span class="faq-arrow">▾</span></button>
+        <div class="faq-a" hidden>Yes! Students who reach Level 10 or above on the community platform can apply to join the CODEON mentor program. Mentors earn income for each session they run and receive a verified Mentor badge on their profile.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FIREBASE QUOTA FIX NOTICE ══ -->
+<div class="z1">
+  <div class="shell-sm">
+    <div class="firebase-notice reveal">
+      <h3>⚠️ Firebase Quota Full — How to Fix This</h3>
+      <p>If your Firebase project is showing quota errors or "authentication failed", it usually means one of three things. Here is exactly how to fix each one:</p>
+      <ol>
+        <li><strong>Firestore free quota exceeded (most common):</strong> Go to <a href="https://console.firebase.google.com" target="_blank" rel="noopener">Firebase Console</a> → your project → Firestore Database → Usage. If the reads/writes are at the free limit (50,000 reads/day, 20,000 writes/day), you have two options: upgrade to the Blaze pay-as-you-go plan (very cheap for small traffic), or wait 24 hours for quota to reset.</li>
+        <li><strong>Authentication not enabled:</strong> Go to Firebase Console → Authentication → Sign-in method → Enable <code>Email/Password</code> → Save. Without this step, all logins fail with an auth error.</li>
+        <li><strong>Missing API key fields:</strong> Your <code>firebaseConfig</code> in the HTML must include ALL fields: <code>apiKey</code>, <code>authDomain</code>, <code>projectId</code>, <code>storageBucket</code>, <code>messagingSenderId</code>, and <code>appId</code>. Go to Firebase Console → Project Settings → Your Apps → copy the complete config.</li>
+        <li><strong>Firestore security rules blocking requests:</strong> Go to Firestore Database → Rules tab and make sure the rules allow authenticated reads/writes. For development, you can temporarily use: <code>allow read, write: if request.auth != null;</code></li>
+        <li><strong>Upgrade tip:</strong> The Firebase Blaze plan charges by actual usage. For a student platform with under 1,000 users, the monthly cost is typically $0–$2 USD. Upgrading removes all quota limits.</li>
+      </ol>
+      <p style="margin-top:12px;">To upgrade: Firebase Console → top-left dropdown → <strong>Upgrade plan</strong> → choose Blaze → add a payment card. You will only be charged if you exceed free tier limits.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CTA ══ -->
+<div class="z1 alt">
+  <div class="shell" style="padding-top:clamp(40px,8vw,72px);padding-bottom:clamp(40px,8vw,72px);">
+    <div class="cta-banner reveal">
+      <div class="sec-tag" style="text-align:center;">READY TO START?</div>
+      <h2>Join Africa's Developer Generation</h2>
+      <p>Over 500 students have already started their coding journey with CODEON. Your place is waiting — and it's free to begin.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <a href="enroll.html" class="btn btn-primary">Start Coding Free →</a>
+        <a href="community-codeon.html" class="btn btn-ghost">Explore Community</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">CODEON Africa</div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="enroll.html">Enroll</a>
+      <a href="hackathon.html">Hackathon</a>
+      <a href="community-codeon.html">Community</a>
+      <a href="verify.html">Verify</a>
+      <a href="mailto:codeon.ug@gmail.com">Contact</a>
+    </div>
+    <div class="footer-copy">© 2025 CODEON Africa · Built in Uganda 🇺🇬</div>
+  </div>
+</footer>
+
+<script>
+/* ── CANVAS ── */
+const canvas = document.getElementById('bgCanvas');
+const ctx = canvas.getContext('2d');
+function resize(){ canvas.width=window.innerWidth; canvas.height=window.innerHeight; }
+resize(); window.addEventListener('resize',resize,{passive:true});
+const pts = Array.from({length:55},()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,dx:(Math.random()-.5)*.28,dy:(Math.random()-.5)*.28,r:Math.random()*1.3+.4,a:Math.random()*.32+.07}));
+(function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  pts.forEach(p=>{
+    p.x+=p.dx; p.y+=p.dy;
+    if(p.x>canvas.width||p.x<0)p.dx*=-1;
+    if(p.y>canvas.height||p.y<0)p.dy*=-1;
+    ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(0,224,198,${p.a})`; ctx.fill();
+  });
+  for(let i=0;i<pts.length;i++) for(let j=i+1;j<pts.length;j++){
+    const d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);
+    if(d<110){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(0,224,198,${.045*(1-d/110)})`;ctx.lineWidth=.5;ctx.stroke();}
+  }
+  requestAnimationFrame(draw);
+})();
+
+/* ── LOADER ── */
+window.addEventListener('load',()=>{
+  setTimeout(()=>document.getElementById('loader').classList.add('gone'),1300);
+  animCounters();
+});
+
+/* ── THEME ── */
+function toggleMode(){
+  const light=document.body.classList.toggle('light');
+  document.getElementById('modeBtn').textContent=light?'☀️':'🌙';
+  document.querySelector('meta[name="theme-color"]').setAttribute('content',light?'#f0f7f6':'#040d0b');
+  localStorage.setItem('codeon-theme',light?'light':'dark');
+}
+if(localStorage.getItem('codeon-theme')==='light'){document.body.classList.add('light');document.getElementById('modeBtn').textContent='☀️';}
+
+/* ── NAV ── */
+function toggleDrawer(){
+  const d=document.getElementById('drawer'), h=document.getElementById('hamburger');
+  const open=d.classList.toggle('open');
+  h.classList.toggle('open',open);
+  h.setAttribute('aria-expanded',open);
+  document.body.style.overflow=open?'hidden':'';
+}
+document.getElementById('drawer').querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+  document.body.style.overflow='';
+}));
+// Show enroll button on desktop
+if(window.innerWidth>=640) document.getElementById('hd-enroll').style.display='inline-flex';
+
+/* ── SCROLL REVEAL ── */
+const revObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('up'); revObs.unobserve(e.target); } });
+},{threshold:.08,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
+
+/* ── COUNTER ANIMATION ── */
+function animCounters(){
+  document.querySelectorAll('[data-count]').forEach(el=>{
+    const target=parseInt(el.dataset.count); let cur=0; const step=target/60;
+    const iv=setInterval(()=>{ cur=Math.min(cur+step,target); el.textContent=Math.round(cur)+'+'; if(cur>=target)clearInterval(iv); },16);
+  });
+}
+
+/* ── FAQ ── */
+function toggleFaq(btn){
+  const item=btn.closest('.faq-item'), open=item.classList.toggle('open');
+  btn.setAttribute('aria-expanded',open);
+  item.querySelector('.faq-a').hidden=!open;
+}
+</script>
+</body>
+</html>
