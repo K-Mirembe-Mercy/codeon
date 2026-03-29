@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#040d0b">
+<title>Enroll Free – CODEON Africa | Learn HTML, CSS, JavaScript & Python in Uganda</title>
+<meta name="description" content="Enroll in CODEON for free today. Learn HTML, CSS, JavaScript and Python with real GitHub workflows. Earn verified certificates. Uganda's #1 student coding platform. Start in 2 minutes.">
+<meta name="keywords" content="enroll CODEON Uganda, free coding course Uganda, learn HTML CSS JavaScript Uganda, coding for students Africa, web development Uganda free, CODEON enroll, Python course Uganda">
+<meta name="author" content="CODEON Africa">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://codeondigital.com/enroll">
+<link rel="icon" href="codeon logo.png" type="image/png">
+<link rel="apple-touch-icon" href="codeon logo.png">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://codeondigital.com/enroll">
+<meta property="og:title" content="Enroll Free – CODEON Africa | Learn to Code in Uganda">
+<meta property="og:description" content="Start your coding journey today — completely free. CODEON teaches HTML, CSS, JavaScript and Python with real GitHub workflows. Join 500+ African students.">
+<meta property="og:image" content="https://codeondigital.com/og-enroll.png">
+<meta property="og:locale" content="en_UG">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Enroll Free – CODEON Africa">
+<meta name="twitter:description" content="Learn HTML, CSS, JavaScript & Python for free. Verified certificates. Uganda's #1 student coding platform.">
+<meta name="twitter:image" content="https://codeondigital.com/og-enroll.png">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://codeondigital.com/enroll",
+      "name": "Enroll Free – CODEON Africa",
+      "url": "https://codeondigital.com/enroll",
+      "description": "Enroll in CODEON for free and start learning HTML, CSS, JavaScript and Python with real GitHub workflows.",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type":"ListItem","position":1,"name":"Home","item":"https://codeondigital.com"},
+          {"@type":"ListItem","position":2,"name":"Enroll","item":"https://codeondigital.com/enroll"}
+        ]
+      }
+    },
+    {
+      "@type": "OfferCatalog",
+      "name": "CODEON Courses",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "name": "Level 1 – Web Foundations",
+          "description": "Learn HTML and CSS from scratch. Build your first website.",
+          "price": "0",
+          "priceCurrency": "UGX",
+          "availability": "https://schema.org/InStock"
+        },
+        {
+          "@type": "Offer",
+          "name": "Level 2 – Interactive Web",
+          "description": "JavaScript, DOM manipulation and APIs.",
+          "price": "0",
+          "priceCurrency": "UGX",
+          "availability": "https://schema.org/InStock"
+        },
+        {
+          "@type": "Offer",
+          "name": "Level 3 – GitHub & Collaboration",
+          "description": "Real developer workflows, version control and team coding.",
+          "price": "50000",
+          "priceCurrency": "UGX",
+          "availability": "https://schema.org/InStock"
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+<style>
+/* ══════════════════════════════
+   TOKENS
+══════════════════════════════ */
+:root {
+  --bg:    #040d0b;
+  --s1:    #071510;
+  --s2:    #0b1e19;
+  --s3:    #0f2820;
+  --border:#152e25;
+  --accent:#00e0c6;
+  --a2:    #00ffd5;
+  --gold:  #f5c518;
+  --red:   #ff5252;
+  --green: #4caf7a;
+  --text:  #dff0ed;
+  --muted: #4d7a74;
+  --fd:    'Syne', sans-serif;
+  --fb:    'DM Sans', sans-serif;
+  --fm:    'Space Mono', monospace;
+  --r:     14px;
+  --r-sm:  8px;
+  --glow:  0 0 50px rgba(0,224,198,.1);
+  --tr:    .28s cubic-bezier(.4,0,.2,1);
+}
+
+/* ══════════════════════════════
+   RESET
+══════════════════════════════ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{
+  background:var(--bg);color:var(--text);font-family:var(--fb);
+  overflow-x:hidden;line-height:1.6;min-height:100vh;
+}
+a{text-decoration:none;color:inherit;}
+img{display:block;max-width:100%;}
+button{cursor:pointer;font-family:var(--fb);}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
+
+/* ══════════════════════════════
+   CANVAS BG
+══════════════════════════════ */
+#bgCanvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;}
+
+/* ══════════════════════════════
+   LOADER
+══════════════════════════════ */
+#loader{
+  position:fixed;inset:0;background:var(--bg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  z-index:9999;gap:16px;transition:opacity .55s,visibility .55s;
+}
+#loader.gone{opacity:0;visibility:hidden;pointer-events:none;}
+.ld-logo{font-family:var(--fd);font-size:clamp(1.8rem,7vw,2.8rem);font-weight:900;color:var(--accent);letter-spacing:-2px;}
+.ld-bar{width:min(180px,60vw);height:2px;background:var(--border);border-radius:2px;overflow:hidden;}
+.ld-fill{height:100%;background:var(--accent);animation:ldFill 1.3s ease forwards;}
+@keyframes ldFill{from{width:0}to{width:100%}}
+
+/* ══════════════════════════════
+   TOAST
+══════════════════════════════ */
+#toast{
+  position:fixed;bottom:max(24px,env(safe-area-inset-bottom));left:50%;
+  transform:translateX(-50%) translateY(80px);
+  background:var(--s2);border:1px solid var(--border);
+  color:var(--text);font-family:var(--fm);font-size:.75rem;letter-spacing:.5px;
+  padding:12px 22px;border-radius:100px;
+  box-shadow:0 8px 32px rgba(0,0,0,.5);z-index:9999;
+  transition:transform .4s cubic-bezier(.34,1.56,.64,1);pointer-events:none;
+  max-width:calc(100vw - 32px);text-align:center;
+}
+#toast.show{transform:translateX(-50%) translateY(0);}
+#toast.ok{border-color:rgba(0,224,198,.35);color:var(--accent);}
+#toast.err{border-color:rgba(255,82,82,.35);color:var(--red);}
+#toast.warn{border-color:rgba(245,197,24,.35);color:var(--gold);}
+
+/* ══════════════════════════════
+   HEADER
+══════════════════════════════ */
+header{
+  position:sticky;top:0;z-index:100;height:60px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(14px,5%,48px);
+  background:rgba(4,13,11,.93);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.hd-left{display:flex;align-items:center;gap:10px;}
+.hd-logo{height:32px;width:auto;}
+.hd-name{font-family:var(--fd);font-size:1.05rem;font-weight:900;color:var(--accent);letter-spacing:-1px;}
+nav{display:flex;gap:clamp(12px,3vw,24px);align-items:center;}
+nav a{font-family:var(--fm);font-size:.65rem;letter-spacing:1px;color:var(--muted);transition:color var(--tr);}
+nav a:hover{color:var(--text);}
+@media(max-width:600px){nav{display:none;}}
+.hd-right{display:flex;align-items:center;gap:8px;}
+
+/* ══════════════════════════════
+   PAGE LAYOUT
+══════════════════════════════ */
+.page-wrap{
+  position:relative;z-index:1;
+  min-height:calc(100vh - 60px);
+  display:grid;
+  grid-template-columns:1fr 440px;
+  gap:0;
+  align-items:stretch;
+}
+@media(max-width:900px){.page-wrap{grid-template-columns:1fr;}}
+
+/* ══════════════════════════════
+   LEFT PANEL (info)
+══════════════════════════════ */
+.left-panel{
+  padding:clamp(40px,8vw,80px) clamp(20px,6%,60px);
+  display:flex;flex-direction:column;justify-content:center;
+  border-right:1px solid var(--border);
+  position:relative;overflow:hidden;
+}
+.left-panel::before{
+  content:'';position:absolute;top:-80px;right:-80px;
+  width:320px;height:320px;
+  background:radial-gradient(circle,rgba(0,224,198,.07),transparent 70%);
+  border-radius:50%;pointer-events:none;
+}
+@media(max-width:900px){.left-panel{border-right:none;border-bottom:1px solid var(--border);padding-bottom:clamp(28px,5vw,48px);}}
+
+.pill{
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:var(--fm);font-size:.58rem;letter-spacing:3px;
+  color:var(--gold);background:rgba(245,197,24,.07);border:1px solid rgba(245,197,24,.2);
+  padding:5px 14px;border-radius:100px;margin-bottom:clamp(18px,4vw,28px);
+  animation:fadeUp .7s .1s both;
+}
+.pill-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s infinite;flex-shrink:0;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+
+.left-panel h1{
+  font-family:var(--fd);font-size:clamp(2rem,6vw,3.4rem);
+  font-weight:900;letter-spacing:-2px;line-height:1.05;
+  margin-bottom:clamp(14px,3vw,22px);
+  animation:fadeUp .7s .2s both;
+}
+.left-panel h1 em{font-style:normal;color:var(--accent);display:inline-block;position:relative;}
+.left-panel h1 em::after{content:'';position:absolute;bottom:3px;left:0;right:0;height:3px;background:var(--accent);opacity:.3;border-radius:2px;}
+
+.left-panel .sub{
+  color:var(--muted);font-size:clamp(.88rem,2vw,1rem);
+  line-height:1.8;max-width:440px;
+  margin-bottom:clamp(24px,5vw,36px);
+  animation:fadeUp .7s .35s both;
+}
+
+/* Social proof */
+.social-proof{
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:clamp(24px,5vw,40px);
+  animation:fadeUp .7s .5s both;
+}
+.av-stack{display:flex;}
+.av{
+  width:30px;height:30px;border-radius:50%;
+  border:2px solid var(--bg);background:var(--s2);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:.62rem;color:var(--accent);
+  margin-left:-8px;flex-shrink:0;
+}
+.av:first-child{margin-left:0;}
+.proof-text{font-size:.82rem;color:var(--muted);}
+.proof-text strong{color:var(--text);}
+
+/* Benefits list */
+.benefits{display:flex;flex-direction:column;gap:12px;animation:fadeUp .7s .6s both;}
+.benefit{display:flex;align-items:flex-start;gap:12px;}
+.benefit-icon{
+  width:34px;height:34px;border-radius:8px;
+  background:rgba(0,224,198,.08);border:1px solid rgba(0,224,198,.15);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;flex-shrink:0;
+}
+.benefit-text h3{font-family:var(--fd);font-size:.88rem;font-weight:800;margin-bottom:2px;}
+.benefit-text p{color:var(--muted);font-size:.78rem;line-height:1.55;}
+
+/* Course cards */
+.courses-row{
+  display:flex;gap:10px;flex-wrap:wrap;
+  margin-top:clamp(24px,5vw,36px);
+  animation:fadeUp .7s .75s both;
+}
+.course-chip{
+  background:var(--s2);border:1px solid var(--border);
+  border-radius:10px;padding:12px 16px;
+  transition:border-color var(--tr),transform var(--tr);
+  min-width:120px;
+}
+.course-chip:hover{border-color:rgba(0,224,198,.3);transform:translateY(-2px);}
+.course-chip .cc-level{font-family:var(--fm);font-size:.55rem;letter-spacing:2px;color:var(--accent);margin-bottom:4px;}
+.course-chip .cc-name{font-family:var(--fd);font-size:.82rem;font-weight:800;margin-bottom:2px;}
+.course-chip .cc-price{font-family:var(--fm);font-size:.62rem;color:var(--muted);}
+.course-chip .cc-price.free{color:var(--green);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+/* ══════════════════════════════
+   RIGHT PANEL (form)
+══════════════════════════════ */
+.right-panel{
+  padding:clamp(32px,6vw,60px) clamp(20px,6%,44px);
+  display:flex;flex-direction:column;justify-content:center;
+  background:rgba(7,21,16,.6);
+}
+.form-box{
+  background:var(--s1);border:1px solid var(--border);border-radius:20px;
+  padding:clamp(24px,5vw,36px);box-shadow:var(--glow);
+}
+.form-box-head{margin-bottom:clamp(20px,4vw,28px);}
+.form-tag{font-family:var(--fm);font-size:.58rem;letter-spacing:3px;color:var(--accent);margin-bottom:8px;}
+.form-box-head h2{font-family:var(--fd);font-size:clamp(1.2rem,3vw,1.5rem);font-weight:900;letter-spacing:-1px;margin-bottom:6px;}
+.form-box-head p{color:var(--muted);font-size:.82rem;line-height:1.6;}
+
+/* STEP INDICATOR */
+.steps-indicator{display:flex;align-items:center;gap:0;margin-bottom:clamp(18px,4vw,26px);}
+.step-dot{
+  width:28px;height:28px;border-radius:50%;border:2px solid var(--border);
+  background:var(--s2);display:flex;align-items:center;justify-content:center;
+  font-family:var(--fm);font-size:.6rem;color:var(--muted);flex-shrink:0;
+  transition:border-color var(--tr),background var(--tr),color var(--tr);
+}
+.step-dot.active{border-color:var(--accent);background:rgba(0,224,198,.1);color:var(--accent);}
+.step-dot.done{border-color:var(--green);background:rgba(76,175,122,.15);color:var(--green);}
+.step-line{flex:1;height:1px;background:var(--border);margin:0 6px;}
+.step-line.done{background:var(--green);}
+
+/* FIELD */
+.field{margin-bottom:14px;position:relative;}
+.field label{
+  display:block;font-family:var(--fm);font-size:.58rem;letter-spacing:2px;
+  color:var(--muted);margin-bottom:6px;transition:color var(--tr);
+}
+.field:focus-within label{color:var(--accent);}
+.field input,.field select{
+  width:100%;padding:13px 14px 13px 42px;
+  background:var(--s2);border:1px solid var(--border);border-radius:var(--r-sm);
+  color:var(--text);font-family:var(--fb);font-size:.9rem;
+  transition:border-color var(--tr),box-shadow var(--tr);
+  -webkit-appearance:none;appearance:none;
+}
+.field input:focus,.field select:focus{
+  outline:none;border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(0,224,198,.08);
+}
+.field input::placeholder{color:var(--muted);}
+.field select option{background:var(--s1);color:var(--text);}
+.field-icon{
+  position:absolute;left:13px;top:50%;transform:translateY(-50%);
+  font-size:.9rem;color:var(--muted);pointer-events:none;
+  margin-top:10px; /* offset for label */
+}
+.field-msg{
+  font-family:var(--fm);font-size:.62rem;margin-top:5px;
+  display:flex;align-items:center;gap:5px;
+  min-height:18px;transition:color var(--tr);
+}
+.field-msg.ok{color:var(--green);}
+.field-msg.err{color:var(--red);}
+.field-msg.hint{color:var(--muted);}
+
+/* select arrow */
+.select-wrap{position:relative;}
+.select-wrap::after{
+  content:'▾';position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  color:var(--muted);font-size:.8rem;pointer-events:none;margin-top:10px;
+}
+.select-wrap .field-icon{z-index:1;}
+
+/* LEVEL CARDS */
+.level-cards{display:flex;flex-direction:column;gap:8px;margin-bottom:14px;}
+.level-card{
+  border:1.5px solid var(--border);border-radius:var(--r);padding:14px 16px;
+  cursor:pointer;transition:border-color var(--tr),background var(--tr),transform var(--tr);
+  display:flex;align-items:center;gap:14px;
+  -webkit-tap-highlight-color:transparent;
+}
+.level-card:hover{border-color:rgba(0,224,198,.3);transform:translateX(3px);}
+.level-card.selected{border-color:var(--accent);background:rgba(0,224,198,.05);}
+.level-card-icon{font-size:1.3rem;flex-shrink:0;}
+.level-card-info{flex:1;min-width:0;}
+.level-card-name{font-family:var(--fd);font-size:.88rem;font-weight:800;margin-bottom:2px;}
+.level-card-desc{color:var(--muted);font-size:.72rem;line-height:1.4;}
+.level-card-price{flex-shrink:0;}
+.price-tag{font-family:var(--fm);font-size:.68rem;font-weight:700;padding:4px 10px;border-radius:100px;}
+.price-free{background:rgba(76,175,122,.12);color:var(--green);border:1px solid rgba(76,175,122,.25);}
+.price-paid{background:rgba(245,197,24,.1);color:var(--gold);border:1px solid rgba(245,197,24,.25);}
+.level-card input[type="radio"]{display:none;}
+
+/* SUBMIT BUTTON */
+.btn-submit{
+  width:100%;padding:14px;margin-top:6px;
+  background:var(--accent);color:#001a17;
+  border:none;border-radius:var(--r-sm);
+  font-family:var(--fd);font-weight:800;font-size:.96rem;
+  letter-spacing:-.3px;
+  transition:transform var(--tr),box-shadow var(--tr),background var(--tr);
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  box-shadow:0 0 24px rgba(0,224,198,.25);
+  -webkit-tap-highlight-color:transparent;
+}
+.btn-submit:hover{transform:translateY(-2px);box-shadow:0 0 40px rgba(0,224,198,.45);}
+.btn-submit:active{transform:scale(.97);}
+.btn-submit:disabled{opacity:.55;pointer-events:none;}
+
+/* PROGRESS BAR */
+.form-progress{height:2px;background:var(--border);border-radius:2px;margin-bottom:18px;overflow:hidden;}
+.form-progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--a2));border-radius:2px;width:0;transition:width .5s ease;}
+
+/* SUCCESS STATE */
+.success-box{
+  display:none;text-align:center;padding:clamp(20px,4vw,32px) 16px;
+  animation:fadeUp .5s ease both;
+}
+.success-box.show{display:block;}
+.success-icon{font-size:3rem;margin-bottom:14px;}
+.success-box h3{font-family:var(--fd);font-size:1.3rem;font-weight:900;margin-bottom:8px;}
+.success-box p{color:var(--muted);font-size:.86rem;line-height:1.7;margin-bottom:20px;}
+.redirect-bar{height:3px;background:var(--border);border-radius:2px;overflow:hidden;margin:16px 0;}
+.redirect-fill{height:100%;background:var(--accent);border-radius:2px;width:0;transition:width .7s linear;}
+
+/* TERMS */
+.terms-note{
+  font-family:var(--fm);font-size:.58rem;letter-spacing:.5px;
+  color:var(--muted);text-align:center;margin-top:12px;line-height:1.7;
+}
+.terms-note a{color:var(--accent);}
+
+/* TRUST BADGES */
+.trust-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px;}
+.trust-item{display:flex;align-items:center;gap:5px;font-family:var(--fm);font-size:.58rem;letter-spacing:1px;color:var(--muted);}
+.trust-item span{font-size:.9rem;}
+
+/* ══════════════════════════════
+   MOBILE STICKY CTA
+══════════════════════════════ */
+.mob-sticky{
+  display:none;position:fixed;bottom:0;left:0;right:0;
+  background:var(--s1);border-top:1px solid var(--border);
+  padding:12px 16px;padding-bottom:max(12px,env(safe-area-inset-bottom));
+  z-index:90;
+}
+@media(max-width:900px){.mob-sticky{display:block;}}
+
+/* ══════════════════════════════
+   FOOTER
+══════════════════════════════ */
+footer{
+  position:relative;z-index:1;border-top:1px solid var(--border);
+  padding:clamp(20px,4vw,36px) clamp(14px,5%,48px);
+  display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;
+}
+.footer-brand{font-family:var(--fd);font-weight:900;color:var(--accent);font-size:.95rem;}
+.footer-links{display:flex;gap:18px;flex-wrap:wrap;}
+.footer-links a{font-family:var(--fm);font-size:.6rem;letter-spacing:1px;color:var(--muted);transition:color var(--tr);}
+.footer-links a:hover{color:var(--accent);}
+.footer-copy{font-family:var(--fm);font-size:.6rem;letter-spacing:1px;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<canvas id="bgCanvas" aria-hidden="true"></canvas>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<!-- LOADER -->
+<div id="loader" aria-label="Loading CODEON">
+  <div class="ld-logo">CODEON</div>
+  <div class="ld-bar"><div class="ld-fill"></div></div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="hd-left">
+    <img src="codeon logo.png" alt="CODEON Africa Logo" class="hd-logo" width="32" height="32" loading="eager">
+    <span class="hd-name">CODEON</span>
+  </div>
+  <nav aria-label="Main navigation">
+    <a href="index.html">Home</a>
+    <a href="community-codeon.html">Community</a>
+    <a href="hackathon.html">Hackathon</a>
+    <a href="aboutus.html">About</a>
+  </nav>
+  <div class="hd-right">
+    <a href="verify.html" style="font-family:var(--fm);font-size:.65rem;letter-spacing:1px;color:var(--muted);padding:7px 14px;border:1px solid var(--border);border-radius:6px;transition:all var(--tr);" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Verify Cert</a>
+  </div>
+</header>
+
+<!-- PAGE BODY -->
+<div class="page-wrap">
+
+  <!-- LEFT: INFO PANEL -->
+  <div class="left-panel" role="complementary" aria-label="Why enroll in CODEON">
+    <div class="pill"><div class="pill-dot"></div>FREE TO START · NO CREDIT CARD</div>
+
+    <h1>Start Your<br>Coding Journey<br>with <em>CODEON</em></h1>
+
+    <p class="sub">Uganda's #1 student coding platform. Build real websites, learn GitHub workflows, earn a verified certificate — and join 500+ developers already coding across Africa.</p>
+
+    <div class="social-proof" aria-label="Social proof">
+      <div class="av-stack" aria-hidden="true">
+        <div class="av">K</div><div class="av">N</div><div class="av">A</div>
+        <div class="av">M</div><div class="av">+</div>
+      </div>
+      <p class="proof-text"><strong>500+ students</strong> already enrolled this year</p>
+    </div>
+
+    <div class="benefits" aria-label="Benefits of CODEON">
+      <div class="benefit">
+        <div class="benefit-icon">⚡</div>
+        <div class="benefit-text">
+          <h3>Real GitHub Workflows</h3>
+          <p>Learn forking, pull requests, and deployment — the skills employers actually test for.</p>
+        </div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon">📱</div>
+        <div class="benefit-text">
+          <h3>Learn on Your Phone</h3>
+          <p>No laptop needed. CODEON is fully optimized for mobile — start right now from anywhere.</p>
+        </div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon">🏆</div>
+        <div class="benefit-text">
+          <h3>Compete & Win</h3>
+          <p>Daily challenges, weekly championships, and national hackathons with real prizes.</p>
+        </div>
+      </div>
+      <div class="benefit">
+        <div class="benefit-icon">📜</div>
+        <div class="benefit-text">
+          <h3>Verified Certificate</h3>
+          <p>Every CODEON certificate is verifiable online. Share on LinkedIn or present to employers.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="courses-row" aria-label="Available courses">
+      <div class="course-chip">
+        <div class="cc-level">LEVEL 01</div>
+        <div class="cc-name">Web Foundations</div>
+        <div class="cc-price free">FREE</div>
+      </div>
+      <div class="course-chip">
+        <div class="cc-level">LEVEL 02</div>
+        <div class="cc-name">Interactive Web</div>
+        <div class="cc-price free">FREE</div>
+      </div>
+      <div class="course-chip">
+        <div class="cc-level">LEVEL 03</div>
+        <div class="cc-name">GitHub Pro</div>
+        <div class="cc-price">UGX 50,000</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: FORM PANEL -->
+  <div class="right-panel">
+    <div class="form-box" role="main" aria-label="Enrollment form">
+
+      <!-- Progress bar -->
+      <div class="form-progress" aria-hidden="true">
+        <div class="form-progress-fill" id="formProgress"></div>
+      </div>
+
+      <!-- Steps indicator -->
+      <div class="steps-indicator" aria-label="Form progress" role="list">
+        <div class="step-dot active" id="step1" role="listitem" aria-label="Step 1: Your details">1</div>
+        <div class="step-line" id="line1"></div>
+        <div class="step-dot" id="step2" role="listitem" aria-label="Step 2: Choose level">2</div>
+        <div class="step-line" id="line2"></div>
+        <div class="step-dot" id="step3" role="listitem" aria-label="Step 3: Confirm">3</div>
+      </div>
+
+      <!-- Form head -->
+      <div class="form-box-head">
+        <div class="form-tag">CREATE YOUR FREE ACCOUNT</div>
+        <h2>Enroll in CODEON</h2>
+        <p>Takes less than 2 minutes. Free to start — always.</p>
+      </div>
+
+      <!-- ENROLLMENT FORM -->
+      <form id="enrollForm" novalidate onsubmit="return false;">
+
+        <!-- Name -->
+        <div class="field">
+          <label for="name">FULL NAME</label>
+          <span class="field-icon" aria-hidden="true">👤</span>
+          <input
+            type="text" id="name"
+            placeholder="e.g. Kafeero Praise"
+            autocomplete="name"
+            autocapitalize="words"
+            required
+            oninput="onNameInput(this)"
+          >
+          <div class="field-msg hint" id="nameMsg">Enter your first and last name</div>
+        </div>
+
+        <!-- Email -->
+        <div class="field">
+          <label for="email">EMAIL ADDRESS</label>
+          <span class="field-icon" aria-hidden="true">📧</span>
+          <input
+            type="email" id="email"
+            placeholder="yourname@gmail.com"
+            autocomplete="email"
+            autocapitalize="none"
+            inputmode="email"
+            required
+            oninput="onEmailInput(this)"
+            onblur="validateEmail(true)"
+          >
+          <div class="field-msg hint" id="emailMsg">Must be a real, working email (Gmail, Yahoo, Outlook…)</div>
+        </div>
+
+        <!-- Phone (optional) -->
+        <div class="field">
+          <label for="phone">PHONE / WHATSAPP <span style="color:var(--muted);font-size:.55rem;letter-spacing:0;">(optional)</span></label>
+          <span class="field-icon" aria-hidden="true">📞</span>
+          <input
+            type="tel" id="phone"
+            placeholder="e.g. 0772 123 456"
+            autocomplete="tel"
+            inputmode="tel"
+          >
+          <div class="field-msg hint" id="phoneMsg">We'll send updates via WhatsApp if provided</div>
+        </div>
+
+        <!-- School -->
+        <div class="field">
+          <label for="school">SCHOOL / INSTITUTION</label>
+          <span class="field-icon" aria-hidden="true">🏫</span>
+          <input
+            type="text" id="school"
+            placeholder="e.g. Makerere University, Kampala"
+            autocomplete="organization"
+            required
+            oninput="updateProgress()"
+          >
+          <div class="field-msg hint" id="schoolMsg"></div>
+        </div>
+
+        <!-- Country -->
+        <div class="field select-wrap">
+          <label for="country">COUNTRY</label>
+          <span class="field-icon" aria-hidden="true">🌍</span>
+          <select id="country" onchange="updateProgress()">
+            <option value="Uganda">🇺🇬 Uganda</option>
+            <option value="Kenya">🇰🇪 Kenya</option>
+            <option value="Tanzania">🇹🇿 Tanzania</option>
+            <option value="Rwanda">🇷🇼 Rwanda</option>
+            <option value="Nigeria">🇳🇬 Nigeria</option>
+            <option value="Ghana">🇬🇭 Ghana</option>
+            <option value="South Africa">🇿🇦 South Africa</option>
+            <option value="Other">🌍 Other African Country</option>
+          </select>
+        </div>
+
+        <!-- Level selector — card style -->
+        <div style="margin-bottom:6px;">
+          <div style="font-family:var(--fm);font-size:.58rem;letter-spacing:2px;color:var(--muted);margin-bottom:10px;">SELECT YOUR LEVEL</div>
+          <div class="level-cards" role="radiogroup" aria-label="Select course level">
+
+            <label class="level-card selected" id="lc1" for="lvl1">
+              <input type="radio" name="level" id="lvl1" value="Level 1" checked onchange="selectLevel(this)">
+              <div class="level-card-icon">🌐</div>
+              <div class="level-card-info">
+                <div class="level-card-name">Level 1 – Web Foundations</div>
+                <div class="level-card-desc">HTML, CSS, responsive design. Perfect for absolute beginners.</div>
+              </div>
+              <div class="level-card-price"><span class="price-tag price-free">FREE</span></div>
+            </label>
+
+            <label class="level-card" id="lc2" for="lvl2">
+              <input type="radio" name="level" id="lvl2" value="Level 2" onchange="selectLevel(this)">
+              <div class="level-card-icon">⚡</div>
+              <div class="level-card-info">
+                <div class="level-card-name">Level 2 – Interactive Web</div>
+                <div class="level-card-desc">JavaScript, DOM, APIs. Build interactive, dynamic websites.</div>
+              </div>
+              <div class="level-card-price"><span class="price-tag price-free">FREE</span></div>
+            </label>
+
+            <label class="level-card" id="lc3" for="lvl3">
+              <input type="radio" name="level" id="lvl3" value="Level 3" onchange="selectLevel(this)">
+              <div class="level-card-icon">🚀</div>
+              <div class="level-card-info">
+                <div class="level-card-name">Level 3 – GitHub & Collaboration</div>
+                <div class="level-card-desc">Real workflows, version control, team coding. Industry-ready.</div>
+              </div>
+              <div class="level-card-price"><span class="price-tag price-paid">UGX 50k</span></div>
+            </label>
+
+          </div>
+        </div>
+
+        <!-- Referral code (optional) -->
+        <div class="field">
+          <label for="refCode">REFERRAL CODE <span style="color:var(--muted);font-size:.55rem;letter-spacing:0;">(optional — earn bonus XP)</span></label>
+          <span class="field-icon" aria-hidden="true">🔗</span>
+          <input
+            type="text" id="refCode"
+            placeholder="e.g. CDN-ABC123"
+            autocomplete="off"
+            autocapitalize="characters"
+            maxlength="12"
+            oninput="this.value=this.value.toUpperCase()"
+          >
+          <div class="field-msg hint" id="refMsg">Have a friend's referral code? Enter it for +100 bonus XP</div>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn-submit" id="submitBtn" onclick="enroll()">
+          <span id="btnText">Enroll Now — It's Free →</span>
+        </button>
+
+        <p class="terms-note">
+          By enrolling you agree to our <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>.<br>
+          No spam. We will never sell your data. Unsubscribe anytime.
+        </p>
+
+        <!-- Trust badges -->
+        <div class="trust-row">
+          <div class="trust-item"><span>🔒</span>Secure</div>
+          <div class="trust-item"><span>✅</span>Free to Start</div>
+          <div class="trust-item"><span>📜</span>Verified Cert</div>
+          <div class="trust-item"><span>🇺🇬</span>Built in Uganda</div>
+        </div>
+
+      </form>
+
+      <!-- SUCCESS STATE (hidden until enrolled) -->
+      <div class="success-box" id="successBox" role="status" aria-live="assertive">
+        <div class="success-icon" id="successIcon">🎉</div>
+        <h3 id="successTitle">You're in!</h3>
+        <p id="successMsg">Welcome to CODEON. Redirecting you to your first lesson…</p>
+        <div class="redirect-bar"><div class="redirect-fill" id="redirectFill"></div></div>
+        <p style="font-family:var(--fm);font-size:.65rem;color:var(--muted);margin-top:6px;" id="redirectLabel">Redirecting in 3s…</p>
+      </div>
+
+    </div><!-- /form-box -->
+  </div><!-- /right-panel -->
+</div><!-- /page-wrap -->
+
+<!-- MOBILE STICKY CTA (hides when form in view) -->
+<div class="mob-sticky" id="mobSticky">
+  <button class="btn-submit" onclick="document.getElementById('name').focus();document.getElementById('name').scrollIntoView({behavior:'smooth',block:'center'});" style="margin:0;">
+    Enroll Free — Starts in 2 Minutes →
+  </button>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">CODEON Africa</div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="community-codeon.html">Community</a>
+    <a href="hackathon.html">Hackathon</a>
+    <a href="verify.html">Verify</a>
+    <a href="aboutus.html">About</a>
+    <a href="mailto:codeon.ug@gmail.com">Contact</a>
+  </div>
+  <div class="footer-copy">© 2025 CODEON Africa · 🇺🇬 Built in Uganda</div>
+</footer>
+
+<!-- FIREBASE CONFIG — replace AIzaSy... with your full key -->
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSy...",           // ← paste your full key here
+  authDomain: "codeon-3cb1c.firebaseapp.com",
+  projectId: "codeon-3cb1c",
+  storageBucket: "codeon-3cb1c.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",  // ← from Firebase Console
+  appId: "YOUR_APP_ID"                  // ← from Firebase Console
+};
+firebase.initializeApp(firebaseConfig);
+const db   = firebase.firestore();
+const auth = firebase.auth();
+auth.signInAnonymously().catch(e => console.warn('Auth:', e.message));
+</script>
+
+<script>
+/* ══════════════════════════════
+   CANVAS BACKGROUND
+══════════════════════════════ */
+(function(){
+  const c=document.getElementById('bgCanvas'),ctx=c.getContext('2d');
+  function resize(){c.width=window.innerWidth;c.height=window.innerHeight;}
+  resize();window.addEventListener('resize',resize,{passive:true});
+  const pts=Array.from({length:50},()=>({
+    x:Math.random()*c.width,y:Math.random()*c.height,
+    dx:(Math.random()-.5)*.25,dy:(Math.random()-.5)*.25,
+    r:Math.random()*1.3+.4,a:Math.random()*.28+.06
+  }));
+  (function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    pts.forEach(p=>{
+      p.x+=p.dx;p.y+=p.dy;
+      if(p.x>c.width||p.x<0)p.dx*=-1;
+      if(p.y>c.height||p.y<0)p.dy*=-1;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(0,224,198,${p.a})`;ctx.fill();
+    });
+    for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
+      const d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);
+      if(d<110){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);
+        ctx.strokeStyle=`rgba(0,224,198,${.04*(1-d/110)})`;ctx.lineWidth=.5;ctx.stroke();}
+    }
+    requestAnimationFrame(draw);
+  })();
+})();
+
+/* ══════════════════════════════
+   LOADER
+══════════════════════════════ */
+window.addEventListener('load',()=>{
+  setTimeout(()=>document.getElementById('loader').classList.add('gone'),1200);
+});
+
+/* ══════════════════════════════
+   TOAST
+══════════════════════════════ */
+let toastTimer;
+function showToast(msg,type=''){
+  const el=document.getElementById('toast');
+  el.textContent=msg;el.className='show '+type;
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>el.className='',3600);
+}
+
+/* ══════════════════════════════
+   EMAIL VALIDATION — STRICT
+══════════════════════════════ */
+const DISPOSABLE=['mailinator','guerrillamail','tempmail','throwam','yopmail',
+  'sharklasers','fakeinbox','trashmail','dispostable','maildrop',
+  'spamgourmet','getairmail','spamherelots','trashmail','mailnesia',
+  'tempr','emailondeck','discard.email','spam4.me','mytrashmail'];
+
+const VALID_TLDS=['com','org','net','edu','gov','ac','co','io','ug','ke',
+  'ng','gh','za','rw','tz','et','cm','ci','sn','ma','gmail','yahoo','hotmail','outlook'];
+
+function isRealEmail(email){
+  if(!email||email.length<6) return {ok:false,msg:'Email is too short.'};
+  const re=/^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
+  if(!re.test(email)) return {ok:false,msg:'Please enter a valid email format.'};
+  const parts=email.toLowerCase().split('@');
+  if(parts.length!==2) return {ok:false,msg:'Invalid email format.'};
+  const local=parts[0], domain=parts[1];
+  if(local.length<1||domain.length<4) return {ok:false,msg:'Email is too short.'};
+  // Check for disposable domains
+  if(DISPOSABLE.some(d=>domain.includes(d))) return {ok:false,msg:'Please use a real email address (e.g. Gmail, Yahoo, Outlook).'};
+  // Must have at least one dot in domain
+  if(!domain.includes('.')) return {ok:false,msg:'Email domain looks invalid.'};
+  // Local part can't start or end with a dot
+  if(local.startsWith('.')||local.endsWith('.')) return {ok:false,msg:'Email format is invalid.'};
+  // No consecutive dots
+  if(email.includes('..')) return {ok:false,msg:'Email cannot contain consecutive dots.'};
+  return {ok:true,msg:'✓ Looks good!'};
+}
+
+function setFieldState(msgEl,ok,msg){
+  msgEl.textContent=msg;
+  msgEl.className='field-msg '+(ok?'ok':msg.startsWith('Enter')||msg.startsWith('Must')||msg.startsWith('We')||msg.startsWith('Have')?'hint':'err');
+}
+
+function onEmailInput(input){
+  const val=input.value.trim();
+  const msgEl=document.getElementById('emailMsg');
+  if(!val){setFieldState(msgEl,false,'Must be a real, working email (e.g. yourname@gmail.com)');updateProgress();return;}
+  const {ok,msg}=isRealEmail(val);
+  if(val.length<5){setFieldState(msgEl,false,'Keep typing…');updateProgress();return;}
+  setFieldState(msgEl,ok,ok?msg:msg);
+  updateProgress();
+}
+
+function validateEmail(showErr=false){
+  const val=document.getElementById('email').value.trim();
+  const msgEl=document.getElementById('emailMsg');
+  if(!val){if(showErr)setFieldState(msgEl,false,'Please enter your email address.');return false;}
+  const {ok,msg}=isRealEmail(val);
+  if(!ok){setFieldState(msgEl,false,msg);return false;}
+  setFieldState(msgEl,true,'✓ Email looks good!');
+  return true;
+}
+
+function onNameInput(input){
+  const val=input.value.trim();
+  const msgEl=document.getElementById('nameMsg');
+  if(val.length<2){setFieldState(msgEl,false,'Enter your first and last name');updateProgress();return;}
+  if(val.length>=3&&val.includes(' ')){setFieldState(msgEl,true,'✓ Great!');}
+  else{setFieldState(msgEl,false,'Please include your last name too');}
+  updateProgress();
+}
+
+/* ══════════════════════════════
+   LEVEL SELECTOR
+══════════════════════════════ */
+let selectedLevel='Level 1';
+function selectLevel(radio){
+  selectedLevel=radio.value;
+  ['lc1','lc2','lc3'].forEach(id=>document.getElementById(id).classList.remove('selected'));
+  radio.closest('.level-card').classList.add('selected');
+  updateProgress();
+  // Update button text for paid level
+  document.getElementById('btnText').textContent =
+    selectedLevel==='Level 3' ? 'Continue to Payment →' : 'Enroll Now — It\'s Free →';
+}
+
+/* ══════════════════════════════
+   FORM PROGRESS
+══════════════════════════════ */
+function updateProgress(){
+  const fields=[
+    !!document.getElementById('name').value.trim(),
+    validateEmailSilent(),
+    !!document.getElementById('school').value.trim(),
+    true // level always selected
+  ];
+  const filled=fields.filter(Boolean).length;
+  const pct=(filled/fields.length)*100;
+  document.getElementById('formProgress').style.width=pct+'%';
+
+  // Update step indicators
+  const name=document.getElementById('name').value.trim();
+  const email=document.getElementById('email').value.trim();
+  const school=document.getElementById('school').value.trim();
+
+  const s1done=name.length>=2&&validateEmailSilent();
+  const s2done=s1done&&school.length>=2;
+
+  ['step1','step2','step3'].forEach(id=>document.getElementById(id).className='step-dot');
+  document.getElementById('step1').classList.add(s1done?'done':'active');
+  document.getElementById('step2').classList.add(s2done?'done':s1done?'active':'');
+  document.getElementById('step3').classList.add(s2done?'active':'');
+  document.getElementById('line1').classList.toggle('done',s1done);
+  document.getElementById('line2').classList.toggle('done',s2done);
+}
+
+function validateEmailSilent(){
+  const val=document.getElementById('email').value.trim();
+  if(!val) return false;
+  return isRealEmail(val).ok;
+}
+
+/* ══════════════════════════════
+   MAIN ENROLL FUNCTION
+══════════════════════════════ */
+async function enroll(){
+  const name   = document.getElementById('name').value.trim();
+  const email  = document.getElementById('email').value.trim().toLowerCase();
+  const phone  = document.getElementById('phone').value.trim();
+  const school = document.getElementById('school').value.trim();
+  const country= document.getElementById('country').value;
+  const level  = selectedLevel;
+  const refCode= document.getElementById('refCode').value.trim().toUpperCase();
+
+  // Validation
+  if(!name||name.length<2){showToast('Please enter your full name.','warn');document.getElementById('name').focus();return;}
+  if(!validateEmail(true)){showToast('Please enter a real email address.','err');document.getElementById('email').focus();return;}
+  if(!school||school.length<2){showToast('Please enter your school name.','warn');document.getElementById('school').focus();return;}
+
+  // Disable button
+  const btn=document.getElementById('submitBtn');
+  btn.disabled=true;
+  document.getElementById('btnText').textContent='Enrolling…';
+
+  try{
+    // Check if email already enrolled
+    const existing=await db.collection('students').doc(email).get();
+    if(existing.exists){
+      showToast('This email is already enrolled. Redirecting…','warn');
+      setTimeout(()=>redirectAfterEnroll(level),1500);
+      btn.disabled=false;
+      document.getElementById('btnText').textContent=level==='Level 3'?'Continue to Payment →':"Enroll Now — It's Free →";
+      return;
+    }
+
+    // Save to Firestore
+    await db.collection('students').doc(email).set({
+      name, email, phone:phone||null, school, country, level,
+      referralCode:refCode||null,
+      progress:0, xp:0, streak:0,
+      certificateSent:false,
+      subscriptionStatus:'inactive',
+      enrolledAt:firebase.firestore.FieldValue.serverTimestamp(),
+      lastVisited:firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    // If referral code provided, credit the referrer
+    if(refCode){
+      const refSnap=await db.collection('users').where('referralCode','==',refCode).limit(1).get();
+      if(!refSnap.empty){
+        await db.collection('users').doc(refSnap.docs[0].id).update({
+          xp:firebase.firestore.FieldValue.increment(100),
+          refs:firebase.firestore.FieldValue.increment(1)
+        });
+      }
+    }
+
+    // Show success state
+    showSuccess(name,level);
+
+  }catch(err){
+    console.error(err);
+    showToast('Something went wrong. Please try again.','err');
+    btn.disabled=false;
+    document.getElementById('btnText').textContent=level==='Level 3'?'Continue to Payment →':"Enroll Now — It's Free →";
+  }
+}
+
+function showSuccess(name, level){
+  // Hide form
+  document.getElementById('enrollForm').style.display='none';
+  // Show success
+  const box=document.getElementById('successBox');
+  box.classList.add('show');
+  document.getElementById('successIcon').textContent = level==='Level 3'?'💳':'🎉';
+  document.getElementById('successTitle').textContent = `Welcome, ${name.split(' ')[0]}! 🇺🇬`;
+  document.getElementById('successMsg').textContent = level==='Level 3'
+    ? 'Enrollment saved! Redirecting you to complete payment for Level 3…'
+    : `You're enrolled in ${level}! Redirecting to your first lesson…`;
+
+  // Animate redirect bar
+  let w=0;
+  const fill=document.getElementById('redirectFill');
+  const label=document.getElementById('redirectLabel');
+  const iv=setInterval(()=>{
+    w+=100/30; // 3 seconds at ~10fps
+    fill.style.width=Math.min(w,100)+'%';
+    const sec=Math.max(0,Math.ceil(3-w/33.3));
+    label.textContent=`Redirecting in ${sec}s…`;
+    if(w>=100){clearInterval(iv);redirectAfterEnroll(level);}
+  },100);
+}
+
+function redirectAfterEnroll(level){
+  if(level==='Level 1') window.location.href='course1.html';
+  else if(level==='Level 2') window.location.href='course2.html';
+  else window.location.href='https://store.pesapal.com/level3';
+}
+
+/* ══════════════════════════════
+   MOBILE STICKY CTA
+══════════════════════════════ */
+const formObs=new IntersectionObserver(entries=>{
+  document.getElementById('mobSticky').style.display=entries[0].isIntersecting?'none':'block';
+},{threshold:0.3});
+const formEl=document.getElementById('enrollForm');
+if(formEl) formObs.observe(formEl);
+</script>
+</body>
+</html>
