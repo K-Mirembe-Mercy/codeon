@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#060b14">
+<title>GitHub, Git, and the African Developer: Why Version Control is Your Most Valuable Skill | CODEON Africa</title>
+<meta name="description" content="Most African developers can write code. Far fewer know how to use Git and GitHub — the tools that separate solo hobby coders from professionals who get hired, get paid, and get promoted. Here is why it matters and how to start.">
+<meta name="keywords" content="GitHub Africa, Git Uganda, version control Africa, GitHub for African students, coding skills Uganda, learn Git Africa, CODEON GitHub course, developer skills Africa">
+<meta name="author" content="CODEON Africa">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://codeondigital.com/article3">
+<link rel="icon" href="codeon logo.png" type="image/png">
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://codeondigital.com/article3">
+<meta property="og:title" content="GitHub, Git, and the African Developer: Why Version Control is Your Most Valuable Skill">
+<meta property="og:description" content="Most African developers can write code. Few know Git and GitHub — the tools that get you hired, paid, and promoted. Here's why it matters.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=1200">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Article",
+  "headline":"GitHub, Git, and the African Developer: Why Version Control is Your Most Valuable Skill",
+  "description":"Most African developers can write code. Far fewer know Git and GitHub — the tools that separate hobby coders from professionals who get hired.",
+  "image":"https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=1200",
+  "author":{"@type":"Organization","name":"CODEON Africa","url":"https://codeondigital.com"},
+  "publisher":{"@type":"Organization","name":"CODEON Africa"},
+  "datePublished":"2025-04-01",
+  "mainEntityOfPage":{"@type":"WebPage","@id":"https://codeondigital.com/article3"}
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#060b14; --s1:#0a1220; --s2:#0e1928;
+  --border:#162236; --accent:#4f9eff; --accent2:#00e0c6;
+  --gold:#f5c518; --text:#d8e8f8; --muted:#4a6a8a;
+  --red:#ff5252;
+  --fd:'Syne',sans-serif; --fb:'DM Sans',sans-serif; --fm:'JetBrains Mono',monospace;
+  --r:6px; --tr:.28s ease;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--fb);overflow-x:hidden;line-height:1.7;}
+a{text-decoration:none;color:inherit;}
+img{display:block;max-width:100%;height:auto;}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+@media(prefers-reduced-motion:reduce){*{transition-duration:.01ms!important;animation-duration:.01ms!important;}}
+
+/* PROGRESS */
+#readProgress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:9999;width:0%;}
+
+/* HEADER */
+header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(6,11,20,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:0 clamp(16px,5%,60px);height:58px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.hd-brand{display:flex;align-items:center;gap:10px;}
+.hd-logo{height:30px;}
+.hd-name{font-family:var(--fd);font-size:.9rem;font-weight:900;color:var(--accent2);letter-spacing:-1px;}
+.hd-nav{display:flex;gap:20px;}
+.hd-nav a{font-family:var(--fm);font-size:.6rem;letter-spacing:1px;color:var(--muted);transition:color var(--tr);}
+.hd-nav a:hover{color:var(--text);}
+@media(max-width:600px){.hd-nav{display:none;}}
+
+/* HERO */
+.article-hero{position:relative;overflow:hidden;min-height:min(80vh,580px);}
+.hero-bg{
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=1400&auto=format&fit=crop&q=80') center/cover no-repeat;
+}
+.hero-bg::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(6,11,20,.92) 40%,rgba(6,11,20,.5) 100%);
+}
+.hero-inner{
+  position:relative;z-index:1;
+  padding:clamp(60px,12vw,100px) clamp(16px,8%,120px);
+  max-width:820px;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--fm);font-size:.58rem;letter-spacing:3px;
+  color:var(--accent);background:rgba(79,158,255,.08);
+  border:1px solid rgba(79,158,255,.2);padding:5px 14px;border-radius:2px;
+  margin-bottom:clamp(16px,3vw,24px);
+}
+.hero-eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.article-hero h1{
+  font-family:var(--fd);font-size:clamp(2rem,5.5vw,3.8rem);
+  font-weight:900;letter-spacing:-1px;line-height:1.07;
+  margin-bottom:clamp(16px,3vw,24px);
+}
+.article-hero h1 em{font-style:normal;color:var(--accent2);}
+.hero-sub{color:var(--muted);font-size:clamp(.88rem,2vw,1.05rem);max-width:480px;line-height:1.7;margin-bottom:clamp(20px,4vw,32px);}
+.hero-meta{display:flex;gap:16px;flex-wrap:wrap;}
+.hero-meta span{font-family:var(--fm);font-size:.58rem;letter-spacing:2px;color:var(--muted);}
+.hero-meta .sep{color:var(--border);}
+.read-chip{font-family:var(--fm);font-size:.58rem;letter-spacing:2px;color:var(--accent);background:rgba(79,158,255,.08);border:1px solid rgba(79,158,255,.2);padding:4px 10px;border-radius:2px;}
+
+/* BODY */
+.article-body{max-width:740px;margin:0 auto;padding:clamp(40px,8vw,80px) clamp(16px,5%,40px);}
+.lead{
+  font-size:clamp(.98rem,2.5vw,1.18rem);color:var(--text);line-height:1.8;
+  margin-bottom:clamp(24px,5vw,40px);padding-bottom:clamp(24px,4vw,36px);
+  border-bottom:1px solid var(--border);
+}
+.article-body p{font-size:clamp(.9rem,2vw,1rem);line-height:1.88;color:#9ab8d8;margin-bottom:clamp(16px,3vw,24px);}
+.article-body h2{
+  font-family:var(--fd);font-size:clamp(1.3rem,3.5vw,1.9rem);font-weight:900;
+  color:var(--text);letter-spacing:-.5px;
+  margin:clamp(32px,6vw,52px) 0 clamp(12px,2vw,18px);
+}
+.article-body h3{
+  font-family:var(--fd);font-size:clamp(1rem,2.5vw,1.25rem);
+  font-weight:800;color:var(--accent);margin:clamp(22px,4vw,32px) 0 8px;
+}
+
+/* CODE BLOCK */
+.code-block{
+  background:#020609;border:1px solid var(--border);border-radius:var(--r);
+  margin:clamp(20px,4vw,36px) 0;overflow:hidden;
+}
+.code-block-head{
+  padding:10px 16px;background:var(--s1);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.code-block-dots{display:flex;gap:6px;}
+.cbd{width:10px;height:10px;border-radius:50%;}
+.cbd-r{background:#ff5f57;}.cbd-y{background:#febc2e;}.cbd-g{background:#28c840;}
+.code-lang{font-family:var(--fm);font-size:.58rem;letter-spacing:2px;color:var(--muted);}
+.code-block pre{
+  padding:clamp(14px,3vw,22px);overflow-x:auto;
+  font-family:var(--fm);font-size:clamp(11px,1.8vw,13px);line-height:1.7;
+  color:#a8d8ff;
+}
+.code-comment{color:#4a6a8a;}
+.code-keyword{color:#c792ea;}
+.code-string{color:#c3e88d;}
+.code-func{color:#82aaff;}
+.code-accent2{color:var(--accent2);}
+
+/* PULL QUOTE */
+.pull-quote{
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:clamp(18px,4vw,28px) 0;margin:clamp(28px,5vw,44px) 0;
+}
+.pull-quote p{
+  font-family:var(--fd);font-size:clamp(1.1rem,3vw,1.5rem);
+  font-weight:700;color:var(--text);line-height:1.45;margin-bottom:10px!important;
+}
+.pull-quote cite{font-family:var(--fm);font-size:.58rem;letter-spacing:2px;color:var(--muted);}
+
+/* INLINE IMAGE */
+.article-img{margin:clamp(24px,5vw,40px) 0;border-radius:var(--r);overflow:hidden;border:1px solid var(--border);}
+.article-img img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;}
+.article-img figcaption{font-family:var(--fm);font-size:.58rem;letter-spacing:1px;color:var(--muted);padding:9px 14px;background:var(--s1);border-top:1px solid var(--border);}
+
+/* STEPS */
+.steps-list{display:flex;flex-direction:column;gap:0;margin:clamp(20px,4vw,32px) 0;}
+.step-item{display:flex;gap:16px;padding-bottom:clamp(16px,3vw,24px);position:relative;}
+.step-item::before{content:'';position:absolute;left:16px;top:32px;bottom:0;width:1px;background:var(--border);}
+.step-item:last-child::before{display:none;}
+.step-num{
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(79,158,255,.1);border:1px solid rgba(79,158,255,.25);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--fm);font-size:.65rem;font-weight:700;color:var(--accent);
+  flex-shrink:0;z-index:1;
+}
+.step-body{flex:1;padding-top:6px;}
+.step-body h4{font-family:var(--fd);font-size:.95rem;font-weight:800;margin-bottom:5px;color:var(--text);}
+.step-body p{font-size:.84rem;color:#7a9abf;margin-bottom:0!important;}
+
+/* COMPARISON TABLE */
+.compare-wrap{margin:clamp(20px,4vw,32px) 0;overflow-x:auto;}
+.compare-table{width:100%;border-collapse:collapse;font-size:clamp(.78rem,1.8vw,.88rem);}
+.compare-table th{
+  font-family:var(--fm);font-size:.58rem;letter-spacing:2px;
+  background:var(--s1);border:1px solid var(--border);padding:12px 16px;
+  color:var(--accent);text-align:left;
+}
+.compare-table td{border:1px solid var(--border);padding:11px 16px;vertical-align:top;}
+.compare-table tr:nth-child(even) td{background:rgba(10,18,32,.5);}
+.td-bad{color:var(--red);font-family:var(--fm);font-size:.72rem;}
+.td-good{color:var(--accent2);font-family:var(--fm);font-size:.72rem;}
+
+/* HIGHLIGHT BOX */
+.highlight-box{
+  background:rgba(79,158,255,.04);border:1px solid rgba(79,158,255,.18);
+  border-left:3px solid var(--accent);
+  padding:clamp(14px,3vw,22px);margin:clamp(20px,4vw,32px) 0;border-radius:0 var(--r) var(--r) 0;
+}
+.highlight-box h4{font-family:var(--fm);font-size:.58rem;letter-spacing:3px;color:var(--accent);margin-bottom:10px;}
+.highlight-box ul{padding-left:18px;}
+.highlight-box ul li{font-size:clamp(.84rem,2vw,.94rem);color:#9ab8d8;line-height:1.7;margin-bottom:5px;}
+
+/* TAGS */
+.tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:clamp(28px,5vw,44px);}
+.tag{font-family:var(--fm);font-size:.56rem;letter-spacing:2px;padding:5px 12px;border-radius:2px;background:var(--s2);border:1px solid var(--border);color:var(--muted);transition:all var(--tr);}
+.tag:hover{border-color:var(--accent);color:var(--accent);}
+
+/* CTA */
+.article-cta{
+  background:linear-gradient(135deg,var(--s1),var(--s2));
+  border:1px solid var(--border);border-radius:var(--r);
+  padding:clamp(24px,5vw,40px);text-align:center;margin-top:clamp(32px,6vw,56px);
+  position:relative;overflow:hidden;
+}
+.article-cta::before{content:'';position:absolute;top:-50px;right:-50px;width:160px;height:160px;background:radial-gradient(circle,rgba(0,224,198,.07),transparent 70%);border-radius:50%;}
+.article-cta h3{font-family:var(--fd);font-size:clamp(1.2rem,3vw,1.6rem);font-weight:900;margin-bottom:10px;}
+.article-cta p{color:var(--muted);font-size:.9rem;margin-bottom:20px;max-width:420px;margin-left:auto;margin-right:auto;}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:var(--accent2);color:#001a17;border-radius:var(--r);font-family:var(--fm);font-size:.7rem;letter-spacing:1px;font-weight:700;transition:transform var(--tr),box-shadow var(--tr);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 28px rgba(0,224,198,.4);}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;background:transparent;color:var(--text);border:1px solid var(--border);border-radius:var(--r);font-family:var(--fm);font-size:.68rem;letter-spacing:1px;transition:all var(--tr);}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+
+/* NAV */
+.articles-nav{display:flex;gap:12px;margin-top:clamp(32px,6vw,52px);flex-wrap:wrap;}
+.art-nav-item{flex:1;min-width:200px;background:var(--s1);border:1px solid var(--border);padding:clamp(14px,3vw,20px);border-radius:var(--r);transition:border-color var(--tr);}
+.art-nav-item:hover{border-color:var(--accent2);}
+.art-nav-label{font-family:var(--fm);font-size:.55rem;letter-spacing:3px;color:var(--muted);margin-bottom:6px;}
+.art-nav-title{font-family:var(--fd);font-size:.9rem;font-weight:800;color:var(--text);}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:clamp(20px,4vw,36px) clamp(16px,5%,60px);display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;}
+.footer-copy{font-family:var(--fm);font-size:.6rem;letter-spacing:1px;color:var(--muted);}
+.footer-links{display:flex;gap:16px;}
+.footer-links a{font-family:var(--fm);font-size:.6rem;letter-spacing:1px;color:var(--muted);transition:color var(--tr);}
+.footer-links a:hover{color:var(--accent2);}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.up{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<div id="readProgress" aria-hidden="true"></div>
+
+<header>
+  <div class="hd-brand">
+    <img src="codeon logo.png" alt="CODEON" class="hd-logo" loading="eager">
+    <span class="hd-name">CODEON</span>
+  </div>
+  <nav class="hd-nav">
+    <a href="index.html">Home</a>
+    <a href="article1.html">Article 1</a>
+    <a href="article2.html">Article 2</a>
+    <a href="enroll.html">Enroll</a>
+  </nav>
+</header>
+
+<div class="article-hero" role="banner">
+  <div class="hero-bg" role="img" aria-label="Code on a screen with GitHub interface visible"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow"><span class="dot"></span>SKILLS & CAREER</div>
+    <h1>GitHub, Git &<br>the <em>African</em><br>Developer</h1>
+    <p class="hero-sub">Most developers can write code. Far fewer know Git and GitHub — the tools that separate hobby coders from professionals who get hired, promoted, and paid for remote work worldwide.</p>
+    <div class="hero-meta">
+      <span>CODEON AFRICA</span>
+      <span class="sep">·</span>
+      <span>APRIL 2025</span>
+      <span class="sep">·</span>
+      <span class="read-chip">9 MIN READ</span>
+    </div>
+  </div>
+</div>
+
+<article class="article-body">
+
+  <p class="lead reveal">There is a skill gap inside the African developer pipeline that almost no one talks about. It is not HTML. It is not CSS. It is not even JavaScript. It is Git — the version control system that every professional development team on earth uses, that every international employer tests for, and that fewer than 10% of self-taught African developers have ever used properly.</p>
+
+  <h2 class="reveal">The Gap Nobody Mentions</h2>
+
+  <p class="reveal">Walk into any Ugandan coding school, watch any popular African coding tutorial on YouTube, enroll in any bootcamp from Lagos to Nairobi, and the curriculum will follow a familiar pattern. HTML and CSS for structure and style. JavaScript for interactivity. Perhaps React or a simple framework. Then the course ends — and the student has never once used Git, never created a GitHub repository, never made a pull request, never experienced a merge conflict, and never worked collaboratively on a shared codebase.</p>
+
+  <p class="reveal">This is not a small omission. It is the single largest gap between an African developer who can write code and an African developer who can get a job writing code. Every professional software team on earth — whether at a startup in Kampala, a fintech company in Lagos, or a remote employer in Toronto — uses Git as the foundation of how their code is managed. It is not optional. It is as fundamental to professional development as knowing how to save a file.</p>
+
+  <div class="pull-quote reveal">
+    <p>"Knowing how to code without knowing Git is like knowing how to write without knowing how to save a document. The skill exists — the workflow to make it usable does not."</p>
+    <cite>— CODEON AFRICA</cite>
+  </div>
+
+  <figure class="article-img reveal">
+    <img src="https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=1200&auto=format&fit=crop&q=80" alt="Developer looking at GitHub interface on a monitor" loading="lazy">
+    <figcaption>GitHub is the world's largest code hosting platform. Over 100 million developers use it — but African developers remain underrepresented. Photo: Unsplash</figcaption>
+  </figure>
+
+  <h2 class="reveal">What Git and GitHub Actually Are</h2>
+
+  <p class="reveal">Git and GitHub are related but different things — and the confusion between them is one reason beginners avoid the topic entirely.</p>
+
+  <p class="reveal"><strong style="color:var(--accent);">Git</strong> is a version control system — software that tracks every change made to a codebase over time. Think of it as an infinite undo button combined with a complete history of every decision ever made on a project. If you accidentally delete something, Git has it. If a new feature breaks the entire project, Git can roll it back in seconds. If two developers change the same file simultaneously, Git manages the conflict intelligently.</p>
+
+  <p class="reveal"><strong style="color:var(--accent2);">GitHub</strong> is a platform built on top of Git — a cloud hosting service for Git repositories, combined with collaboration tools, code review systems, issue tracking, and a social network for developers. When someone says "show me your GitHub," they mean: show me the public record of your code, your projects, and your contributions to other projects.</p>
+
+  <div class="code-block reveal">
+    <div class="code-block-head">
+      <div class="code-block-dots"><div class="cbd cbd-r"></div><div class="cbd cbd-y"></div><div class="cbd cbd-g"></div></div>
+      <span class="code-lang">BASH · ESSENTIAL GIT COMMANDS</span>
+    </div>
+    <pre><span class="code-comment"># Set up Git (do this once)</span>
+<span class="code-func">git config</span> --global user.name <span class="code-string">"Your Name"</span>
+<span class="code-func">git config</span> --global user.email <span class="code-string">"you@example.com"</span>
+
+<span class="code-comment"># Start tracking a project folder</span>
+<span class="code-func">git init</span>
+
+<span class="code-comment"># Stage all your changes ready to save</span>
+<span class="code-func">git add</span> .
+
+<span class="code-comment"># Save a snapshot with a description</span>
+<span class="code-func">git commit</span> -m <span class="code-string">"Add navigation bar to homepage"</span>
+
+<span class="code-comment"># Push your code to GitHub</span>
+<span class="code-func">git push</span> origin main
+
+<span class="code-comment"># Create a new branch to work on a feature</span>
+<span class="code-func">git checkout</span> -b feature/contact-form
+
+<span class="code-comment"># Merge your feature back into the main branch</span>
+<span class="code-func">git merge</span> feature/contact-form</pre>
+  </div>
+
+  <h2 class="reveal">Why African Developers Specifically Need This</h2>
+
+  <p class="reveal">The argument for any developer to learn Git is straightforward. But there is a specific, urgent argument for why African developers need it more than most.</p>
+
+  <h3 class="reveal">Remote Work Is Africa's Single Biggest Economic Opportunity</h3>
+
+  <p class="reveal">The most transformative economic opportunity available to a skilled African developer today is remote work for international employers. A developer in Kampala earning UGX 2,000,000 per month at a local company can earn the equivalent of UGX 8,000,000–15,000,000 per month working remotely for a company in the UK or USA. This is not hypothetical — it is the lived reality of thousands of African developers working through platforms like Andela, Toptal, Turing, and direct freelancing on Upwork.</p>
+
+  <p class="reveal">The barrier to entry for every single one of these opportunities is GitHub proficiency. International employers do not conduct written tests to assess African candidates. They look at GitHub profiles. A clean GitHub profile with 10–15 repositories, regular commits, and a few collaborative pull requests is more persuasive than any CV, certificate, or interview performance.</p>
+
+  <figure class="article-img reveal">
+    <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1200&auto=format&fit=crop&q=80" alt="African developers collaborating on code together" loading="lazy">
+    <figcaption>Team-based coding is the norm in professional software development. Git makes collaboration possible at any scale. Photo: Unsplash</figcaption>
+  </figure>
+
+  <h3 class="reveal">The Uganda Employer Market Is Catching Up</h3>
+
+  <p class="reveal">Even locally, the gap between Ugandan employers who require Git knowledge and those who do not is closing rapidly. A 2024 survey of Kampala-based tech companies found that 68% now list "GitHub proficiency" as a requirement or strong preference in junior developer job postings — up from 31% in 2021. Companies like SafeBoda, Jumia Uganda, and the growing number of fintech startups that have established Kampala offices now screen for Git skills as a baseline.</p>
+
+  <!-- Comparison table -->
+  <div class="compare-wrap reveal">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>SCENARIO</th>
+          <th>WITHOUT GIT</th>
+          <th>WITH GIT</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Accidentally delete code</td>
+          <td class="td-bad">✗ Lost forever</td>
+          <td class="td-good">✓ Restore in seconds</td>
+        </tr>
+        <tr>
+          <td>Working with a team</td>
+          <td class="td-bad">✗ Emailing files back and forth</td>
+          <td class="td-good">✓ Clean pull requests and reviews</td>
+        </tr>
+        <tr>
+          <td>Applying to remote jobs</td>
+          <td class="td-bad">✗ No portfolio proof</td>
+          <td class="td-good">✓ GitHub profile speaks for you</td>
+        </tr>
+        <tr>
+          <td>Deploying a new feature</td>
+          <td class="td-bad">✗ Overwriting working code</td>
+          <td class="td-good">✓ Branches isolate changes safely</td>
+        </tr>
+        <tr>
+          <td>Client asks "when was X added?"</td>
+          <td class="td-bad">✗ No record exists</td>
+          <td class="td-good">✓ Commit history shows everything</td>
+        </tr>
+        <tr>
+          <td>Average salary (Kampala, junior)</td>
+          <td class="td-bad">UGX 800k–1.5M/mo</td>
+          <td class="td-good">UGX 2M–4M/mo</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="reveal">How to Start: The Five Commits That Change Everything</h2>
+
+  <p class="reveal">The intimidation of Git is largely mythological. The core workflow — the one that will get you hired, the one that covers 90% of professional use — takes fewer than three hours to learn. The remaining complexity (rebasing, cherry-picking, submodules) can wait until you encounter it in a real project. Here is the path:</p>
+
+  <div class="steps-list reveal">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h4>Create a GitHub Account</h4>
+        <p>Go to github.com, create a free account with your real name, and add a profile picture. This is your developer identity card. Make it professional from day one.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h4>Install Git and Learn the Five Commands</h4>
+        <p>Install Git (free, available at git-scm.com). Learn: <code style="font-family:var(--fm);color:var(--accent2);background:rgba(0,224,198,.08);padding:1px 6px;border-radius:3px;font-size:.85em;">git init</code>, <code style="font-family:var(--fm);color:var(--accent2);background:rgba(0,224,198,.08);padding:1px 6px;border-radius:3px;font-size:.85em;">git add</code>, <code style="font-family:var(--fm);color:var(--accent2);background:rgba(0,224,198,.08);padding:1px 6px;border-radius:3px;font-size:.85em;">git commit</code>, <code style="font-family:var(--fm);color:var(--accent2);background:rgba(0,224,198,.08);padding:1px 6px;border-radius:3px;font-size:.85em;">git push</code>, <code style="font-family:var(--fm);color:var(--accent2);background:rgba(0,224,198,.08);padding:1px 6px;border-radius:3px;font-size:.85em;">git pull</code>. These five commands cover the majority of daily professional use.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h4>Push Every Project You Build to GitHub</h4>
+        <p>Every assignment, every tutorial project, every exercise — push it to a public GitHub repository. Within six months, you will have a portfolio of 20+ projects that proves your progression to any employer.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h4>Learn Branching for Features</h4>
+        <p>When starting any new feature on a project, create a branch: <code style="font-family:var(--fm);color:var(--accent2);background:rgba(0,224,198,.08);padding:1px 6px;border-radius:3px;font-size:.85em;">git checkout -b feature/name</code>. Work on the branch. Merge it when done. This is the professional workflow used by every team on earth.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <h4>Make Your First Open Source Contribution</h4>
+        <p>Find a beginner-friendly open source project (search GitHub for "good first issue" labels). Fork the repo, fix something small, open a pull request. This is the single line on a CV that signals professional readiness to international employers.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight-box reveal">
+    <h4>THE CODEON GITHUB CURRICULUM</h4>
+    <ul>
+      <li>Week 1: Git basics — init, add, commit, push, pull. Build muscle memory with daily practice.</li>
+      <li>Week 2: GitHub repositories — public profiles, README files, project descriptions. Build your developer identity.</li>
+      <li>Week 3: Branching and merging — feature branches, merge conflicts, pull requests. The team workflow.</li>
+      <li>Week 4: Collaboration — forking repos, submitting PRs, code review. The open source workflow.</li>
+      <li>Week 5: Real project — build a complete project from scratch using the full professional Git workflow, from first commit to deployed site.</li>
+    </ul>
+  </div>
+
+  <h2 class="reveal">The Compound Effect of Daily Commits</h2>
+
+  <p class="reveal">One of the most powerful aspects of GitHub is its contribution graph — the green squares that appear on your profile for every day you commit code. For African developers targeting international remote work, this graph is more valuable than a CV.</p>
+
+  <p class="reveal">A GitHub profile with 200 days of contributions in the past year tells an employer: this developer codes consistently, has a body of work, and has the discipline to show up every day. It is verifiable evidence of commitment that no interview performance, no certificate, and no reference letter can replicate. And it is built simply by pushing code — any code, even practice code, even small fixes — every single day.</p>
+
+  <div class="code-block reveal">
+    <div class="code-block-head">
+      <div class="code-block-dots"><div class="cbd cbd-r"></div><div class="cbd cbd-y"></div><div class="cbd cbd-g"></div></div>
+      <span class="code-lang">BASH · DAILY GITHUB HABIT</span>
+    </div>
+    <pre><span class="code-comment"># What a daily commit habit looks like — 5 minutes a day</span>
+
+<span class="code-comment"># 1. Make any improvement — fix a typo, add a comment</span>
+<span class="code-func">git add</span> .
+
+<span class="code-comment"># 2. Commit with a clear, professional message</span>
+<span class="code-func">git commit</span> -m <span class="code-string">"Improve mobile responsiveness of hero section"</span>
+
+<span class="code-comment"># 3. Push to GitHub</span>
+<span class="code-func">git push</span> origin main
+
+<span class="code-comment"># Green square added to your GitHub contribution graph ✓</span>
+<span class="code-comment"># Your profile gets stronger every single day ✓</span></pre>
+  </div>
+
+  <h2 class="reveal">The African Developer Who Masters Git Wins</h2>
+
+  <p class="reveal">The landscape of African tech employment is competitive — but it is not as competitive as the global tech job market, where thousands of developers from India, Eastern Europe, and Latin America compete for every remote role. What differentiates an African developer in that global market is not just coding skill — it is the combination of coding skill, GitHub proof of work, and the deep contextual intelligence that comes from building for African problems.</p>
+
+  <p class="reveal">The African developer who writes clean code, has a rich GitHub profile showing consistent work, and can articulate why their experience building for mobile-first, low-bandwidth, cash-based African markets makes them uniquely valuable — that developer does not just compete globally. That developer wins.</p>
+
+  <p class="reveal">Git is not the end of the journey. It is the beginning of the professional one.</p>
+
+  <div class="tag-row reveal">
+    <span class="tag">GITHUB</span>
+    <span class="tag">GIT</span>
+    <span class="tag">VERSION CONTROL</span>
+    <span class="tag">AFRICAN DEVELOPERS</span>
+    <span class="tag">REMOTE WORK</span>
+    <span class="tag">CAREER</span>
+  </div>
+
+  <div class="article-cta reveal">
+    <h3>Learn Git the Right Way on CODEON</h3>
+    <p>Our Level 3 program teaches the full GitHub workflow used by professional developers. Build a public portfolio that international employers actually look for.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="enroll.html" class="btn-primary">Enroll Free →</a>
+      <a href="community-codeon.html" class="btn-ghost">Join Community</a>
+    </div>
+  </div>
+
+  <div class="articles-nav reveal">
+    <a href="article1.html" class="art-nav-item">
+      <div class="art-nav-label">← ARTICLE 1</div>
+      <div class="art-nav-title">Uganda's Digital Future: Why Coding is the Most Important Skill</div>
+    </a>
+    <a href="article2.html" class="art-nav-item">
+      <div class="art-nav-label">← ARTICLE 2</div>
+      <div class="art-nav-title">From Boda Boda to Blockchain: African Tech Solving African Problems</div>
+    </a>
+  </div>
+
+</article>
+
+<footer>
+  <div class="footer-copy">© 2025 CODEON Africa · Built in Uganda 🇺🇬</div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="article1.html">Article 1</a>
+    <a href="article2.html">Article 2</a>
+    <a href="enroll.html">Enroll</a>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{
+  const el=document.documentElement;
+  const pct=el.scrollTop/(el.scrollHeight-el.clientHeight)*100;
+  document.getElementById('readProgress').style.width=pct+'%';
+},{passive:true});
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('up');obs.unobserve(e.target);}});
+},{threshold:.07,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
