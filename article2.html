@@ -1,196 +1,441 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-EBR3S0M396"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1a0f08">
+<title>From Boda Boda to Blockchain: How African Entrepreneurs Are Using Tech to Solve Local Problems | CODEON Africa</title>
+<meta name="description" content="Across Uganda, Kenya, Nigeria and Ghana, a generation of African entrepreneurs is using coding, apps, and emerging technology to solve the problems that matter most to their communities. Meet the builders.">
+<meta name="keywords" content="African tech entrepreneurs, Uganda startups, fintech Africa, agtech Uganda, healthtech Africa, coding Africa, African innovation, boda boda apps Uganda">
+<meta name="author" content="CODEON Africa">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://codeondigital.com/article2">
+<link rel="icon" href="codeon logo.png" type="image/png">
 
-  gtag('config', 'G-EBR3S0M396');
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://codeondigital.com/article2">
+<meta property="og:title" content="From Boda Boda to Blockchain: How African Entrepreneurs Are Using Tech to Solve Local Problems">
+<meta property="og:description" content="A generation of African entrepreneurs is using coding and apps to solve the problems that matter most to their communities. Meet the builders.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=1200">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Article",
+  "headline":"From Boda Boda to Blockchain: How African Entrepreneurs Are Using Tech to Solve Local Problems",
+  "description":"A generation of African entrepreneurs is using coding and technology to solve the problems that matter most to their communities.",
+  "image":"https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=1200",
+  "author":{"@type":"Organization","name":"CODEON Africa","url":"https://codeondigital.com"},
+  "publisher":{"@type":"Organization","name":"CODEON Africa"},
+  "datePublished":"2025-03-15",
+  "mainEntityOfPage":{"@type":"WebPage","@id":"https://codeondigital.com/article2"}
+}
 </script>
-    <meta charset="UTF-8">
-    <title>Uganda’s Digital Future Is Being Written in Code | CodeOnDigital</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Learn practical coding in Uganda. CodeOnDigital offers free Level 1 and Level 2 programming courses designed to help Ugandan students build real digital skills.">
-    <meta name="keywords" content="Learn coding Uganda, Programming Kampala, Free coding courses Uganda, Digital skills Uganda, CodeOnDigital">
-    <meta name="author" content="CodeOnDigital">
-    
-    <!-- Open Graph for Social Media -->
-    <meta property="og:title" content="Uganda’s Digital Future Is Being Written in Code">
-    <meta property="og:description" content="Start learning practical coding today. Free foundational levels available for Ugandan students.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://codeondigital.com">
-    
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(135deg, #0f4c5c, #08333d);
-            color: #ffffff;
-            line-height: 1.8;
-            overflow-x: hidden;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,700&family=Lora:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-        .container {
-            max-width: 900px;
-            margin: auto;
-            padding: 60px 20px;
-        }
+<style>
+:root{
+  --bg:#fdf6ed; --s1:#f5ead8; --s2:#ede0c8;
+  --border:#d4c4a8; --accent:#c0392b; --accent2:#e67e22;
+  --text:#1a0f08; --muted:#7a6552; --green:#27ae60;
+  --fd:'Fraunces',serif; --fb:'Lora',serif; --fm:'Space Mono',monospace;
+  --r:3px; --tr:.3s ease;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--fb);overflow-x:hidden;line-height:1.7;}
+a{text-decoration:none;color:inherit;}
+img{display:block;max-width:100%;height:auto;}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+@media(prefers-reduced-motion:reduce){*{transition-duration:.01ms!important;animation-duration:.01ms!important;}}
 
-        h1 {
-            font-size: 2.7em;
-            margin-bottom: 20px;
-            animation: fadeDown 1s ease forwards;
-        }
+/* READING PROGRESS */
+#readProgress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:9999;width:0%;}
 
-        h2 {
-            margin-top: 50px;
-            color: #a8dadc;
-        }
+/* HEADER */
+header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(253,246,237,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:0 clamp(16px,5%,60px);height:56px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.hd-brand{display:flex;align-items:center;gap:10px;}
+.hd-logo{height:28px;}
+.hd-name{font-family:var(--fm);font-size:.68rem;letter-spacing:3px;color:var(--accent);font-weight:700;}
+.hd-nav{display:flex;gap:20px;}
+.hd-nav a{font-family:var(--fm);font-size:.58rem;letter-spacing:2px;color:var(--muted);transition:color var(--tr);}
+.hd-nav a:hover{color:var(--text);}
+@media(max-width:600px){.hd-nav{display:none;}}
 
-        p, ul {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s ease;
-        }
+/* HERO — GRID LAYOUT */
+.article-hero{
+  display:grid;grid-template-columns:1fr 1fr;
+  min-height:min(85vh,600px);
+}
+@media(max-width:700px){.article-hero{grid-template-columns:1fr;}}
+.hero-left{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(32px,6%,72px) clamp(20px,6%,64px);
+  background:var(--text);
+  position:relative;overflow:hidden;
+}
+.hero-left::before{
+  content:'';position:absolute;bottom:-60px;right:-60px;
+  width:200px;height:200px;
+  background:radial-gradient(circle,rgba(192,57,43,.2),transparent 70%);
+  border-radius:50%;
+}
+.hero-cat{
+  font-family:var(--fm);font-size:.58rem;letter-spacing:4px;
+  color:var(--accent2);margin-bottom:16px;
+  display:flex;align-items:center;gap:8px;
+}
+.hero-cat::before{content:'';width:20px;height:2px;background:var(--accent2);}
+.hero-left h1{
+  font-family:var(--fd);font-size:clamp(1.8rem,4.5vw,3.2rem);
+  font-weight:900;line-height:1.1;
+  color:#fdf6ed;letter-spacing:-.5px;margin-bottom:20px;
+}
+.hero-left h1 em{font-style:italic;color:var(--accent2);}
+.hero-meta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;}
+.hero-meta-row span{
+  font-family:var(--fm);font-size:.58rem;letter-spacing:2px;color:#7a6552;
+}
+.hero-right{
+  background:url('https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=900&auto=format&fit=crop&q=80') center/cover no-repeat;
+  min-height:300px;
+}
 
-        ul {
-            margin-left: 20px;
-        }
+/* LAYOUT */
+.article-body{
+  max-width:740px;margin:0 auto;
+  padding:clamp(40px,8vw,72px) clamp(16px,5%,40px);
+}
 
-        li {
-            margin-bottom: 10px;
-        }
+/* TEXT */
+.lead{
+  font-size:clamp(1rem,2.5vw,1.2rem);line-height:1.8;
+  margin-bottom:clamp(24px,5vw,40px);padding-bottom:clamp(24px,4vw,36px);
+  border-bottom:2px solid var(--text);font-style:italic;color:var(--text);
+}
+.article-body p{font-size:clamp(.9rem,2vw,1.02rem);line-height:1.9;color:#3d2b1e;margin-bottom:clamp(16px,3vw,24px);}
+.article-body h2{
+  font-family:var(--fd);font-size:clamp(1.4rem,3.5vw,2rem);font-weight:700;
+  color:var(--text);letter-spacing:-.3px;
+  margin:clamp(32px,6vw,52px) 0 clamp(12px,2vw,18px);
+  display:flex;align-items:flex-start;gap:12px;
+}
+.article-body h2 .h2-num{
+  font-family:var(--fm);font-size:.68rem;color:var(--accent);margin-top:8px;
+  background:rgba(192,57,43,.08);border:1px solid rgba(192,57,43,.2);
+  padding:3px 8px;border-radius:2px;flex-shrink:0;
+}
+.article-body h3{
+  font-family:var(--fd);font-size:clamp(1.05rem,2.5vw,1.3rem);
+  font-weight:700;color:var(--accent);margin:clamp(20px,4vw,32px) 0 10px;
+}
 
-        .show {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
+/* PROFILE CARDS */
+.profile-card{
+  background:var(--s1);border:1px solid var(--border);border-radius:var(--r);
+  overflow:hidden;margin:clamp(24px,5vw,40px) 0;
+  display:grid;grid-template-columns:200px 1fr;
+}
+@media(max-width:600px){.profile-card{grid-template-columns:1fr;}}
+.profile-img{
+  background:center/cover no-repeat;
+  min-height:200px;
+}
+.profile-body{padding:clamp(16px,3vw,24px);}
+.profile-tag{font-family:var(--fm);font-size:.55rem;letter-spacing:3px;color:var(--accent);margin-bottom:10px;}
+.profile-name{font-family:var(--fd);font-size:clamp(1rem,2.5vw,1.2rem);font-weight:700;margin-bottom:4px;}
+.profile-role{font-family:var(--fm);font-size:.6rem;letter-spacing:2px;color:var(--muted);margin-bottom:12px;}
+.profile-body p{font-size:.86rem;line-height:1.7;margin-bottom:0!important;}
+.profile-stat{
+  display:inline-block;font-family:var(--fm);font-size:.62rem;
+  background:rgba(230,126,34,.1);border:1px solid rgba(230,126,34,.25);
+  color:var(--accent2);padding:4px 10px;border-radius:2px;margin-top:12px;
+}
 
-        .cta {
-            margin-top: 60px;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(8px);
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-        }
+/* PULL QUOTE */
+.pull-quote{
+  padding:clamp(16px,3vw,28px) clamp(20px,4vw,36px);
+  margin:clamp(28px,5vw,44px) 0;
+  background:var(--text);color:var(--bg);
+  border-radius:var(--r);
+}
+.pull-quote p{
+  font-family:var(--fd);font-size:clamp(1.1rem,3vw,1.4rem);
+  font-style:italic;line-height:1.5;color:var(--bg)!important;margin-bottom:10px!important;
+}
+.pull-quote cite{font-family:var(--fm);font-size:.6rem;letter-spacing:2px;color:#7a6552;}
 
-        .cta a {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 14px 30px;
-            background-color: #ffffff;
-            color: #0f4c5c;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 6px;
-            transition: 0.3s;
-        }
+/* INLINE IMAGE */
+.article-img{margin:clamp(24px,5vw,40px) 0;border-radius:var(--r);overflow:hidden;}
+.article-img img{width:100%;aspect-ratio:16/9;object-fit:cover;}
+.article-img figcaption{
+  font-family:var(--fm);font-size:.58rem;letter-spacing:1px;
+  color:var(--muted);padding:9px 14px;background:var(--s1);border:1px solid var(--border);border-top:none;
+}
 
-        .cta a:hover {
-            background-color: #a8dadc;
-            transform: scale(1.05);
-        }
+/* SECTORS GRID */
+.sectors-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:clamp(24px,5vw,40px) 0;}
+.sector-card{
+  background:var(--s1);border:1px solid var(--border);
+  padding:clamp(14px,3vw,20px);border-radius:var(--r);
+  transition:border-color var(--tr),transform var(--tr);
+}
+.sector-card:hover{border-color:var(--accent2);transform:translateY(-2px);}
+.sector-icon{font-size:1.6rem;margin-bottom:8px;}
+.sector-name{font-family:var(--fd);font-size:.88rem;font-weight:700;margin-bottom:4px;}
+.sector-desc{font-size:.78rem;color:var(--muted);line-height:1.55;}
 
-        @keyframes fadeDown {
-            from {opacity: 0; transform: translateY(-20px);}
-            to {opacity: 1; transform: translateY(0);}
-        }
+/* TAG ROW */
+.tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:clamp(28px,5vw,44px);}
+.tag{
+  font-family:var(--fm);font-size:.56rem;letter-spacing:2px;
+  padding:5px 12px;border-radius:2px;
+  background:var(--s2);border:1px solid var(--border);color:var(--muted);
+  transition:all var(--tr);
+}
+.tag:hover{border-color:var(--accent);color:var(--accent);}
 
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2em;
-            }
-        }
-    </style>
+/* CTA */
+.article-cta{
+  background:var(--text);border-radius:var(--r);
+  padding:clamp(24px,5vw,40px);text-align:center;margin-top:clamp(32px,6vw,56px);
+}
+.article-cta h3{font-family:var(--fd);font-size:clamp(1.2rem,3vw,1.6rem);font-weight:700;margin-bottom:10px;color:var(--bg);}
+.article-cta p{color:#7a6552;font-size:.9rem;margin-bottom:20px;}
+.btn-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 28px;background:var(--accent);color:#fdf6ed;
+  border-radius:var(--r);font-family:var(--fm);font-size:.7rem;letter-spacing:1px;font-weight:700;
+  transition:transform var(--tr),box-shadow var(--tr);
+}
+.btn-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(192,57,43,.3);}
+
+/* NAV ARTICLES */
+.articles-nav{display:flex;gap:12px;margin-top:clamp(32px,6vw,52px);flex-wrap:wrap;}
+.art-nav-item{
+  flex:1;min-width:200px;background:var(--s1);border:1px solid var(--border);
+  padding:clamp(14px,3vw,20px);border-radius:var(--r);
+  transition:border-color var(--tr);
+}
+.art-nav-item:hover{border-color:var(--accent);}
+.art-nav-label{font-family:var(--fm);font-size:.55rem;letter-spacing:3px;color:var(--muted);margin-bottom:6px;}
+.art-nav-title{font-family:var(--fd);font-size:.92rem;font-weight:700;color:var(--text);}
+
+/* FOOTER */
+footer{
+  border-top:1px solid var(--border);background:var(--text);
+  padding:clamp(20px,4vw,36px) clamp(16px,5%,60px);
+  display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;
+}
+.footer-copy{font-family:var(--fm);font-size:.6rem;letter-spacing:1px;color:#7a6552;}
+.footer-links{display:flex;gap:16px;}
+.footer-links a{font-family:var(--fm);font-size:.6rem;letter-spacing:1px;color:#7a6552;transition:color var(--tr);}
+.footer-links a:hover{color:var(--accent2);}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.up{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.1s;}.d2{transition-delay:.2s;}
+</style>
 </head>
 <body>
 
-<div class="container">
-    <h1>Uganda’s Digital Future Is Being Written in Code</h1>
+<div id="readProgress" aria-hidden="true"></div>
 
-    <p>Uganda is changing.</p>
-    <p>From small businesses accepting mobile payments to startups building software solutions, technology is quietly transforming how we live and work.</p>
-    <p>In Kampala, Jinja, and Mbarara, a new generation is rising.</p>
+<header>
+  <div class="hd-brand">
+    <img src="codeon logo.png" alt="CODEON" class="hd-logo" loading="eager">
+    <span class="hd-name">CODEON</span>
+  </div>
+  <nav class="hd-nav">
+    <a href="index.html">Home</a>
+    <a href="article1.html">Article 1</a>
+    <a href="article3.html">Article 3</a>
+    <a href="enroll.html">Enroll</a>
+  </nav>
+</header>
 
-    <p><strong>Not job seekers. Builders.</strong></p>
-    <p>And coding is the skill powering this shift.</p>
-
-    <h2>Why Coding Matters in Uganda Today</h2>
-    <p>Every year, thousands of students complete school and enter a competitive job market.</p>
-
-    <ul>
-        <li>Traditional jobs are limited</li>
-        <li>Competition is high</li>
-        <li>Opportunities are shrinking</li>
-    </ul>
-
-    <p>Meanwhile, the digital economy is expanding.</p>
-
-    <ul>
-        <li>Build websites for businesses</li>
-        <li>Freelance online</li>
-        <li>Develop mobile apps</li>
-        <li>Work remotely</li>
-    </ul>
-
-    <p><strong>Skill is now the only difference.</strong></p>
-
-    <h2>The Mistake Many Students Make</h2>
-    <ul>
-        <li>Watching random tutorials</li>
-        <li>Copying code from videos</li>
-        <li>Learning theory without building</li>
-    </ul>
-
-    <p>Coding is not about watching.</p>
-    <p><strong>It is about doing.</strong></p>
-
-    <h2>Why CodeOnDigital Was Created</h2>
-    <p>CodeOnDigital focuses on practical coding from day one.</p>
-
-    <ul>
-        <li>Real projects</li>
-        <li>Real debugging</li>
-        <li>Real problem solving</li>
-    </ul>
-
-    <p><strong>Confidence comes from building something that works.</strong></p>
-
-    <h2>Free Access — Because Talent Is Everywhere</h2>
-    <ul>
-        <li>Level 1 is free</li>
-        <li>Level 2 is free</li>
-    </ul>
-
-    <p>Optional paid certificate available after assessment.</p>
-
-    <div class="cta">
-        <h2>Start Now</h2>
-        <p>The digital future of Uganda will be built by those who prepare early.</p>
-        <p><strong>No excuses. No waiting.</strong></p>
-        <a href="https://codeondigital.com">Begin Your Journey Today</a>
+<!-- HERO GRID -->
+<div class="article-hero" role="banner">
+  <div class="hero-left">
+    <div class="hero-cat">INNOVATION & ENTREPRENEURSHIP</div>
+    <h1>From Boda Boda<br>to <em>Blockchain</em>:<br>African Tech<br>Solving African<br>Problems</h1>
+    <div class="hero-meta-row">
+      <span>CODEON AFRICA</span>
+      <span>·</span>
+      <span>MARCH 2025</span>
+      <span>·</span>
+      <span>10 MIN READ</span>
     </div>
+  </div>
+  <div class="hero-right" role="img" aria-label="African entrepreneur working on a laptop in a vibrant workspace"></div>
 </div>
 
-<script>
-    const elements = document.querySelectorAll("p, ul");
-    window.addEventListener("scroll", () => {
-        const triggerBottom = window.innerHeight * 0.9;
-        elements.forEach(el => {
-            const boxTop = el.getBoundingClientRect().top;
-            if(boxTop < triggerBottom){
-                el.classList.add("show");
-            }
-        });
-    });
-</script>
+<article class="article-body">
 
+  <p class="lead reveal">In boardrooms in Kampala, Lagos, Nairobi, and Accra, a new generation of African entrepreneurs is building technology that does not try to copy Silicon Valley. It tries to solve the problems that Silicon Valley has never had to think about — unreliable power, cash-based economies, under-resourced hospitals, and the logistical chaos of cities that grew faster than their infrastructure.</p>
+
+  <h2 class="reveal"><span class="h2-num">01</span>The Boda Problem That Became a Platform</h2>
+
+  <p class="reveal">In Kampala, boda bodas — motorcycle taxis — carry an estimated 5 million passengers daily. They are the circulatory system of the city, connecting people to work, markets, hospitals, and schools in ways that minibuses and taxis cannot. They are also chaotic, unregulated, and frequently dangerous, with no standardised pricing, no accountability for drivers, and no digital trail of any transaction.</p>
+
+  <p class="reveal">Safe Boda, founded by a team of Ugandan developers, recognised this as not just a safety problem but a data problem. By building a platform that digitised every ride — capturing routes, prices, driver ratings, and payment data — they did not just make boda bodas safer. They created a rich dataset that helped them build insurance products, savings accounts, and credit scoring for drivers who had never previously had access to formal financial services.</p>
+
+  <div class="profile-card reveal">
+    <div class="profile-img" style="background-image:url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80');" role="img" aria-label="African entrepreneur"></div>
+    <div class="profile-body">
+      <div class="profile-tag">FOUNDER SPOTLIGHT</div>
+      <div class="profile-name">The Safe Boda Model</div>
+      <div class="profile-role">KAMPALA, UGANDA · FOUNDED 2014</div>
+      <p>Safe Boda used a simple mobile app — built by Ugandan developers — to transform an informal industry. By the time it merged with OPay, it had processed over 100 million rides and provided financial services to 40,000+ drivers who had no prior banking history.</p>
+      <span class="profile-stat">100M+ RIDES · 40,000 DRIVERS BANKED</span>
+    </div>
+  </div>
+
+  <h2 class="reveal"><span class="h2-num">02</span>Fintech Is Rebuilding the African Economy From Below</h2>
+
+  <p class="reveal">Africa's fintech revolution is perhaps the most significant economic story of the 21st century. Mobile money — pioneered by Safaricom's M-Pesa in Kenya in 2007 — has fundamentally reshaped how value moves across the continent. Today, Africa processes over $700 billion in mobile money transactions annually, more than the rest of the world combined.</p>
+
+  <p class="reveal">What makes this remarkable is not just the scale — it is the direction of travel. Unlike traditional banking, which expanded outward from wealthy urban centres to eventually reach rural populations, African fintech built from the bottom up. The people who benefit most from M-Pesa, MTN Mobile Money, and Airtel Money are not Nairobi's urban professionals. They are farmers in western Kenya, market traders in Kampala, and smallholder fishermen on Lake Victoria.</p>
+
+  <figure class="article-img reveal">
+    <img src="https://images.unsplash.com/photo-1556742031-c6961e8560b0?w=1200&auto=format&fit=crop&q=80" alt="Mobile phone showing a payment app in Africa" loading="lazy">
+    <figcaption>Mobile money has brought financial services to 500 million Africans who had no prior access to banking. Photo: Unsplash</figcaption>
+  </figure>
+
+  <div class="pull-quote reveal">
+    <p>"Africa's fintech companies are not disrupting banking. They are inventing it for people the banks never served."</p>
+    <cite>— AFRICAN DEVELOPMENT BANK, 2024</cite>
+  </div>
+
+  <p class="reveal">The developers building these platforms are increasingly African — trained not at MIT or Stanford, but at platforms like Andela, at local bootcamps in Lagos and Nairobi, and at institutions like CODEON in Uganda. The code that runs Africa's financial infrastructure is increasingly written by Africans, for Africans, with a deep understanding of the context that Western developers simply do not have.</p>
+
+  <h2 class="reveal"><span class="h2-num">03</span>Agtech: Solving Africa's Oldest Problem With Lines of Code</h2>
+
+  <p class="reveal">Agriculture is the backbone of Uganda's economy, employing over 70% of the population. It is also one of the most data-poor sectors on the continent. Farmers in Mbarara, Gulu, or Jinja make planting decisions based on tradition, intuition, and whatever advice their neighbours can offer — not on weather data, soil analysis, or market price information.</p>
+
+  <p class="reveal">A generation of African agtech startups is changing this. Farmerline in Ghana sends SMS messages with weather forecasts, planting tips, and commodity prices to 2 million farmers who have no smartphone but do have a basic mobile phone. Hello Tractor in Nigeria uses a Kenyan-developed app to help smallholder farmers book tractor time — the Uber model applied to agriculture. Apollo Agriculture in Kenya uses satellite data and machine learning to deliver crop loans to farmers in 30 minutes, a process that previously took weeks of paperwork at a rural bank branch.</p>
+
+  <div class="sectors-grid reveal">
+    <div class="sector-card">
+      <div class="sector-icon">🌾</div>
+      <div class="sector-name">Agtech</div>
+      <div class="sector-desc">SMS weather alerts, precision planting, and tractor booking apps reaching 10M+ African farmers.</div>
+    </div>
+    <div class="sector-card">
+      <div class="sector-icon">💊</div>
+      <div class="sector-name">Healthtech</div>
+      <div class="sector-desc">Telemedicine, drug supply chain tracking, and diagnostic apps serving rural clinics.</div>
+    </div>
+    <div class="sector-card">
+      <div class="sector-icon">🏦</div>
+      <div class="sector-name">Fintech</div>
+      <div class="sector-desc">Mobile money, digital credit scoring, and remittance platforms processing $700B annually.</div>
+    </div>
+    <div class="sector-card">
+      <div class="sector-icon">🎓</div>
+      <div class="sector-name">Edtech</div>
+      <div class="sector-desc">Mobile-first learning platforms reaching students where laptops and classrooms cannot.</div>
+    </div>
+    <div class="sector-card">
+      <div class="sector-icon">⚡</div>
+      <div class="sector-name">Energytech</div>
+      <div class="sector-desc">Pay-as-you-go solar bringing electricity to 50M homes off the national grid.</div>
+    </div>
+    <div class="sector-card">
+      <div class="sector-icon">🚚</div>
+      <div class="sector-name">Logistics</div>
+      <div class="sector-desc">Last-mile delivery apps and route optimisation for Africa's fragmented road networks.</div>
+    </div>
+  </div>
+
+  <h2 class="reveal"><span class="h2-num">04</span>Healthtech: Writing Code That Saves Lives</h2>
+
+  <p class="reveal">Uganda has 0.08 doctors per 1,000 people — one of the lowest ratios in the world. The World Health Organisation recommends a minimum of 2.3 health workers per 1,000 people. The gap cannot be closed by training more doctors alone. It must be closed, in part, by technology that makes each doctor, nurse, and community health worker dramatically more effective.</p>
+
+  <p class="reveal">mTrac, developed in Uganda, allows health workers to report stock-outs of essential medicines via simple SMS — a system that cut drug shortages at rural health centres by 40% in its first two years. Matibabu, a Ugandan startup, built a portable device that diagnoses malaria using a smartphone camera — no blood sample, no laboratory, no trained technician. A community health worker in a remote village can diagnose malaria in under a minute.</p>
+
+  <figure class="article-img reveal">
+    <img src="https://images.unsplash.com/photo-1559583109-3e7968136c99?w=1200&auto=format&fit=crop&q=80" alt="Healthcare worker using a tablet in Africa" loading="lazy">
+    <figcaption>Healthtech platforms in Uganda and across Africa are addressing critical gaps in rural healthcare delivery. Photo: Unsplash</figcaption>
+  </figure>
+
+  <p class="reveal">What all these solutions have in common is the same foundation: a developer who understood the problem intimately, coded a solution in HTML, JavaScript, or Python, and deployed it to the people who needed it most. None of these solutions required a computer science PhD. They required practical coding skills, a deep knowledge of the context, and the determination to build.</p>
+
+  <h2 class="reveal"><span class="h2-num">05</span>The Common Thread: Code Written by Africans, For Africa</h2>
+
+  <p class="reveal">There is a pattern in every successful African tech solution. It is not that the technology is exceptionally sophisticated — many of these platforms are built on straightforward web technologies and basic mobile app frameworks. What sets them apart is the depth of contextual knowledge baked into every design decision.</p>
+
+  <p class="reveal">A developer who grew up using a boda boda builds a better boda boda app than one who has only read about them. A developer who has queued at a rural bank in western Uganda builds better rural fintech than one who has only studied financial services theory. African tech problems need African developers — not because of sentiment, but because of competence.</p>
+
+  <div class="pull-quote reveal">
+    <p>"The best person to solve an African problem is someone who has lived it. Give them the tools to code, and step back."</p>
+    <cite>— CODEON AFRICA</cite>
+  </div>
+
+  <p class="reveal">This is why platforms like CODEON exist. Not to produce developers who will leave Africa and work for American companies — though some will, and that is their right. But to produce a generation of builders who understand their continent so well, who are so deeply rooted in its realities, that they cannot help but build solutions that matter here.</p>
+
+  <p class="reveal">The next Safe Boda is being built right now. The next Matibabu is a student somewhere in Kampala or Gulu or Mbale who just learned HTML and is building their first website. The next M-Pesa might be someone who is, today, working through their first JavaScript tutorial on a smartphone during a lunch break at school.</p>
+
+  <p class="reveal">The tools are available. The problems are real. The only missing variable is the trained developer to connect them.</p>
+
+  <div class="tag-row reveal">
+    <span class="tag">AFRICAN TECH</span>
+    <span class="tag">UGANDA STARTUPS</span>
+    <span class="tag">FINTECH</span>
+    <span class="tag">AGTECH</span>
+    <span class="tag">HEALTHTECH</span>
+    <span class="tag">INNOVATION</span>
+  </div>
+
+  <div class="article-cta reveal">
+    <h3>Be the Builder Africa Needs</h3>
+    <p>Start learning to code on CODEON today. Your skills could power the next African breakthrough.</p>
+    <a href="enroll.html" class="btn-cta">Start Coding Free →</a>
+  </div>
+
+  <div class="articles-nav reveal">
+    <a href="article1.html" class="art-nav-item">
+      <div class="art-nav-label">← PREVIOUS</div>
+      <div class="art-nav-title">Uganda's Digital Future: Why Coding is the Most Important Skill of This Decade</div>
+    </a>
+    <a href="article3.html" class="art-nav-item">
+      <div class="art-nav-label">NEXT →</div>
+      <div class="art-nav-title">GitHub, Git, and the African Developer: Why Version Control is Your Most Valuable Skill</div>
+    </a>
+  </div>
+
+</article>
+
+<footer>
+  <div class="footer-copy">© 2025 CODEON Africa · Built in Uganda 🇺🇬</div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="article1.html">Article 1</a>
+    <a href="article3.html">Article 3</a>
+    <a href="enroll.html">Enroll</a>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{
+  const el=document.documentElement;
+  const pct=el.scrollTop/(el.scrollHeight-el.clientHeight)*100;
+  document.getElementById('readProgress').style.width=pct+'%';
+},{passive:true});
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('up');obs.unobserve(e.target);}});
+},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
 </body>
 </html>
