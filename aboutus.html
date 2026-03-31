@@ -573,22 +573,7 @@ footer{border-top:1px solid var(--border);z-index:1;position:relative;}
 </div>
 
 <!-- ══ FIREBASE QUOTA FIX NOTICE ══ -->
-<div class="z1">
-  <div class="shell-sm">
-    <div class="firebase-notice reveal">
-      <h3>⚠️ Firebase Quota Full — How to Fix This</h3>
-      <p>If your Firebase project is showing quota errors or "authentication failed", it usually means one of three things. Here is exactly how to fix each one:</p>
-      <ol>
-        <li><strong>Firestore free quota exceeded (most common):</strong> Go to <a href="https://console.firebase.google.com" target="_blank" rel="noopener">Firebase Console</a> → your project → Firestore Database → Usage. If the reads/writes are at the free limit (50,000 reads/day, 20,000 writes/day), you have two options: upgrade to the Blaze pay-as-you-go plan (very cheap for small traffic), or wait 24 hours for quota to reset.</li>
-        <li><strong>Authentication not enabled:</strong> Go to Firebase Console → Authentication → Sign-in method → Enable <code>Email/Password</code> → Save. Without this step, all logins fail with an auth error.</li>
-        <li><strong>Missing API key fields:</strong> Your <code>firebaseConfig</code> in the HTML must include ALL fields: <code>apiKey</code>, <code>authDomain</code>, <code>projectId</code>, <code>storageBucket</code>, <code>messagingSenderId</code>, and <code>appId</code>. Go to Firebase Console → Project Settings → Your Apps → copy the complete config.</li>
-        <li><strong>Firestore security rules blocking requests:</strong> Go to Firestore Database → Rules tab and make sure the rules allow authenticated reads/writes. For development, you can temporarily use: <code>allow read, write: if request.auth != null;</code></li>
-        <li><strong>Upgrade tip:</strong> The Firebase Blaze plan charges by actual usage. For a student platform with under 1,000 users, the monthly cost is typically $0–$2 USD. Upgrading removes all quota limits.</li>
-      </ol>
-      <p style="margin-top:12px;">To upgrade: Firebase Console → top-left dropdown → <strong>Upgrade plan</strong> → choose Blaze → add a payment card. You will only be charged if you exceed free tier limits.</p>
-    </div>
-  </div>
-</div>
+
 
 <!-- ══ CTA ══ -->
 <div class="z1 alt">
