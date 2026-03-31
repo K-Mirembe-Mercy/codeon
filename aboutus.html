@@ -311,18 +311,6 @@ footer{border-top:1px solid var(--border);z-index:1;position:relative;}
 .footer-links a{font-family:var(--fm);font-size:.65rem;letter-spacing:1px;color:var(--muted);transition:color var(--tr);}
 .footer-links a:hover{color:var(--accent);}
 .footer-copy{font-family:var(--fm);font-size:.62rem;letter-spacing:1px;color:var(--muted);}
-
-/* ══════════════════════════════
-   FIREBASE NOTICE
-══════════════════════════════ */
-.firebase-notice{background:rgba(245,197,24,.06);border:1px solid rgba(245,197,24,.25);border-radius:var(--r);padding:clamp(18px,3vw,26px);margin-bottom:16px;}
-.firebase-notice h3{font-family:var(--fd);font-size:1rem;font-weight:800;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
-.firebase-notice p{color:var(--muted);font-size:.85rem;line-height:1.7;margin-bottom:10px;}
-.firebase-notice ol{padding-left:20px;color:var(--muted);font-size:.84rem;line-height:1.8;}
-.firebase-notice ol li{margin-bottom:4px;}
-.firebase-notice code{font-family:var(--fm);background:rgba(0,224,198,.08);color:var(--accent);padding:2px 7px;border-radius:4px;font-size:.82em;}
-.firebase-notice a{color:var(--accent);}
-.firebase-notice a:hover{text-decoration:underline;}
 </style>
 </head>
 <body>
@@ -634,27 +622,8 @@ footer{border-top:1px solid var(--border);z-index:1;position:relative;}
 </footer>
 
 <script>
-  // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyD_LR9Kllj7hoKTiJAaSxyHglSO6r5gh-g",
-  authDomain: "codeon-3cb1c.firebaseapp.com",
-  projectId: "codeon-3cb1c",
-  storageBucket: "codeon-3cb1c.firebasestorage.app",
-  messagingSenderId: "730172148868",
-  appId: "1:730172148868:web:2c712c8124be40019506d1",
-  measurementId: "G-EBR3S0M396"
-};
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 /* ── CANVAS ── */
 const canvas = document.getElementById('bgCanvas');
 const ctx = canvas.getContext('2d');
