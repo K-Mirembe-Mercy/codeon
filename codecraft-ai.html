@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CodeCraft AI — Advanced Coding Assistant</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080b10;--bg2:#0d1117;--surface:#0f1520;--surface2:#141c27;--surface3:#1a2233;
+  --border:#1e2d42;--border2:#243447;
+  --accent:#38bdf8;--adim:rgba(56,189,248,.12);
+  --a2:#818cf8;--a3:#34d399;--warn:#fb923c;--danger:#f87171;
+  --text:#cdd5e0;--text2:#8899aa;--text3:#4a5a6e;
+  --mono:'JetBrains Mono',monospace;
+  --sans:'Outfit',sans-serif;
+  --display:'Syne','Outfit',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow:hidden;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;display:flex;flex-direction:column;}
+
+/* ── TOPBAR ── */
+#topbar{height:52px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 1.25rem;gap:.75rem;flex-shrink:0;z-index:50;}
+.logo{font-family:var(--display);font-size:1.1rem;font-weight:800;letter-spacing:-.02em;display:flex;align-items:center;gap:8px;white-space:nowrap;}
+.logo-badge{background:linear-gradient(135deg,#38bdf8,#818cf8);border-radius:8px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:13px;}
+.logo em{font-style:normal;color:var(--accent);}
+.mode-tabs{display:flex;gap:3px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:3px;margin-left:.5rem;}
+.mtab{padding:5px 14px;border-radius:7px;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .18s;color:var(--text2);border:none;background:transparent;white-space:nowrap;font-family:var(--sans);}
+.mtab.active{background:var(--adim);color:var(--accent);border:1px solid rgba(56,189,248,.25);}
+.mtab:hover:not(.active){color:var(--text);background:var(--surface2);}
+.spacer{flex:1;}
+.lang-pills{display:flex;gap:5px;}
+.lpill{font-family:var(--mono);font-size:.68rem;padding:3px 9px;border-radius:20px;border:1px solid var(--border);color:var(--text3);cursor:pointer;transition:all .15s;background:transparent;}
+.lpill:hover{border-color:var(--accent);color:var(--accent);}
+.lpill.sel{border-color:var(--accent);color:var(--accent);background:var(--adim);}
+#sidebarToggle{width:28px;height:28px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text2);font-size:.85rem;transition:all .15s;flex-shrink:0;}
+#sidebarToggle:hover{border-color:var(--accent);color:var(--accent);}
+
+/* ── MAIN ── */
+#main{flex:1;display:flex;overflow:hidden;}
+
+/* ── SIDEBAR ── */
+#sidebar{width:255px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;flex-shrink:0;transition:width .3s;}
+#sidebar.collapsed{width:0;}
+.sb-section{padding:.75rem .9rem;border-bottom:1px solid var(--border);}
+.sb-title{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin-bottom:.6rem;display:flex;align-items:center;justify-content:space-between;}
+.new-chat-btn{width:100%;padding:.55rem;background:var(--adim);border:1px solid rgba(56,189,248,.25);border-radius:8px;color:var(--accent);font-family:var(--sans);font-size:.78rem;font-weight:600;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:6px;}
+.new-chat-btn:hover{background:rgba(56,189,248,.18);}
+#historyList{display:flex;flex-direction:column;gap:3px;overflow-y:auto;flex:1;padding:.6rem .75rem;}
+.hitem{padding:.55rem .7rem;border-radius:8px;cursor:pointer;transition:all .15s;border:1px solid transparent;font-size:.78rem;color:var(--text2);line-height:1.4;display:flex;align-items:flex-start;gap:7px;}
+.hitem:hover{background:var(--surface2);color:var(--text);}
+.hitem.active{background:var(--adim);border-color:rgba(56,189,248,.2);color:var(--accent);}
+.hitem .hi{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;}
+.hitem .hl{font-family:var(--mono);font-size:.6rem;background:var(--surface3);border-radius:4px;padding:1px 4px;flex-shrink:0;}
+
+/* ── CENTER ── */
+#center{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+
+/* ── CHAT PANE ── */
+#chatPane{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+#chatMessages{flex:1;overflow-y:auto;padding:1.5rem 1.75rem;display:flex;flex-direction:column;gap:1.25rem;}
+
+/* welcome */
+.welcome{padding:2rem 0 1.5rem;text-align:center;}
+.welcome h2{font-family:var(--display);font-size:clamp(1.5rem,3vw,2.1rem);font-weight:800;letter-spacing:-.03em;line-height:1.2;margin-bottom:.4rem;}
+.welcome h2 em{font-style:normal;background:linear-gradient(90deg,var(--accent),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.welcome p{color:var(--text2);font-size:.86rem;}
+.sug-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:9px;margin-top:1.25rem;}
+.sug{padding:.8rem .9rem;background:var(--surface);border:1px solid var(--border);border-radius:11px;cursor:pointer;transition:all .18s;font-size:.8rem;line-height:1.5;color:var(--text2);}
+.sug:hover{border-color:var(--accent);color:var(--text);background:var(--adim);}
+.sug .si{font-size:1.2rem;margin-bottom:4px;}
+.sug .st{font-weight:600;font-size:.83rem;color:var(--text);margin-bottom:2px;}
+
+/* messages */
+.msg{display:flex;gap:11px;animation:msgIn .25s ease;max-width:100%;}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.msg.user{flex-direction:row-reverse;}
+.mavatar{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0;}
+.msg.ai .mavatar{background:linear-gradient(135deg,var(--accent),var(--a2));}
+.msg.user .mavatar{background:var(--surface3);border:1px solid var(--border);}
+.mbody{flex:1;min-width:0;}
+.mname{font-size:.68rem;font-weight:600;color:var(--text3);margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em;}
+.msg.user .mname{text-align:right;}
+.mbubble{padding:.8rem 1rem;border-radius:11px;line-height:1.65;font-size:.875rem;word-break:break-word;}
+.msg.ai .mbubble{background:var(--surface);border:1px solid var(--border);border-top-left-radius:3px;}
+.msg.user .mbubble{background:var(--adim);border:1px solid rgba(56,189,248,.2);border-top-right-radius:3px;color:var(--text);}
+.mbubble p{margin-bottom:.45rem;}
+.mbubble p:last-child{margin-bottom:0;}
+.mbubble ul,.mbubble ol{padding-left:1.2rem;margin:.35rem 0;}
+.mbubble li{margin-bottom:.2rem;}
+.mbubble strong{color:var(--text);font-weight:600;}
+.mbubble code{font-family:var(--mono);font-size:.78rem;background:var(--surface3);padding:1px 5px;border-radius:4px;color:var(--accent);}
+.mbubble pre{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:.85rem;overflow-x:auto;margin:.65rem 0;font-family:var(--mono);font-size:.78rem;line-height:1.6;position:relative;}
+.pre-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;font-size:.68rem;color:var(--text3);}
+.cpinline{background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:2px 7px;cursor:pointer;color:var(--text2);font-family:var(--sans);font-size:.68rem;transition:all .15s;}
+.cpinline:hover{border-color:var(--a3);color:var(--a3);}
+.mattach{display:flex;align-items:center;gap:7px;padding:.45rem .7rem;background:var(--surface3);border:1px solid var(--border);border-radius:7px;margin-bottom:5px;font-size:.76rem;color:var(--text2);}
+
+/* typing */
+.typing{display:flex;gap:4px;align-items:center;padding:4px 0;}
+.tdot{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:bounce 1.2s infinite;opacity:.7;}
+.tdot:nth-child(2){animation-delay:.2s;}
+.tdot:nth-child(3){animation-delay:.4s;}
+@keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+
+/* ── INPUT BAR ── */
+#inputBar{border-top:1px solid var(--border);background:var(--bg2);padding:.85rem 1.5rem;}
+.attach-row{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:7px;}
+.achip{display:flex;align-items:center;gap:5px;padding:2px 7px 2px 5px;background:rgba(129,140,248,.1);border:1px solid rgba(129,140,248,.25);border-radius:6px;font-size:.72rem;color:var(--a2);max-width:190px;}
+.achip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.achip button{background:none;border:none;cursor:pointer;color:var(--text3);font-size:.85rem;line-height:1;transition:color .15s;flex-shrink:0;}
+.achip button:hover{color:var(--danger);}
+.input-row{display:flex;align-items:flex-end;gap:7px;background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:7px 7px 7px 13px;transition:border-color .2s;}
+.input-row:focus-within{border-color:rgba(56,189,248,.4);box-shadow:0 0 0 3px rgba(56,189,248,.06);}
+#chatInput{flex:1;background:transparent;border:none;outline:none;color:var(--text);font-family:var(--sans);font-size:.88rem;line-height:1.5;resize:none;max-height:200px;min-height:22px;overflow-y:auto;}
+#chatInput::placeholder{color:var(--text3);}
+.iactions{display:flex;align-items:center;gap:3px;flex-shrink:0;}
+.ibtn{width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.95rem;transition:all .15s;position:relative;}
+.ibtn:hover{border-color:var(--accent);color:var(--accent);}
+.ibtn input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.send-btn{width:34px;height:34px;border-radius:9px;border:none;background:linear-gradient(135deg,var(--accent),#0e7490);color:#000;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.95rem;transition:all .15s;flex-shrink:0;}
+.send-btn:hover{transform:scale(1.07);box-shadow:0 4px 18px rgba(56,189,248,.35);}
+.send-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+.ihint{margin-top:5px;font-size:.68rem;color:var(--text3);text-align:center;}
+.ihint kbd{font-family:var(--mono);font-size:.63rem;background:var(--surface2);border:1px solid var(--border);border-radius:3px;padding:1px 4px;color:var(--text2);}
+
+/* ── GENERATE PANE ── */
+#generatePane{display:none;flex:1;overflow:hidden;flex-direction:column;}
+.gen-layout{flex:1;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;}
+@media(max-width:780px){.gen-layout{grid-template-columns:1fr;}}
+.gpanel{display:flex;flex-direction:column;overflow:hidden;border-right:1px solid var(--border);}
+.gpanel:last-child{border-right:none;}
+.gphead{padding:.7rem 1rem;border-bottom:1px solid var(--border);background:var(--bg2);display:flex;align-items:center;gap:7px;flex-shrink:0;}
+.gphead-title{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);flex:1;}
+.opts-strip{display:flex;align-items:center;gap:10px;padding:.6rem 1rem;border-bottom:1px solid var(--border);background:var(--surface);flex-wrap:wrap;flex-shrink:0;}
+.tpill{display:flex;align-items:center;gap:5px;font-size:.76rem;color:var(--text2);cursor:pointer;user-select:none;}
+.tgl{width:32px;height:17px;background:var(--surface3);border:1px solid var(--border);border-radius:20px;position:relative;cursor:pointer;transition:all .2s;}
+.tgl::after{content:'';position:absolute;top:2px;left:2px;width:11px;height:11px;background:var(--text3);border-radius:50%;transition:all .2s;}
+.tgl.on{background:rgba(56,189,248,.15);border-color:var(--accent);}
+.tgl.on::after{left:17px;background:var(--accent);box-shadow:0 0 5px var(--accent);}
+.tl.on{color:var(--accent);}
+.big-ta{flex:1;background:var(--bg);border:none;outline:none;color:var(--text);font-family:var(--mono);font-size:.8rem;line-height:1.7;padding:1rem;resize:none;width:100%;min-height:0;}
+.big-ta::placeholder{color:var(--text3);}
+.fchips{display:flex;flex-wrap:wrap;gap:5px;padding:.55rem 1rem;border-bottom:1px solid var(--border);background:var(--surface);}
+.fchip{display:flex;align-items:center;gap:5px;padding:2px 7px;border-radius:6px;background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);font-size:.72rem;color:var(--a3);max-width:190px;}
+.fchip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.fchip button{background:none;border:none;cursor:pointer;color:var(--text3);font-size:.85rem;transition:color .15s;flex-shrink:0;}
+.fchip button:hover{color:var(--danger);}
+.gen-bottom{padding:.65rem 1rem;border-top:1px solid var(--border);background:var(--bg2);display:flex;gap:7px;align-items:center;flex-shrink:0;}
+.gen-btn{flex:1;padding:.65rem .9rem;background:linear-gradient(135deg,var(--accent),#0e7490);border:none;border-radius:9px;color:#000;font-family:var(--sans);font-size:.82rem;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:5px;}
+.gen-btn:hover{transform:translateY(-1px);box-shadow:0 5px 22px rgba(56,189,248,.3);}
+.gen-btn:disabled{opacity:.45;cursor:not-allowed;transform:none;}
+.gen-btn.analyze{background:linear-gradient(135deg,var(--a2),#4338ca);}
+.gen-btn.analyze:hover{box-shadow:0 5px 22px rgba(129,140,248,.3);}
+.charcount{font-family:var(--mono);font-size:.68rem;color:var(--text3);white-space:nowrap;}
+
+/* output */
+.out-wrap{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.out-tabs{display:flex;gap:3px;padding:.6rem 1rem;border-bottom:1px solid var(--border);background:var(--bg2);flex-shrink:0;}
+.otab{font-size:.72rem;font-weight:600;padding:4px 11px;border-radius:7px;border:1px solid transparent;cursor:pointer;background:transparent;color:var(--text2);font-family:var(--sans);transition:all .15s;}
+.otab.active{background:var(--adim);color:var(--accent);border-color:rgba(56,189,248,.25);}
+.otab:hover:not(.active){color:var(--text);background:var(--surface2);}
+.out-acts{margin-left:auto;display:flex;gap:3px;}
+.oabtn{font-size:.7rem;font-family:var(--mono);padding:3px 9px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--text3);cursor:pointer;transition:all .15s;}
+.oabtn:hover{border-color:var(--a3);color:var(--a3);}
+
+/* code area with line numbers */
+.code-area{flex:1;overflow:auto;font-family:var(--mono);font-size:.79rem;line-height:1.7;}
+.code-inner{padding:.9rem 0;counter-reset:ln;white-space:pre-wrap;word-break:break-word;}
+.cl{display:flex;counter-increment:ln;}
+.cl::before{content:counter(ln);min-width:2.8rem;text-align:right;padding-right:.9rem;color:var(--text3);font-size:.7rem;user-select:none;flex-shrink:0;padding-top:1px;opacity:.5;}
+.cl-code{flex:1;padding-right:.9rem;}
+
+/* explain cards */
+.explain-area{flex:1;overflow-y:auto;padding:.85rem;display:flex;flex-direction:column;gap:7px;display:none;}
+.ecard{background:var(--surface2);border:1px solid var(--border);border-radius:9px;overflow:hidden;animation:fadeUp .25s ease both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.ecode{padding:.45rem .8rem;background:var(--bg);font-family:var(--mono);font-size:.75rem;color:var(--accent);border-bottom:1px solid var(--border);overflow-x:auto;white-space:pre;}
+.etext{padding:.5rem .8rem;font-size:.8rem;line-height:1.6;color:var(--text);}
+.elnum{font-size:.65rem;color:var(--text3);margin-bottom:2px;}
+
+/* state boxes */
+.statebox{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:11px;padding:2rem;color:var(--text3);text-align:center;}
+.statebox .sbi{font-size:2.5rem;opacity:.3;}
+.statebox h3{font-family:var(--display);font-size:.95rem;color:var(--text2);}
+.statebox p{font-size:.78rem;line-height:1.6;max-width:230px;}
+.spinner{width:38px;height:38px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .75s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-sub{font-family:var(--mono);font-size:.75rem;color:var(--text3);animation:flicker 1.5s ease infinite;}
+@keyframes flicker{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* analysis result */
+.ablock{background:var(--surface2);border:1px solid var(--border);border-radius:9px;overflow:hidden;margin:.45rem 0;}
+.ahead{padding:.5rem .8rem;background:var(--surface3);border-bottom:1px solid var(--border);font-size:.72rem;font-weight:600;color:var(--a2);display:flex;align-items:center;gap:5px;}
+.abody{padding:.65rem .8rem;font-size:.8rem;line-height:1.6;}
+.agrid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:.45rem 0;}
+.acard{background:var(--surface3);border:1px solid var(--border);border-radius:7px;padding:.6rem;}
+.acard .al{color:var(--text3);font-size:.65rem;text-transform:uppercase;letter-spacing:.07em;margin-bottom:3px;}
+.acard .av{color:var(--text);font-weight:600;font-family:var(--mono);font-size:.82rem;}
+
+.errbox{margin:.85rem;padding:.7rem .9rem;background:rgba(248,113,113,.09);border:1px solid rgba(248,113,113,.25);border-radius:9px;font-size:.8rem;color:#fca5a5;display:none;}
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+
+/* responsive */
+@media(max-width:600px){
+  .lang-pills{display:none;}
+  .mode-tabs{margin-left:auto;}
+  .logo em{display:none;}
+  #chatMessages{padding:1rem;}
+  #inputBar{padding:.65rem 1rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div id="topbar">
+  <button id="sidebarToggle" onclick="toggleSidebar()" title="Toggle sidebar">☰</button>
+  <div class="logo">
+    <div class="logo-badge">⚡</div>
+    Code<em>Craft</em> AI
+  </div>
+  <div class="mode-tabs">
+    <button class="mtab active" onclick="setMode('chat')">💬 Chat</button>
+    <button class="mtab" onclick="setMode('generate')">⚙️ Generate</button>
+    <button class="mtab" onclick="setMode('analyze')">🔍 Analyze</button>
+  </div>
+  <div class="spacer"></div>
+  <div class="lang-pills" id="langPills">
+    <button class="lpill sel" data-lang="python" onclick="pickLang(this)">Python</button>
+    <button class="lpill" data-lang="c" onclick="pickLang(this)">C</button>
+    <button class="lpill" data-lang="html" onclick="pickLang(this)">HTML</button>
+    <button class="lpill" data-lang="css" onclick="pickLang(this)">CSS</button>
+    <button class="lpill" data-lang="javascript" onclick="pickLang(this)">JS</button>
+    <button class="lpill" data-lang="any" onclick="pickLang(this)">Any</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+
+  <!-- SIDEBAR -->
+  <div id="sidebar">
+    <div class="sb-section">
+      <div class="sb-title">Sessions</div>
+      <button class="new-chat-btn" onclick="newSession()">＋ New Session</button>
+    </div>
+    <div id="historyList"></div>
+  </div>
+
+  <!-- CENTER -->
+  <div id="center">
+
+    <!-- ══ CHAT PANE ══ -->
+    <div id="chatPane">
+      <div id="chatMessages">
+        <div class="welcome" id="welcomeDiv">
+          <h2>Your <em>AI Coding</em> Partner</h2>
+          <p>Chat naturally · Generate full projects · Analyze & debug any code</p>
+          <div class="sug-grid" id="sugGrid">
+            <div class="sug" onclick="useSuggestion(this)">
+              <div class="si">🐍</div>
+              <div class="st">Build a REST API</div>
+              Build a Python Flask REST API with CRUD endpoints and SQLite database
+            </div>
+            <div class="sug" onclick="useSuggestion(this)">
+              <div class="si">🌐</div>
+              <div class="st">Responsive Landing Page</div>
+              Create a modern HTML/CSS landing page with animations and mobile layout
+            </div>
+            <div class="sug" onclick="useSuggestion(this)">
+              <div class="si">⚙️</div>
+              <div class="st">Data Structures in C</div>
+              Implement linked list, stack, and queue in C with full documentation
+            </div>
+            <div class="sug" onclick="useSuggestion(this)">
+              <div class="si">🔍</div>
+              <div class="st">Analyze My Code</div>
+              Paste your code and I'll review it for bugs, performance, and best practices
+            </div>
+            <div class="sug" onclick="useSuggestion(this)">
+              <div class="si">🎯</div>
+              <div class="st">Algorithm Challenge</div>
+              Solve sorting, searching, or dynamic programming problems with explanation
+            </div>
+            <div class="sug" onclick="useSuggestion(this)">
+              <div class="si">🎨</div>
+              <div class="st">CSS Animation</div>
+              Write advanced CSS keyframe animations and transitions for a UI component
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- INPUT BAR -->
+      <div id="inputBar">
+        <div class="attach-row" id="attachRow"></div>
+        <div class="input-row">
+          <textarea id="chatInput" placeholder="Ask anything… paste code, describe a project, upload an image or PDF   (Ctrl+Enter to send)" rows="1"
+            oninput="autoResize(this);updateCharCount()" onkeydown="handleKey(event)"></textarea>
+          <div class="iactions">
+            <div class="ibtn" title="Attach image or PDF">
+              📎<input type="file" accept="image/*,.pdf" multiple onchange="attachFiles(event)">
+            </div>
+            <div class="ibtn" title="Paste / drop code file">
+              📄<input type="file" accept=".c,.py,.html,.css,.js,.txt,.cpp,.java,.ts,.json" multiple onchange="attachFiles(event)">
+            </div>
+            <button class="send-btn" id="sendBtn" onclick="sendChat()" title="Send (Ctrl+Enter)">➤</button>
+          </div>
+        </div>
+        <div class="ihint"><kbd>Ctrl+Enter</kbd> send &nbsp;·&nbsp; <kbd>Shift+Enter</kbd> new line &nbsp;·&nbsp; Supports images, PDFs, code files</div>
+      </div>
+    </div>
+
+    <!-- ══ GENERATE PANE ══ -->
+    <div id="generatePane">
+      <div class="gen-layout">
+
+        <!-- LEFT: prompt input -->
+        <div class="gpanel">
+          <div class="gphead">
+            <span class="gphead-title">📝 Prompt / Description</span>
+            <span class="charcount" id="genCharCount">0 chars</span>
+          </div>
+          <div class="opts-strip">
+            <div class="tpill" onclick="toggle('explainTgl','explainLbl')">
+              <div class="tgl" id="explainTgl"></div>
+              <span class="tl" id="explainLbl">Explain lines</span>
+            </div>
+            <div class="tpill" onclick="toggle('commentsTgl','commentsLbl')">
+              <div class="tgl on" id="commentsTgl"></div>
+              <span class="tl on" id="commentsLbl">Comments</span>
+            </div>
+            <div class="tpill" onclick="toggle('optimizeTgl','optimizeLbl')">
+              <div class="tgl" id="optimizeTgl"></div>
+              <span class="tl" id="optimizeLbl">Optimize</span>
+            </div>
+          </div>
+          <div class="fchips" id="genFileChips" style="display:none"></div>
+          <textarea class="big-ta" id="genPrompt"
+            placeholder="Describe exactly what you want to build…
+
+Examples:
+• A Python web scraper that extracts product prices from a URL and saves to CSV
+• A full HTML dashboard with charts and dark mode toggle
+• A C implementation of a binary search tree with insert, delete, search
+• A CSS glassmorphism card component with hover animation
+
+Paste code here too — I can extend, refactor, or debug it.
+
+No length limit — describe the most complex project you need."
+            oninput="updateGenCharCount()"></textarea>
+          <div class="gen-bottom">
+            <div class="ibtn" title="Upload image or PDF">
+              📎<input type="file" accept="image/*,.pdf,.c,.py,.html,.css,.js,.txt" multiple onchange="attachGenFiles(event)">
+            </div>
+            <button class="gen-btn" id="genBtn" onclick="runGenerate()">⚡ Generate Code</button>
+          </div>
+        </div>
+
+        <!-- RIGHT: output -->
+        <div class="gpanel">
+          <div class="out-wrap" id="genOutWrap">
+            <div class="out-tabs" id="genOutTabs" style="display:none">
+              <button class="otab active" id="otabCode" onclick="switchGenTab('code')">Code</button>
+              <button class="otab" id="otabExplain" onclick="switchGenTab('explain')" style="display:none">Line-by-Line</button>
+              <div class="out-acts">
+                <button class="oabtn" onclick="copyGenCode()">⎘ Copy</button>
+                <button class="oabtn" onclick="sendToChat()">💬 To Chat</button>
+              </div>
+            </div>
+            <div class="statebox" id="genEmpty">
+              <div class="sbi">🛠️</div>
+              <h3>Ready to build</h3>
+              <p>Describe your project on the left and hit Generate. Supports unlimited-length prompts.</p>
+            </div>
+            <div class="statebox" id="genLoading" style="display:none">
+              <div class="spinner"></div>
+              <div class="loading-sub" id="genLoadingText">Generating code…</div>
+            </div>
+            <div class="errbox" id="genErr"></div>
+            <div class="code-area" id="genCodeArea" style="display:none">
+              <div class="code-inner" id="genCodeInner"></div>
+            </div>
+            <div class="explain-area" id="genExplainArea"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══ ANALYZE PANE ══ -->
+    <div id="analyzePane" style="display:none;flex:1;flex-direction:column;overflow:hidden;">
+      <div class="gen-layout">
+
+        <!-- LEFT: code input -->
+        <div class="gpanel">
+          <div class="gphead">
+            <span class="gphead-title">📋 Paste Code to Analyze</span>
+            <span class="charcount" id="anaCharCount">0 chars</span>
+          </div>
+          <div class="fchips" id="anaFileChips" style="display:none"></div>
+          <textarea class="big-ta" id="anaCode"
+            placeholder="Paste any code here — any language, any length.
+
+I will:
+• Detect bugs and errors
+• Review code quality and style
+• Spot security vulnerabilities
+• Suggest performance optimizations
+• Explain what each section does
+• Rate overall code quality
+• Recommend improvements with examples"
+            oninput="updateAnaCharCount()"></textarea>
+          <div class="gen-bottom">
+            <div class="ibtn" title="Upload code file or image">
+              📎<input type="file" accept="image/*,.pdf,.c,.py,.html,.css,.js,.txt,.cpp,.java,.ts,.json" multiple onchange="attachAnaFiles(event)">
+            </div>
+            <button class="gen-btn analyze" id="anaBtn" onclick="runAnalyze()">🔍 Analyze Code</button>
+          </div>
+        </div>
+
+        <!-- RIGHT: analysis output -->
+        <div class="gpanel">
+          <div class="out-wrap">
+            <div class="statebox" id="anaEmpty">
+              <div class="sbi">🔬</div>
+              <h3>Code Analyzer</h3>
+              <p>Paste your code or upload a file. Works with C, Python, HTML, CSS, JavaScript, and more.</p>
+            </div>
+            <div class="statebox" id="anaLoading" style="display:none">
+              <div class="spinner"></div>
+              <div class="loading-sub">Analyzing code…</div>
+            </div>
+            <div class="errbox" id="anaErr"></div>
+            <div id="anaResult" style="display:none;flex:1;overflow-y:auto;padding:1rem;flex-direction:column;gap:.65rem;"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- end #center -->
+</div><!-- end #main -->
+
+<script>
+/* ═══════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════ */
+let mode = 'chat';
+let lang = 'python';
+let sessions = [];
+let activeSession = null;
+let chatAttachments = [];   // {name, type, data(base64), mediaType}
+let genFiles = [];
+let anaFiles = [];
+let genLastCode = '';
+let genExplainData = [];
+let genActiveTab = 'code';
+let isSending = false;
+
+const LANG_NAMES = {python:'Python',c:'C',html:'HTML',css:'CSS',javascript:'JavaScript',any:'any language'};
+
+/* ═══════════════════════════════════════════
+   MODE & LANG
+═══════════════════════════════════════════ */
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll('.mtab').forEach((b,i)=>b.classList.toggle('active',['chat','generate','analyze'][i]===m));
+  document.getElementById('chatPane').style.display = m==='chat'?'flex':'none';
+  document.getElementById('generatePane').style.display = m==='generate'?'flex':'none';
+  document.getElementById('analyzePane').style.display = m==='analyze'?'flex':'none';
+  if(m==='chat') document.getElementById('chatInput').focus();
+}
+function pickLang(btn) {
+  document.querySelectorAll('.lpill').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  lang = btn.dataset.lang;
+}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('collapsed');}
+
+/* ═══════════════════════════════════════════
+   SESSIONS / HISTORY
+═══════════════════════════════════════════ */
+function newSession() {
+  const s = {id:Date.now(), title:'New Session', messages:[], lang};
+  sessions.unshift(s);
+  activeSession = s;
+  renderHistory();
+  clearChatMessages();
+  document.getElementById('welcomeDiv').style.display='';
+}
+function renderHistory() {
+  const list = document.getElementById('historyList');
+  list.innerHTML = sessions.map(s=>`
+    <div class="hitem${s===activeSession?' active':''}" onclick="loadSession(${s.id})">
+      <span>💬</span>
+      <span class="hi">${escHtml(s.title)}</span>
+      <span class="hl">${s.lang||'py'}</span>
+    </div>`).join('');
+}
+function loadSession(id) {
+  const s = sessions.find(x=>x.id===id);
+  if(!s) return;
+  activeSession = s;
+  lang = s.lang||lang;
+  document.querySelectorAll('.lpill').forEach(b=>b.classList.toggle('sel',b.dataset.lang===lang));
+  clearChatMessages();
+  document.getElementById('welcomeDiv').style.display='none';
+  s.messages.forEach(m=>renderMessage(m.role,m.content,m.attachments));
+  renderHistory();
+}
+function clearChatMessages() {
+  const c = document.getElementById('chatMessages');
+  c.innerHTML = `<div class="welcome" id="welcomeDiv">
+    <h2>Your <em>AI Coding</em> Partner</h2>
+    <p>Chat naturally · Generate full projects · Analyze & debug any code</p>
+    <div class="sug-grid" id="sugGrid">
+      <div class="sug" onclick="useSuggestion(this)"><div class="si">🐍</div><div class="st">Build a REST API</div>Build a Python Flask REST API with CRUD endpoints and SQLite database</div>
+      <div class="sug" onclick="useSuggestion(this)"><div class="si">🌐</div><div class="st">Responsive Landing Page</div>Create a modern HTML/CSS landing page with animations and mobile layout</div>
+      <div class="sug" onclick="useSuggestion(this)"><div class="si">⚙️</div><div class="st">Data Structures in C</div>Implement linked list, stack, and queue in C with full documentation</div>
+      <div class="sug" onclick="useSuggestion(this)"><div class="si">🔍</div><div class="st">Analyze My Code</div>Paste your code and I'll review it for bugs, performance, and best practices</div>
+      <div class="sug" onclick="useSuggestion(this)"><div class="si">🎯</div><div class="st">Algorithm Challenge</div>Solve sorting, searching, or dynamic programming problems with explanation</div>
+      <div class="sug" onclick="useSuggestion(this)"><div class="si">🎨</div><div class="st">CSS Animation</div>Write advanced CSS keyframe animations and transitions for a UI component</div>
+    </div></div>`;
+}
+
+// init a default session
+newSession();
+
+/* ═══════════════════════════════════════════
+   CHAT
+═══════════════════════════════════════════ */
+function useSuggestion(el) {
+  document.getElementById('chatInput').value = el.querySelector('.sug').textContent.trim();
+  autoResize(document.getElementById('chatInput'));
+  document.getElementById('welcomeDiv').style.display='none';
+  document.getElementById('chatInput').focus();
+}
+// fix — target text inside sug card directly
+document.addEventListener('click', e=>{
+  const sug = e.target.closest('.sug');
+  if(!sug) return;
+  const txt = sug.innerText.replace(/^.*\n/,'').trim();
+  document.getElementById('chatInput').value = txt;
+  autoResize(document.getElementById('chatInput'));
+  document.getElementById('welcomeDiv').style.display='none';
+  document.getElementById('chatInput').focus();
+});
+
+function autoResize(ta) {
+  ta.style.height='auto';
+  ta.style.height = Math.min(ta.scrollHeight,200)+'px';
+}
+function updateCharCount(){}
+
+function handleKey(e) {
+  if(e.key==='Enter' && (e.ctrlKey||e.metaKey)){e.preventDefault();sendChat();}
+}
+
+async function sendChat() {
+  if(isSending) return;
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if(!text && chatAttachments.length===0) return;
+
+  // hide welcome
+  document.getElementById('welcomeDiv').style.display='none';
+
+  // ensure session
+  if(!activeSession) newSession();
+  if(activeSession.messages.length===0 && text) {
+    activeSession.title = text.slice(0,42)+(text.length>42?'…':'');
+  }
+
+  // render user msg
+  renderMessage('user', text, [...chatAttachments]);
+  activeSession.messages.push({role:'user',content:text,attachments:[...chatAttachments]});
+  renderHistory();
+
+  // clear
+  input.value=''; input.style.height='auto';
+  const atts = [...chatAttachments];
+  chatAttachments=[];
+  renderAttachRow();
+
+  isSending=true;
+  document.getElementById('sendBtn').disabled=true;
+
+  // typing indicator
+  const typingId = 'typing_'+Date.now();
+  appendTyping(typingId);
+
+  try {
+    const history = activeSession.messages.slice(0,-1);
+    const reply = await callClaude(text, atts, history);
+    removeTyping(typingId);
+    renderMessage('ai', reply);
+    activeSession.messages.push({role:'assistant',content:reply});
+  } catch(err) {
+    removeTyping(typingId);
+    renderMessage('ai','⚠️ Error: '+err.message);
+  }
+  isSending=false;
+  document.getElementById('sendBtn').disabled=false;
+}
+
+async function callClaude(userText, attachments, history) {
+  const sysPrompt = `You are CodeCraft AI, a world-class coding assistant specializing in Python, C, HTML, CSS, and JavaScript. You can:
+- Write complete, production-quality programs of any size and complexity
+- Analyze, debug, and refactor code thoroughly
+- Explain code line by line when asked
+- Build full multi-file projects (describe all files clearly)
+- Answer any programming question with depth and accuracy
+- Accept and process images and PDFs containing code or problem descriptions
+
+Current preferred language: ${LANG_NAMES[lang]||lang}
+
+When writing code:
+- Always wrap code in fenced code blocks with the language tag
+- Add inline comments for clarity
+- Include usage examples where helpful
+- For large projects, structure your response with clear sections
+- Be thorough — never truncate output
+
+When analyzing code:
+- Identify all bugs and issues with line references
+- Rate quality (1-10) across: correctness, readability, performance, security
+- Provide specific improvement suggestions with example fixes
+- Detect language automatically`;
+
+  // Build messages array for API
+  const msgs = [];
+
+  // Add conversation history
+  for(const h of history.slice(-10)) {
+    const role = h.role==='user'?'user':'assistant';
+    msgs.push({role, content: typeof h.content==='string'?h.content:JSON.stringify(h.content)});
+  }
+
+  // Build current user message content
+  const content = [];
+  for(const att of attachments) {
+    if(att.type==='image') {
+      content.push({type:'image',source:{type:'base64',media_type:att.mediaType,data:att.data}});
+    } else if(att.type==='pdf') {
+      content.push({type:'document',source:{type:'base64',media_type:'application/pdf',data:att.data}});
+    } else if(att.type==='text') {
+      content.push({type:'text',text:`[File: ${att.name}]\n\`\`\`\n${att.textContent}\n\`\`\``});
+    }
+  }
+  content.push({type:'text',text: userText||'(See attached file)'});
+  msgs.push({role:'user',content});
+
+  const res = await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      model:'claude-sonnet-4-20250514',
+      max_tokens:8000,
+      system: sysPrompt,
+      messages: msgs
+    })
+  });
+  if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.error?.message||`API ${res.status}`);}
+  const data = await res.json();
+  return data.content.map(b=>b.text||'').join('');
+}
+
+function renderMessage(role, text, attachments=[]) {
+  const c = document.getElementById('chatMessages');
+  const div = document.createElement('div');
+  div.className = `msg ${role}`;
+  const isAI = role==='ai';
+  let attHtml = '';
+  if(attachments&&attachments.length) {
+    attHtml = attachments.map(a=>`<div class="mattach">📎 ${escHtml(a.name)}</div>`).join('');
+  }
+  div.innerHTML=`
+    <div class="mavatar">${isAI?'🤖':'👤'}</div>
+    <div class="mbody">
+      <div class="mname">${isAI?'CodeCraft AI':'You'}</div>
+      <div class="mbubble">${attHtml}${isAI?formatAIText(text):escHtml(text).replace(/\n/g,'<br>')}</div>
+    </div>`;
+  c.appendChild(div);
+  c.scrollTop = c.scrollHeight;
+}
+
+function formatAIText(text) {
+  // Convert markdown-ish to HTML
+  let html = escHtml(text);
+  // code blocks
+  html = html.replace(/```(\w*)\n?([\s\S]*?)```/g, (_,lang,code)=>{
+    const id = 'cb'+Math.random().toString(36).slice(2,8);
+    return `<pre><div class="pre-hdr"><span>${lang||'code'}</span><button class="cpinline" onclick="cpBlock('${id}')">⎘ Copy</button></div><code id="${id}">${code.trim()}</code></pre>`;
+  });
+  // inline code
+  html = html.replace(/`([^`]+)`/g,'<code>$1</code>');
+  // bold
+  html = html.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+  // headings
+  html = html.replace(/^### (.+)$/gm,'<strong>$1</strong>');
+  html = html.replace(/^## (.+)$/gm,'<strong style="font-size:.95rem">$1</strong>');
+  // bullet points
+  html = html.replace(/^\* (.+)$/gm,'• $1');
+  html = html.replace(/^- (.+)$/gm,'• $1');
+  // numbered
+  html = html.replace(/^\d+\. (.+)$/gm,'$&');
+  // paragraphs
+  html = html.split('\n\n').map(p=>`<p>${p.replace(/\n/g,'<br>')}</p>`).join('');
+  return html;
+}
+
+function cpBlock(id) {
+  const el = document.getElementById(id);
+  if(!el) return;
+  navigator.clipboard.writeText(el.textContent);
+  const btn = el.closest('pre').querySelector('.cpinline');
+  if(btn){btn.textContent='✓ Copied';setTimeout(()=>btn.textContent='⎘ Copy',2000);}
+}
+
+function appendTyping(id) {
+  const c = document.getElementById('chatMessages');
+  const div = document.createElement('div');
+  div.className='msg ai';div.id=id;
+  div.innerHTML=`<div class="mavatar">🤖</div><div class="mbody"><div class="mname">CodeCraft AI</div><div class="mbubble"><div class="typing"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div></div></div>`;
+  c.appendChild(div);c.scrollTop=c.scrollHeight;
+}
+function removeTyping(id){const el=document.getElementById(id);if(el)el.remove();}
+
+/* ═══════════════════════════════════════════
+   ATTACHMENTS (CHAT)
+═══════════════════════════════════════════ */
+async function attachFiles(e) {
+  const files = Array.from(e.target.files);
+  for(const file of files) await loadAttachment(file, 'chat');
+  e.target.value='';
+  renderAttachRow();
+}
+async function loadAttachment(file, dest) {
+  return new Promise(resolve=>{
+    const isPDF = file.type==='application/pdf';
+    const isImage = file.type.startsWith('image/');
+    const isText = !isPDF && !isImage;
+    if(isText) {
+      const r = new FileReader();
+      r.onload=e2=>{
+        const obj={name:file.name,type:'text',textContent:e2.target.result,mediaType:file.type};
+        if(dest==='chat') chatAttachments.push(obj);
+        else if(dest==='gen') genFiles.push(obj);
+        else if(dest==='ana') anaFiles.push(obj);
+        resolve();
+      };
+      r.readAsText(file);
+    } else {
+      const r = new FileReader();
+      r.onload=e2=>{
+        const b64 = e2.target.result.split(',')[1];
+        const obj={name:file.name,type:isPDF?'pdf':'image',data:b64,mediaType:file.type||'image/png'};
+        if(dest==='chat') chatAttachments.push(obj);
+        else if(dest==='gen') genFiles.push(obj);
+        else if(dest==='ana') anaFiles.push(obj);
+        resolve();
+      };
+      r.readAsDataURL(file);
+    }
+  });
+}
+function renderAttachRow() {
+  const row = document.getElementById('attachRow');
+  row.innerHTML = chatAttachments.map((a,i)=>`
+    <div class="achip"><span>${a.type==='image'?'🖼️':a.type==='pdf'?'📄':'📝'}</span>
+    <span>${escHtml(a.name)}</span>
+    <button onclick="removeAttach(${i})">✕</button></div>`).join('');
+}
+function removeAttach(i){chatAttachments.splice(i,1);renderAttachRow();}
+
+/* ═══════════════════════════════════════════
+   GENERATE
+═══════════════════════════════════════════ */
+function updateGenCharCount(){
+  const v=document.getElementById('genPrompt').value;
+  document.getElementById('genCharCount').textContent=v.length.toLocaleString()+' chars';
+}
+function updateAnaCharCount(){
+  const v=document.getElementById('anaCode').value;
+  document.getElementById('anaCharCount').textContent=v.length.toLocaleString()+' chars';
+}
+
+function toggle(tglId, lblId) {
+  const t=document.getElementById(tglId);
+  const l=document.getElementById(lblId);
+  const on=t.classList.toggle('on');
+  l.classList.toggle('on',on);
+}
+function isOn(id){return document.getElementById(id).classList.contains('on');}
+
+async function attachGenFiles(e){
+  const files=Array.from(e.target.files);
+  for(const f of files) await loadAttachment(f,'gen');
+  e.target.value='';renderGenChips();
+}
+function renderGenChips(){
+  const el=document.getElementById('genFileChips');
+  el.style.display=genFiles.length?'flex':'none';
+  el.innerHTML=genFiles.map((f,i)=>`<div class="fchip"><span>${escHtml(f.name)}</span><button onclick="rmGenFile(${i})">✕</button></div>`).join('');
+}
+function rmGenFile(i){genFiles.splice(i,1);renderGenChips();}
+
+async function runGenerate(){
+  const prompt=document.getElementById('genPrompt').value.trim();
+  if(!prompt&&genFiles.length===0){showErr('genErr','Please enter a prompt or upload a file.');return;}
+  hideErr('genErr');
+  setGenLoading(true);
+
+  try{
+    const explainLines=isOn('explainTgl');
+    const addComments=isOn('commentsTgl');
+    const optimize=isOn('optimizeTgl');
+    const langName=LANG_NAMES[lang]||lang;
+
+    const sysPrompt=`You are an expert ${langName} programmer. Generate complete, accurate, working code.
+${addComments?'Add clear inline comments.':''}
+${optimize?'Optimize for performance and best practices.':''}
+Respond ONLY with valid JSON (no markdown fences, no preamble):
+{
+  "code": "complete code here with real newlines",
+  "title": "short program title",
+  "description": "1-2 sentence description",
+  ${explainLines?'"explanations": [{"lineNum":1,"line":"code line","explanation":"what it does"}]':''"explanations": []'"}
+}
+For explanations include every meaningful non-blank line. Escape all strings properly in JSON.`;
+
+    const content=[];
+    for(const f of genFiles){
+      if(f.type==='image') content.push({type:'image',source:{type:'base64',media_type:f.mediaType,data:f.data}});
+      else if(f.type==='pdf') content.push({type:'document',source:{type:'base64',media_type:'application/pdf',data:f.data}});
+      else content.push({type:'text',text:`[File: ${f.name}]\n${f.textContent}`});
+    }
+    content.push({type:'text',text:prompt||'Generate code from the attached file'});
+
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:8000,
+        system:sysPrompt,messages:[{role:'user',content}]})
+    });
+    if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.error?.message||`API ${res.status}`);}
+    const data=await res.json();
+    let raw=data.content.map(b=>b.text||'').join('');
+
+    let parsed;
+    try{
+      let clean=raw.trim();
+      if(clean.startsWith('```')){clean=clean.replace(/^```[a-z]*\n?/,'').replace(/\n?```$/,'').trim();}
+      parsed=JSON.parse(clean);
+    }catch(e){
+      const m=raw.match(/\{[\s\S]*\}/);
+      if(m)try{parsed=JSON.parse(m[0]);}catch(e2){parsed={code:raw,title:'Generated Code',explanations:[]};}
+      else parsed={code:raw,title:'Generated Code',explanations:[]};
+    }
+    genLastCode=parsed.code||'';
+    genExplainData=parsed.explanations||[];
+    setGenLoading(false);
+    showGenCode(genLastCode, genExplainData);
+  }catch(err){
+    setGenLoading(false);
+    showErr('genErr',err.message||'Something went wrong.');
+  }
+}
+
+function setGenLoading(on){
+  document.getElementById('genBtn').disabled=on;
+  document.getElementById('genBtn').innerHTML=on?'<div class="spinner" style="width:18px;height:18px;border-width:2px;margin:0"></div> Generating…':'⚡ Generate Code';
+  document.getElementById('genEmpty').style.display=on?'none':'';
+  document.getElementById('genLoading').style.display=on?'flex':'none';
+  if(on){document.getElementById('genCodeArea').style.display='none';document.getElementById('genExplainArea').style.display='none';document.getElementById('genOutTabs').style.display='none';}
+}
+
+function showGenCode(code, explanations){
+  document.getElementById('genEmpty').style.display='none';
+  document.getElementById('genLoading').style.display='none';
+  const tabs=document.getElementById('genOutTabs');
+  tabs.style.display='flex';
+  document.getElementById('otabExplain').style.display=explanations.length?'':'none';
+
+  // render code
+  const lines=code.split('\n');
+  const inner=document.getElementById('genCodeInner');
+  inner.innerHTML=lines.map(l=>`<div class="cl"><span class="cl-code">${escHtml(l)}</span></div>`).join('');
+
+  // render explanations
+  const ea=document.getElementById('genExplainArea');
+  ea.innerHTML='';
+  explanations.forEach((item,i)=>{
+    const d=document.createElement('div');
+    d.className='ecard';d.style.animationDelay=(i*.04)+'s';
+    d.innerHTML=`<div class="ecode">${escHtml(item.line)}</div><div class="etext"><div class="elnum">Line ${item.lineNum}</div>${escHtml(item.explanation)}</div>`;
+    ea.appendChild(d);
+  });
+
+  switchGenTab('code');
+}
+
+function switchGenTab(tab){
+  genActiveTab=tab;
+  document.getElementById('otabCode').classList.toggle('active',tab==='code');
+  document.getElementById('otabExplain').classList.toggle('active',tab==='explain');
+  document.getElementById('genCodeArea').style.display=tab==='code'?'flex':'none';
+  document.getElementById('genExplainArea').style.display=tab==='explain'?'flex':'none';
+}
+
+function copyGenCode(){
+  if(!genLastCode)return;
+  navigator.clipboard.writeText(genLastCode);
+  const b=document.querySelector('#genOutTabs .oabtn');
+  b.textContent='✓ Copied!';setTimeout(()=>b.textContent='⎘ Copy',2000);
+}
+
+function sendToChat(){
+  if(!genLastCode)return;
+  setMode('chat');
+  document.getElementById('chatInput').value='Here is the code I generated:\n```\n'+genLastCode.slice(0,500)+'...\n```\nCan you review it?';
+  autoResize(document.getElementById('chatInput'));
+}
+
+/* ═══════════════════════════════════════════
+   ANALYZE
+═══════════════════════════════════════════ */
+async function attachAnaFiles(e){
+  const files=Array.from(e.target.files);
+  for(const f of files) await loadAttachment(f,'ana');
+  e.target.value='';renderAnaChips();
+  // if text file, put content in textarea
+  for(const f of anaFiles){
+    if(f.type==='text'){document.getElementById('anaCode').value+=f.textContent+'\n';updateAnaCharCount();}
+  }
+}
+function renderAnaChips(){
+  const el=document.getElementById('anaFileChips');
+  el.style.display=anaFiles.length?'flex':'none';
+  el.innerHTML=anaFiles.map((f,i)=>`<div class="fchip"><span>${escHtml(f.name)}</span><button onclick="rmAnaFile(${i})">✕</button></div>`).join('');
+}
+function rmAnaFile(i){anaFiles.splice(i,1);renderAnaChips();}
+
+async function runAnalyze(){
+  const code=document.getElementById('anaCode').value.trim();
+  if(!code&&anaFiles.length===0){showErr('anaErr','Please paste code or upload a file.');return;}
+  hideErr('anaErr');
+  setAnaLoading(true);
+
+  try{
+    const sysPrompt=`You are a senior code reviewer. Analyze the provided code deeply and return ONLY valid JSON:
+{
+  "language": "detected language",
+  "lineCount": number,
+  "scores": {"correctness":8,"readability":7,"performance":6,"security":9},
+  "summary": "2-3 sentence overall summary",
+  "bugs": [{"line":"line ref or code","severity":"high|medium|low","issue":"description","fix":"suggested fix"}],
+  "improvements": [{"title":"improvement","description":"details","example":"code example if helpful"}],
+  "strengths": ["strength 1","strength 2"],
+  "sections": [{"name":"Section Name","lines":"L1-L20","purpose":"what this section does"}]
+}
+Be thorough. Find all real issues. No markdown, no backticks around JSON.`;
+
+    const content=[];
+    for(const f of anaFiles){
+      if(f.type==='image') content.push({type:'image',source:{type:'base64',media_type:f.mediaType,data:f.data}});
+      else if(f.type==='pdf') content.push({type:'document',source:{type:'base64',media_type:'application/pdf',data:f.data}});
+    }
+    content.push({type:'text',text:code||'Analyze the attached file'});
+
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:4000,
+        system:sysPrompt,messages:[{role:'user',content}]})
+    });
+    if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.error?.message||`API ${res.status}`);}
+    const data=await res.json();
+    let raw=data.content.map(b=>b.text||'').join('');
+
+    let parsed;
+    try{
+      let clean=raw.trim();
+      if(clean.startsWith('```')){clean=clean.replace(/^```[a-z]*\n?/,'').replace(/\n?```$/,'').trim();}
+      parsed=JSON.parse(clean);
+    }catch(e){
+      const m=raw.match(/\{[\s\S]*\}/);
+      if(m)try{parsed=JSON.parse(m[0]);}catch(e2){parsed=null;}
+      else parsed=null;
+    }
+    setAnaLoading(false);
+    if(parsed) renderAnalysis(parsed);
+    else {
+      // fallback: show raw
+      const r=document.getElementById('anaResult');
+      r.innerHTML=`<div class="ablock"><div class="ahead">📊 Analysis</div><div class="abody">${formatAIText(raw)}</div></div>`;
+      r.style.display='flex';
+      document.getElementById('anaEmpty').style.display='none';
+    }
+  }catch(err){
+    setAnaLoading(false);
+    showErr('anaErr',err.message||'Something went wrong.');
+  }
+}
+
+function setAnaLoading(on){
+  document.getElementById('anaBtn').disabled=on;
+  document.getElementById('anaBtn').innerHTML=on?'<div class="spinner" style="width:18px;height:18px;border-width:2px;margin:0"></div> Analyzing…':'🔍 Analyze Code';
+  document.getElementById('anaEmpty').style.display=on?'none':'';
+  document.getElementById('anaLoading').style.display=on?'flex':'none';
+  document.getElementById('anaResult').style.display='none';
+}
+
+function renderAnalysis(d){
+  const r=document.getElementById('anaResult');
+  r.style.display='flex';
+  document.getElementById('anaEmpty').style.display='none';
+
+  const sev={high:'#f87171',medium:'#fb923c',low:'#34d399'};
+  const scoreColor=s=>s>=8?'#34d399':s>=6?'#fb923c':'#f87171';
+
+  let html=`
+  <div class="ablock">
+    <div class="ahead">📊 Overview</div>
+    <div class="abody">
+      <div class="agrid">
+        <div class="acard"><div class="al">Language</div><div class="av">${escHtml(d.language||'?')}</div></div>
+        <div class="acard"><div class="al">Lines</div><div class="av">${d.lineCount||'?'}</div></div>
+        <div class="acard"><div class="al">Bugs Found</div><div class="av" style="color:${(d.bugs||[]).length>0?'var(--danger)':'var(--a3)'}">${(d.bugs||[]).length}</div></div>
+        <div class="acard"><div class="al">Improvements</div><div class="av">${(d.improvements||[]).length}</div></div>
+      </div>
+      <p style="margin-top:.5rem;font-size:.82rem;line-height:1.6;color:var(--text2)">${escHtml(d.summary||'')}</p>
+    </div>
+  </div>`;
+
+  if(d.scores){
+    html+=`<div class="ablock"><div class="ahead">🎯 Quality Scores</div><div class="abody"><div class="agrid">`;
+    for(const[k,v] of Object.entries(d.scores)){
+      html+=`<div class="acard"><div class="al">${k}</div><div class="av" style="color:${scoreColor(v)}">${v}/10</div></div>`;
+    }
+    html+=`</div></div></div>`;
+  }
+
+  if(d.bugs&&d.bugs.length){
+    html+=`<div class="ablock"><div class="ahead" style="color:var(--danger)">🐛 Bugs & Issues (${d.bugs.length})</div><div class="abody" style="display:flex;flex-direction:column;gap:.6rem">`;
+    d.bugs.forEach(b=>{
+      html+=`<div style="border-left:2px solid ${sev[b.severity]||'#aaa'};padding:.4rem .7rem;background:var(--bg);border-radius:0 7px 7px 0">
+        <div style="font-size:.7rem;color:${sev[b.severity]||'#aaa'};font-weight:600;text-transform:uppercase;margin-bottom:2px">${b.severity||'?'} · ${escHtml(b.line||'')}</div>
+        <div style="font-size:.8rem;margin-bottom:4px">${escHtml(b.issue||'')}</div>
+        ${b.fix?`<div style="font-size:.75rem;color:var(--a3)">Fix: ${escHtml(b.fix)}</div>`:''}
+      </div>`;
+    });
+    html+=`</div></div>`;
+  }
+
+  if(d.improvements&&d.improvements.length){
+    html+=`<div class="ablock"><div class="ahead" style="color:var(--warn)">💡 Improvements</div><div class="abody" style="display:flex;flex-direction:column;gap:.55rem">`;
+    d.improvements.forEach(imp=>{
+      html+=`<div style="border-bottom:1px solid var(--border);padding-bottom:.5rem">
+        <div style="font-weight:600;font-size:.82rem;margin-bottom:2px">${escHtml(imp.title||'')}</div>
+        <div style="font-size:.78rem;color:var(--text2)">${escHtml(imp.description||'')}</div>
+        ${imp.example?`<pre style="margin-top:.4rem;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:.5rem;font-size:.72rem;overflow-x:auto">${escHtml(imp.example)}</pre>`:''}
+      </div>`;
+    });
+    html+=`</div></div>`;
+  }
+
+  if(d.strengths&&d.strengths.length){
+    html+=`<div class="ablock"><div class="ahead" style="color:var(--a3)">✅ Strengths</div><div class="abody"><ul style="padding-left:1.1rem">`;
+    d.strengths.forEach(s=>html+=`<li style="font-size:.8rem;margin-bottom:3px;color:var(--text2)">${escHtml(s)}</li>`);
+    html+=`</ul></div></div>`;
+  }
+
+  if(d.sections&&d.sections.length){
+    html+=`<div class="ablock"><div class="ahead">🗂️ Code Sections</div><div class="abody" style="display:flex;flex-direction:column;gap:.4rem">`;
+    d.sections.forEach(s=>{
+      html+=`<div style="display:flex;gap:.6rem;align-items:flex-start;font-size:.78rem">
+        <span style="font-family:var(--mono);color:var(--accent);min-width:60px;flex-shrink:0">${escHtml(s.lines||'')}</span>
+        <div><strong style="color:var(--text)">${escHtml(s.name||'')}</strong> — <span style="color:var(--text2)">${escHtml(s.purpose||'')}</span></div>
+      </div>`;
+    });
+    html+=`</div></div>`;
+  }
+
+  r.innerHTML=html;
+}
+
+/* ═══════════════════════════════════════════
+   UTILS
+═══════════════════════════════════════════ */
+function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function showErr(id,msg){const e=document.getElementById(id);e.style.display='block';e.textContent='⚠️ '+msg;}
+function hideErr(id){document.getElementById(id).style.display='none';}
+</script>
+</body>
+</html>
