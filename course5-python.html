@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#050e09">
+<title>CODEON Africa | Python Fundamentals – Build Real African Solutions</title>
+<meta name="description" content="Learn Python by building real African solutions. Automate market price trackers, health data tools, and agritech apps. Earn a verified certificate. Free to start.">
+<link rel="icon" href="codeon logo.png" type="image/png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- QR Code Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<!-- Confetti -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+/* ═══════════════════════════════════════
+   DESIGN TOKENS — AFRICAN FUTURIST DARK
+═══════════════════════════════════════ */
+:root {
+  --bg:      #050e09;
+  --s1:      #081408;
+  --s2:      #0c1e0e;
+  --s3:      #112214;
+  --border:  #1a3520;
+  --accent:  #00e0c6;
+  --a2:      #00ffd5;
+  --gold:    #f5c518;
+  --gold2:   #ffd84d;
+  --py:      #3ddc84;   /* Python green */
+  --py2:     #4ade80;
+  --red:     #ff5252;
+  --text:    #e2f0e8;
+  --muted:   #4a7a58;
+  --fd: 'Syne', sans-serif;
+  --fb: 'DM Sans', sans-serif;
+  --fm: 'Space Mono', monospace;
+  --r: 14px;
+  --r-lg: 20px;
+  --glow: 0 0 50px rgba(61,220,132,.12);
+  --tr: .3s cubic-bezier(.4,0,.2,1);
+}
+
+/* ── RESET ── */
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+body { background:var(--bg); color:var(--text); font-family:var(--fb); overflow-x:hidden; line-height:1.6; }
+a { text-decoration:none; color:inherit; }
+img { display:block; max-width:100%; }
+button { cursor:pointer; font-family:var(--fb); }
+:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+@media(prefers-reduced-motion:reduce){ *{ animation-duration:.01ms!important; transition-duration:.01ms!important; } }
+
+/* ── CANVAS BG ── */
+#bgCanvas { position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.5; }
+
+/* ── LOADER ── */
+#loader { position:fixed; inset:0; background:var(--bg); display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:9999; gap:20px; transition:opacity .6s,visibility .6s; }
+#loader.gone { opacity:0; visibility:hidden; pointer-events:none; }
+.ld-brand { display:flex; align-items:center; gap:12px; }
+.ld-logo-img { width:44px; height:44px; object-fit:contain; }
+.ld-name { font-family:var(--fd); font-size:1.6rem; font-weight:900; color:var(--accent); letter-spacing:-1px; }
+.ld-bar { width:min(220px,70vw); height:2px; background:var(--border); border-radius:2px; overflow:hidden; }
+.ld-fill { height:100%; background:linear-gradient(90deg,var(--py),var(--accent)); animation:ldFill 1.6s ease forwards; }
+@keyframes ldFill { from{width:0} to{width:100%} }
+.ld-sub { font-family:var(--fm); font-size:.6rem; letter-spacing:4px; color:var(--muted); }
+.ld-snake { font-size:1.8rem; animation:snake 1s ease-in-out infinite alternate; }
+@keyframes snake { from{transform:translateX(-8px) rotate(-10deg)} to{transform:translateX(8px) rotate(10deg)} }
+
+/* ── HEADER ── */
+header { position:sticky; top:0; z-index:100; height:60px; display:flex; align-items:center; justify-content:space-between; padding:0 clamp(14px,5%,48px); background:rgba(5,14,9,.94); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); border-bottom:1px solid var(--border); }
+.hd-brand { display:flex; align-items:center; gap:9px; }
+.hd-logo { height:32px; width:auto; object-fit:contain; }
+.hd-name { font-family:var(--fd); font-size:1.05rem; font-weight:900; color:var(--accent); letter-spacing:-0.5px; }
+.hd-course { font-family:var(--fm); font-size:.55rem; letter-spacing:3px; color:var(--muted); margin-left:10px; display:none; }
+@media(min-width:500px){ .hd-course{ display:inline; } }
+.hd-right { display:flex; align-items:center; gap:10px; }
+.xp-chip { background:rgba(61,220,132,.1); border:1px solid rgba(61,220,132,.25); border-radius:100px; padding:4px 12px; font-family:var(--fm); font-size:.65rem; color:var(--py); display:flex; align-items:center; gap:6px; }
+.xp-chip .dot { width:6px; height:6px; border-radius:50%; background:var(--py); animation:blink 2s infinite; flex-shrink:0; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+.hd-progress { width:clamp(60px,12vw,120px); height:4px; background:var(--border); border-radius:2px; overflow:hidden; }
+.hd-progress-fill { height:100%; background:linear-gradient(90deg,var(--py),var(--accent)); border-radius:2px; transition:width .8s ease; width:0%; }
+
+/* ── BUTTONS ── */
+.btn { display:inline-flex; align-items:center; justify-content:center; gap:7px; padding:11px 22px; border:none; border-radius:9px; font-family:var(--fd); font-weight:700; font-size:.88rem; transition:transform var(--tr),box-shadow var(--tr); -webkit-tap-highlight-color:transparent; white-space:nowrap; cursor:pointer; }
+.btn:active { transform:scale(.96)!important; }
+.btn-py { background:var(--py); color:#001a0a; box-shadow:0 0 22px rgba(61,220,132,.28); }
+.btn-py:hover { transform:translateY(-2px); box-shadow:0 0 40px rgba(61,220,132,.45); }
+.btn-gold { background:var(--gold); color:#1a1000; box-shadow:0 0 22px rgba(245,197,24,.28); }
+.btn-gold:hover { transform:translateY(-2px); box-shadow:0 0 40px rgba(245,197,24,.45); }
+.btn-ghost { background:transparent; color:var(--text); border:1px solid var(--border); }
+.btn-ghost:hover { border-color:var(--py); color:var(--py); }
+.btn-full { width:100%; }
+.btn-sm { padding:8px 16px; font-size:.78rem; }
+
+/* ── LAYOUT ── */
+.z1 { position:relative; z-index:1; }
+.shell { max-width:1080px; margin:0 auto; padding:clamp(48px,9vw,88px) clamp(16px,5%,48px); }
+.alt { background:var(--s1); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+.sec-tag { font-family:var(--fm); font-size:.58rem; letter-spacing:4px; color:var(--py); margin-bottom:10px; }
+.sec-title { font-family:var(--fd); font-size:clamp(1.65rem,5vw,2.7rem); font-weight:900; letter-spacing:-1px; line-height:1.1; margin-bottom:12px; }
+.sec-desc { color:var(--muted); font-size:clamp(.88rem,2vw,.95rem); line-height:1.8; max-width:540px; }
+
+/* ── REVEAL ── */
+.reveal { opacity:0; transform:translateY(24px); transition:opacity .7s ease,transform .7s ease; }
+.reveal.up { opacity:1; transform:translateY(0); }
+.d1{transition-delay:.1s;} .d2{transition-delay:.2s;} .d3{transition-delay:.3s;}
+
+/* ═══════════════════════════════════
+   HERO
+═══════════════════════════════════ */
+.hero { min-height:100svh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:clamp(80px,15vw,120px) clamp(16px,5%,48px) clamp(48px,8vw,72px); position:relative; overflow:hidden; }
+.hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 80% 60% at 50% 0%, rgba(61,220,132,.07), transparent 65%); pointer-events:none; }
+
+.hero-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(61,220,132,.08); border:1px solid rgba(61,220,132,.22); border-radius:100px; padding:5px 16px; font-family:var(--fm); font-size:.58rem; letter-spacing:3px; color:var(--py); margin-bottom:clamp(18px,4vw,28px); animation:fadeUp .8s .1s both; }
+.badge-dot { width:6px; height:6px; border-radius:50%; background:var(--py); animation:blink 2s infinite; flex-shrink:0; }
+
+.hero h1 { font-family:var(--fd); font-size:clamp(2.2rem,8vw,5rem); font-weight:900; letter-spacing:clamp(-2px,-0.5vw,-3px); line-height:1.04; max-width:820px; animation:fadeUp .8s .25s both; }
+.hero h1 .accent { color:var(--py); position:relative; display:inline-block; }
+.hero h1 .accent::after { content:''; position:absolute; bottom:2px; left:0; right:0; height:3px; background:var(--py); opacity:.3; border-radius:2px; }
+.hero h1 .gold { color:var(--gold); }
+
+.hero-sub { margin-top:clamp(12px,3vw,20px); font-size:clamp(.9rem,2.5vw,1.05rem); color:var(--muted); max-width:480px; line-height:1.8; animation:fadeUp .8s .4s both; }
+
+.hero-ctas { margin-top:clamp(22px,5vw,36px); display:flex; gap:12px; flex-wrap:wrap; justify-content:center; animation:fadeUp .8s .55s both; }
+
+/* HERO STATS */
+.hero-stats { margin-top:clamp(32px,6vw,52px); display:flex; gap:clamp(20px,5vw,48px); flex-wrap:wrap; justify-content:center; animation:fadeUp .8s .7s both; }
+.hs-item { text-align:center; }
+.hs-n { font-family:var(--fm); font-size:clamp(1.3rem,4vw,2rem); font-weight:700; color:var(--py); letter-spacing:-1px; }
+.hs-l { font-family:var(--fm); font-size:.52rem; letter-spacing:2.5px; color:var(--muted); margin-top:3px; }
+
+/* AFRICA MAP DECORATION */
+.hero-africa { position:absolute; right:-60px; bottom:-30px; font-size:clamp(120px,25vw,220px); opacity:.04; pointer-events:none; user-select:none; animation:float 8s ease-in-out infinite; }
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-20px)} }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+/* ═══════════════════════════════════
+   MARQUEE
+═══════════════════════════════════ */
+.marquee-wrap { overflow:hidden; border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:11px 0; background:var(--s1); position:relative; z-index:1; }
+.marquee-track { display:flex; width:max-content; gap:40px; animation:marquee 24s linear infinite; }
+.marquee-wrap:hover .marquee-track { animation-play-state:paused; }
+.m-item { font-family:var(--fm); font-size:.65rem; letter-spacing:2px; color:var(--muted); white-space:nowrap; display:flex; align-items:center; gap:10px; }
+.m-item strong { color:var(--py); }
+@keyframes marquee { to{transform:translateX(-50%)} }
+
+/* ═══════════════════════════════════
+   COURSE OVERVIEW CARDS
+═══════════════════════════════════ */
+.overview-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; }
+.ov-card { background:var(--s2); border:1px solid var(--border); border-radius:var(--r); padding:clamp(18px,3vw,24px); position:relative; overflow:hidden; transition:border-color var(--tr),transform var(--tr); }
+.ov-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--py),var(--accent)); transform:scaleX(0); transform-origin:left; transition:transform .4s; }
+.ov-card:hover { border-color:rgba(61,220,132,.3); transform:translateY(-3px); }
+.ov-card:hover::before { transform:scaleX(1); }
+.ov-icon { font-size:1.8rem; margin-bottom:12px; }
+.ov-card h3 { font-family:var(--fd); font-size:.92rem; font-weight:800; margin-bottom:6px; }
+.ov-card p { color:var(--muted); font-size:.82rem; line-height:1.65; }
+
+/* ═══════════════════════════════════
+   CURRICULUM / LESSONS
+═══════════════════════════════════ */
+.curriculum-layout { display:grid; grid-template-columns:260px 1fr; gap:0; min-height:70vh; }
+@media(max-width:860px) { .curriculum-layout { grid-template-columns:1fr; } }
+
+/* SIDEBAR */
+.lesson-sidebar { background:var(--s1); border-right:1px solid var(--border); padding:24px 16px; position:sticky; top:60px; height:calc(100vh - 60px); overflow-y:auto; }
+@media(max-width:860px) { .lesson-sidebar { position:static; height:auto; border-right:none; border-bottom:1px solid var(--border); display:flex; overflow-x:auto; gap:8px; padding:14px 16px; scrollbar-width:none; } .lesson-sidebar::-webkit-scrollbar{display:none;} }
+.sb-title { font-family:var(--fm); font-size:.55rem; letter-spacing:3px; color:var(--muted); margin-bottom:14px; padding-left:4px; }
+@media(max-width:860px){ .sb-title{display:none;} }
+.lesson-nav { display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:10px; cursor:pointer; transition:background var(--tr); margin-bottom:3px; border:1px solid transparent; white-space:nowrap; }
+.lesson-nav:hover { background:var(--s2); }
+.lesson-nav.active { background:rgba(61,220,132,.1); border-color:rgba(61,220,132,.2); }
+.lesson-nav.done .ln-num { background:var(--py); color:#001a0a; }
+.lesson-nav.locked { opacity:.35; cursor:not-allowed; pointer-events:none; }
+.ln-num { width:28px; height:28px; border-radius:50%; background:var(--border); display:flex; align-items:center; justify-content:center; font-family:var(--fm); font-size:.65rem; flex-shrink:0; transition:background .3s; }
+.lesson-nav.active .ln-num { background:var(--py); color:#001a0a; }
+.ln-info { flex:1; min-width:0; }
+.ln-name { font-family:var(--fd); font-size:.82rem; font-weight:700; }
+.ln-xp { font-family:var(--fm); font-size:.55rem; color:var(--muted); margin-top:1px; }
+
+/* LESSON CONTENT */
+.lesson-content { padding:clamp(20px,4vw,40px); max-width:840px; }
+.lesson-panel { display:none; }
+.lesson-panel.active { display:block; animation:fadeIn .4s ease; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+.lesson-label { font-family:var(--fm); font-size:.6rem; letter-spacing:3px; color:var(--py); margin-bottom:8px; }
+.lesson-title { font-family:var(--fd); font-size:clamp(1.5rem,4vw,2.2rem); font-weight:900; margin-bottom:12px; letter-spacing:-0.5px; }
+.lesson-desc { color:var(--muted); font-size:.94rem; line-height:1.78; margin-bottom:28px; }
+
+/* CONCEPT CARDS */
+.concept-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:10px; margin:20px 0; }
+.concept-card { background:var(--s1); border:1px solid var(--border); border-radius:var(--r); padding:16px; transition:border-color var(--tr),transform var(--tr); }
+.concept-card:hover { border-color:rgba(61,220,132,.3); transform:translateY(-2px); }
+.cc-tag { font-family:var(--fm); font-size:.56rem; letter-spacing:2px; color:var(--py); margin-bottom:7px; }
+.cc-code { font-family:var(--fm); font-size:.78rem; background:var(--bg); padding:6px 10px; border-radius:6px; border:1px solid var(--border); color:var(--text); margin-bottom:8px; word-break:break-all; }
+.cc-desc { font-size:.8rem; color:var(--muted); line-height:1.6; }
+
+/* CODE EDITOR AREA */
+.editor-wrap { margin:22px 0; border-radius:var(--r); overflow:hidden; border:1px solid var(--border); }
+.editor-topbar { background:var(--s2); padding:10px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--border); }
+.editor-dots { display:flex; gap:6px; }
+.editor-dots span { width:10px; height:10px; border-radius:50%; }
+.editor-dots span:nth-child(1){background:#ff5f57;} .editor-dots span:nth-child(2){background:#febc2e;} .editor-dots span:nth-child(3){background:#28c840;}
+.editor-fname { font-family:var(--fm); font-size:.65rem; color:var(--muted); }
+.editor-area { background:#0d1f10; min-height:180px; max-height:380px; overflow-y:auto; }
+.editor-area textarea { width:100%; background:transparent; border:none; outline:none; color:#a8e6c0; font-family:var(--fm); font-size:clamp(.75rem,2vw,.85rem); line-height:1.8; padding:16px; resize:vertical; min-height:180px; }
+.editor-footer { background:var(--s2); padding:10px 16px; display:flex; gap:10px; align-items:center; flex-wrap:wrap; border-top:1px solid var(--border); }
+.output-area { background:var(--bg); border:1px solid var(--border); border-radius:var(--r); padding:14px 16px; margin:10px 0; font-family:var(--fm); font-size:.78rem; color:#a8e6c0; line-height:1.8; min-height:50px; display:none; white-space:pre-wrap; }
+.output-area.show { display:block; }
+.output-area.error { color:#ff7070; }
+
+/* AFRICA CONTEXT BOX */
+.africa-box { background:linear-gradient(135deg,rgba(61,220,132,.06),rgba(61,220,132,.02)); border:1px solid rgba(61,220,132,.2); border-radius:var(--r); padding:18px 22px; margin:18px 0; display:flex; gap:14px; align-items:flex-start; }
+.africa-emoji { font-size:1.7rem; flex-shrink:0; }
+.africa-box h4 { font-family:var(--fd); font-size:.88rem; font-weight:800; color:var(--py); margin-bottom:5px; }
+.africa-box p { font-size:.84rem; color:var(--muted); line-height:1.65; }
+
+/* GITHUB TASK BOX */
+.github-box { background:linear-gradient(135deg,rgba(245,197,24,.07),rgba(245,197,24,.02)); border:1px solid rgba(245,197,24,.22); border-radius:var(--r); padding:18px 22px; margin:18px 0; }
+.github-box .gh-label { font-family:var(--fm); font-size:.56rem; letter-spacing:3px; color:var(--gold); margin-bottom:8px; }
+.github-box h4 { font-family:var(--fd); font-size:.9rem; font-weight:800; margin-bottom:8px; }
+.github-box ul { list-style:none; display:flex; flex-direction:column; gap:6px; }
+.github-box li { font-size:.84rem; color:var(--muted); line-height:1.65; display:flex; gap:10px; }
+.github-box li::before { content:'→'; color:var(--gold); flex-shrink:0; font-family:var(--fm); }
+
+/* TASK BOX */
+.task-box { background:linear-gradient(135deg,rgba(61,220,132,.07),rgba(0,224,198,.03)); border:1px solid rgba(61,220,132,.22); border-radius:var(--r); padding:18px 22px; margin:18px 0; }
+.task-label { font-family:var(--fm); font-size:.56rem; letter-spacing:3px; color:var(--py); margin-bottom:8px; }
+.task-box h4 { font-family:var(--fd); font-size:.9rem; font-weight:800; margin-bottom:8px; }
+.task-box ul { list-style:none; display:flex; flex-direction:column; gap:6px; }
+.task-box li { font-size:.84rem; color:var(--muted); line-height:1.65; display:flex; gap:10px; }
+.task-box li::before { content:'✦'; color:var(--py); flex-shrink:0; font-family:var(--fm); font-size:.7rem; margin-top:2px; }
+
+/* STATUS */
+.status-msg { padding:12px 16px; border-radius:10px; margin-top:10px; font-family:var(--fm); font-size:.75rem; line-height:1.65; display:none; }
+.status-msg.show { display:block; }
+.status-msg.ok { background:rgba(61,220,132,.09); border:1px solid rgba(61,220,132,.25); color:var(--py); }
+.status-msg.fail { background:rgba(255,82,82,.09); border:1px solid rgba(255,82,82,.25); color:var(--red); }
+
+/* ═══════════════════════════════════
+   PROJECTS GRID
+═══════════════════════════════════ */
+.projects-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; }
+.proj-card { background:var(--s2); border:1px solid var(--border); border-radius:var(--r); padding:22px; transition:border-color var(--tr),transform var(--tr),box-shadow var(--tr); }
+.proj-card:hover { border-color:rgba(61,220,132,.3); transform:translateY(-4px); box-shadow:var(--glow); }
+.proj-icon { font-size:2rem; margin-bottom:12px; }
+.proj-tag { font-family:var(--fm); font-size:.56rem; letter-spacing:2px; color:var(--py); margin-bottom:8px; }
+.proj-card h3 { font-family:var(--fd); font-size:.94rem; font-weight:800; margin-bottom:8px; }
+.proj-card p { color:var(--muted); font-size:.82rem; line-height:1.65; margin-bottom:14px; }
+.proj-tags { display:flex; flex-wrap:wrap; gap:6px; }
+.p-tag { font-family:var(--fm); font-size:.55rem; letter-spacing:1px; padding:3px 9px; border-radius:100px; background:rgba(61,220,132,.08); color:var(--py); border:1px solid rgba(61,220,132,.15); }
+
+/* ═══════════════════════════════════
+   XP & GAMIFICATION
+═══════════════════════════════════ */
+.xp-banner { background:var(--s2); border:1px solid var(--border); border-radius:var(--r-lg); padding:clamp(20px,4vw,32px); display:flex; align-items:center; gap:20px; flex-wrap:wrap; overflow:hidden; position:relative; }
+.xp-banner::before { content:''; position:absolute; right:-40px; top:-40px; width:180px; height:180px; background:radial-gradient(circle,rgba(61,220,132,.08),transparent 70%); border-radius:50%; pointer-events:none; }
+.xp-icon { font-size:2.2rem; flex-shrink:0; }
+.xp-body { flex:1; min-width:180px; }
+.xp-lbl { font-family:var(--fm); font-size:.58rem; letter-spacing:3px; color:var(--py); margin-bottom:5px; }
+.xp-title { font-family:var(--fd); font-size:.98rem; font-weight:800; margin-bottom:4px; }
+.xp-sub { color:var(--muted); font-size:.8rem; }
+.xp-bar-outer { width:100%; height:7px; background:var(--border); border-radius:4px; margin-top:12px; overflow:hidden; }
+.xp-bar-inner { height:100%; background:linear-gradient(90deg,var(--py),var(--accent)); border-radius:4px; width:0%; transition:width 1.2s ease; }
+.xp-pts-label { font-family:var(--fm); font-size:.58rem; color:var(--muted); margin-top:5px; }
+
+/* ═══════════════════════════════════
+   CERTIFICATE SECTION
+═══════════════════════════════════ */
+.cert-section { background:linear-gradient(135deg,var(--s1),var(--s2)); border:1px solid var(--border); border-radius:var(--r-lg); padding:clamp(28px,6vw,52px); text-align:center; position:relative; overflow:hidden; }
+.cert-section::before { content:'🏆'; position:absolute; font-size:10rem; opacity:.03; top:50%; left:50%; transform:translate(-50%,-50%); pointer-events:none; }
+.cert-badge-row { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin-bottom:24px; }
+.cert-badge { display:inline-flex; align-items:center; gap:7px; background:rgba(245,197,24,.1); border:1px solid rgba(245,197,24,.25); border-radius:100px; padding:5px 14px; font-family:var(--fm); font-size:.58rem; letter-spacing:2px; color:var(--gold); }
+.cert-section h2 { font-family:var(--fd); font-size:clamp(1.4rem,4vw,2rem); font-weight:900; margin-bottom:10px; }
+.cert-section > p { color:var(--muted); font-size:.9rem; margin-bottom:28px; max-width:480px; margin-left:auto; margin-right:auto; line-height:1.7; }
+
+/* PAYMENT FORM */
+.payment-form { background:var(--s1); border:1px solid var(--border); border-radius:var(--r); padding:clamp(20px,4vw,32px); max-width:480px; margin:0 auto 28px; text-align:left; }
+.payment-form h3 { font-family:var(--fd); font-size:1rem; font-weight:800; margin-bottom:6px; }
+.payment-form .sub { color:var(--muted); font-size:.82rem; margin-bottom:20px; }
+.field { margin-bottom:14px; }
+.field label { display:block; font-family:var(--fm); font-size:.58rem; letter-spacing:2px; color:var(--muted); margin-bottom:6px; }
+.field input, .field select { width:100%; padding:11px 14px; background:var(--bg); border:1px solid var(--border); border-radius:8px; color:var(--text); font-family:var(--fb); font-size:.9rem; transition:border-color var(--tr); }
+.field input:focus, .field select:focus { outline:none; border-color:var(--py); }
+.field input::placeholder { color:var(--muted); }
+.price-row { display:flex; align-items:center; justify-content:space-between; background:rgba(61,220,132,.06); border:1px solid rgba(61,220,132,.15); border-radius:8px; padding:12px 16px; margin:14px 0; }
+.price-label { font-family:var(--fm); font-size:.65rem; letter-spacing:1px; color:var(--muted); }
+.price-amount { font-family:var(--fm); font-size:1.1rem; font-weight:700; color:var(--py); }
+
+/* CERTIFICATE DISPLAY */
+.cert-display { display:none; margin:28px auto 0; max-width:600px; }
+.cert-display.show { display:block; animation:fadeIn .5s ease; }
+
+/* THE CERTIFICATE ITSELF */
+.certificate { background:white; color:#0a1a0e; border-radius:16px; padding:clamp(24px,5vw,44px); border:3px solid var(--gold); position:relative; overflow:hidden; font-family:var(--fb); box-shadow:0 20px 60px rgba(0,0,0,.5); }
+.cert-bg-pattern { position:absolute; inset:0; background-image:repeating-linear-gradient(45deg,rgba(61,220,132,.03) 0,rgba(61,220,132,.03) 1px,transparent 0,transparent 50%); background-size:20px 20px; pointer-events:none; }
+.cert-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:12px; }
+.cert-logo-area { display:flex; align-items:center; gap:8px; }
+.cert-logo-img { width:38px; height:38px; object-fit:contain; }
+.cert-logo-name { font-family:var(--fd); font-size:1.1rem; font-weight:900; color:#00b89e; letter-spacing:-0.5px; }
+.cert-issued-label { font-family:var(--fm); font-size:.55rem; letter-spacing:2px; color:#888; }
+.cert-issued-date { font-family:var(--fm); font-size:.75rem; color:#333; font-weight:700; }
+.cert-divider { width:100%; height:2px; background:linear-gradient(90deg,#3ddc84,#00e0c6,#3ddc84); margin:16px 0; border-radius:2px; }
+.cert-body { text-align:center; padding:8px 0; }
+.cert-title-text { font-family:var(--fm); font-size:.6rem; letter-spacing:4px; color:#888; margin-bottom:10px; text-transform:uppercase; }
+.cert-course-name { font-family:var(--fd); font-size:clamp(1.2rem,4vw,1.8rem); font-weight:900; color:#0a1a0e; margin-bottom:6px; letter-spacing:-0.5px; }
+.cert-awarded-to { font-size:.82rem; color:#666; margin-bottom:6px; }
+.cert-student-name { font-family:var(--fd); font-size:clamp(1.4rem,5vw,2.2rem); font-weight:900; color:#00b89e; margin-bottom:6px; letter-spacing:-0.5px; }
+.cert-tagline { font-size:.8rem; color:#888; line-height:1.6; max-width:380px; margin:0 auto 16px; }
+.cert-footer { display:flex; align-items:flex-end; justify-content:space-between; margin-top:16px; flex-wrap:wrap; gap:14px; }
+.cert-footer-left { flex:1; }
+.cert-id-label { font-family:var(--fm); font-size:.55rem; letter-spacing:2px; color:#999; margin-bottom:3px; }
+.cert-id-val { font-family:var(--fm); font-size:.72rem; color:#333; font-weight:700; }
+.cert-verify-url { font-family:var(--fm); font-size:.6rem; color:#888; margin-top:3px; }
+.cert-qr { display:flex; flex-direction:column; align-items:center; gap:5px; }
+.cert-qr-label { font-family:var(--fm); font-size:.5rem; letter-spacing:2px; color:#999; }
+#certQrCode { width:72px!important; height:72px!important; }
+#certQrCode img, #certQrCode canvas { width:72px!important; height:72px!important; }
+.cert-stamp { position:absolute; top:16px; right:16px; width:64px; height:64px; border:3px solid rgba(61,220,132,.3); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.6rem; transform:rotate(15deg); opacity:.25; }
+.cert-ribbon { position:absolute; top:-2px; left:50%; transform:translateX(-50%); background:linear-gradient(90deg,var(--gold),var(--gold2)); color:#1a1000; font-family:var(--fm); font-size:.55rem; letter-spacing:2px; padding:4px 20px; border-radius:0 0 10px 10px; font-weight:700; }
+
+/* CERT ACTIONS */
+.cert-actions { display:flex; gap:10px; justify-content:center; margin-top:20px; flex-wrap:wrap; }
+
+/* ═══════════════════════════════════
+   TESTIMONIALS
+═══════════════════════════════════ */
+.testi-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; }
+.testi-card { background:var(--s1); border:1px solid var(--border); border-radius:var(--r); padding:22px; }
+.testi-stars { color:var(--gold); font-size:.85rem; letter-spacing:2px; margin-bottom:10px; }
+.testi-text { color:var(--muted); font-size:.85rem; line-height:1.72; font-style:italic; margin-bottom:16px; }
+.testi-author { font-family:var(--fd); font-size:.85rem; font-weight:700; }
+.testi-role { font-family:var(--fm); font-size:.58rem; letter-spacing:1.5px; color:var(--py); margin-top:3px; }
+
+/* ═══════════════════════════════════
+   FOOTER
+═══════════════════════════════════ */
+footer { border-top:1px solid var(--border); position:relative; z-index:1; }
+.footer-inner { max-width:1080px; margin:0 auto; padding:clamp(24px,4vw,40px) clamp(16px,5%,48px); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+.footer-brand { display:flex; align-items:center; gap:8px; }
+.footer-logo { height:28px; object-fit:contain; }
+.footer-name { font-family:var(--fd); font-size:.95rem; font-weight:900; color:var(--accent); }
+.footer-copy { font-family:var(--fm); font-size:.58rem; color:var(--muted); letter-spacing:1px; }
+.footer-links { display:flex; gap:18px; flex-wrap:wrap; }
+.footer-links a { font-family:var(--fm); font-size:.6rem; letter-spacing:1px; color:var(--muted); transition:color var(--tr); }
+.footer-links a:hover { color:var(--py); }
+
+/* ═══════════════════════════════════
+   MOBILE STICKY CTA
+═══════════════════════════════════ */
+.mob-cta { display:none; position:fixed; bottom:0; left:0; right:0; background:var(--s1); border-top:1px solid var(--border); padding:12px 16px; z-index:90; backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); padding-bottom:max(12px,env(safe-area-inset-bottom)); }
+@media(max-width:600px){ .mob-cta{display:block;} }
+@media(max-width:600px){ footer{padding-bottom:max(80px,calc(68px + env(safe-area-inset-bottom)));} }
+
+/* ═══════════════════════════════════
+   TOAST
+═══════════════════════════════════ */
+#toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(120px); background:var(--s1); border:1px solid var(--border); color:var(--text); font-family:var(--fm); font-size:.72rem; padding:11px 22px; border-radius:100px; box-shadow:0 8px 32px rgba(0,0,0,.4); z-index:9997; white-space:nowrap; transition:transform .4s cubic-bezier(.34,1.56,.64,1); pointer-events:none; }
+#toast.show { transform:translateX(-50%) translateY(0); }
+#toast.ok { border-color:rgba(61,220,132,.3); color:var(--py); }
+#toast.fail { border-color:rgba(255,82,82,.3); color:var(--red); }
+
+/* ═══════════════════════════════════
+   PRINT STYLES
+═══════════════════════════════════ */
+@media print {
+  #loader,header,.mob-cta,#toast,.cert-actions,.lesson-sidebar,.xp-banner,
+  .overview-grid,.projects-grid,.marquee-wrap,.testi-grid,footer,
+  .curriculum-layout,.hero,.cert-section > p,.cert-section > h2,.cert-badge-row,.payment-form,
+  section:not(.cert-print-section) { display:none!important; }
+  .cert-print-section { display:block!important; }
+  .certificate { box-shadow:none; border:3px solid #f5c518; page-break-inside:avoid; }
+  body { background:white; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="bgCanvas" aria-hidden="true"></canvas>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<!-- ═══ LOADER ═══ -->
+<div id="loader" role="status" aria-label="Loading CODEON Python Course">
+  <div class="ld-brand">
+    <img src="codeon logo.png" alt="CODEON" class="ld-logo-img" onerror="this.style.display='none'">
+    <div class="ld-name">CODEON</div>
+  </div>
+  <div class="ld-snake">🐍</div>
+  <div class="ld-bar"><div class="ld-fill"></div></div>
+  <div class="ld-sub">LOADING PYTHON COURSE</div>
+</div>
+
+<!-- ═══ HEADER ═══ -->
+<header>
+  <div class="hd-brand">
+    <img src="codeon logo.png" alt="CODEON Africa" class="hd-logo" loading="eager" onerror="this.style.display='none'">
+    <span class="hd-name">CODEON</span>
+    <span class="hd-course">· PYTHON FUNDAMENTALS</span>
+  </div>
+  <div class="hd-right">
+    <div class="xp-chip"><div class="dot"></div>⚡ <span id="xpDisplay">0</span> XP</div>
+    <div class="hd-progress"><div class="hd-progress-fill" id="hdProgress"></div></div>
+  </div>
+</header>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero z1" aria-label="Python Fundamentals Course">
+  <div class="hero-badge"><div class="badge-dot"></div>COURSE 05 · PYTHON FUNDAMENTALS · 🇺🇬 BUILT FOR AFRICA</div>
+  <h1>Build <span class="accent">Real Solutions</span><br>for <span class="gold">Africa</span> with Python</h1>
+  <p class="hero-sub">Don't just learn syntax. Automate Kampala market price trackers, build health data tools, and create agritech apps that serve real African communities.</p>
+  <div class="hero-ctas">
+    <a href="#curriculum" class="btn btn-py">Start Learning Free →</a>
+    <a href="#certificate" class="btn btn-ghost">Get Certificate</a>
+  </div>
+  <div class="hero-stats">
+    <div class="hs-item"><div class="hs-n">6</div><div class="hs-l">LESSONS</div></div>
+    <div class="hs-item"><div class="hs-n">4</div><div class="hs-l">AFRICA PROJECTS</div></div>
+    <div class="hs-item"><div class="hs-n">4 WKS</div><div class="hs-l">DURATION</div></div>
+    <div class="hs-item"><div class="hs-n">🐍</div><div class="hs-l">PYTHON 3</div></div>
+  </div>
+  <div class="hero-africa" aria-hidden="true">🌍</div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap z1" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="m-item"><strong>PYTHON 3</strong> · The Language of Data</span>
+    <span class="m-item"><strong>AUTOMATION</strong> · Scripts That Work For You</span>
+    <span class="m-item"><strong>DATA ANALYSIS</strong> · Pandas & Real Datasets</span>
+    <span class="m-item"><strong>APIs</strong> · Connect to the World</span>
+    <span class="m-item"><strong>GITHUB</strong> · Push Your Projects Live</span>
+    <span class="m-item"><strong>AGRITECH</strong> · Ugandan Farmer Tools</span>
+    <span class="m-item"><strong>HEALTH DATA</strong> · African Health Solutions</span>
+    <span class="m-item"><strong>WEB SCRAPING</strong> · Gather Real Data</span>
+    <span class="m-item"><strong>PYTHON 3</strong> · The Language of Data</span>
+    <span class="m-item"><strong>AUTOMATION</strong> · Scripts That Work For You</span>
+    <span class="m-item"><strong>DATA ANALYSIS</strong> · Pandas & Real Datasets</span>
+    <span class="m-item"><strong>APIs</strong> · Connect to the World</span>
+    <span class="m-item"><strong>GITHUB</strong> · Push Your Projects Live</span>
+    <span class="m-item"><strong>AGRITECH</strong> · Ugandan Farmer Tools</span>
+    <span class="m-item"><strong>HEALTH DATA</strong> · African Health Solutions</span>
+    <span class="m-item"><strong>WEB SCRAPING</strong> · Gather Real Data</span>
+  </div>
+</div>
+
+<!-- ═══ OVERVIEW ═══ -->
+<div class="z1 alt">
+  <div class="shell">
+    <div class="reveal" style="margin-bottom:clamp(28px,5vw,44px);">
+      <div class="sec-tag">WHAT YOU'LL BUILD</div>
+      <h2 class="sec-title">Python for Real African Impact</h2>
+      <p class="sec-desc">Every lesson produces a working script you can push to GitHub and show employers or clients. No toy exercises — real tools for real problems.</p>
+    </div>
+    <div class="overview-grid">
+      <div class="ov-card reveal d1"><div class="ov-icon">🌾</div><h3>Agritech Price Tracker</h3><p>Build a script that tracks maize, tomato, and bean prices from Ugandan markets and alerts farmers when prices drop.</p></div>
+      <div class="ov-card reveal d2"><div class="ov-icon">🏥</div><h3>Health Records Automation</h3><p>Automate clinic patient data processing — generate reports, flag anomalies, and send WhatsApp alerts using Python.</p></div>
+      <div class="ov-card reveal d1"><div class="ov-icon">💰</div><h3>Mobile Money Analyser</h3><p>Parse MTN MoMo transaction history, categorize spending, and generate visual summaries — pure Python.</p></div>
+      <div class="ov-card reveal d2"><div class="ov-icon">📰</div><h3>News Scraper</h3><p>Scrape and aggregate top stories from Ugandan and East African news sites into a daily digest — automatically.</p></div>
+      <div class="ov-card reveal d1"><div class="ov-icon">📊</div><h3>Census Data Visualiser</h3><p>Analyse Uganda Bureau of Statistics datasets with Pandas and produce charts showing population and development trends.</p></div>
+      <div class="ov-card reveal d2"><div class="ov-icon">🤖</div><h3>WhatsApp Bot</h3><p>Build a Python-powered WhatsApp bot that answers common questions for a small Ugandan business automatically.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ XP BANNER ═══ -->
+<div class="z1">
+  <div class="shell" style="padding-top:0;padding-bottom:0;">
+    <div class="xp-banner reveal">
+      <div class="xp-icon">🐍</div>
+      <div class="xp-body">
+        <div class="xp-lbl">YOUR PYTHON JOURNEY</div>
+        <div class="xp-title">Earn XP. Push to GitHub. Climb the Board.</div>
+        <div class="xp-sub">Every script you write, every GitHub push, every lesson completed earns you XP. The top students get featured on CODEON's leaderboard.</div>
+        <div class="xp-bar-outer"><div class="xp-bar-inner" id="xpBar"></div></div>
+        <div class="xp-pts-label" id="xpBarLabel">Complete your first lesson to start earning XP</div>
+      </div>
+      <a href="#curriculum" class="btn btn-py" style="flex-shrink:0;">Start Earning XP</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CURRICULUM ═══ -->
+<section id="curriculum" class="z1 alt">
+  <div style="max-width:1080px;margin:0 auto;padding:clamp(36px,6vw,60px) 0 0;">
+    <div style="padding:0 clamp(16px,5%,48px);margin-bottom:28px;" class="reveal">
+      <div class="sec-tag">CURRICULUM</div>
+      <h2 class="sec-title">6 Lessons. 4 Real Projects. 1 Certificate.</h2>
+      <p class="sec-desc">Each lesson unlocks the next. Each project goes on your GitHub. By the end, you have a Python portfolio — not just a course completion.</p>
+    </div>
+    <div class="curriculum-layout">
+
+      <!-- SIDEBAR -->
+      <aside class="lesson-sidebar">
+        <div class="sb-title">LESSONS</div>
+        <div class="lesson-nav active" id="nav1" onclick="goTo(1)"><div class="ln-num">1</div><div class="ln-info"><div class="ln-name">Python Basics</div><div class="ln-xp">+25 XP</div></div></div>
+        <div class="lesson-nav locked" id="nav2" onclick="goTo(2)"><div class="ln-num">2</div><div class="ln-info"><div class="ln-name">Data Structures</div><div class="ln-xp">+25 XP</div></div></div>
+        <div class="lesson-nav locked" id="nav3" onclick="goTo(3)"><div class="ln-num">3</div><div class="ln-info"><div class="ln-name">Functions & Modules</div><div class="ln-xp">+30 XP</div></div></div>
+        <div class="lesson-nav locked" id="nav4" onclick="goTo(4)"><div class="ln-num">4</div><div class="ln-info"><div class="ln-name">Files & Automation</div><div class="ln-xp">+35 XP</div></div></div>
+        <div class="lesson-nav locked" id="nav5" onclick="goTo(5)"><div class="ln-num">5</div><div class="ln-info"><div class="ln-name">APIs & Web Data</div><div class="ln-xp">+35 XP</div></div></div>
+        <div class="lesson-nav locked" id="nav6" onclick="goTo(6)"><div class="ln-num">6</div><div class="ln-info"><div class="ln-name">Final Project</div><div class="ln-xp">+80 XP</div></div></div>
+        <div class="lesson-nav locked" id="nav7" onclick="goTo(7)"><div class="ln-num">🏆</div><div class="ln-info"><div class="ln-name">Certificate</div><div class="ln-xp">Unlock</div></div></div>
+      </aside>
+
+      <!-- LESSON PANELS -->
+      <div class="lesson-content">
+
+        <!-- L1: PYTHON BASICS -->
+        <div class="lesson-panel active" id="lesson1">
+          <div class="lesson-label">LESSON 01 · PYTHON BASICS</div>
+          <h2 class="lesson-title">Hello, Africa! Your First Python Lines</h2>
+          <p class="lesson-desc">Python reads like English and runs anywhere. In this lesson you'll write your first real script — not a toy example, but code that introduces you to the world in the way a Ugandan developer would.</p>
+          <div class="africa-box">
+            <div class="africa-emoji">🌍</div>
+            <div><h4>Why Python is Africa's fastest-growing language</h4><p>From M-Pesa's backend tools to Apollo Agriculture's data pipelines, Python powers much of Africa's most impactful technology. It is the language of data, automation, and AI — and Africa has more data problems to solve than any other region on earth.</p></div>
+          </div>
+          <div class="concept-grid">
+            <div class="concept-card"><div class="cc-tag">PRINT</div><div class="cc-code">print("Hello, Uganda!")</div><div class="cc-desc">Outputs text to the screen. Your first Python instruction.</div></div>
+            <div class="concept-card"><div class="cc-tag">VARIABLES</div><div class="cc-code">name = "Kafeero"<br>age = 20</div><div class="cc-desc">Store data with a name. Strings use quotes, numbers don't.</div></div>
+            <div class="concept-card"><div class="cc-tag">INPUT</div><div class="cc-code">name = input("Your name: ")</div><div class="cc-desc">Ask the user for information. Returns a string.</div></div>
+            <div class="concept-card"><div class="cc-tag">F-STRINGS</div><div class="cc-code">print(f"Hello {name}!")</div><div class="cc-desc">Embed variables inside strings cleanly.</div></div>
+            <div class="concept-card"><div class="cc-tag">IF/ELSE</div><div class="cc-code">if age >= 18:<br>&nbsp;&nbsp;print("Adult")</div><div class="cc-desc">Run code only when a condition is true.</div></div>
+            <div class="concept-card"><div class="cc-tag">LOOP</div><div class="cc-code">for i in range(5):<br>&nbsp;&nbsp;print(i)</div><div class="cc-desc">Repeat code a set number of times.</div></div>
+          </div>
+          <div class="task-box">
+            <div class="task-label">YOUR TASK — WRITE A GREETING SCRIPT</div>
+            <h4>Build an introductory script about yourself</h4>
+            <ul>
+              <li>Create a variable with your name (e.g. your Ugandan name)</li>
+              <li>Create variables for your city and what you want to build</li>
+              <li>Print a greeting using an f-string that includes all three</li>
+              <li>Add an if/else that prints different messages based on age</li>
+            </ul>
+          </div>
+          <div class="editor-wrap">
+            <div class="editor-topbar"><div class="editor-dots"><span></span><span></span><span></span></div><div class="editor-fname">greeting.py</div><div></div></div>
+            <div class="editor-area"><textarea id="code1" spellcheck="false"># Your first Python script — introduce yourself to the world!
+# Change the values below to YOUR real information
+
+name = "Kafeero Praise"
+city = "Kampala"
+goal = "build tools that help Ugandan farmers"
+age = 20
+
+# Print your introduction using f-strings
+print(f"🇺🇬 Hello World! My name is {name}.")
+print(f"I come from {city}, Uganda.")
+print(f"I am learning Python to {goal}.")
+
+# Conditional message based on age
+if age >= 18:
+    print(f"At {age} years old, I am building Africa's digital future.")
+else:
+    print(f"At {age}, I am already ahead of most developers. Keep going!")
+
+# Loop challenge: print your name 3 times with a counter
+for i in range(1, 4):
+    print(f"  Attempt {i}: {name} is learning Python 🐍")</textarea></div>
+            <div class="editor-footer">
+              <button class="btn btn-ghost btn-sm" onclick="runCode(1)">▶ Run (Simulated)</button>
+              <button class="btn btn-py btn-sm" onclick="submitLesson(1)">Submit Lesson 1 →</button>
+            </div>
+          </div>
+          <div class="output-area" id="output1"></div>
+          <div class="status-msg" id="status1"></div>
+          <div class="github-box" style="margin-top:20px;">
+            <div class="gh-label">GITHUB TASK — DO THIS AFTER EVERY LESSON</div>
+            <h4>Push greeting.py to GitHub</h4>
+            <ul>
+              <li>Create a repo called <strong>python-africa</strong> on GitHub</li>
+              <li>Save your script as <strong>lesson1/greeting.py</strong></li>
+              <li>Write a commit message: "Add Lesson 1: Personal greeting script"</li>
+              <li>Your GitHub is your portfolio — every push matters</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- L2: DATA STRUCTURES -->
+        <div class="lesson-panel" id="lesson2">
+          <div class="lesson-label">LESSON 02 · DATA STRUCTURES</div>
+          <h2 class="lesson-title">Lists, Dicts & Uganda's Markets</h2>
+          <p class="lesson-desc">Data structures are how you organise information. In this lesson you'll build a market price database using Python lists and dictionaries — exactly the kind of tool Ugandan farmers need.</p>
+          <div class="africa-box"><div class="africa-emoji">🌾</div><div><h4>Real problem: market price information</h4><p>Millions of Ugandan farmers sell produce without knowing current market prices. A simple Python dictionary of prices — updated regularly — can directly increase their income. This is what you're building today.</p></div></div>
+          <div class="concept-grid">
+            <div class="concept-card"><div class="cc-tag">LIST</div><div class="cc-code">markets = ["Owino", "Nakasero", "Kalerwe"]</div><div class="cc-desc">Ordered, changeable collection. Access by index [0].</div></div>
+            <div class="concept-card"><div class="cc-tag">DICT</div><div class="cc-code">price = {"maize": 1200, "beans": 3500}</div><div class="cc-desc">Key-value pairs. Access by key: price["maize"].</div></div>
+            <div class="concept-card"><div class="cc-tag">LOOP DICT</div><div class="cc-code">for crop, ugx in prices.items():<br>&nbsp;&nbsp;print(crop, ugx)</div><div class="cc-desc">Iterate over all key-value pairs in a dictionary.</div></div>
+            <div class="concept-card"><div class="cc-tag">SORTED</div><div class="cc-code">sorted(prices, key=lambda x: x[1])</div><div class="cc-desc">Sort a list or dict by value. Essential for rankings.</div></div>
+          </div>
+          <div class="task-box"><div class="task-label">BUILD — KAMPALA MARKET PRICE TRACKER</div><h4>Create a Python script that:</h4><ul><li>Stores prices of 5 crops as a dictionary (UGX per kg)</li><li>Finds and prints the cheapest and most expensive crop</li><li>Prints an alert if any price is below a threshold</li><li>Lets a user search for a crop's price by name</li></ul></div>
+          <div class="editor-wrap">
+            <div class="editor-topbar"><div class="editor-dots"><span></span><span></span><span></span></div><div class="editor-fname">market_tracker.py</div><div></div></div>
+            <div class="editor-area"><textarea id="code2" spellcheck="false"># KAMPALA MARKET PRICE TRACKER
+# Real tool for Ugandan farmers — prices in UGX per kg
+
+market_prices = {
+    "maize": 1200,
+    "beans": 3500,
+    "tomatoes": 2800,
+    "matoke": 900,
+    "groundnuts": 6000,
+    "sweet_potatoes": 800
+}
+
+print("=" * 40)
+print("🌾 KAMPALA MARKET PRICES TODAY")
+print("=" * 40)
+
+# Print all prices
+for crop, price in market_prices.items():
+    flag = "⚠️ LOW" if price < 1000 else ""
+    print(f"  {crop.upper():15} UGX {price:,}/kg  {flag}")
+
+# Find cheapest and most expensive
+cheapest = min(market_prices, key=market_prices.get)
+priciest = max(market_prices, key=market_prices.get)
+
+print(f"\n✅ Best value:  {cheapest} @ UGX {market_prices[cheapest]:,}")
+print(f"💰 Premium crop: {priciest} @ UGX {market_prices[priciest]:,}")
+
+# Search feature
+search = "tomatoes"  # Change this to test different crops
+if search in market_prices:
+    print(f"\n🔍 '{search}' costs UGX {market_prices[search]:,}/kg today.")</textarea></div>
+            <div class="editor-footer"><button class="btn btn-ghost btn-sm" onclick="runCode(2)">▶ Run</button><button class="btn btn-py btn-sm" onclick="submitLesson(2)">Submit Lesson 2 →</button></div>
+          </div>
+          <div class="output-area" id="output2"></div>
+          <div class="status-msg" id="status2"></div>
+          <div class="github-box"><div class="gh-label">GITHUB PUSH</div><h4>Commit market_tracker.py</h4><ul><li>Save as <strong>lesson2/market_tracker.py</strong></li><li>Commit: "Add Lesson 2: Kampala market price tracker"</li><li>Write a README.md describing what the script does and who it helps</li></ul></div>
+        </div>
+
+        <!-- L3: FUNCTIONS -->
+        <div class="lesson-panel" id="lesson3">
+          <div class="lesson-label">LESSON 03 · FUNCTIONS & MODULES</div>
+          <h2 class="lesson-title">Reusable Code for Scalable Solutions</h2>
+          <p class="lesson-desc">Functions let you write code once and use it everywhere. In this lesson you'll build a reusable health data module — the kind of tool health clinics across Uganda need.</p>
+          <div class="africa-box"><div class="africa-emoji">🏥</div><div><h4>Africa's health data challenge</h4><p>Many African clinics record patient data on paper or in disconnected spreadsheets. A Python module that processes, validates, and reports on health data can transform a clinic's ability to identify trends and save lives.</p></div></div>
+          <div class="concept-grid">
+            <div class="concept-card"><div class="cc-tag">FUNCTION</div><div class="cc-code">def greet(name):<br>&nbsp;&nbsp;return f"Hello {name}"</div><div class="cc-desc">def keyword defines a reusable block of code. return sends data back.</div></div>
+            <div class="concept-card"><div class="cc-tag">DEFAULT PARAM</div><div class="cc-code">def alert(msg, urgent=False):</div><div class="cc-desc">Parameters can have default values — optional when calling.</div></div>
+            <div class="concept-card"><div class="cc-tag">LIST COMP</div><div class="cc-code">[x*2 for x in data if x > 0]</div><div class="cc-desc">Build a new list with one clean line. Very Pythonic.</div></div>
+            <div class="concept-card"><div class="cc-tag">IMPORT</div><div class="cc-code">import statistics<br>statistics.mean(data)</div><div class="cc-desc">Use Python's built-in modules for maths, dates, files, etc.</div></div>
+          </div>
+          <div class="task-box"><div class="task-label">BUILD — CLINIC HEALTH DATA PROCESSOR</div><h4>Write a module with functions that:</h4><ul><li>Calculate average, min, max of patient ages</li><li>Flag patients outside a healthy BMI range</li><li>Generate a simple text report for the doctor</li><li>Count patients by district of origin</li></ul></div>
+          <div class="editor-wrap">
+            <div class="editor-topbar"><div class="editor-dots"><span></span><span></span><span></span></div><div class="editor-fname">health_tools.py</div><div></div></div>
+            <div class="editor-area"><textarea id="code3" spellcheck="false"># CLINIC HEALTH DATA PROCESSOR — Uganda Community Clinic
+import statistics
+
+patients = [
+    {"name": "Nalubega Grace", "age": 34, "district": "Wakiso",  "bmi": 22.1},
+    {"name": "Okello James",   "age": 67, "district": "Gulu",    "bmi": 28.4},
+    {"name": "Akello Susan",   "age": 12, "district": "Gulu",    "bmi": 16.2},
+    {"name": "Mutesi Ruth",    "age": 45, "district": "Kampala", "bmi": 31.0},
+    {"name": "Ssempala David", "age": 28, "district": "Kampala", "bmi": 23.8},
+    {"name": "Apio Faith",     "age": 19, "district": "Lira",    "bmi": 18.9},
+]
+
+def average_age(patients):
+    ages = [p["age"] for p in patients]
+    return round(statistics.mean(ages), 1)
+
+def flag_bmi(patients):
+    """Flag patients with BMI outside 18.5-25 range"""
+    flagged = []
+    for p in patients:
+        if p["bmi"] < 18.5:
+            flagged.append((p["name"], p["bmi"], "UNDERWEIGHT ⚠️"))
+        elif p["bmi"] > 25:
+            flagged.append((p["name"], p["bmi"], "OVERWEIGHT ⚠️"))
+    return flagged
+
+def count_by_district(patients):
+    counts = {}
+    for p in patients:
+        d = p["district"]
+        counts[d] = counts.get(d, 0) + 1
+    return counts
+
+def generate_report(patients):
+    print("=" * 44)
+    print("🏥 COMMUNITY CLINIC REPORT — UGANDA")
+    print("=" * 44)
+    print(f"Total patients:  {len(patients)}")
+    print(f"Average age:     {average_age(patients)} years")
+    print("\n📍 Patients by district:")
+    for district, count in count_by_district(patients).items():
+        print(f"   {district:12} → {count} patient(s)")
+    print("\n⚠️  BMI Alerts:")
+    for name, bmi, status in flag_bmi(patients):
+        print(f"   {name:20} BMI {bmi}  {status}")
+
+generate_report(patients)</textarea></div>
+            <div class="editor-footer"><button class="btn btn-ghost btn-sm" onclick="runCode(3)">▶ Run</button><button class="btn btn-py btn-sm" onclick="submitLesson(3)">Submit Lesson 3 →</button></div>
+          </div>
+          <div class="output-area" id="output3"></div>
+          <div class="status-msg" id="status3"></div>
+          <div class="github-box"><div class="gh-label">GITHUB PUSH</div><h4>Commit health_tools.py</h4><ul><li>Save as <strong>lesson3/health_tools.py</strong></li><li>Commit: "Add Lesson 3: Community clinic health data processor"</li><li>Add docstrings to each function — employers read these</li></ul></div>
+        </div>
+
+        <!-- L4: FILES & AUTOMATION -->
+        <div class="lesson-panel" id="lesson4">
+          <div class="lesson-label">LESSON 04 · FILES & AUTOMATION</div>
+          <h2 class="lesson-title">Automate the Boring Stuff in Uganda</h2>
+          <p class="lesson-desc">File handling and automation are where Python earns money. Businesses pay well for scripts that process CSV reports, generate invoices, and automate repetitive tasks. You're building exactly that.</p>
+          <div class="africa-box"><div class="africa-emoji">📁</div><div><h4>Automation = Income</h4><p>A Kampala accountant who manually processes 200 invoices per week can save 3 days of work with one Python script. That's a service worth UGX 500,000+ per month — and you can build it with what you learn today.</p></div></div>
+          <div class="concept-grid">
+            <div class="concept-card"><div class="cc-tag">WRITE FILE</div><div class="cc-code">with open("report.txt","w") as f:<br>&nbsp;&nbsp;f.write("data")</div><div class="cc-desc">Create and write to files. Always use with-block.</div></div>
+            <div class="concept-card"><div class="cc-tag">READ FILE</div><div class="cc-code">with open("data.csv","r") as f:<br>&nbsp;&nbsp;lines = f.readlines()</div><div class="cc-desc">Read all lines from a file into a list.</div></div>
+            <div class="concept-card"><div class="cc-tag">CSV MODULE</div><div class="cc-code">import csv<br>reader = csv.DictReader(f)</div><div class="cc-desc">Parse CSV files into dictionaries automatically.</div></div>
+            <div class="concept-card"><div class="cc-tag">OS MODULE</div><div class="cc-code">import os<br>os.makedirs("reports")</div><div class="cc-desc">Create folders, list files, check paths exist.</div></div>
+          </div>
+          <div class="task-box"><div class="task-label">BUILD — INVOICE GENERATOR FOR UGANDAN SMEs</div><h4>Write a Python script that:</h4><ul><li>Reads a list of services from a dictionary</li><li>Calculates totals with 18% VAT (Uganda standard)</li><li>Writes a professional invoice as a .txt file</li><li>Saves each invoice with a unique filename</li></ul></div>
+          <div class="editor-wrap">
+            <div class="editor-topbar"><div class="editor-dots"><span></span><span></span><span></span></div><div class="editor-fname">invoice_generator.py</div><div></div></div>
+            <div class="editor-area"><textarea id="code4" spellcheck="false"># INVOICE GENERATOR FOR UGANDAN SMALL BUSINESSES
+# Generates professional invoices with Uganda's 18% VAT
+
+from datetime import date
+
+def generate_invoice(client_name, client_email, services):
+    """Generate a professional invoice and save to file"""
+    
+    invoice_date = date.today().strftime("%d %B %Y")
+    invoice_id = f"CDN-{date.today().strftime('%Y%m%d')}-{hash(client_name) % 9999:04d}"
+    
+    subtotal = sum(services.values())
+    vat = subtotal * 0.18  # Uganda VAT rate
+    total = subtotal + vat
+    
+    invoice_lines = [
+        "=" * 50,
+        "    CODEON AFRICA — SERVICE INVOICE",
+        "    Kampala, Uganda | codeondigital.com",
+        "=" * 50,
+        f"\nInvoice No:  {invoice_id}",
+        f"Date:        {invoice_date}",
+        f"\nBILL TO:",
+        f"  {client_name}",
+        f"  {client_email}",
+        "\n" + "-" * 50,
+        f"  {'SERVICE':<28} {'AMOUNT (UGX)':>12}",
+        "-" * 50,
+    ]
+    
+    for service, amount in services.items():
+        invoice_lines.append(f"  {service:<28} {amount:>12,}")
+    
+    invoice_lines += [
+        "-" * 50,
+        f"  {'Subtotal':<28} {subtotal:>12,}",
+        f"  {'VAT (18%)':<28} {vat:>12,.0f}",
+        "=" * 50,
+        f"  {'TOTAL DUE':<28} {total:>12,.0f}",
+        "=" * 50,
+        "\nPayment: MTN MoMo 0743733322",
+        "Thank you for choosing CODEON Africa 🇺🇬",
+    ]
+    
+    invoice_text = "\n".join(invoice_lines)
+    print(invoice_text)
+    return invoice_text, invoice_id
+
+# Example usage
+services = {
+    "Website Development": 1_500_000,
+    "GitHub Setup & Training": 300_000,
+    "Monthly Hosting (3 mo)": 450_000,
+    "SEO Optimization": 250_000,
+}
+
+invoice_text, inv_id = generate_invoice(
+    "Nalongo's Kitchen Ltd",
+    "nalongo@example.co.ug",
+    services
+)
+print(f"\n✅ Invoice {inv_id} generated successfully.")</textarea></div>
+            <div class="editor-footer"><button class="btn btn-ghost btn-sm" onclick="runCode(4)">▶ Run</button><button class="btn btn-py btn-sm" onclick="submitLesson(4)">Submit Lesson 4 →</button></div>
+          </div>
+          <div class="output-area" id="output4"></div>
+          <div class="status-msg" id="status4"></div>
+          <div class="github-box"><div class="gh-label">GITHUB PUSH</div><h4>Commit invoice_generator.py</h4><ul><li>Save as <strong>lesson4/invoice_generator.py</strong></li><li>This script is a real freelance service — mention it in your README</li><li>Commit: "Add Lesson 4: Automated invoice generator with Uganda VAT"</li></ul></div>
+        </div>
+
+        <!-- L5: APIs -->
+        <div class="lesson-panel" id="lesson5">
+          <div class="lesson-label">LESSON 05 · APIs & WEB DATA</div>
+          <h2 class="lesson-title">Connect Python to the World's Data</h2>
+          <p class="lesson-desc">APIs let your Python scripts talk to the internet — fetch weather for Kampala farmers, get exchange rates for freelancers, retrieve news headlines, and much more. This is where Python becomes truly powerful.</p>
+          <div class="africa-box"><div class="africa-emoji">🌐</div><div><h4>APIs African developers use every day</h4><p>MTN MoMo API for mobile payments. OpenWeather for agricultural forecasts. Exchange Rate APIs for freelancers pricing in USD. Twilio for WhatsApp alerts. Every major African tech product uses APIs — and now you will too.</p></div></div>
+          <div class="concept-grid">
+            <div class="concept-card"><div class="cc-tag">REQUESTS</div><div class="cc-code">import requests<br>r = requests.get(url)<br>data = r.json()</div><div class="cc-desc">The most important Python library for web data. Install: pip install requests</div></div>
+            <div class="concept-card"><div class="cc-tag">JSON</div><div class="cc-code">import json<br>json.dumps(data)<br>json.loads(text)</div><div class="cc-desc">Convert between Python dicts and JSON strings.</div></div>
+            <div class="concept-card"><div class="cc-tag">STATUS CODE</div><div class="cc-code">if r.status_code == 200:<br>&nbsp;&nbsp;print("Success")</div><div class="cc-desc">200 = OK. 404 = Not Found. 500 = Server Error. Always check.</div></div>
+            <div class="concept-card"><div class="cc-tag">ENV VARS</div><div class="cc-code">import os<br>key = os.getenv("API_KEY")</div><div class="cc-desc">Never hardcode API keys. Store in environment variables.</div></div>
+          </div>
+          <div class="task-box"><div class="task-label">BUILD — UGANDAN DEVELOPER API TOOLKIT</div><h4>Write scripts that:</h4><ul><li>Fetch weather data for Kampala (OpenWeather API)</li><li>Get current USD → UGX exchange rate</li><li>Parse and display the top 5 headlines from an RSS feed</li><li>Store results to a JSON file for later use</li></ul></div>
+          <div class="editor-wrap">
+            <div class="editor-topbar"><div class="editor-dots"><span></span><span></span><span></span></div><div class="editor-fname">africa_api_toolkit.py</div><div></div></div>
+            <div class="editor-area"><textarea id="code5" spellcheck="false"># AFRICAN DEVELOPER API TOOLKIT
+# Simulated examples — replace with real API calls in your environment
+import json
+from datetime import datetime
+
+# ── SIMULATED: Weather for Kampala ──────────────────────
+def get_kampala_weather():
+    """
+    Real implementation:
+    import requests
+    url = f"https://api.openweathermap.org/data/2.5/weather?q=Kampala,UG&appid={API_KEY}"
+    data = requests.get(url).json()
+    """
+    # Simulated response
+    return {
+        "city": "Kampala",
+        "temp_celsius": 24,
+        "description": "partly cloudy",
+        "humidity": 78,
+        "advice": "Good planting conditions in central region"
+    }
+
+# ── SIMULATED: Exchange Rate ─────────────────────────────
+def get_exchange_rate():
+    """
+    Real: requests.get("https://open.er-api.com/v6/latest/USD").json()
+    """
+    return {"USD_to_UGX": 3720, "USD_to_KES": 132, "updated": "today"}
+
+# ── BUILD THE REPORT ─────────────────────────────────────
+def daily_africa_brief():
+    weather = get_kampala_weather()
+    rates = get_exchange_rate()
+    now = datetime.now().strftime("%A %d %B %Y, %H:%M")
+    
+    print("=" * 48)
+    print(f"  🌍 DAILY AFRICA DEVELOPER BRIEF — {now}")
+    print("=" * 48)
+    
+    print(f"\n🌤  KAMPALA WEATHER")
+    print(f"    Temperature: {weather['temp_celsius']}°C, {weather['description']}")
+    print(f"    Humidity:    {weather['humidity']}%")
+    print(f"    Agri tip:    {weather['advice']}")
+    
+    print(f"\n💱  EXCHANGE RATES")
+    print(f"    1 USD = UGX {rates['USD_to_UGX']:,}")
+    print(f"    1 USD = KES {rates['USD_to_KES']}")
+    
+    freelance_usd = 500
+    print(f"\n💰  FREELANCER CALC")
+    print(f"    $500 project = UGX {freelance_usd * rates['USD_to_UGX']:,}")
+    
+    # Save to file
+    report = {"weather": weather, "rates": rates, "generated": now}
+    print(f"\n✅ Brief saved to daily_brief.json")
+    return json.dumps(report, indent=2)
+
+result = daily_africa_brief()
+print("\n--- JSON OUTPUT (save to file) ---")
+print(result[:200] + "...")</textarea></div>
+            <div class="editor-footer"><button class="btn btn-ghost btn-sm" onclick="runCode(5)">▶ Run</button><button class="btn btn-py btn-sm" onclick="submitLesson(5)">Submit Lesson 5 →</button></div>
+          </div>
+          <div class="output-area" id="output5"></div>
+          <div class="status-msg" id="status5"></div>
+          <div class="github-box"><div class="gh-label">GITHUB PUSH</div><h4>Push your API toolkit</h4><ul><li>Save as <strong>lesson5/africa_api_toolkit.py</strong></li><li>Add a requirements.txt with: requests</li><li>Commit: "Add Lesson 5: African developer API toolkit"</li><li>Add .gitignore to exclude .env API key files</li></ul></div>
+        </div>
+
+        <!-- L6: FINAL PROJECT -->
+        <div class="lesson-panel" id="lesson6">
+          <div class="lesson-label">LESSON 06 · FINAL PROJECT</div>
+          <h2 class="lesson-title">Build Uganda's Market Intelligence System</h2>
+          <p class="lesson-desc">Your final project combines everything — data structures, functions, file I/O, and APIs — into a real, deployable tool that serves Ugandan farmers and traders. This goes on your GitHub as your Python portfolio centrepiece.</p>
+          <div class="africa-box"><div class="africa-emoji">🏆</div><div><h4>Real impact, real portfolio</h4><p>This is not a tutorial project. When complete, this is a tool you can demo to NGOs, agritech companies, and employers. It shows you understand both Python and the African context you're building for. That combination is rare and valuable.</p></div></div>
+          <div class="task-box">
+            <div class="task-label">FINAL PROJECT — UGANDA MARKET INTELLIGENCE SYSTEM</div>
+            <h4>Build a complete Python application that includes:</h4>
+            <ul>
+              <li>A database of crop prices across 5+ Ugandan markets (dict/JSON)</li>
+              <li>Functions to compare prices, find best markets, and flag alerts</li>
+              <li>A file system: save daily reports as dated .txt files</li>
+              <li>An API call to get weather data relevant to crop conditions</li>
+              <li>A command-line interface so users can search crops interactively</li>
+              <li>A README.md explaining the tool and how to run it</li>
+            </ul>
+          </div>
+          <div class="editor-wrap">
+            <div class="editor-topbar"><div class="editor-dots"><span></span><span></span><span></span></div><div class="editor-fname">uganda_market_intel.py — FINAL PROJECT</div><div></div></div>
+            <div class="editor-area" style="min-height:300px;"><textarea id="code6" style="min-height:300px;" spellcheck="false"># ╔══════════════════════════════════════════════════╗
+# ║   UGANDA MARKET INTELLIGENCE SYSTEM             ║
+# ║   Built with Python · CODEON Africa 🇺🇬         ║
+# ╚══════════════════════════════════════════════════╝
+
+import json
+from datetime import date, datetime
+
+# ── MARKET DATABASE ────────────────────────────────────
+MARKETS = {
+    "Owino":    {"maize":1200,"beans":3400,"tomatoes":2600,"matoke":850,"groundnuts":5800},
+    "Nakasero": {"maize":1350,"beans":3600,"tomatoes":2900,"matoke":950,"groundnuts":6200},
+    "Kalerwe":  {"maize":1100,"beans":3200,"tomatoes":2400,"matoke":800,"groundnuts":5600},
+    "Nakulabye":{"maize":1250,"beans":3500,"tomatoes":2700,"matoke":880,"groundnuts":5900},
+    "Wandegeya": {"maize":1300,"beans":3450,"tomatoes":2750,"matoke":900,"groundnuts":6000},
+}
+
+# ── CORE FUNCTIONS ─────────────────────────────────────
+def best_market_for(crop):
+    """Find the cheapest market for a given crop"""
+    options = {m: p[crop] for m, p in MARKETS.items() if crop in p}
+    if not options:
+        return None, None
+    best = min(options, key=options.get)
+    return best, options[best]
+
+def price_summary(crop):
+    """Full price summary across all markets"""
+    options = {m: p[crop] for m, p in MARKETS.items() if crop in p}
+    if not options:
+        return f"❌ Crop '{crop}' not found in database."
+    
+    lines = [f"\n📊 '{crop.upper()}' PRICES ACROSS KAMPALA MARKETS"]
+    lines.append("-" * 42)
+    for market, price in sorted(options.items(), key=lambda x: x[1]):
+        bar = "█" * (price // 500)
+        lines.append(f"  {market:12} UGX {price:,}  {bar}")
+    
+    best_m, best_p = best_market_for(crop)
+    avg = sum(options.values()) // len(options)
+    lines.append("-" * 42)
+    lines.append(f"  Best deal:  {best_m} @ UGX {best_p:,}")
+    lines.append(f"  City avg:   UGX {avg:,}")
+    return "\n".join(lines)
+
+def generate_daily_report():
+    """Generate full market report"""
+    today = date.today().strftime("%d %B %Y")
+    lines = [
+        "╔" + "═"*46 + "╗",
+        f"║  🌾 UGANDA MARKET REPORT — {today}  ║",
+        "╚" + "═"*46 + "╝",
+    ]
+    crops = ["maize", "beans", "tomatoes", "matoke", "groundnuts"]
+    for crop in crops:
+        best_m, best_p = best_market_for(crop)
+        lines.append(f"  {crop.upper():14} → Best: {best_m} @ UGX {best_p:,}")
+    lines.append("\n🇺🇬 Built by CODEON Africa | codeondigital.com")
+    return "\n".join(lines)
+
+# ── MAIN INTERFACE ─────────────────────────────────────
+print(generate_daily_report())
+print(price_summary("tomatoes"))
+print(price_summary("maize"))
+print("\n✅ FINAL PROJECT COMPLETE — Push to GitHub now!")</textarea></div>
+            <div class="editor-footer"><button class="btn btn-ghost btn-sm" onclick="runCode(6)">▶ Run Project</button><button class="btn btn-py btn-sm" onclick="submitLesson(6)">Submit Final Project →</button></div>
+          </div>
+          <div class="output-area" id="output6"></div>
+          <div class="status-msg" id="status6"></div>
+          <div class="github-box">
+            <div class="gh-label">FINAL GITHUB SUBMISSION</div>
+            <h4>Your complete python-africa repository should have:</h4>
+            <ul>
+              <li>lesson1/ through lesson6/ — all your scripts committed</li>
+              <li>A root README.md with project description and screenshots</li>
+              <li>requirements.txt listing: requests, statistics (stdlib)</li>
+              <li>A .gitignore excluding .env, __pycache__, *.pyc</li>
+              <li>At least 15 commits with clear, descriptive messages</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- L7: CERTIFICATE UNLOCK -->
+        <div class="lesson-panel" id="lesson7">
+          <div style="background:linear-gradient(135deg,rgba(61,220,132,.08),rgba(0,224,198,.04));border:1px solid rgba(61,220,132,.2);border-radius:var(--r-lg);padding:clamp(24px,5vw,40px);text-align:center;">
+            <div style="font-size:3rem;margin-bottom:16px;">🎓</div>
+            <div class="sec-tag" style="text-align:center;">ALL LESSONS COMPLETE</div>
+            <h2 class="sec-title" style="text-align:center;">You're a Python Developer!</h2>
+            <p style="color:var(--muted);font-size:.92rem;line-height:1.75;max-width:440px;margin:0 auto 28px;">You've completed all 6 lessons and built real tools for Africa. Now claim your verifiable CODEON certificate — it includes a unique ID and QR code that employers can verify instantly.</p>
+            <a href="#certificate" class="btn btn-gold" onclick="scrollToCert()">Claim Your Certificate →</a>
+          </div>
+        </div>
+
+      </div><!-- /lesson-content -->
+    </div><!-- /curriculum-layout -->
+  </div>
+</section>
+
+<!-- ═══ AFRICAN PROJECTS ═══ -->
+<div class="z1">
+  <div class="shell">
+    <div class="reveal" style="margin-bottom:clamp(28px,5vw,44px);">
+      <div class="sec-tag">WHAT GRADUATES ARE BUILDING</div>
+      <h2 class="sec-title">Python Solutions for Real Africa Problems</h2>
+    </div>
+    <div class="projects-grid">
+      <div class="proj-card reveal d1"><div class="proj-icon">🌾</div><div class="proj-tag">AGRITECH · MBARARA</div><h3>Crop Price SMS Alert System</h3><p>Arinaitwe Moses built a Python script that texts farmers in western Uganda when maize prices drop below their break-even point.</p><div class="proj-tags"><span class="p-tag">PYTHON</span><span class="p-tag">SMS API</span><span class="p-tag">DICTS</span></div></div>
+      <div class="proj-card reveal d2"><div class="proj-icon">🏥</div><div class="proj-tag">HEALTH · GULU</div><h3>Clinic Appointment Automator</h3><p>Agnes Akello automated appointment reminders for a Gulu health clinic — saving nurses 2 hours per day of manual WhatsApp messages.</p><div class="proj-tags"><span class="p-tag">PYTHON</span><span class="p-tag">WHATSAPP API</span><span class="p-tag">AUTOMATION</span></div></div>
+      <div class="proj-card reveal d1"><div class="proj-icon">💱</div><div class="proj-tag">FINTECH · KAMPALA</div><h3>Freelancer Rate Calculator</h3><p>Nalubega Desire built a Python tool that helps Ugandan freelancers quote USD rates that account for UGX exchange rate fluctuation.</p><div class="proj-tags"><span class="p-tag">PYTHON</span><span class="p-tag">APIS</span><span class="p-tag">FILES</span></div></div>
+      <div class="proj-card reveal d2"><div class="proj-icon">📊</div><div class="proj-tag">DATA · ENTEBBE</div><h3>Uganda Census Analyser</h3><p>A student used Pandas to visualise Uganda Bureau of Statistics population data by region, age group, and economic activity.</p><div class="proj-tags"><span class="p-tag">PANDAS</span><span class="p-tag">CSV</span><span class="p-tag">DATA VIZ</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TESTIMONIALS ═══ -->
+<div class="z1 alt">
+  <div class="shell">
+    <div class="reveal" style="text-align:center;margin-bottom:clamp(28px,5vw,44px);">
+      <div class="sec-tag" style="text-align:center;">WHAT STUDENTS SAY</div>
+      <h2 class="sec-title" style="text-align:center;">Voices from Uganda's Python Community</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal"><div class="testi-stars">★★★★★</div><p class="testi-text">"I built my first automation script in week 2 and immediately used it for a real client. CODEON teaches Python in a way that makes sense for Uganda — not just textbook examples from America."</p><div class="testi-author">Arinaitwe Moses</div><div class="testi-role">PYTHON DEVELOPER · MBARARA</div></div>
+      <div class="testi-card reveal d1"><div class="testi-stars">★★★★★</div><p class="testi-text">"The market tracker project in Lesson 2 actually became my portfolio centrepiece. Three clients have asked about it after seeing my GitHub. CODEON builds real things, not toy examples."</p><div class="testi-author">Kafeero Praise</div><div class="testi-role">DEVELOPER · KAMPALA</div></div>
+      <div class="testi-card reveal d2"><div class="testi-stars">★★★★★</div><p class="testi-text">"I never thought I could learn Python — I had no laptop and just a Tecno phone. CODEON is fully mobile. I completed all 6 lessons on my phone. The certificate opened doors I didn't know existed."</p><div class="testi-author">Nalubega Desire</div><div class="testi-role">FREELANCER · ENTEBBE</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CERTIFICATE ═══ -->
+<section id="certificate" class="z1">
+  <div class="shell">
+    <div class="cert-section reveal">
+      <div class="cert-badge-row">
+        <span class="cert-badge">🏅 VERIFIABLE ONLINE</span>
+        <span class="cert-badge">🔐 UNIQUE QR CODE</span>
+        <span class="cert-badge">✅ EMPLOYER TRUSTED</span>
+      </div>
+      <h2 class="sec-title">Your Python Certificate</h2>
+      <p>Complete all 6 lessons and pay the certificate fee to receive your verifiable CODEON certificate — with a unique ID and QR code that employers can scan to confirm your achievement.</p>
+
+      <!-- PAYMENT FORM -->
+      <div class="payment-form" id="paymentForm">
+        <h3>🎓 Claim Your Certificate</h3>
+        <p class="sub">Complete all lessons above first, then fill in your details and proceed to payment via PesaPal.</p>
+        <div class="field"><label>FULL NAME (as it will appear on certificate)</label><input type="text" id="certName" placeholder="e.g. Kafeero Praise" autocomplete="name"></div>
+        <div class="field"><label>EMAIL ADDRESS</label><input type="email" id="certEmail" placeholder="your@email.com" autocomplete="email"></div>
+        <div class="field"><label>GITHUB USERNAME</label><input type="text" id="certGithub" placeholder="github.com/yourusername"></div>
+        <div class="price-row">
+          <span class="price-label">CERTIFICATE FEE</span>
+          <span class="price-amount">UGX 25,000</span>
+        </div>
+        <p style="font-family:var(--fm);font-size:.6rem;color:var(--muted);margin-bottom:16px;letter-spacing:.5px;">For testing: click "Generate Certificate (Demo)" below to preview your certificate without payment. In production, this connects to PesaPal and generates on confirmed payment.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="btn btn-gold btn-full" onclick="handlePayment()">Pay UGX 25,000 via PesaPal →</button>
+          <button class="btn btn-ghost btn-full btn-sm" onclick="generateCertDemo()">🎓 Generate Certificate (Demo)</button>
+        </div>
+      </div>
+
+      <!-- CERTIFICATE DISPLAY -->
+      <div class="cert-display" id="certDisplay">
+        <div class="certificate" id="theCertificate">
+          <div class="cert-bg-pattern"></div>
+          <div class="cert-ribbon">CODEON AFRICA — VERIFIED</div>
+          <div class="cert-stamp">🐍</div>
+
+          <div class="cert-header">
+            <div class="cert-logo-area">
+              <img src="codeon logo.png" alt="CODEON" class="cert-logo-img" onerror="this.style.display='none'">
+              <span class="cert-logo-name">CODEON</span>
+            </div>
+            <div style="text-align:right;">
+              <div class="cert-issued-label">DATE ISSUED</div>
+              <div class="cert-issued-date" id="certDate">—</div>
+            </div>
+          </div>
+
+          <div class="cert-divider"></div>
+
+          <div class="cert-body">
+            <div class="cert-title-text">CERTIFICATE OF COMPLETION</div>
+            <div class="cert-course-name">Python Fundamentals</div>
+            <div class="cert-awarded-to">This certificate is proudly awarded to</div>
+            <div class="cert-student-name" id="certDisplayName">Student Name</div>
+            <div class="cert-tagline">for successfully completing CODEON Africa's Python Fundamentals course — building real automation tools, data processors, and APIs for African communities.</div>
+            <div style="font-size:1.2rem;margin:8px 0;">🇺🇬 Built in Africa · For Africa · By Africa</div>
+          </div>
+
+          <div class="cert-divider"></div>
+
+          <div class="cert-footer">
+            <div class="cert-footer-left">
+              <div class="cert-id-label">CERTIFICATE ID</div>
+              <div class="cert-id-val" id="certIdDisplay">CDN-PY-2025-0000</div>
+              <div class="cert-verify-url">Verify at: codeondigital.com/verify</div>
+            </div>
+            <div class="cert-qr">
+              <div id="certQrCode"></div>
+              <div class="cert-qr-label">SCAN TO VERIFY</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="cert-actions">
+          <button class="btn btn-py" onclick="window.print()">🖨️ Print Certificate</button>
+          <button class="btn btn-gold" onclick="downloadCert()">⬇️ Download PDF</button>
+          <button class="btn btn-ghost" onclick="shareCert()">🔗 Share</button>
+        </div>
+        <p style="font-family:var(--fm);font-size:.58rem;color:var(--muted);text-align:center;margin-top:12px;letter-spacing:1px;">CERTIFICATE ID IS VERIFIABLE AT CODEONDIGITAL.COM/VERIFY · QR CODE LINKS TO VERIFICATION PAGE</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="codeon logo.png" alt="CODEON" class="footer-logo" onerror="this.style.display='none'">
+      <span class="footer-name">CODEON Africa</span>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="enroll.html">Enroll</a>
+      <a href="verify.html">Verify Certificate</a>
+      <a href="community-codeon.html">Community</a>
+      <a href="hackathon.html">Hackathon</a>
+      <a href="mailto:codeon.ug@gmail.com">Contact</a>
+    </div>
+    <div class="footer-copy">© 2025 CODEON AFRICA · BUILT IN UGANDA 🇺🇬</div>
+  </div>
+</footer>
+
+<!-- MOBILE STICKY CTA -->
+<div class="mob-cta" id="mobCta">
+  <a href="#curriculum" class="btn btn-py btn-full">🐍 Start Python Course Free — No Cost to Begin</a>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════════ -->
+<script>
+'use strict';
+
+/* ── STATE ── */
+let xp = 0;
+let completed = new Set();
+const XP_PER = {1:25,2:25,3:30,4:35,5:35,6:80};
+const TOTAL_XP = Object.values(XP_PER).reduce((a,b)=>a+b,0);
+
+/* ── CANVAS ── */
+const canvas = document.getElementById('bgCanvas');
+const ctx = canvas.getContext('2d');
+function resize(){ canvas.width=window.innerWidth; canvas.height=window.innerHeight; }
+resize();
+window.addEventListener('resize', resize, {passive:true});
+const pts = Array.from({length:60}, () => ({
+  x:Math.random()*canvas.width, y:Math.random()*canvas.height,
+  dx:(Math.random()-.5)*.3, dy:(Math.random()-.5)*.3,
+  r:Math.random()*1.4+.4, a:Math.random()*.35+.06
+}));
+(function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  for(let p of pts){
+    p.x+=p.dx; p.y+=p.dy;
+    if(p.x>canvas.width||p.x<0) p.dx*=-1;
+    if(p.y>canvas.height||p.y<0) p.dy*=-1;
+    ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(61,220,132,${p.a})`; ctx.fill();
+  }
+  for(let i=0;i<pts.length;i++) for(let j=i+1;j<pts.length;j++){
+    const d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);
+    if(d<100){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(61,220,132,${.04*(1-d/100)})`;ctx.lineWidth=.5;ctx.stroke();}
+  }
+  requestAnimationFrame(draw);
+})();
+
+/* ── LOADER ── */
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('loader').classList.add('gone'), 1500);
+});
+
+/* ── TOAST ── */
+let toastTimer;
+function toast(msg, type=''){
+  const el = document.getElementById('toast');
+  el.textContent=msg; el.className='show '+type;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>el.className='', 3400);
+}
+
+/* ── XP ── */
+function addXP(lessonNum){
+  if(completed.has(lessonNum)) return;
+  const gain = XP_PER[lessonNum] || 0;
+  xp += gain;
+  completed.add(lessonNum);
+  document.getElementById('xpDisplay').textContent = xp;
+  const pct = Math.round((xp/TOTAL_XP)*100);
+  document.getElementById('hdProgress').style.width = pct+'%';
+  document.getElementById('xpBar').style.width = pct+'%';
+  document.getElementById('xpBarLabel').textContent = `${xp} / ${TOTAL_XP} XP — ${pct}% complete`;
+}
+
+/* ── SIMULATED PYTHON RUNNER ── */
+const outputs = {
+  1: `🇺🇬 Hello World! My name is Kafeero Praise.
+I come from Kampala, Uganda.
+I am learning Python to build tools that help Ugandan farmers.
+At 20 years old, I am building Africa's digital future.
+  Attempt 1: Kafeero Praise is learning Python 🐍
+  Attempt 2: Kafeero Praise is learning Python 🐍
+  Attempt 3: Kafeero Praise is learning Python 🐍`,
+
+  2: `========================================
+🌾 KAMPALA MARKET PRICES TODAY
+========================================
+  MAIZE           UGX 1,200/kg  
+  BEANS           UGX 3,500/kg  
+  TOMATOES        UGX 2,800/kg  
+  MATOKE          UGX 900/kg    
+  GROUNDNUTS      UGX 6,000/kg  
+  SWEET_POTATOES  UGX 800/kg    ⚠️ LOW
+
+✅ Best value:  sweet_potatoes @ UGX 800
+💰 Premium crop: groundnuts @ UGX 6,000
+
+🔍 'tomatoes' costs UGX 2,800/kg today.`,
+
+  3: `============================================
+🏥 COMMUNITY CLINIC REPORT — UGANDA
+============================================
+Total patients:  6
+Average age:     34.2 years
+
+📍 Patients by district:
+   Wakiso       → 1 patient(s)
+   Gulu         → 2 patient(s)
+   Kampala      → 2 patient(s)
+   Lira         → 1 patient(s)
+
+⚠️  BMI Alerts:
+   Akello Susan         BMI 16.2  UNDERWEIGHT ⚠️
+   Mutesi Ruth          BMI 31.0  OVERWEIGHT ⚠️`,
+
+  4: `==================================================
+    CODEON AFRICA — SERVICE INVOICE
+    Kampala, Uganda | codeondigital.com
+==================================================
+
+Invoice No:  CDN-20250401-7431
+Date:        01 April 2025
+
+BILL TO:
+  Nalongo's Kitchen Ltd
+  nalongo@example.co.ug
+
+--------------------------------------------------
+  SERVICE                      AMOUNT (UGX)
+--------------------------------------------------
+  Website Development             1,500,000
+  GitHub Setup & Training           300,000
+  Monthly Hosting (3 mo)            450,000
+  SEO Optimization                  250,000
+--------------------------------------------------
+  Subtotal                        2,500,000
+  VAT (18%)                         450,000
+==================================================
+  TOTAL DUE                       2,950,000
+==================================================
+
+Payment: MTN MoMo 0743733322
+Thank you for choosing CODEON Africa 🇺🇬
+
+✅ Invoice CDN-20250401-7431 generated successfully.`,
+
+  5: `================================================
+  🌍 DAILY AFRICA DEVELOPER BRIEF — Today
+================================================
+
+🌤  KAMPALA WEATHER
+    Temperature: 24°C, partly cloudy
+    Humidity:    78%
+    Agri tip:    Good planting conditions in central region
+
+💱  EXCHANGE RATES
+    1 USD = UGX 3,720
+    1 USD = KES 132
+
+💰  FREELANCER CALC
+    $500 project = UGX 1,860,000
+
+✅ Brief saved to daily_brief.json
+
+--- JSON OUTPUT (save to file) ---
+{
+  "weather": {"city": "Kampala", "temp_celsius": 24...`,
+
+  6: `╔══════════════════════════════════════════════╗
+║  🌾 UGANDA MARKET REPORT — 01 April 2025  ║
+╚══════════════════════════════════════════════╝
+  MAIZE          → Best: Kalerwe @ UGX 1,100
+  BEANS          → Best: Kalerwe @ UGX 3,200
+  TOMATOES       → Best: Kalerwe @ UGX 2,400
+  MATOKE         → Best: Kalerwe @ UGX 800
+  GROUNDNUTS     → Best: Kalerwe @ UGX 5,600
+
+📊 'TOMATOES' PRICES ACROSS KAMPALA MARKETS
+------------------------------------------
+  Kalerwe      UGX 2,400  ████
+  Nakulabye    UGX 2,700  █████
+  Wandegeya    UGX 2,750  █████
+  Owino        UGX 2,600  █████
+  Nakasero     UGX 2,900  █████
+------------------------------------------
+  Best deal:  Kalerwe @ UGX 2,400
+  City avg:   UGX 2,690
+
+✅ FINAL PROJECT COMPLETE — Push to GitHub now!`
+};
+
+function runCode(n){
+  const out = document.getElementById('output'+n);
+  out.textContent = outputs[n] || '# Run your code to see output here';
+  out.className = 'output-area show';
+}
+
+/* ── LESSON VALIDATION ── */
+const validates = {
+  1: c => c.includes('name') && c.includes('print') && (c.includes('for') || c.includes('if')),
+  2: c => c.includes('dict') || (c.includes('{') && c.includes(':')),
+  3: c => c.includes('def ') && c.includes('return'),
+  4: c => (c.includes('open') || c.includes('write') || c.includes('invoice')),
+  5: c => c.includes('json') || c.includes('requests') || c.includes('def '),
+  6: c => c.includes('def ') && c.includes('MARKETS') && (c.includes('min') || c.includes('max') || c.includes('for'))
+};
+const msgs = {
+  1:{ok:"🎉 Lesson 1 Done! Your Python journey begins. Lesson 2 unlocked — push greeting.py to GitHub!",fail:"❌ Make sure you have at least a name variable, a print() statement, and either an if or for loop."},
+  2:{ok:"🎉 Lesson 2 Complete! Your market tracker is ready for Ugandan farmers. Lesson 3 unlocked!",fail:"❌ Create a dictionary with crop names as keys and prices as values. Use { } syntax."},
+  3:{ok:"🎉 Lesson 3 Done! Your health data module is professional-grade. Lesson 4 unlocked!",fail:"❌ Define at least one function using 'def' keyword and include a 'return' statement."},
+  4:{ok:"🎉 Lesson 4 Complete! Your invoice generator is freelance-ready. Lesson 5 unlocked!",fail:"❌ Your script should include file operations (open/write) or a complete invoice calculation."},
+  5:{ok:"🎉 Lesson 5 Done! You can now connect Python to the world's data. Lesson 6 unlocked!",fail:"❌ Include import json, import requests, or build functions that simulate API responses."},
+  6:{ok:"🚀 FINAL PROJECT COMPLETE! Your python-africa repo is your portfolio. Certificate unlocked!",fail:"❌ Your project needs: a MARKETS data structure, at least 2 functions, min/max logic, and a loop."}
+};
+
+function submitLesson(n){
+  const code = document.getElementById('code'+n).value;
+  const status = document.getElementById('status'+n);
+  if(validates[n](code)){
+    addXP(n);
+    status.textContent = msgs[n].ok;
+    status.className = 'status-msg ok show';
+    unlockNext(n);
+    celebrateLesson(n);
+    if(n < 7) setTimeout(()=>goTo(n+1), 2200);
+  } else {
+    status.textContent = msgs[n].fail;
+    status.className = 'status-msg fail show';
+  }
+}
+
+function unlockNext(n){
+  const next = document.getElementById('nav'+(n+1));
+  if(next){
+    next.classList.remove('locked');
+    document.getElementById('nav'+n)?.classList.add('done');
+  }
+}
+
+/* ── LESSON NAVIGATION ── */
+function goTo(n){
+  const nav = document.getElementById('nav'+n);
+  if(!nav || nav.classList.contains('locked')) return;
+  document.querySelectorAll('.lesson-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.lesson-nav').forEach(i=>i.classList.remove('active'));
+  document.getElementById('lesson'+n)?.classList.add('active');
+  nav.classList.add('active');
+  document.getElementById('curriculum')?.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+/* ── CELEBRATIONS ── */
+function celebrateLesson(n){
+  const colors = {
+    1:['#3ddc84','#00e0c6'],
+    2:['#f5c518','#ffd84d'],
+    3:['#3ddc84','#fff'],
+    4:['#f5c518','#3ddc84'],
+    5:['#00e0c6','#3ddc84'],
+    6:['#3ddc84','#f5c518','#00e0c6','#fff']
+  };
+  confetti({
+    particleCount: n===6 ? 250 : 80,
+    spread: n===6 ? 100 : 70,
+    origin: {y:.6},
+    colors: colors[n] || ['#3ddc84']
+  });
+  toast(n===6 ? '🚀 Final project submitted! Certificate unlocked!' : `⚡ +${XP_PER[n]} XP earned!`, 'ok');
+}
+
+/* ── CERTIFICATE GENERATION ── */
+function generateCert(name, email, github){
+  const id = 'CDN-PY-2025-' + (Math.floor(1000 + Math.random()*9000));
+  const today = new Date().toLocaleDateString('en-UG', {day:'numeric',month:'long',year:'numeric'});
+  const verifyUrl = `https://codeondigital.com/verify?id=${id}`;
+
+  document.getElementById('certDisplayName').textContent = name || 'Student Name';
+  document.getElementById('certDate').textContent = today;
+  document.getElementById('certIdDisplay').textContent = id;
+
+  // Generate QR Code
+  const qrEl = document.getElementById('certQrCode');
+  qrEl.innerHTML = '';
+  try {
+    new QRCode(qrEl, {
+      text: verifyUrl,
+      width: 72,
+      height: 72,
+      colorDark: '#0a1a0e',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  } catch(e){ qrEl.innerHTML = '<div style="font-size:.6rem;color:#888;">QR</div>'; }
+
+  // Show certificate
+  const display = document.getElementById('certDisplay');
+  display.classList.add('show');
+  display.scrollIntoView({behavior:'smooth', block:'center'});
+
+  // Big celebration
+  setTimeout(()=>{
+    confetti({particleCount:400, spread:120, origin:{y:.4}, colors:['#3ddc84','#f5c518','#00e0c6','#ffffff','#ffd84d']});
+  }, 300);
+  toast('🎓 Certificate generated! Print or download now.', 'ok');
+
+  // Store in localStorage for verification
+  const certData = {id, name, email, github, date: today, course:'Python Fundamentals', issued: Date.now()};
+  try{ localStorage.setItem('codeon_cert_'+id, JSON.stringify(certData)); } catch(e){}
+
+  return id;
+}
+
+function generateCertDemo(){
+  const name = document.getElementById('certName').value.trim() || 'Your Name Here';
+  const email = document.getElementById('certEmail').value.trim() || 'demo@example.com';
+  const github = document.getElementById('certGithub').value.trim() || 'github.com/yourusername';
+  if(!name || name === 'Your Name Here'){
+    toast('Enter your full name first!','fail'); return;
+  }
+  generateCert(name, email, github);
+}
+
+function handlePayment(){
+  const name = document.getElementById('certName').value.trim();
+  const email = document.getElementById('certEmail').value.trim();
+  if(!name){ toast('Please enter your full name','fail'); return; }
+  if(!email.includes('@')){ toast('Please enter a valid email','fail'); return; }
+  // In production: redirect to PesaPal with callback that calls generateCert on success
+  const pesapalUrl = `https://store.pesapal.com/certificatepayment?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&course=Python+Fundamentals`;
+  toast('Redirecting to PesaPal...', 'ok');
+  setTimeout(()=>{
+    // For demo: generate cert directly. In production: window.location.href = pesapalUrl;
+    generateCert(name, email, document.getElementById('certGithub').value.trim());
+  }, 1500);
+}
+
+function downloadCert(){
+  toast('Opening print dialog — save as PDF from there!', 'ok');
+  setTimeout(()=>window.print(), 500);
+}
+
+function shareCert(){
+  const id = document.getElementById('certIdDisplay').textContent;
+  const url = `https://codeondigital.com/verify?id=${id}`;
+  if(navigator.share){
+    navigator.share({title:'My CODEON Python Certificate', text:'I just completed Python Fundamentals at CODEON Africa 🇺🇬', url});
+  } else {
+    navigator.clipboard?.writeText(url).then(()=>toast('Certificate link copied!','ok')).catch(()=>toast('Copy this: '+url,'ok'));
+  }
+}
+
+function scrollToCert(){
+  document.getElementById('certificate').scrollIntoView({behavior:'smooth'});
+}
+
+/* ── SCROLL REVEAL ── */
+const revObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('up'); revObs.unobserve(e.target); } });
+},{threshold:.08, rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
+
+/* ── XP BAR TRIGGER ── */
+const xpObs = new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting){ document.getElementById('xpBar').style.width = (xp/TOTAL_XP*100)+'%'; xpObs.disconnect(); }
+},{threshold:.4});
+const xpEl = document.querySelector('.xp-banner');
+if(xpEl) xpObs.observe(xpEl);
+
+/* ── MOBILE CTA HIDE ── */
+const certSec = document.getElementById('certificate');
+if(certSec){
+  const mobObs = new IntersectionObserver(entries=>{
+    const cta = document.getElementById('mobCta');
+    if(cta) cta.style.display = entries[0].isIntersecting ? 'none' : 'block';
+  },{threshold:.2});
+  mobObs.observe(certSec);
+}
+</script>
+</body>
+</html>
