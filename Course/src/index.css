@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Dancing+Script:wght@700&family=JetBrains+Mono:wght@400;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Outfit", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-signature: "Dancing Script", cursive;
+  --color-gold: #D4AF37;
+  --color-teal-dark: #002b2b;
+  --color-teal-light: #00ffff;
+}
+
+body {
+  @apply bg-[#001a1a] text-slate-200 font-sans antialiased overflow-x-hidden;
+  background-image: radial-gradient(circle at 50% 50%, #002b2b 0%, #001a1a 100%);
+}
+
+.glass-3d {
+  @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.8)] rounded-3xl;
+  transform: perspective(1000px) rotateX(2deg);
+}
+
+.btn-3d {
+  @apply bg-teal-light text-teal-900 font-black uppercase tracking-widest py-4 px-8 rounded-2xl shadow-[0_10px_0_0_#00cccc] active:shadow-none active:translate-y-[10px] transition-all;
+}
+
+.btn-gold-3d {
+  @apply bg-gold text-teal-900 font-black uppercase tracking-widest py-4 px-8 rounded-2xl shadow-[0_10px_0_0_#b38f2d] active:shadow-none active:translate-y-[10px] transition-all;
+}
