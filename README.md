@@ -83,4 +83,8 @@ Distributed under the MIT License.
 **Codeon Digital Africa: Professional Engineering Division**
 Live Site
 [View CODEON Online](https://codeondigital.com/)
+![Screenshot_20260414_145711_Chrome](https://github.com/user-attachments/assets/d15e7de3-30ae-4cad-b45d-8e60088d541d)
+![Screenshot_20260414_145623_Chrome](https://github.com/user-attachments/assets/2848dbd6-77c9-4235-a002-7e06ae56591f)
 
+![Screenshot_20260414_145643_Chrome](https://github.com/user-attachments/assets/9305333d-7741-41fe-8fdd-a506b2242dcd)
+![Screenshot_20260414_145627_Chrome](https://github.com/user-attachments/assets/bb4fea60-2863-432b-9311-6fcc9efa3e1e)
