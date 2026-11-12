@@ -180,3 +180,4 @@
     getEffective: () => resolveEffectiveTheme(getStoredTheme())
   };
 })();
+
