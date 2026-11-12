@@ -205,6 +205,33 @@ async function runTests() {
   });
   assert(spamLeadRes.statusCode === 200, 'Silently discards honeypot spam submission');
 
+  // --- 5. Theme Toggle Checks ---
+  console.log('\n--- 5. Theme Toggle: theme.js & FOUC Prevention on All 6 Pages ---');
+  const THEME_PAGES = ['index.html', 'agency.html', 'outreach.html', 'events.html', 'team.html', 'contact.html'];
+  for (const page of THEME_PAGES) {
+    const html = fs.readFileSync(path.join(ROOT_DIR, page), 'utf8');
+    assert(html.includes('assets/theme.js'), `${page} includes assets/theme.js`);
+    assert(html.includes('codeon-theme') && html.includes('data-theme'), `${page} has FOUC-prevention inline script`);
+    assert(html.includes('theme-toggle'), `${page} has .theme-toggle button in nav`);
+    assert(html.includes('logo-dark') && html.includes('logo-light'), `${page} has dual logo variants`);
+  }
+
+  console.log('\n--- 6. Theme Asset Checks ---');
+  assert(fs.existsSync(path.join(ROOT_DIR, 'assets/theme.js')), 'assets/theme.js exists');
+  const themeJs = fs.readFileSync(path.join(ROOT_DIR, 'assets/theme.js'), 'utf8');
+  assert(!themeJs.includes('sk-ant-'), 'theme.js has no Anthropic API key');
+  assert(themeJs.includes('codeon-theme'), 'theme.js uses localStorage key codeon-theme');
+  assert(themeJs.includes('data-theme'), 'theme.js sets data-theme attribute');
+  assert(themeJs.includes('prefers-color-scheme'), 'theme.js respects OS system preference');
+  assert(themeJs.includes('storage'), 'theme.js syncs across tabs via storage event');
+
+  const stylesCss = fs.readFileSync(path.join(ROOT_DIR, 'styles.css'), 'utf8');
+  assert(stylesCss.includes('--clay-contrast'), 'styles.css defines --clay-contrast token');
+  assert(stylesCss.includes('[data-theme="dark"]'), 'styles.css defines dark mode token block');
+  assert(stylesCss.includes('prefers-color-scheme: dark'), 'styles.css has system dark fallback @media');
+  assert(fs.existsSync(path.join(ROOT_DIR, 'images/logo-dark.png')), 'images/logo-dark.png exists');
+  assert(fs.existsSync(path.join(ROOT_DIR, 'images/logo-light.png')), 'images/logo-light.png exists');
+
   console.log(`\n========================================`);
   console.log(`Results: ${passedTests}/${totalTests} tests passed.`);
   console.log(`========================================\n`);
