@@ -135,7 +135,17 @@
   }
 
   // UI Setup & Panel Creation
+  function ensureStylesheet() {
+    if (!document.querySelector('link[href*="chat-widget.css"]')) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'assets/chat-widget.css';
+      document.head.appendChild(link);
+    }
+  }
+
   function init() {
+    ensureStylesheet();
     createLauncher();
     messages = loadStoredMessages();
   }
