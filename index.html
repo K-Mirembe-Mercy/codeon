@@ -5,14 +5,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CodeOn Ventures — Build. Solve. Belong.</title>
 <meta name="description" content="CodeOn Ventures is a Kampala-based student developer collective — a working dev agency, a schools certification program, and a tech events arm.">
-<link rel="icon" type="image/png" href="images/logo.png">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F9F9F7">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#05070C">
+<script>
+  (function() {
+    document.documentElement.classList.add('no-transitions');
+    try {
+      var saved = localStorage.getItem('codeon-theme');
+      var theme = saved;
+      if (!theme || theme === 'system') {
+        theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch(e) {}
+  })();
+</script>
+<link rel="icon" type="image/png" href="images/logo-dark.png">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <header>
   <nav class="wrap">
     <a href="index.html" class="brand">
-      <img src="images/logo.png" alt="CodeOn logo">
+      <img src="images/logo-dark.png" class="brand-logo logo-dark" alt="CodeOn logo">
+      <img src="images/logo-light.png" class="brand-logo logo-light" alt="CodeOn logo">
       <span>CodeOn</span>
     </a>
     <div class="navlinks">
@@ -22,7 +39,14 @@
       <a href="events.html">Events</a>
       <a href="team.html">Team</a>
     </div>
-    <a href="contact.html" class="nav-cta">Work with us</a>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch color theme" title="Switch color theme">
+        <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="theme-icon-system" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </button>
+      <a href="contact.html" class="nav-cta">Work with us</a>
+    </div>
     <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
       <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
@@ -35,6 +59,15 @@
       <a href="outreach.html">Build. Solve. Belong.</a>
       <a href="events.html">Events</a>
       <a href="team.html">Team</a>
+      <div class="mobile-theme-row">
+        <span>Theme</span>
+        <button class="theme-toggle mobile-theme-toggle" id="themeToggleMobile" type="button" aria-label="Switch color theme">
+          <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="theme-icon-system" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          <span class="theme-toggle-label">System</span>
+        </button>
+      </div>
       <a href="contact.html" class="nav-cta">Work with us</a>
     </div>
   </div>
@@ -153,7 +186,11 @@
   <div class="wrap">
     <div class="footer-top">
       <div class="footer-brand">
-        <a href="index.html" class="brand"><img src="images/logo.png" alt="CodeOn logo"><span>CodeOn</span></a>
+        <a href="index.html" class="brand">
+          <img src="images/logo-dark.png" class="brand-logo logo-dark" alt="CodeOn logo">
+          <img src="images/logo-light.png" class="brand-logo logo-light" alt="CodeOn logo">
+          <span>CodeOn</span>
+        </a>
         <p>A Kampala-based student developer collective — building software, teaching code, and running the events that connect it all.</p>
       </div>
       <div class="fcol">
@@ -190,6 +227,7 @@ Incorporated under the Companies Act 2012 </br>
     </div>
   </div>
 </footer>
+<script src="assets/theme.js" defer></script>
 <script src="script.js"></script>
 <link rel="stylesheet" href="assets/chat-widget.css"><script src="assets/chat-widget.js" defer></script>
 </body>
