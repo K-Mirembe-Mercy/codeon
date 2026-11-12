@@ -1,0 +1,23 @@
+{
+  "name": "codeon-ventures-web",
+  "version": "1.0.0",
+  "description": "CodeOn Ventures official website and CodeOn Guide AI assistant",
+  "type": "module",
+  "scripts": {
+    "start": "node server/dev-server.js",
+    "dev": "node server/dev-server.js",
+    "pages:dev": "wrangler pages dev .",
+    "pages:deploy": "wrangler pages deploy .",
+    "test": "node test/acceptance-checks.js"
+  },
+  "keywords": [
+    "codeon",
+    "ai-assistant",
+    "cloudflare-pages"
+  ],
+  "author": "CodeOn Ventures Ltd.",
+  "license": "MIT",
+  "devDependencies": {
+    "wrangler": "^3.109.2"
+  }
+}
