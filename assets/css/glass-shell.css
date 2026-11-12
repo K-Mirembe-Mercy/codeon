@@ -1,0 +1,437 @@
+/* ==========================================================================
+   CodeOn Glass App-Shell Navigation Layout (assets/css/glass-shell.css)
+   Desktop Glass Sidebar + Floating Topbar + Mobile Glass Bottom Dock
+   ========================================================================== */
+
+/* App Layout Grid */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  gap: 24px;
+  padding: 20px;
+  max-width: 1640px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* ==========================================================================
+   Desktop Floating Glass Sidebar (1100px and up)
+   ========================================================================== */
+.app-sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 20px;
+  height: calc(100vh - 40px);
+  border-radius: var(--r-panel);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 16px;
+  box-sizing: border-box;
+  z-index: 50;
+  transition: width 240ms cubic-bezier(0.16, 1, 0.3, 1), transform 240ms ease;
+  overflow: hidden;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 6px 16px;
+  border-bottom: 1px solid var(--glass-border-light);
+  margin-bottom: 12px;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+}
+
+.sidebar-brand img {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.sidebar-collapse-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 150ms ease, background 150ms ease;
+}
+.sidebar-collapse-btn:hover {
+  color: var(--text);
+  background: var(--glass-card-bg);
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.sidebar-group-title {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted-2);
+  padding: 4px 10px;
+}
+
+.sidebar-links {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 12px;
+  border-radius: var(--r-pill);
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: all 180ms ease;
+  position: relative;
+  min-height: 42px;
+  box-sizing: border-box;
+}
+
+.sidebar-link svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: inherit;
+}
+
+.sidebar-link:hover {
+  color: var(--text);
+  background: var(--glass-card-bg);
+}
+
+/* Active Nav Pill with Glow */
+.sidebar-link.active {
+  color: var(--accent-contrast, #FFFFFF);
+  background: var(--accent);
+  font-weight: 600;
+  box-shadow: 0 4px 18px -2px rgba(29, 78, 216, 0.45);
+}
+[data-theme="dark"] .sidebar-link.active {
+  box-shadow: 0 4px 22px -2px rgba(47, 111, 237, 0.55);
+}
+
+/* Sidebar Registration Card at Bottom */
+.sidebar-bottom-card {
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: var(--r-tile);
+  background: var(--glass-card-bg);
+  border: 1px solid var(--glass-border);
+  font-size: 0.72rem;
+  line-height: 1.35;
+  color: var(--text-muted);
+}
+.sidebar-bottom-card .reg-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.sidebar-bottom-card .reg-title svg {
+  width: 14px;
+  height: 14px;
+  color: var(--accent);
+}
+
+/* Collapsed Sidebar Mode */
+.app-sidebar.collapsed {
+  width: 76px;
+  padding: 20px 10px;
+}
+.app-sidebar.collapsed .sidebar-brand span,
+.app-sidebar.collapsed .sidebar-group-title,
+.app-sidebar.collapsed .sidebar-link span,
+.app-sidebar.collapsed .sidebar-bottom-card {
+  display: none;
+}
+.app-sidebar.collapsed .sidebar-link {
+  justify-content: center;
+  padding: 10px;
+}
+
+/* ==========================================================================
+   Main Stage Container
+   ========================================================================== */
+.app-main-stage {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Floating Topbar */
+.floating-topbar {
+  height: 58px;
+  border-radius: var(--r-pill);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  position: sticky;
+  top: 20px;
+  z-index: 45;
+  gap: 12px;
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  max-width: 480px;
+}
+
+/* Search Field Pill (Opens Command Palette) */
+.search-pill-btn {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-card-bg);
+  color: var(--text-muted);
+  font-family: var(--font-sans);
+  font-size: 0.84rem;
+  cursor: pointer;
+  transition: all 180ms ease;
+}
+.search-pill-btn:hover {
+  border-color: var(--accent);
+  color: var(--text);
+  background: var(--glass-card-hover-bg);
+}
+.search-pill-btn .left-grp {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.search-pill-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Notification Bell with Event Dot */
+.bell-btn {
+  position: relative;
+}
+.bell-btn.has-event::after {
+  content: '';
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--clay);
+  box-shadow: 0 0 0 2px var(--glass-chrome-bg);
+}
+
+/* Work With Us CTA button in Topbar */
+.topbar-cta {
+  height: 40px;
+  padding: 0 18px;
+  border-radius: var(--r-pill);
+  background: var(--accent);
+  color: var(--accent-contrast, #FFFFFF);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.84rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 14px rgba(29, 78, 216, 0.4);
+  transition: all 180ms ease;
+  white-space: nowrap;
+}
+.topbar-cta:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+
+/* Stage Panel (Large Rounded Glass Container) */
+.stage-panel {
+  background: var(--stage-bg);
+  border-radius: var(--r-stage);
+  border: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(var(--blur-card));
+  backdrop-filter: blur(var(--blur-card));
+  box-shadow: var(--glass-shadow);
+  padding: 36px 36px 60px;
+  box-sizing: border-box;
+  min-height: calc(100vh - 120px);
+}
+
+/* ==========================================================================
+   Mobile Floating Bottom Dock (Under 1100px)
+   ========================================================================== */
+.floating-bottom-dock {
+  display: none;
+}
+
+@media (max-width: 1099px) {
+  .app-sidebar {
+    display: none !important;
+  }
+  .app-layout {
+    padding: 12px 12px 90px;
+  }
+  .stage-panel {
+    padding: 24px 16px 48px;
+    border-radius: var(--r-card);
+  }
+  .floating-topbar {
+    top: 12px;
+    padding: 0 12px;
+  }
+  .topbar-left {
+    max-width: none;
+  }
+  .search-pill-btn .hint-grp {
+    display: none;
+  }
+
+  /* Floating Bottom Dock */
+  .floating-bottom-dock {
+    display: flex;
+    position: fixed;
+    bottom: max(14px, env(safe-area-inset-bottom));
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 24px);
+    max-width: 440px;
+    height: 62px;
+    border-radius: var(--r-pill);
+    align-items: center;
+    justify-content: space-around;
+    z-index: 90;
+    padding: 0 8px;
+    box-sizing: border-box;
+  }
+
+  .dock-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 500;
+    min-width: 52px;
+    min-height: 48px;
+    border-radius: 14px;
+    transition: all 160ms ease;
+    padding: 4px;
+    box-sizing: border-box;
+  }
+  .dock-item svg {
+    width: 20px;
+    height: 20px;
+  }
+  .dock-item:hover {
+    color: var(--text);
+  }
+  .dock-item.active {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .dock-item.active svg {
+    filter: drop-shadow(0 2px 8px rgba(29, 78, 216, 0.4));
+  }
+}
+
+/* ==========================================================================
+   Cross-Document View Transitions
+   ========================================================================== */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root) {
+  animation: 240ms cubic-bezier(0.4, 0, 1, 1) both fade-out;
+}
+::view-transition-new(root) {
+  animation: 320ms cubic-bezier(0, 0, 0.2, 1) 60ms both fade-in-blur;
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes fade-in-blur {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0);
+  }
+}
+
+/* Reduce motion override */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+  .glass-card,
+  .btn-glass,
+  .btn-solid,
+  .stat-tile {
+    transition: none !important;
+  }
+}

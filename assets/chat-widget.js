@@ -12,7 +12,8 @@
 
   const STORAGE_KEY = 'codeon_chat_history_v1';
   const MAX_INPUT_CHARS = 1000;
-  const WHATSAPP_URL = 'https://wa.me/256700000000?text=Hello%20CodeOn%20team,%20I%20have%20an%20inquiry.';
+  const WHATSAPP_NUMBER = window.CODEON_WHATSAPP || '+256 777 435942';
+  const WHATSAPP_URL = window.CODEON_WHATSAPP_URL || 'https://wa.me/256777435942?text=Hello%20CodeOn%2C%20I%27d%20like%20to%20ask%20about...';
   const CHAT_ENDPOINT = '/api/chat';
   const LEAD_ENDPOINT = '/api/lead';
 
@@ -294,12 +295,19 @@
     else openChat();
   }
 
-  function openChat() {
+  function openChat(initialQuery) {
     ensurePanel();
     isOpen = true;
     panelEl.classList.add('is-open');
-    launcherBtn.classList.add('is-active');
-    launcherBtn.setAttribute('aria-expanded', 'true');
+    if (launcherBtn) {
+      launcherBtn.classList.add('is-active');
+      launcherBtn.setAttribute('aria-expanded', 'true');
+    }
+
+    if (initialQuery && textareaEl) {
+      textareaEl.value = initialQuery;
+      handleTextareaInput();
+    }
 
     // Focus input or messages
     setTimeout(() => {
@@ -648,15 +656,30 @@
       <p>Sorry, I encountered an issue: <em>${escapeHtml(msg)}</em></p>
       <div class="codeon-error-banner">
         <span>You can connect directly with our team right away:</span>
-        <div style="display:flex; gap:10px; margin-top:4px;">
-          <a href="${WHATSAPP_URL}" target="_blank" rel="noopener">Chat on WhatsApp</a>
-          <a href="mailto:info@codeondigital.com">Email info@codeondigital.com</a>
+        <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:6px;">
+          <a href="${WHATSAPP_URL}" target="_blank" rel="noopener">Chat on WhatsApp (${WHATSAPP_NUMBER})</a>
+          <a href="contact.html">View contact page</a>
+          <a href="mailto:info@codeondigital.com">info@codeondigital.com</a>
         </div>
       </div>
     `;
     messagesContainer.appendChild(errorBubble);
     scrollToBottom();
   }
+
+  // Export programmatic control API
+  window.__CodeOnGuide = {
+    open: openChat,
+    close: closeChat,
+    toggle: toggleChat,
+    send: function(text) {
+      openChat();
+      if (text && textareaEl) {
+        textareaEl.value = text;
+        handleUserSubmit();
+      }
+    }
+  };
 
   // Self-initialize when DOM is ready
   if (document.readyState === 'loading') {
