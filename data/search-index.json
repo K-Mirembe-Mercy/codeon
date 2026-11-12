@@ -1,0 +1,80 @@
+[
+  {
+    "title": "Home",
+    "description": "CodeOn Ventures — Student developer collective in Kampala, Uganda. Build. Solve. Belong.",
+    "category": "Pages",
+    "url": "index.html",
+    "icon": "home"
+  },
+  {
+    "title": "Student Dev Agency",
+    "description": "Hire high-caliber student developers for production web & mobile software, platforms, and internal tools.",
+    "category": "Pages",
+    "url": "agency.html",
+    "icon": "briefcase"
+  },
+  {
+    "title": "Build. Solve. Belong. (Schools Outreach)",
+    "description": "Hands-on coding certification and laptops program for secondary schools across Uganda.",
+    "category": "Pages",
+    "url": "outreach.html",
+    "icon": "book-open"
+  },
+  {
+    "title": "Tech Events & Hackathons",
+    "description": "Hackathons, American Center Kampala sessions, and developer workshops.",
+    "category": "Pages",
+    "url": "events.html",
+    "icon": "calendar"
+  },
+  {
+    "title": "Leadership Team",
+    "description": "Meet Justin (Agency), Evelyne & Ramathan (Outreach), Humphrey & Josephyne (Events).",
+    "category": "Pages",
+    "url": "team.html",
+    "icon": "users"
+  },
+  {
+    "title": "Contact & Inquiries",
+    "description": "Reach our inboxes, submit an inquiry, or message us on WhatsApp (+256 777 435942).",
+    "category": "Pages",
+    "url": "contact.html",
+    "icon": "mail"
+  },
+  {
+    "title": "Start a Project (Request a Quote)",
+    "description": "Scope your web app, platform, or internal tools with the CodeOn Student Dev Agency.",
+    "category": "Quick Actions",
+    "url": "agency.html#brief-builder",
+    "icon": "sparkles"
+  },
+  {
+    "title": "Request a School Session",
+    "description": "Invite CodeOn to run a hands-on coding and certification workshop at your school.",
+    "category": "Quick Actions",
+    "url": "outreach.html#school-form",
+    "icon": "graduation-cap"
+  },
+  {
+    "title": "Chat on WhatsApp (+256 777 435942)",
+    "description": "Connect directly with the CodeOn team on WhatsApp at +256 777 435942.",
+    "category": "Quick Actions",
+    "url": "https://wa.me/256777435942?text=Hello%20CodeOn%2C%20I%27d%20like%20to%20ask%20about...",
+    "external": true,
+    "icon": "message-circle"
+  },
+  {
+    "title": "Ask CodeOn Guide (AI Assistant)",
+    "description": "Instant answers about CodeOn arms, programs, and direct routing.",
+    "category": "Quick Actions",
+    "action": "open-guide",
+    "icon": "sparkles"
+  },
+  {
+    "title": "Switch Color Theme",
+    "description": "Cycle between Light Mode, Dark Mode, and System Preference.",
+    "category": "Quick Actions",
+    "action": "toggle-theme",
+    "icon": "sun-moon"
+  }
+]

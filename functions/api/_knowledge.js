@@ -57,6 +57,8 @@ export const KNOWLEDGE_BASE = `# CodeOn Ventures — Ground Truth Knowledge Base
 - School Outreach Requests: school@codeondigital.com
 - Partnerships, Sponsorships & Events: chapter@codeondigital.com
 - Location: Kampala, Uganda
+- WhatsApp Direct: +256 777 435942 (https://wa.me/256777435942)
+- Contact Page: https://codeondigital.com/contact.html
 - YouTube: https://www.youtube.com/@Codeon-h1i
 - X (Twitter): https://x.com/CodeOn_UG
 - TikTok: https://tiktok.com/@buildwithcodeon

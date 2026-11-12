@@ -1,0 +1,45 @@
+{
+  "upcoming": [],
+  "past": [
+    {
+      "id": "hack-4-bodas",
+      "title": "Hack 4 Bodas — AI for Smart City Mobility",
+      "subtitle": "Build with Gemma · AI for Kampala's boda boda transit",
+      "category": "Hackathon",
+      "location": "Kampala, Uganda",
+      "date": "2026",
+      "image": "images/events_hack4bodas.webp",
+      "description": "CodeOn participated in Hack 4 Bodas, focusing on utilizing AI built with Google's Gemma models to tackle real-world urban transit and safety challenges across Kampala."
+    },
+    {
+      "id": "american-center-kampala",
+      "title": "American Center Kampala — Dev Workshop",
+      "subtitle": "Hosted at U.S. Embassy Uganda",
+      "category": "Workshop",
+      "location": "American Center, Kampala",
+      "date": "2026",
+      "image": "images/embassy2.webp",
+      "description": "Hands-on developer workshops bringing CodeOn builders and student developers together at the U.S. Embassy's American Center in Kampala."
+    },
+    {
+      "id": "team-culture-day",
+      "title": "CodeOn Team Culture Day",
+      "subtitle": "Merch launch & founding team gathering",
+      "category": "Community",
+      "location": "Kampala, Uganda",
+      "date": "2026",
+      "image": "images/agency2.webp",
+      "description": "Official community gathering uniting all three arms — agency developers, school outreach leads, and event coordinators."
+    },
+    {
+      "id": "makerere-build-with-ai",
+      "title": "Build with AI — Makerere Hackathon",
+      "subtitle": "CodeOn Team Entry & Demo",
+      "category": "Hackathon",
+      "location": "Makerere University, Kampala",
+      "date": "2026",
+      "image": "images/events_hackathon_room.webp",
+      "description": "Competitive team entry showcasing software built from discovery-to-demo cycles by CodeOn developers."
+    }
+  ]
+}

@@ -80,7 +80,8 @@ CodeOn is built by a collective team, not a single founder:
   - YouTube: `https://www.youtube.com/@Codeon-h1i`
   - X (Twitter): `https://x.com/CodeOn_UG`
   - TikTok: `https://tiktok.com/@buildwithcodeon`
-- **WhatsApp Fallback**: Available for immediate inquiries when visitors prefer mobile messaging.
+- **WhatsApp Direct**: `+256 777 435942` (`https://wa.me/256777435942`) — Available for instant messaging with the CodeOn team.
+- **Contact Page**: `https://codeondigital.com/contact.html`
 
 ---
 
