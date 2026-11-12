@@ -157,7 +157,10 @@
 
 /* Pause animations when tab is hidden or user requests reduced motion */
 body.tab-hidden .aurora-bg::before,
-body.tab-hidden .aurora-bg::after,
+body.tab-hidden .aurora-bg::after {
+  animation: none !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .aurora-bg::before,
   .aurora-bg::after {

@@ -44,38 +44,77 @@ if ('IntersectionObserver' in window) {
 (function () {
   const lb = document.createElement('dialog');
   lb.className = 'lightbox';
+  lb.setAttribute('aria-modal', 'true');
+  lb.setAttribute('role', 'dialog');
+  lb.setAttribute('aria-label', 'Full size image preview');
   lb.innerHTML = `
-    <button class="lightbox-close" aria-label="Close">
+    <button class="lightbox-close" aria-label="Close photo preview" type="button">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
     </button>
-    <div class="inner"><img src="" alt=""></div>
+    <div class="inner" style="flex-direction:column;">
+      <img src="" alt="">
+      <p class="lightbox-caption" style="margin-top:14px; font-family:var(--font-sans, sans-serif); font-size:0.92rem; color:#FFFFFF; text-align:center; max-width:min(900px, 90vw); line-height:1.45; text-shadow:0 2px 8px rgba(0,0,0,0.8);"></p>
+    </div>
   `;
   document.body.appendChild(lb);
   const lbImg = lb.querySelector('img');
+  const lbCap = lb.querySelector('.lightbox-caption');
   const closeBtn = lb.querySelector('.lightbox-close');
+  let lastFocusedElement = null;
 
-  function openLightbox(src, alt) {
+  function openLightbox(src, alt, caption) {
+    lastFocusedElement = document.activeElement;
     lbImg.src = src;
     lbImg.alt = alt || '';
+    const capText = caption || alt || '';
+    if (lbCap) {
+      lbCap.textContent = capText;
+      lbCap.style.display = capText ? 'block' : 'none';
+    }
     if (typeof lb.showModal === 'function') {
       lb.showModal();
     } else {
-      lb.setAttribute('open', ''); // fallback for very old browsers
+      lb.setAttribute('open', '');
     }
+    closeBtn.focus();
   }
+
   function closeLightbox() {
     if (typeof lb.close === 'function') lb.close();
     else lb.removeAttribute('open');
+    if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+      lastFocusedElement.focus();
+    }
   }
 
   document.querySelectorAll('[data-lightbox]').forEach(el => {
-    el.addEventListener('click', () => {
+    if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '0');
+    if (!el.hasAttribute('role')) el.setAttribute('role', 'button');
+    if (!el.hasAttribute('aria-label')) el.setAttribute('aria-label', 'Click to view photo full size');
+
+    const triggerOpen = () => {
       const img = el.tagName === 'IMG' ? el : el.querySelector('img');
-      if (img) openLightbox(img.src, img.alt);
+      const caption = el.getAttribute('data-caption') || (img ? img.alt : '');
+      if (img) openLightbox(img.src, img.alt, caption);
+    };
+
+    el.addEventListener('click', triggerOpen);
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        triggerOpen();
+      }
     });
   });
 
   closeBtn.addEventListener('click', closeLightbox);
-  // clicking the backdrop (outside the image) closes it
+  // clicking the backdrop (outside the inner content) closes it
   lb.addEventListener('click', (e) => { if (e.target === lb) closeLightbox(); });
+
+  // Escape key fallback
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && (lb.open || lb.hasAttribute('open'))) {
+      closeLightbox();
+    }
+  });
 })();
