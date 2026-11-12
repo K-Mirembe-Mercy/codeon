@@ -232,6 +232,69 @@ async function runTests() {
   assert(fs.existsSync(path.join(ROOT_DIR, 'images/logo-dark.png')), 'images/logo-dark.png exists');
   assert(fs.existsSync(path.join(ROOT_DIR, 'images/logo-light.png')), 'images/logo-light.png exists');
 
+  // --- 7. Glass UI & App Shell Parity on All 6 Pages ---
+  console.log('\n--- 7. Glass UI & App Shell Parity on All 6 Pages ---');
+  for (const page of THEME_PAGES) {
+    const html = fs.readFileSync(path.join(ROOT_DIR, page), 'utf8');
+    assert(html.includes('assets/css/glass.css'), `${page} includes glass.css`);
+    assert(html.includes('assets/css/glass-shell.css'), `${page} includes glass-shell.css`);
+    assert(html.includes('assets/css/command-palette.css'), `${page} includes command-palette.css`);
+    assert(html.includes('assets/js/shell.js'), `${page} includes shell.js`);
+    assert(html.includes('assets/js/command-palette.js'), `${page} includes command-palette.js`);
+    assert(html.includes('class="skip-link"'), `${page} contains accessible skip-link`);
+    assert(html.includes('rel="canonical"'), `${page} defines canonical URL tag`);
+    assert(html.includes('property="og:title"'), `${page} defines Open Graph meta tags`);
+    assert(html.includes('name="twitter:card"'), `${page} defines Twitter card meta tags`);
+  }
+
+  // --- 8. Zero Broken Images Across All Pages ---
+  console.log('\n--- 8. Zero Broken Images Across All Pages ---');
+  for (const page of THEME_PAGES) {
+    const html = fs.readFileSync(path.join(ROOT_DIR, page), 'utf8');
+    const imgMatches = [...html.matchAll(/src=["']([^"']+)["']/g)];
+    let broken = 0;
+    for (const match of imgMatches) {
+      const src = match[1];
+      if (!src.startsWith('http') && !src.startsWith('data:')) {
+        if (!fs.existsSync(path.join(ROOT_DIR, src))) {
+          console.error(`  BROKEN IMG in ${page}: ${src}`);
+          broken++;
+        }
+      }
+    }
+    assert(broken === 0, `${page} has 0 broken image references`);
+  }
+
+  // --- 9. Interactive Forms & Functionality Checks ---
+  console.log('\n--- 9. Interactive Forms & Functionality Checks ---');
+  const contactHtml = fs.readFileSync(path.join(ROOT_DIR, 'contact.html'), 'utf8');
+  assert(contactHtml.includes('id="contactForm"'), 'contact.html includes interactive contactForm');
+  assert(contactHtml.includes('256777435942'), 'contact.html includes official WhatsApp number');
+  assert(contactHtml.includes('iframe src="https://maps.google.com/maps?q=Kampala,Uganda'), 'contact.html includes map iframe');
+
+  const outreachHtml = fs.readFileSync(path.join(ROOT_DIR, 'outreach.html'), 'utf8');
+  assert(outreachHtml.includes('id="schoolSessionForm"'), 'outreach.html includes schoolSessionForm');
+  assert(!outreachHtml.includes('outreach_threekids.jpg'), 'outreach.html no longer references missing outreach_threekids.jpg');
+
+  const agencyHtml = fs.readFileSync(path.join(ROOT_DIR, 'agency.html'), 'utf8');
+  assert(agencyHtml.includes('id="agencyBriefForm"'), 'agency.html includes agencyBriefForm');
+
+  const eventsHtml = fs.readFileSync(path.join(ROOT_DIR, 'events.html'), 'utf8');
+  assert(eventsHtml.includes('switchEventTab'), 'events.html includes event switcher script');
+
+  const indexHtml = fs.readFileSync(path.join(ROOT_DIR, 'index.html'), 'utf8');
+  assert(indexHtml.includes('id="heroTimeGreeting"'), 'index.html includes time-aware greeting');
+  assert(indexHtml.includes('pathSelector'), 'index.html includes pathSelector segmented control');
+  assert(indexHtml.includes('schema.org'), 'index.html includes Organization JSON-LD');
+
+  // --- 10. SEO & Static Data Files ---
+  console.log('\n--- 10. SEO & Static Data Files ---');
+  assert(fs.existsSync(path.join(ROOT_DIR, 'robots.txt')), 'robots.txt exists');
+  assert(fs.existsSync(path.join(ROOT_DIR, 'sitemap.xml')), 'sitemap.xml exists');
+  assert(fs.existsSync(path.join(ROOT_DIR, 'data/search-index.json')), 'data/search-index.json exists');
+  assert(fs.existsSync(path.join(ROOT_DIR, 'data/events.json')), 'data/events.json exists');
+  assert(fs.existsSync(path.join(ROOT_DIR, 'data/impact.json')), 'data/impact.json exists');
+
   console.log(`\n========================================`);
   console.log(`Results: ${passedTests}/${totalTests} tests passed.`);
   console.log(`========================================\n`);

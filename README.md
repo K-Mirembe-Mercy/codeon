@@ -1,27 +1,46 @@
 # CodeOn Ventures (codeondigital.com)
 
 Official website for **CodeOn Ventures Ltd.** — a Kampala-based student developer collective operating three primary arms:
-1. **Student Dev Agency** (`agency.html`): High-quality production software development for startups and enterprise clients.
+1. **Student Dev Agency** (`agency.html`): Production web and mobile software development for startups and enterprise clients.
 2. **Build. Solve. Belong.** (`outreach.html`): Hands-on school outreach and coding certification program across Uganda.
 3. **Tech Events & Chapters** (`events.html`): Hackathons, community events, and technical workshops (e.g., U.S. Embassy American Center, Hack 4 Bodas).
 
 ---
 
-## CodeOn Guide AI Assistant
+## Architecture: Glass Studio & App-Shell
 
-A fast, mobile-first, floating AI assistant added across all site pages (`index.html`, `agency.html`, `outreach.html`, `events.html`, `team.html`, `contact.html`).
+The website is engineered with a layered **Glass Studio** UI system inspired by modern command-dashboard aesthetics, strictly identity-locked to CodeOn's brand tokens (near-black `#05070C` and warm `#F9F9F7` base, vibrant blue `#1D4ED8`/`#2F6FED`, amber/clay `#B45309`/`#E2853E`).
 
-### Key Features
-- **Mobile-First & Lightweight**: Vanilla JS and CSS bundle under 11 KB total gzipped. Zero external dependencies. Zero layout shift.
-- **Three-Persona Guided Routing**:
-  - *Clients / Startups* → Scopes problem, budget, and timeline; routes to Agency (`info@codeondigital.com`).
-  - *Schools / Teachers* → Explains laptops & certification program; routes visit requests to Outreach (`school@codeondigital.com`).
-  - *Students / Builders* → Connects to hackathons, local chapters, and Events (`chapter@codeondigital.com`).
-- **Interactive Lead Capture**: Form embedded directly in the chat panel with honeypot spam protection, routed via `POST /api/lead`.
-- **Direct Fallbacks**: Instant 1-tap "Chat on WhatsApp" fallback button and "Talk to a human" contact options.
-- **Streaming & Memory**: Server-Sent Events (SSE) streaming with blinking cursor, typing indicator, Markdown-lite formatting, and session persistence per tab via `sessionStorage` (with safe `try/catch` fallbacks).
-- **Strict Guardrails**: Strictly grounded in `knowledge/codeon.md`; never invents prices, dates, or timelines; rejects prompt injections and out-of-scope requests (e.g., homework/essays).
-- **Accessible (WCAG AA)**: Focus trap in modal panel, `Esc` to close, `aria-live="polite"` region, 48px touch targets, and `prefers-reduced-motion` compliance.
+### Key UI Features
+- **Aurora Animated Background**: Smooth hardware-accelerated radial drift with subtle noise grain (`assets/css/glass.css`). Pauses automatically on background tabs via `visibilitychange` and under `prefers-reduced-motion: reduce`.
+- **App-Shell Navigation**:
+  - Configurable layout constant: `window.NAV_LAYOUT = "sidebar" | "topbar"` (Default: `"sidebar"`).
+  - **Desktop (>= 1100px)**: Floating frosted glass sidebar (collapsible to 76px icon rail, state preserved in `localStorage`) with registration card pinned at the bottom.
+  - **Floating Top Bar**: Fast search pill opening the Command Palette, theme cycler (Light/Dark/System), AI Sparkle launcher, dynamic events bell (checks `data/events.json`), and sticky "Work with us" CTA.
+  - **Mobile (< 1100px)**: Floating glass bottom dock with 5 touch-optimized targets (48px hit areas), with the AI assistant launcher positioned safely above (`bottom: calc(76px + env(safe-area-inset-bottom))`) with **zero collision at 360px**.
+- **Command Palette (`Ctrl+K` / `⌘K` or `/`)**: Modal fast navigation querying `data/search-index.json` with keyboard navigation (arrows, Enter, Esc) and instant fallback to CodeOn Guide.
+- **Cross-Document View Transitions**: Smooth stage fade-and-blur navigation without layout shift.
+- **Ultra-Lean Bundle Size**:
+  - CSS: **~18 KB gzipped** total across all stylesheets (limit 40 KB).
+  - JS: **~16 KB gzipped** total across all scripts (limit 60 KB).
+
+---
+
+## CodeOn Guide AI Assistant & WhatsApp
+
+- **Official WhatsApp Number**: `+256 777 435942` (`https://wa.me/256777435942`).
+  Configured centrally via `window.CODEON_WHATSAPP` and `window.CODEON_WHATSAPP_URL` across `assets/js/shell.js`, `assets/chat-widget.js`, and the contact page.
+- **Persistent Routing**: Immediate fallback links to WhatsApp and `contact.html` in every assistant error and header menu.
+- **Interactive Lead Capture**: Embedded lead forms and brief builders routing to `POST /api/lead` with honeypot spam guard.
+- **Programmatic API**: `window.__CodeOnGuide.open(initialQuery)` and `window.__CodeOnGuide.close()` for seamless triggers from search or topbar buttons.
+
+---
+
+## Static Data Files (`data/`)
+
+- `data/search-index.json`: Static index powering the Command Palette search, quick actions, and deep links.
+- `data/events.json`: Event catalog containing `upcoming` and `past` event entries. The events bell indicator lights up only when `upcoming` contains active entries.
+- `data/impact.json`: Metric store for the area chart and semicircle gauge. If empty or unverified, the impact section is automatically and cleanly hidden from the UI.
 
 ---
 
@@ -29,106 +48,71 @@ A fast, mobile-first, floating AI assistant added across all site pages (`index.
 
 ```
 ├── assets/
-│   ├── chat-widget.css          # Design-token-aligned styles (mobile sheet + desktop card)
-│   └── chat-widget.js           # Vanilla streaming chat widget (<8KB gzipped)
+│   ├── css/
+│   │   ├── glass.css            # Core glass tokens, aurora animations, and components
+│   │   ├── glass-shell.css      # App-shell layout (sidebar, topbar, mobile dock)
+│   │   └── command-palette.css  # Command palette modal styling
+│   ├── js/
+│   │   ├── shell.js             # Shell controller (sidebar collapse, event bell, greeting)
+│   │   ├── command-palette.js   # Fast search dialog controller
+│   │   └── contact-form.js      # Contact form submission and lead validation
+│   ├── chat-widget.css          # Glass AI assistant panel styling
+│   ├── chat-widget.js           # Streaming chat widget client
+│   ├── theme.js                 # 3-state theme manager (Light / Dark / System)
+│   └── icons.svg                # Lucide SVG symbol sprite
+├── data/
+│   ├── events.json              # Upcoming and past event records
+│   ├── impact.json              # Data-driven impact metrics (hidden when empty)
+│   └── search-index.json        # Fast search index for Command Palette
 ├── functions/
 │   └── api/
-│       ├── chat.js              # Cloudflare Pages Function for POST /api/chat (SSE proxy)
-│       ├── lead.js              # Cloudflare Pages Function for POST /api/lead
+│       ├── chat.js              # Cloudflare Pages Function (POST /api/chat SSE proxy)
+│       ├── lead.js              # Cloudflare Pages Function (POST /api/lead)
 │       ├── _prompt.js           # Server-side system prompt & guardrails
-│       └── _knowledge.js        # Seeded knowledge base module
+│       └── _knowledge.js        # Knowledge base module for edge runtime
+├── images/                      # WebP images with JPEG fallbacks and dual brand logos
 ├── knowledge/
-│   └── codeon.md                # Official ground-truth knowledge base (easy to edit)
+│   └── codeon.md                # Official ground-truth knowledge base
 ├── server/
-│   ├── dev-server.js            # Zero-dependency local development server
+│   ├── dev-server.js            # Zero-dependency local dev server
 │   └── systemPrompt.js          # Standalone Node prompt & knowledge loader
 ├── test/
-│   └── acceptance-checks.js     # Automated test suite for all prompt acceptance checks
-├── .env.example                 # Environment variables template
-├── package.json                 # Scripts for local dev, testing, and deployment
+│   └── acceptance-checks.js     # Automated test suite (151 QA checks passing)
+├── AUDIT.md                     # Comprehensive audit and fix verification report
+├── robots.txt                   # Search crawler directives
+├── sitemap.xml                  # XML sitemap for SEO
+├── package.json                 # Project scripts and test commands
 └── [index, agency, outreach, events, team, contact].html  # Core pages
 ```
 
 ---
 
-## Local Development & Setup
+## Local Development & Testing
 
-### 1. Prerequisites
-- Node.js (v18+)
-
-### 2. Configure Environment
-Copy `.env.example` to `.env`:
-```bash
-cp .env.example .env
-```
-Edit `.env` to supply your Anthropic API key:
-```env
-ANTHROPIC_API_KEY=sk-ant-api03-...
-ANTHROPIC_MODEL=claude-3-5-sonnet-latest
-ALLOWED_ORIGIN=https://codeondigital.com
-```
-*(Note: If no API key is set, the local dev server provides built-in mock responses so the widget UI and streaming can be tested immediately.)*
-
-### 3. Run Local Server
-Start the local server at `http://localhost:3000`:
+### 1. Run Local Server
 ```bash
 npm run dev
 # or: node server/dev-server.js
 ```
-Open `http://localhost:3000` in your browser. The CodeOn Guide widget launcher will appear in the bottom-right corner of all pages.
+Open `http://localhost:3000` in your browser.
 
----
-
-## Running the Acceptance Checks
-
-To run the automated acceptance test suite covering page includes, responsiveness, rate limiting, character limits, injection defense, out-of-scope refusals, and lead capture:
-
+### 2. Run Quality Assurance Suite
 ```bash
 npm test
 # or: node test/acceptance-checks.js
 ```
+Executes all 151 automated tests covering HTML validity, asset sizes, zero broken images, responsive constraints, rate limits, injection defense, theme toggle, and lead capture.
 
 ---
 
 ## Deploying to Cloudflare Pages
 
-The backend API is pre-configured for **Cloudflare Pages Functions** in `/functions/api/`:
-- `POST /api/chat` → Handled by `functions/api/chat.js`
-- `POST /api/lead` → Handled by `functions/api/lead.js`
-
-### Deployment Options
-
-#### Option A: Connect via Git (Recommended)
-1. In Cloudflare Dashboard, go to **Workers & Pages** → **Create application** → **Pages** → **Connect to Git**.
-2. Select the `codeon` repository (`main` branch).
-3. Build Settings:
+1. Connect the GitHub repository to Cloudflare Pages (`main` branch).
+2. Build Settings:
    - Framework preset: `None`
    - Build command: *(leave blank)*
    - Build output directory: `.`
-4. In the Pages project settings, go to **Settings** → **Environment variables** and add:
-   - `ANTHROPIC_API_KEY`: Your production Anthropic API key
+3. Set Environment Variables:
+   - `ANTHROPIC_API_KEY`: Production Anthropic API key
    - `ANTHROPIC_MODEL`: `claude-3-5-sonnet-latest` (or `claude-3-5-haiku-latest`)
-5. Click **Deploy**. Your custom domain `codeondigital.com` will immediately route both static pages and `/api/*` functions automatically.
-
-#### Option B: Deploy via Wrangler CLI
-```bash
-# Preview locally with Wrangler
-npx wrangler pages dev .
-
-# Deploy directly to Cloudflare Pages
-npx wrangler pages deploy . --project-name=codeon
-```
-
----
-
-## How to Edit the Knowledge Base
-
-1. Open `knowledge/codeon.md`.
-2. Update team members, past events, descriptions, or contact information.
-3. If deploying via Cloudflare Pages, update the corresponding export in `functions/api/_knowledge.js`.
-4. Commit your changes:
-```bash
-git add knowledge/codeon.md functions/api/_knowledge.js
-git commit -m "Update CodeOn knowledge base"
-```
-The assistant will immediately answer based on the updated facts on the next deployment.
+4. Deploy! Functions in `functions/api/` will handle `/api/chat` and `/api/lead` automatically.

@@ -3,8 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Build. Solve. Belong. — CodeOn Ventures</title>
-<meta name="description" content="CodeOn's school outreach and certification program — bringing hands-on coding sessions and community into classrooms across Kampala.">
+<title>Build. Solve. Belong. — CodeOn Outreach</title>
+<meta name="description" content="CodeOn's schools outreach and certification program across Uganda — hands-on coding literacy, laptops in classrooms, and authentic community belonging.">
+<link rel="canonical" href="https://codeondigital.com/outreach.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CodeOn Ventures">
+<meta property="og:title" content="Build. Solve. Belong. — CodeOn Schools Outreach">
+<meta property="og:description" content="Coding literacy taken directly into classrooms across Kampala and Uganda. Led by Evelyne and Ramathan.">
+<meta property="og:url" content="https://codeondigital.com/outreach.html">
+<meta property="og:image" content="https://codeondigital.com/images/outreach_crowd.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Build. Solve. Belong. — CodeOn Outreach">
+<meta name="twitter:description" content="Hands-on coding literacy, laptops, and community belonging for schools in Uganda.">
+<meta name="twitter:image" content="https://codeondigital.com/images/outreach_crowd.webp">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F9F9F7">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#05070C">
@@ -23,213 +34,462 @@
 </script>
 <link rel="icon" type="image/png" href="images/logo-dark.png">
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="assets/css/glass.css">
+<link rel="stylesheet" href="assets/css/glass-shell.css">
+<link rel="stylesheet" href="assets/css/command-palette.css">
+<link rel="stylesheet" href="assets/chat-widget.css">
 </head>
 <body>
-<header>
-  <nav class="wrap">
-    <a href="index.html" class="brand">
-      <img src="images/logo-dark.png" class="brand-logo logo-dark" alt="CodeOn logo">
-      <img src="images/logo-light.png" class="brand-logo logo-light" alt="CodeOn logo">
-      <span>CodeOn</span>
-    </a>
-    <div class="navlinks">
-      <a href="index.html">Home</a>
-      <a href="agency.html">Agency</a>
-      <a href="outreach.html" class="active">Build. Solve. Belong.</a>
-      <a href="events.html">Events</a>
-      <a href="team.html">Team</a>
+<a href="#main" class="skip-link">Skip to main content</a>
+<div class="aurora-bg" aria-hidden="true"></div>
+<div class="aurora-noise" aria-hidden="true"></div>
+
+<div class="app-layout">
+  <!-- Desktop Glass Sidebar -->
+  <aside class="app-sidebar glass-chrome" id="appSidebar" aria-label="Desktop Navigation">
+    <div>
+      <div class="sidebar-header">
+        <a href="index.html" class="sidebar-brand">
+          <img src="images/logo-dark.png" class="brand-logo logo-dark" alt="CodeOn logo" width="32" height="32">
+          <img src="images/logo-light.png" class="brand-logo logo-light" alt="CodeOn logo" width="32" height="32">
+          <span>CodeOn</span>
+        </a>
+        <button type="button" class="sidebar-collapse-btn" id="sidebarCollapseBtn" aria-label="Toggle sidebar collapse" title="Collapse sidebar">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/></svg>
+        </button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="sidebar-group-title">Organization</div>
+        <div class="sidebar-links">
+          <a href="index.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></a>
+          <a href="agency.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg><span>Agency</span></a>
+          <a href="outreach.html" class="sidebar-link active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg><span>Build. Solve. Belong.</span></a>
+          <a href="events.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg><span>Events</span></a>
+          <a href="team.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Team</span></a>
+        </div>
+
+        <div class="sidebar-group-title" style="margin-top:12px;">Connect</div>
+        <div class="sidebar-links">
+          <a href="contact.html" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg><span>Contact</span></a>
+          <a href="https://wa.me/256777435942?text=Hello%20CodeOn%2C%20I%27d%20like%20to%20ask%20about..." target="_blank" rel="noopener" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg><span>Chat on WhatsApp</span></a>
+          <a href="https://www.youtube.com/@Codeon-h1i" target="_blank" rel="noopener" class="sidebar-link"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2 31 31 0 000 12a31 31 0 00.5 5.8 3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1A31 31 0 0024 12a31 31 0 00-.5-5.8zM9.6 15.5v-7l6.3 3.5-6.3 3.5z"/></svg><span>YouTube</span></a>
+          <a href="https://x.com/CodeOn_UG" target="_blank" rel="noopener" class="sidebar-link"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 3H21l-6.5 7.4L22 21h-6.4l-5-6.5L4.7 21H2.6l7-8-7.2-9H9l4.6 6 5.3-6zm-1.1 16.2h1.2L7.3 4.7H6l11.8 14.5z"/></svg><span>X (Twitter)</span></a>
+        </div>
+      </nav>
     </div>
-    <div class="nav-actions">
-      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch color theme" title="Switch color theme">
-        <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-        <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        <svg class="theme-icon-system" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-      </button>
-      <a href="contact.html" class="nav-cta">Work with us</a>
+
+    <div class="sidebar-bottom-card">
+      <div class="reg-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+        <span>Registered Entity</span>
+      </div>
+      <div>CODEON VENTURES LTD</div>
+      <div style="font-family:var(--font-mono); font-size:0.65rem; margin-top:2px;">Reg. 80043215742576</div>
     </div>
-    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
-      <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-      <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
-    </button>
-  </nav>
-  <div class="mobile-menu" id="mobileMenu">
-    <div class="mobile-menu-inner">
-      <a href="index.html">Home</a>
-      <a href="agency.html">Agency</a>
-      <a href="outreach.html" class="active">Build. Solve. Belong.</a>
-      <a href="events.html">Events</a>
-      <a href="team.html">Team</a>
-      <div class="mobile-theme-row">
-        <span>Theme</span>
-        <button class="theme-toggle mobile-theme-toggle" id="themeToggleMobile" type="button" aria-label="Switch color theme">
+  </aside>
+
+  <!-- Stage Area -->
+  <div class="app-main-stage">
+    <!-- Floating Top Bar -->
+    <header class="floating-topbar glass-chrome">
+      <div class="topbar-left">
+        <button type="button" class="search-pill-btn" onclick="window.__CodeOnCmd && window.__CodeOnCmd.open()" aria-label="Open Command Palette">
+          <span class="left-grp">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <span>Search or jump to...</span>
+          </span>
+          <span class="hint-grp"><span class="kbd">⌘K</span></span>
+        </button>
+      </div>
+
+      <div class="topbar-right">
+        <button class="theme-toggle icon-btn" id="themeToggle" type="button" aria-label="Switch color theme" title="Switch color theme">
           <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
           <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
           <svg class="theme-icon-system" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-          <span class="theme-toggle-label">System</span>
         </button>
-      </div>
-      <a href="contact.html" class="nav-cta">Work with us</a>
-    </div>
-  </div>
-</header>
-<main>
 
-<section class="page-hero">
-  <div class="bg"><img src="images/outreach_crowd.jpg" alt="Hundreds of students cheering at a CodeOn school visit" style="object-position:center 32%;"></div>
-  <div class="wrap page-hero-content">
-    <div class="crumbs"><a href="index.html">Home</a> / <span>Build. Solve. Belong.</span></div>
-    <h1>Coding literacy, taken directly into the classroom.</h1>
-    <p>Our schools and certification program — hands-on sessions, real laptops, and a real sense of community.</p>
-  </div>
-</section>
+        <button class="icon-btn sparkle-btn" onclick="window.__CodeOnGuide && window.__CodeOnGuide.open()" title="Ask CodeOn Guide" aria-label="Open AI Assistant">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+        </button>
 
-<section class="deep clay">
-  <div class="wrap deep-inner reverse reveal">
-    <div class="deep-text">
-      <div class="eyebrow clay">Arm 02 — Build. Solve. Belong.</div>
-      <h2>Built around belonging, not just curriculum.</h2>
-      <p>Led by Evelyne and Ramathan, this program brings hands-on coding sessions, laptops, and a real sense of community to schools that rarely get this kind of access.</p>
-      <div class="checklist">
-        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Hands-on sessions — real laptops, real code, real small wins</div>
-        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> A clear certification pathway students carry forward</div>
-        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Built around belonging — not just curriculum</div>
-      </div>
-      <div class="quote-block">
-        <p>"CodeOn is a global family of builders and problem solvers — bound by code, driven by purpose, and connected for life."</p>
-        <div class="who">— CODEON MISSION STATEMENT</div>
-      </div>
-      <a href="contact.html" class="btn btn-clay" style="margin-top:30px;">Request a school session <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-    </div>
-    <div class="bento">
-      <div class="cell b1" data-lightbox><img src="images/outreach_classroom.jpg" alt="A packed classroom during a CodeOn outreach session" style="object-position:center 30%;"></div>
-      <div class="cell" data-lightbox><img src="images/outreach_laptop_kids.jpg" alt="Young students gathered around a laptop with the CodeOn banner" style="object-position:center 25%;"></div>
-      <div class="cell" data-lightbox><img src="images/outreach_showing_laptop.jpg" alt="A CodeOn volunteer showing code to a room of students" style="object-position:center 30%;"></div>
-    </div>
-  </div>
-</section>
-
-<div class="ring-divider">
-    <span class="seg"></span>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><path d="M12 8v4"/></svg>
-    <span class="seg"></span>
-  </div>
-
-
-<section class="deep">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div class="eyebrow">In the field</div>
-      <h2>More from the classrooms.</h2>
-      <p>Click any photo to see it full-size.</p>
-    </div>
-    <div class="gallery reveal">
-      <div class="g-item tall" data-lightbox>
-        <img src="images/outreach_field.jpg" alt="Students posing outdoors with the CodeOn banner" style="object-position:center 30%;">
-        <div class="cap">Outdoor session wrap-up</div>
-      </div>
-      <div class="g-item" data-lightbox>
-        <img src="images/outreach_blue_group.jpg" alt="A full class in blue uniforms with the CodeOn team" style="object-position:center 25%;">
-        <div class="cap">Welcoming a new school</div>
-      </div>
-      <div class="g-item" data-lightbox>
-        <img src="images/outreach_blue_wave.jpg" alt="Students waving with hands raised" style="object-position:center 30%;">
-        <div class="cap">Excited to learn</div>
-      </div>
-      <div class="g-item" data-lightbox>
-        <img src="images/outreach_chalkboard.jpg" alt="A teacher at the chalkboard at Ebenezer Children's Centre" style="object-position:center 25%;">
-        <div class="cap">Ebenezer Children's Centre</div>
-      </div>
-      <div class="g-item" data-lightbox>
-        <img src="images/outreach_threekids.jpg" alt="Three students posing together" style="object-position:center 20%;">
-        <div class="cap">New friends</div>
-      </div>
-      <div class="g-item tall" data-lightbox>
-        <img src="images/outreach_purple_group.jpg" alt="A full classroom of students with the CodeOn banner" style="object-position:center 25%;">
-        <div class="cap">A full house</div>
-      </div>
-      <div class="g-item" data-lightbox>
-        <img src="images/outreach_tinroom.jpg" alt="A CodeOn volunteer holding a laptop for young students" style="object-position:center 30%;">
-        <div class="cap">Story time with code</div>
-      </div>
-      <div class="g-item" data-lightbox>
-        <img src="images/outreach_girl_closeup.jpg" alt="A CodeOn volunteer sitting with a young student" style="object-position:center 25%;">
-        <div class="cap">A quiet moment</div>
-      </div>
-      <div class="g-item" data-lightbox>
-        <img src="images/outreach_girl_ear.jpg" alt="A curious young student" style="object-position:center 25%;">
-        <div class="cap">Curious minds</div>
-      </div>
-      <div class="g-item" data-lightbox>
-        <img src="images/outreach_talking2.jpg" alt="A CodeOn volunteer talking with a line of students" style="object-position:center 25%;">
-        <div class="cap">Getting to know each other</div>
-      </div>
-      <div class="g-item" data-lightbox>
-        <img src="images/outreach_crowd.jpg" alt="Students cheering at a CodeOn school visit" style="object-position:center 30%;">
-        <div class="cap">A full school courtyard</div>
-      </div>
-      <div class="g-item" data-lightbox>
-        <img src="images/outreach_classroom.jpg" alt="Students seated during a lesson" style="object-position:center 25%;">
-        <div class="cap">Classroom session</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="ctaband">
-  <div class="wrap ctaband-inner reveal">
-    <div class="eyebrow" style="justify-content:center;">For schools</div>
-    <h2>Bring CodeOn to your school.</h2>
-    <p>We'll work with your team to schedule a session that fits your students and your calendar.</p>
-    <div class="btn-row">
-      <a href="mailto:school@codeondigital.com" class="btn btn-clay">school@codeondigital.com <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <a href="contact.html" class="btn btn-ghost">Visit contact page</a>
-    </div>
-  </div>
-</section>
-
-</main>
-<footer>
-  <div class="wrap">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <a href="index.html" class="brand">
-          <img src="images/logo-dark.png" class="brand-logo logo-dark" alt="CodeOn logo">
-          <img src="images/logo-light.png" class="brand-logo logo-light" alt="CodeOn logo">
-          <span>CodeOn</span>
+        <a href="events.html" class="icon-btn bell-btn" id="eventsBellBtn" title="Events" aria-label="Events">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
         </a>
-        <p>A Kampala-based student developer collective — building software, teaching code, and running the events that connect it all.</p>
+
+        <a href="contact.html" class="topbar-cta">Work with us</a>
       </div>
-      <div class="fcol">
-        <h5>Organization</h5>
-        <a href="agency.html">Agency</a>
-        <a href="outreach.html">Build. Solve. Belong.</a>
-        <a href="events.html">Events</a>
-        <a href="team.html">Team</a>
+    </header>
+
+    <!-- Main Stage Content -->
+    <main class="stage-panel" id="main">
+      <div class="crumbs" style="margin-bottom:12px;"><a href="index.html">Home</a> / <span>Build. Solve. Belong.</span></div>
+      <div class="status-pill" style="margin-bottom:16px;"><span class="dot"></span> ARM 02 — SCHOOLS OUTREACH &amp; CERTIFICATION</div>
+
+      <h1 style="font-size:clamp(2rem, 4vw, 3rem); font-weight:700; letter-spacing:-0.03em; margin:0 0 12px;">Coding literacy, taken directly into the classroom.</h1>
+      <p style="font-size:1.1rem; color:var(--text-muted); max-width:680px; line-height:1.6; margin-bottom:32px;">Our schools and certification program — hands-on sessions, real laptops, and an authentic sense of community.</p>
+
+      <!-- Program Overview Feature Bento -->
+      <div class="glass-card" style="padding:32px; margin-bottom:40px;">
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:32px; align-items:center;">
+          <div>
+            <div class="badge badge-clay" style="margin-bottom:12px;">Led by Evelyne and Ramathan</div>
+            <h2 style="font-size:1.65rem; margin:0 0 12px;">Built around belonging, not just curriculum.</h2>
+            <p style="color:var(--text-muted); line-height:1.6; margin-bottom:16px;">Led by Evelyne and Ramathan, this program brings hands-on coding sessions, laptops, and a real sense of community to schools that rarely get this kind of access.</p>
+
+            <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:24px;">
+              <div style="display:flex; align-items:center; gap:10px; font-size:0.92rem;">
+                <span class="badge" style="padding:2px 8px; font-size:0.65rem;">✓</span>
+                <span>Hands-on sessions — real laptops, real code, real small wins</span>
+              </div>
+              <div style="display:flex; align-items:center; gap:10px; font-size:0.92rem;">
+                <span class="badge" style="padding:2px 8px; font-size:0.65rem;">✓</span>
+                <span>A clear certification pathway students carry forward</span>
+              </div>
+              <div style="display:flex; align-items:center; gap:10px; font-size:0.92rem;">
+                <span class="badge" style="padding:2px 8px; font-size:0.65rem;">✓</span>
+                <span>Built around belonging — not just curriculum</span>
+              </div>
+            </div>
+
+            <div style="background:var(--glass-card-bg); border-left:3px solid var(--clay); padding:14px 18px; border-radius:0 var(--r-tile) var(--r-tile) 0; margin-bottom:24px;">
+              <p style="font-style:italic; font-size:0.92rem; line-height:1.5; margin:0 0 6px;">"CodeOn is a global family of builders and problem solvers — bound by code, driven by purpose, and connected for life."</p>
+              <div style="font-family:var(--font-mono); font-size:0.72rem; color:var(--text-muted);">— CODEON MISSION STATEMENT</div>
+            </div>
+
+            <a href="#school-form" class="btn-solid" style="background:var(--clay); box-shadow:0 8px 24px -4px rgba(180,83,9,0.45);">
+              Request a school session <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div style="grid-column:1 / -1; border-radius:var(--r-card); overflow:hidden; border:1px solid var(--glass-border);" data-lightbox>
+              <picture>
+                <source srcset="images/outreach_classroom.webp" type="image/webp">
+                <img src="images/outreach_classroom.jpg" alt="A packed classroom during a CodeOn outreach session" width="1100" height="618" loading="lazy" style="width:100%; height:200px; object-fit:cover; display:block;">
+              </picture>
+            </div>
+            <div style="border-radius:var(--r-card); overflow:hidden; border:1px solid var(--glass-border);" data-lightbox>
+              <picture>
+                <source srcset="images/outreach_laptop_kids.webp" type="image/webp">
+                <img src="images/outreach_laptop_kids.jpg" alt="Young students gathered around a laptop with the CodeOn banner" width="1100" height="825" loading="lazy" style="width:100%; height:140px; object-fit:cover; display:block;">
+              </picture>
+            </div>
+            <div style="border-radius:var(--r-card); overflow:hidden; border:1px solid var(--glass-border);" data-lightbox>
+              <picture>
+                <source srcset="images/outreach_showing_laptop.webp" type="image/webp">
+                <img src="images/outreach_showing_laptop.jpg" alt="A CodeOn volunteer showing code to a room of students" width="1080" height="810" loading="lazy" style="width:100%; height:140px; object-fit:cover; display:block;">
+              </picture>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="fcol">
-        <h5>Contact</h5>
-        <a href="mailto:info@codeondigital.com">info@codeondigital.com</a>
-        <a href="mailto:school@codeondigital.com">school@codeondigital.com</a>
-        <a href="mailto:chapter@codeondigital.com">chapter@codeondigital.com</a>
+
+      <!-- Verified Field Photo Gallery (Masonry with Lightbox) -->
+      <div style="margin-bottom:48px;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:20px;">
+          <div>
+            <div class="eyebrow">In the field</div>
+            <h2 style="font-size:1.5rem; margin:0 0 4px;">More from the classrooms across Uganda.</h2>
+            <span style="font-size:0.85rem; color:var(--text-muted);">Click any photo to view in high resolution</span>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:16px;">
+          <div class="glass-card" style="padding:10px;" data-lightbox>
+            <picture>
+              <source srcset="images/outreach_field.webp" type="image/webp">
+              <img src="images/outreach_field.jpg" alt="Students posing outdoors with the CodeOn banner" width="1100" height="618" loading="lazy" style="width:100%; height:220px; object-fit:cover; border-radius:var(--r-tile);">
+            </picture>
+            <div style="font-size:0.82rem; font-weight:600; padding:8px 6px 2px;">Outdoor session wrap-up</div>
+          </div>
+
+          <div class="glass-card" style="padding:10px;" data-lightbox>
+            <picture>
+              <source srcset="images/outreach_blue_group.webp" type="image/webp">
+              <img src="images/outreach_blue_group.jpg" alt="A full class in blue uniforms with the CodeOn team" width="1080" height="810" loading="lazy" style="width:100%; height:220px; object-fit:cover; border-radius:var(--r-tile);">
+            </picture>
+            <div style="font-size:0.82rem; font-weight:600; padding:8px 6px 2px;">Welcoming a new school</div>
+          </div>
+
+          <div class="glass-card" style="padding:10px;" data-lightbox>
+            <picture>
+              <source srcset="images/outreach_blue_wave.webp" type="image/webp">
+              <img src="images/outreach_blue_wave.jpg" alt="Students waving with hands raised" width="1100" height="825" loading="lazy" style="width:100%; height:220px; object-fit:cover; border-radius:var(--r-tile);">
+            </picture>
+            <div style="font-size:0.82rem; font-weight:600; padding:8px 6px 2px;">Excited to learn</div>
+          </div>
+
+          <div class="glass-card" style="padding:10px;" data-lightbox>
+            <picture>
+              <source srcset="images/outreach_chalkboard.webp" type="image/webp">
+              <img src="images/outreach_chalkboard.jpg" alt="A teacher at the chalkboard at Ebenezer Children's Centre" width="1100" height="825" loading="lazy" style="width:100%; height:220px; object-fit:cover; border-radius:var(--r-tile);">
+            </picture>
+            <div style="font-size:0.82rem; font-weight:600; padding:8px 6px 2px;">Ebenezer Children's Centre</div>
+          </div>
+
+          <div class="glass-card" style="padding:10px;" data-lightbox>
+            <picture>
+              <source srcset="images/outreach_twoboys.webp" type="image/webp">
+              <img src="images/outreach_twoboys.jpg" alt="Students posing together with CodeOn" width="1100" height="1955" loading="lazy" style="width:100%; height:220px; object-fit:cover; border-radius:var(--r-tile);">
+            </picture>
+            <div style="font-size:0.82rem; font-weight:600; padding:8px 6px 2px;">New friends &amp; young coders</div>
+          </div>
+
+          <div class="glass-card" style="padding:10px;" data-lightbox>
+            <picture>
+              <source srcset="images/outreach_purple_group.webp" type="image/webp">
+              <img src="images/outreach_purple_group.jpg" alt="A full classroom of students with the CodeOn banner" width="1080" height="810" loading="lazy" style="width:100%; height:220px; object-fit:cover; border-radius:var(--r-tile);">
+            </picture>
+            <div style="font-size:0.82rem; font-weight:600; padding:8px 6px 2px;">A full house in purple</div>
+          </div>
+
+          <div class="glass-card" style="padding:10px;" data-lightbox>
+            <picture>
+              <source srcset="images/outreach_tinroom.webp" type="image/webp">
+              <img src="images/outreach_tinroom.jpg" alt="A CodeOn volunteer holding a laptop for young students" width="1100" height="825" loading="lazy" style="width:100%; height:220px; object-fit:cover; border-radius:var(--r-tile);">
+            </picture>
+            <div style="font-size:0.82rem; font-weight:600; padding:8px 6px 2px;">Story time with code</div>
+          </div>
+
+          <div class="glass-card" style="padding:10px;" data-lightbox>
+            <picture>
+              <source srcset="images/outreach_girl_closeup.webp" type="image/webp">
+              <img src="images/outreach_girl_closeup.jpg" alt="A CodeOn volunteer sitting with a young student" width="1080" height="810" loading="lazy" style="width:100%; height:220px; object-fit:cover; border-radius:var(--r-tile);">
+            </picture>
+            <div style="font-size:0.82rem; font-weight:600; padding:8px 6px 2px;">A quiet moment</div>
+          </div>
+
+          <div class="glass-card" style="padding:10px;" data-lightbox>
+            <picture>
+              <source srcset="images/outreach_girl_ear.webp" type="image/webp">
+              <img src="images/outreach_girl_ear.jpg" alt="A curious young student" width="1008" height="567" loading="lazy" style="width:100%; height:220px; object-fit:cover; border-radius:var(--r-tile);">
+            </picture>
+            <div style="font-size:0.82rem; font-weight:600; padding:8px 6px 2px;">Curious minds</div>
+          </div>
+
+          <div class="glass-card" style="padding:10px;" data-lightbox>
+            <picture>
+              <source srcset="images/outreach_talking.webp" type="image/webp">
+              <img src="images/outreach_talking.jpg" alt="A CodeOn volunteer talking with a line of students" width="1080" height="810" loading="lazy" style="width:100%; height:220px; object-fit:cover; border-radius:var(--r-tile);">
+            </picture>
+            <div style="font-size:0.82rem; font-weight:600; padding:8px 6px 2px;">Getting to know each other</div>
+          </div>
+
+          <div class="glass-card" style="padding:10px;" data-lightbox>
+            <picture>
+              <source srcset="images/outreach_crowd.webp" type="image/webp">
+              <img src="images/outreach_crowd.jpg" alt="Students cheering at a CodeOn school visit" width="1100" height="618" loading="lazy" style="width:100%; height:220px; object-fit:cover; border-radius:var(--r-tile);">
+            </picture>
+            <div style="font-size:0.82rem; font-weight:600; padding:8px 6px 2px;">A full school courtyard</div>
+          </div>
+
+          <div class="glass-card" style="padding:10px;" data-lightbox>
+            <picture>
+              <source srcset="images/outreach_brickclass1.webp" type="image/webp">
+              <img src="images/outreach_brickclass1.jpg" alt="Students seated during a lesson in a brick classroom" width="1080" height="810" loading="lazy" style="width:100%; height:220px; object-fit:cover; border-radius:var(--r-tile);">
+            </picture>
+            <div style="font-size:0.82rem; font-weight:600; padding:8px 6px 2px;">Classroom session</div>
+          </div>
+        </div>
       </div>
-      <div class="fcol">
-        <h5>Based in</h5>
-        <a href="https://maps.google.com/?q=Kampala,Uganda" target="_blank" rel="noopener">Kampala, Uganda</a>
-        <a href="https://codeondigital.com" target="_blank" rel="noopener">codeondigital.com</a>
+
+      <!-- School Session Request Form -->
+      <div class="glass-card" id="school-form" style="padding:36px; margin-bottom:40px;">
+        <div class="eyebrow clay" style="margin-bottom:8px;">Schedule a Visit</div>
+        <h2 style="font-size:1.6rem; margin:0 0 8px;">Bring CodeOn to your school.</h2>
+        <p style="color:var(--text-muted); font-size:0.94rem; line-height:1.6; max-width:680px; margin-bottom:24px;">Our outreach team brings hardware, certified student mentors, and structured modules right into your school's computer lab or hall.</p>
+
+        <form id="schoolSessionForm">
+          <input type="text" name="_hp" style="display:none;" tabindex="-1" autocomplete="off">
+          <input type="hidden" name="arm" value="school">
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="schoolName">School Name</label>
+              <input type="text" class="form-input" id="schoolName" name="organization" placeholder="e.g. Ebenezer Children's Centre" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="schoolDistrict">District in Uganda</label>
+              <input type="text" class="form-input" id="schoolDistrict" name="district" placeholder="e.g. Kampala, Wakiso, Mukono" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="schoolAgeGroup">Student Age Group</label>
+              <select class="form-select" id="schoolAgeGroup" name="ageGroup">
+                <option value="Upper Primary (P5 - P7)">Upper Primary (P5 - P7)</option>
+                <option value="Lower Secondary (S1 - S2)">Lower Secondary (S1 - S2)</option>
+                <option value="Upper Secondary (S3 - S6)">Upper Secondary (S3 - S6)</option>
+                <option value="Mixed Ages / Community">Mixed Ages / Community Group</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="schoolTerm">Preferred Term for Visit</label>
+              <select class="form-select" id="schoolTerm" name="term">
+                <option value="Term 1">Term 1</option>
+                <option value="Term 2">Term 2</option>
+                <option value="Term 3">Term 3</option>
+                <option value="School Holiday / Break">School Holiday / Break</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="schoolContactPerson">Contact Person Name</label>
+              <input type="text" class="form-input" id="schoolContactPerson" name="name" placeholder="Teacher / Headteacher name" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="schoolContactNumber">Phone / WhatsApp or Email</label>
+              <input type="text" class="form-input" id="schoolContactNumber" name="contact" placeholder="e.g. +256 701... or email" required>
+            </div>
+
+            <div class="form-group form-full">
+              <label class="form-label" for="schoolNotes">Additional Notes or Lab Details (optional)</label>
+              <textarea class="form-textarea" id="schoolNotes" name="need" rows="3" placeholder="Tell us about the number of students, lab setup, or specific goals..."></textarea>
+            </div>
+          </div>
+
+          <div class="form-status" id="schoolFormStatus"></div>
+
+          <button type="submit" class="btn-solid" id="schoolSubmitBtn" style="background:var(--clay); box-shadow:0 8px 24px -4px rgba(180,83,9,0.45); margin-top:20px; width:100%;">
+            Submit School Visit Request <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </form>
       </div>
-    </div>
-    <div class="footer-bottom">
-      <span>&copy; 2026 CodeOn Ventures Ltd. All rights reserved.</span>
-      <div class="socials">
-        <a href="https://www.youtube.com/@Codeon-h1i" target="_blank" rel="noopener" aria-label="CodeOn on YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2 31 31 0 000 12a31 31 0 00.5 5.8 3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1A31 31 0 0024 12a31 31 0 00-.5-5.8zM9.6 15.5v-7l6.3 3.5-6.3 3.5z"/></svg></a>
-        <a href="https://x.com/CodeOn_UG" target="_blank" rel="noopener" aria-label="CodeOn on X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 3H21l-6.5 7.4L22 21h-6.4l-5-6.5L4.7 21H2.6l7-8-7.2-9H9l4.6 6 5.3-6zm-1.1 16.2h1.2L7.3 4.7H6l11.8 14.5z"/></svg></a>
-        <a href="https://tiktok.com/@buildwithcodeon" target="_blank" rel="noopener" aria-label="CodeOn on TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82a4.28 4.28 0 01-3.14-1.4V15.3a5.1 5.1 0 11-4.4-5.05v2.6a2.5 2.5 0 102.5 2.5V2h2.44a4.28 4.28 0 001.5 2.9 4.24 4.24 0 002.8 1.06V8.4a6.8 6.8 0 01-1.7-.22v-2.3z"/></svg></a>
+    </main>
+
+    <!-- Unified Shared Glass Footer -->
+    <footer class="glass-card" style="padding:32px 36px; border-radius:var(--r-card);">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:28px; margin-bottom:28px;">
+        <div>
+          <a href="index.html" class="brand" style="margin-bottom:12px; display:inline-flex;">
+            <img src="images/logo-dark.png" class="brand-logo logo-dark" alt="CodeOn logo" width="30" height="30">
+            <img src="images/logo-light.png" class="brand-logo logo-light" alt="CodeOn logo" width="30" height="30">
+            <span style="font-weight:700; font-size:1.1rem; margin-left:8px;">CodeOn</span>
+          </a>
+          <p style="color:var(--text-muted); font-size:0.86rem; line-height:1.5;">A Kampala-based student developer collective — building software, teaching code, and running the events that connect it all.</p>
+        </div>
+        <div>
+          <h5 style="font-size:0.85rem; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:12px; color:var(--text);">Organization</h5>
+          <div style="display:flex; flex-direction:column; gap:8px; font-size:0.88rem;">
+            <a href="agency.html" style="color:var(--text-muted); text-decoration:none;">Student Dev Agency</a>
+            <a href="outreach.html" style="color:var(--text-muted); text-decoration:none;">Build. Solve. Belong.</a>
+            <a href="events.html" style="color:var(--text-muted); text-decoration:none;">Tech Events</a>
+            <a href="team.html" style="color:var(--text-muted); text-decoration:none;">Leadership Team</a>
+          </div>
+        </div>
+        <div>
+          <h5 style="font-size:0.85rem; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:12px; color:var(--text);">Contact &amp; Inboxes</h5>
+          <div style="display:flex; flex-direction:column; gap:8px; font-size:0.88rem;">
+            <a href="mailto:info@codeondigital.com" style="color:var(--text-muted); text-decoration:none;">info@codeondigital.com</a>
+            <a href="mailto:school@codeondigital.com" style="color:var(--text-muted); text-decoration:none;">school@codeondigital.com</a>
+            <a href="mailto:chapter@codeondigital.com" style="color:var(--text-muted); text-decoration:none;">chapter@codeondigital.com</a>
+            <a href="https://wa.me/256777435942?text=Hello%20CodeOn%2C%20I%27d%20like%20to%20ask%20about..." target="_blank" rel="noopener" style="color:var(--accent); text-decoration:none;">WhatsApp: +256 777 435942</a>
+          </div>
+        </div>
+        <div>
+          <h5 style="font-size:0.85rem; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:12px; color:var(--text);">Registration &amp; Social</h5>
+          <div style="font-size:0.82rem; color:var(--text-muted); line-height:1.5; margin-bottom:12px;">
+            🇺🇬 OFFICIALLY REGISTERED IN UGANDA<br>
+            CODEON VENTURES LTD · Reg. No. 80043215742576<br>
+            Incorporated under the Companies Act 2012
+          </div>
+          <div style="display:flex; gap:12px;">
+            <a href="https://www.youtube.com/@Codeon-h1i" target="_blank" rel="noopener" aria-label="CodeOn on YouTube" style="color:var(--text-muted);"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2 31 31 0 000 12a31 31 0 00.5 5.8 3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1A31 31 0 0024 12a31 31 0 00-.5-5.8zM9.6 15.5v-7l6.3 3.5-6.3 3.5z"/></svg></a>
+            <a href="https://x.com/CodeOn_UG" target="_blank" rel="noopener" aria-label="CodeOn on X" style="color:var(--text-muted);"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M18.9 3H21l-6.5 7.4L22 21h-6.4l-5-6.5L4.7 21H2.6l7-8-7.2-9H9l4.6 6 5.3-6zm-1.1 16.2h1.2L7.3 4.7H6l11.8 14.5z"/></svg></a>
+            <a href="https://tiktok.com/@buildwithcodeon" target="_blank" rel="noopener" aria-label="CodeOn on TikTok" style="color:var(--text-muted);"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M16.6 5.82a4.28 4.28 0 01-3.14-1.4V15.3a5.1 5.1 0 11-4.4-5.05v2.6a2.5 2.5 0 102.5 2.5V2h2.44a4.28 4.28 0 001.5 2.9 4.24 4.24 0 002.8 1.06V8.4a6.8 6.8 0 01-1.7-.22v-2.3z"/></svg></a>
+          </div>
+        </div>
       </div>
-    </div>
+      <div style="border-top:1px solid var(--glass-border-light); padding-top:16px; font-size:0.78rem; color:var(--text-muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+        <span>&copy; 2026 CodeOn Ventures Ltd. All rights reserved.</span>
+        <span>Build • Solve • Belong</span>
+      </div>
+    </footer>
   </div>
-</footer>
+</div>
+
+<!-- Mobile Floating Bottom Dock (Under 1100px) -->
+<nav class="floating-bottom-dock glass-chrome" aria-label="Mobile Navigation">
+  <a href="index.html" class="dock-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span>Home</span>
+  </a>
+  <a href="agency.html" class="dock-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+    <span>Agency</span>
+  </a>
+  <a href="outreach.html" class="dock-item active">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+    <span>Schools</span>
+  </a>
+  <a href="events.html" class="dock-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+    <span>Events</span>
+  </a>
+  <a href="team.html" class="dock-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    <span>Team</span>
+  </a>
+</nav>
+
+<script>
+document.getElementById('schoolSessionForm')?.addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const form = e.target;
+  const statusEl = document.getElementById('schoolFormStatus');
+  const btn = document.getElementById('schoolSubmitBtn');
+
+  const formData = new FormData(form);
+  const organization = formData.get('organization');
+  const district = formData.get('district');
+  const ageGroup = formData.get('ageGroup');
+  const term = formData.get('term');
+  const name = formData.get('name');
+  const contact = formData.get('contact');
+  const notes = formData.get('need') || '';
+  const hp = formData.get('_hp');
+
+  btn.disabled = true;
+  btn.innerText = 'Submitting...';
+
+  try {
+    const res = await fetch('/api/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        arm: 'school',
+        name,
+        contact,
+        organization: `${organization} (${district})`,
+        need: `Age Group: ${ageGroup} | Term: ${term} | Notes: ${notes}`,
+        _hp: hp
+      })
+    });
+    const data = await res.json();
+    if (res.ok && data.success) {
+      form.reset();
+      statusEl.textContent = 'Thank you! Your school visit request has been sent to Evelyne & Ramathan. We will be in touch shortly.';
+      statusEl.className = 'form-status status-success';
+    } else {
+      throw new Error(data.error || 'Submission failed');
+    }
+  } catch (err) {
+    statusEl.textContent = 'Please email our outreach leads directly at school@codeondigital.com or reach us on WhatsApp at +256 777 435942';
+    statusEl.className = 'form-status status-error';
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = 'Submit School Visit Request <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
+  }
+});
+</script>
 <script src="assets/theme.js" defer></script>
-<script src="script.js"></script>
+<script src="assets/js/shell.js" defer></script>
+<script src="assets/js/command-palette.js" defer></script>
+<script src="script.js" defer></script>
 <link rel="stylesheet" href="assets/chat-widget.css"><script src="assets/chat-widget.js" defer></script>
 </body>
 </html>
