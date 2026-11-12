@@ -219,6 +219,21 @@
   max-width: 480px;
 }
 
+/* Brand Chip in Topbar (shown on mobile or when NAV_LAYOUT = "topbar") */
+.topbar-brand {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.topbar-brand img {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: block;
+}
+
 /* Search Field Pill (Opens Command Palette) */
 .search-pill-btn {
   width: 100%;
@@ -312,6 +327,22 @@
 /* ==========================================================================
    Mobile Floating Bottom Dock (Under 1100px)
    ========================================================================== */
+/* Layout Topbar Mode (when NAV_LAYOUT = "topbar") */
+.layout-topbar .app-sidebar {
+  display: none !important;
+}
+.layout-topbar .app-layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 90px;
+}
+.layout-topbar .topbar-brand {
+  display: flex !important;
+}
+.layout-topbar .floating-bottom-dock {
+  display: flex !important;
+}
+
 .floating-bottom-dock {
   display: none;
 }
@@ -319,6 +350,9 @@
 @media (max-width: 1099px) {
   .app-sidebar {
     display: none !important;
+  }
+  .topbar-brand {
+    display: flex;
   }
   .app-layout {
     padding: 12px 12px 90px;
@@ -387,6 +421,57 @@
   }
   .dock-item.active svg {
     filter: drop-shadow(0 2px 8px rgba(29, 78, 216, 0.4));
+  }
+}
+
+@media (max-width: 640px) {
+  .floating-topbar {
+    height: 52px;
+    padding: 0 10px;
+    gap: 8px;
+  }
+  .topbar-left {
+    gap: 8px;
+    min-width: 0;
+  }
+  .search-pill-btn {
+    height: 38px;
+    padding: 0 10px;
+    min-width: 38px;
+  }
+  .search-pill-btn .left-grp span {
+    display: none;
+  }
+  .topbar-right {
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .bell-btn {
+    display: none; /* Events accessible directly in bottom dock */
+  }
+  .topbar-cta {
+    height: 36px;
+    padding: 0 12px;
+    font-size: 0.78rem;
+  }
+  .icon-btn {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+@media (max-width: 380px) {
+  .topbar-cta {
+    padding: 0 10px;
+    font-size: 0.72rem;
+  }
+  .floating-bottom-dock {
+    width: calc(100% - 16px);
+    height: 58px;
+  }
+  .dock-item {
+    min-width: 44px;
+    font-size: 0.6rem;
   }
 }
 
