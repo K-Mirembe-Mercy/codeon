@@ -238,15 +238,15 @@ body.tab-hidden .aurora-bg::after {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background-color: #10B981; /* emerald/green live pulse */
-  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  background-color: var(--accent); /* CodeOn blue live pulse */
+  box-shadow: 0 0 0 0 rgba(29, 78, 216, 0.7);
   animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 @keyframes pulse-ring {
-  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-  70% { box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+  0% { box-shadow: 0 0 0 0 rgba(29, 78, 216, 0.7); }
+  70% { box-shadow: 0 0 0 7px rgba(29, 78, 216, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(29, 78, 216, 0); }
 }
 
 /* Badges */
@@ -637,12 +637,14 @@ body.tab-hidden .aurora-bg::after {
 }
 .form-status.status-success {
   display: block;
-  background: rgba(16, 185, 129, 0.15);
-  color: #065F46;
-  border: 1px solid rgba(16, 185, 129, 0.3);
+  background: rgba(29, 78, 216, 0.10);
+  color: var(--accent);
+  border: 1px solid rgba(29, 78, 216, 0.25);
 }
 [data-theme="dark"] .form-status.status-success {
-  color: #34D399;
+  background: rgba(47, 111, 237, 0.15);
+  color: var(--accent-bright, #93C5FD);
+  border-color: rgba(47, 111, 237, 0.3);
 }
 .form-status.status-error {
   display: block;

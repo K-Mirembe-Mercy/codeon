@@ -65,10 +65,10 @@
   right: 2px;
   width: 12px;
   height: 12px;
-  background: #10B981;
+  background: var(--accent, #1D4ED8);
   border: 2px solid var(--surface, #FFFFFF);
   border-radius: 50%;
-  box-shadow: 0 0 6px #10B981;
+  box-shadow: 0 0 6px var(--accent, #1D4ED8);
 }
 
 /* Chat Widget Panel Container */
@@ -146,7 +146,7 @@
   right: -2px;
   width: 9px;
   height: 9px;
-  background: #10B981;
+  background: var(--accent, #1D4ED8);
   border: 2px solid var(--surface-2, #F0F2ED);
   border-radius: 50%;
 }

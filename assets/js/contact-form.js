@@ -68,8 +68,10 @@
       if (arm === 'chapter') emailTarget = 'chapter@codeondigital.com';
 
       showStatus(
-        'Unable to send via automated gateway. You can email us directly at ' + emailTarget + ' or reach us on WhatsApp at ' + (window.CODEON_WHATSAPP || '+256 777 435942'),
-        'error'
+        'Unable to send via automated gateway. You can email us directly at ' + emailTarget + ' or reach us on WhatsApp: ' +
+        '<a href="' + (window.CODEON_WHATSAPP_URL || 'https://wa.me/256777435942?text=Hello%20CodeOn%2C%20I%27d%20like%20to%20ask%20about...') + '" target="_blank" rel="noopener" style="color:var(--accent);">' + (window.CODEON_WHATSAPP || '+256 777 435942') + '</a>',
+        'error',
+        true
       );
     } finally {
       if (submitBtn) {
@@ -79,9 +81,13 @@
     }
   });
 
-  function showStatus(msg, type) {
+  function showStatus(msg, type, isHtml) {
     if (!statusEl) return;
-    statusEl.textContent = msg;
+    if (isHtml) {
+      statusEl.innerHTML = msg;
+    } else {
+      statusEl.textContent = msg;
+    }
     statusEl.className = 'form-status status-' + type;
     statusEl.style.display = 'block';
   }

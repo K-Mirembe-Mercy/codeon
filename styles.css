@@ -510,8 +510,8 @@ header.menu-open .mobile-menu { max-height: 460px; }
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #10B981;
-  box-shadow: 0 0 8px #10B981;
+  background: var(--accent, #1D4ED8);
+  box-shadow: 0 0 8px var(--accent, #1D4ED8);
 }
 .hero h1 {
   font-size: clamp(40px, 6.4vw, 84px);

@@ -16,6 +16,37 @@ window.NAV_LAYOUT = window.NAV_LAYOUT || "sidebar"; // "sidebar" | "topbar"
     document.documentElement.classList.add("layout-topbar");
   }
 
+  // ── Active nav highlighting (sidebar links + mobile dock items) ──
+  const currentPage = location.pathname.split('/').pop() || 'index.html';
+  const NAV_MAP = {
+    'index.html': 0,
+    '': 0,
+    'agency.html': 1,
+    'outreach.html': 2,
+    'events.html': 3,
+    'team.html': 4,
+    'contact.html': 5,
+  };
+  const activeIdx = NAV_MAP[currentPage] ?? -1;
+
+  // Sidebar links
+  document.querySelectorAll('.sidebar-link').forEach(link => {
+    const href = (link.getAttribute('href') || '').replace(/^\.?\//, '');
+    if (href === currentPage || (currentPage === '' && href === 'index.html')) {
+      link.classList.add('active');
+      link.setAttribute('aria-current', 'page');
+    }
+  });
+
+  // Mobile dock items
+  document.querySelectorAll('.dock-item').forEach(item => {
+    const href = (item.getAttribute('href') || '').replace(/^\.?\//, '');
+    if (href === currentPage || (currentPage === '' && href === 'index.html')) {
+      item.classList.add('active');
+      item.setAttribute('aria-current', 'page');
+    }
+  });
+
   // Sidebar collapse state restoration
   const sidebar = document.getElementById("appSidebar");
   const collapseBtn = document.getElementById("sidebarCollapseBtn");
